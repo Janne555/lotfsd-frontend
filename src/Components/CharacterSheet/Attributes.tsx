@@ -40,13 +40,17 @@ function calculateModifier(value: number) {
 
 const useAttributeStyles = createUseStyles<string>((theme: Theme) => ({
   root: {
-
+    display: 'flex'
   },
   title: {
 
   },
   score: {
-    border: theme.border
+
+  },
+  scoreValue: {
+    border: theme.border,
+    padding: 10
   },
   modifier: {
 
@@ -66,8 +70,10 @@ function Attribute({ title, score }: AttributeProps) {
 
   return (
     <div className={classes.root}>
-      <label className={classes.title}>{title}</label>
-      <span className={classes.score}>{score}</span>
+      <div className={classes.score}>
+        <label className={classes.title}>{title}</label>
+        <span className={classes.scoreValue}>{score}</span>
+      </div>
       <span className={classes.modifier}>{calculateModifier(score)}</span>
       <span className={classes.details}>{ATTRIBUTE_DETAILS[title]}</span>
     </div>
