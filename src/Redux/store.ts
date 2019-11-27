@@ -1,11 +1,12 @@
 import { combineReducers, createStore } from 'redux'
 import characterSheet from './reducers/characterSheet'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 const reducer = combineReducers({
   characterSheet
 })
 
-const store = createStore(reducer)
+const store = createStore(reducer, composeWithDevTools())
 
 export default store
 
