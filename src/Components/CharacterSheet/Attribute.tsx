@@ -84,9 +84,9 @@ function Attribute({ title, score, index }: AttributeProps) {
 
   return (
     <>
-      <label className={classes.title}>{title}</label>
+      <label htmlFor={`attribute-${title}`} className={classes.title}>{title}</label>
       <div className={classes.scoreRoot}>
-        <input ref={inputRef} type="number" className={classes.score} defaultValue={score} onChange={handleChange}></input>
+        <input id={`attribute-${title}`} ref={inputRef} type="number" className={classes.score} defaultValue={score} onChange={handleChange}></input>
       </div>
       <div className={classes.modifierRoot}>
         <span className={classes.modifier}>{calculateModifier(score)}</span>
