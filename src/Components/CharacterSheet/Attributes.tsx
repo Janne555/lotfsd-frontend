@@ -1,8 +1,9 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { useSelector } from '../../hooks/redux'
+import { useSelector } from '../../hooks'
 import { selectAttributes } from '../../Redux/selectors'
 import Attribute from './Attribute'
+import { hasKey } from '../../services'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   root: {
@@ -32,17 +33,13 @@ export default function Attributes() {
   const attributes = useSelector<Attributes>(selectAttributes)
   const classes = useStyles(Object.keys(attributes).length)
 
-  function handleChange(name: string, value: number) {
-    
-  }
-
   return (
     <div className={classes.root}>
       <span className={classes.leftTitle}>Ability Scores</span>
       <span className={classes.topTitle}>Modifiers</span>
       {
         Object.entries(attributes).map(([name, value], index) => (
-          <Attribute key={name} title={name} score={value} index={index} onChange={handleChange} />
+          hasKey(attributes, name) && <Attribute key={name} title={name} score={value} index={index} />
         ))
       }
     </div>
