@@ -4,9 +4,14 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import store from './Redux/store'
 import { Provider } from 'react-redux'
+import { ThemeProvider } from 'react-jss'
+import { theme } from './styles/theme';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>, document.getElementById('root'));
+  <ThemeProvider theme={theme}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </ThemeProvider>,
+  document.getElementById('root'));
 serviceWorker.unregister();
