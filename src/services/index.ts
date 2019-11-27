@@ -1,5 +1,5 @@
-import modifierCalculator from './modifierCalculator'
+import calculateModifier from './modifierCalculator'
 
 export {
-  modifierCalculator
+  calculateModifier
 }
