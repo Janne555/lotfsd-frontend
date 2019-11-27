@@ -8,9 +8,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
   root: {
     display: 'grid',
     gridTemplateColumns: '40px 40px 40px auto',
-    gridTemplateRows: '20px auto',
+    gridTemplateRows: '30px auto',
     gridColumnGap: 10,
-    gridRowGap: 10,
     border: theme.border,
     padding: theme.padding
   },
@@ -24,7 +23,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
   },
   topTitle: {
     gridColumnStart: 4,
-    fontSize: '1.5em'
+    fontSize: '1.5em',
+    marginBottom: 5
   }
 }))
 

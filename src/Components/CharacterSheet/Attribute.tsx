@@ -14,7 +14,8 @@ const useAttributeStyles = createUseStyles((theme: Theme) => ({
   title: {
     gridColumnStart: 2,
     gridRowStart: (index: number) => (index + 1) * 2 - 1,
-    justifySelf: 'center'
+    justifySelf: 'center',
+    alignSelf: 'end'
   },
   scoreRoot: {
     border: theme.border,
