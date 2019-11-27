@@ -3,6 +3,7 @@ import { createUseStyles } from 'react-jss'
 import { useSelector } from '../../hooks/redux'
 import { selectAttributes } from '../../Redux/selectors'
 import { ATTRIBUTE_DETAILS } from '../../constants'
+import calculateModifier from '../../services/modifierCalculator'
 
 const useStyles = createUseStyles<string>((theme: Theme) => ({
   root: {
@@ -26,23 +27,7 @@ export default function Attributes() {
   )
 }
 
-function calculateModifier(value: number) {
-  if (value < 4)
-    return '-3'
-  if (value > 3 && value < 6)
-    return '-2'
-  if (value > 5 && value < 9)
-    return '-1'
-  if (value > 8 && value < 13)
-    return '0'
-  if (value > 12 && value < 16)
-    return '+1'
-  if (value > 15 && value < 18)
-    return '+2'
-  return '+3'
-}
-
-const useAttributeStyles = createUseStyles<string>((theme: Theme) => ({
+const useAttributeStyles = createUseStyles((theme: Theme) => ({
   root: {
     display: 'grid',
     gridTemplateColumns: '40px 40px 40px auto',
