@@ -8,6 +8,7 @@ type AttributeProps = {
   title: string
   score: number
   index: number
+  onChange: (name: string, value: number) => void
 }
 
 const useAttributeStyles = createUseStyles((theme: Theme) => ({
@@ -53,14 +54,18 @@ const useAttributeStyles = createUseStyles((theme: Theme) => ({
 }))
 
 
-function Attribute({ title, score, index }: AttributeProps) {
+function Attribute({ title, score, index, onChange }: AttributeProps) {
   const classes = useAttributeStyles(index)
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    onChange(title, Number(e.target.value))
+  }
 
   return (
     <>
       <label className={classes.title}>{title}</label>
       <div className={classes.scoreRoot}>
-        <input className={classes.score} value={score}></input>
+        <input className={classes.score} value={score} onChange={handleChange}></input>
       </div>
       <div className={classes.modifierRoot}>
         <span className={classes.modifier}>{calculateModifier(score)}</span>
