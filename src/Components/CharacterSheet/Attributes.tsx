@@ -32,13 +32,17 @@ export default function Attributes() {
   const attributes = useSelector<Attributes>(selectAttributes)
   const classes = useStyles(Object.keys(attributes).length)
 
+  function handleChange(name: string, value: number) {
+    
+  }
+
   return (
     <div className={classes.root}>
       <span className={classes.leftTitle}>Ability Scores</span>
       <span className={classes.topTitle}>Modifiers</span>
       {
         Object.entries(attributes).map(([name, value], index) => (
-          <Attribute key={name} title={name} score={value} index={index} />
+          <Attribute key={name} title={name} score={value} index={index} onChange={handleChange} />
         ))
       }
     </div>
