@@ -1,3 +1,6 @@
+import { createReducer } from 'typesafe-actions'
+import { updateAttribute } from '../actions'
+
 const initialState: Attributes = {
   charisma: 18,
   constitution: 18,
@@ -7,8 +10,7 @@ const initialState: Attributes = {
   wisdom: 18
 }
 
-function attributes(state: Attributes = initialState, action: any): Attributes {
-  return state
-}
+const attributeReducer = createReducer(initialState)
+  .handleAction(updateAttribute, (state, action) => ({ ...state, [action.payload.name]: action.payload.value }))
 
-export default attributes
+export default attributeReducer
