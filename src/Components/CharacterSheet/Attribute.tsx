@@ -28,7 +28,9 @@ const useAttributeStyles = createUseStyles((theme: Theme) => ({
     justifyContent: 'center'
   },
   score: {
-    alignSelf: 'center'
+    width: '100%',
+    textAlign: 'center',
+    fontSize: '1em'
   },
   modifierRoot: {
     gridRowStart: (index: number) => (index + 1) * 2,
@@ -58,7 +60,7 @@ function Attribute({ title, score, index }: AttributeProps) {
     <>
       <label className={classes.title}>{title}</label>
       <div className={classes.scoreRoot}>
-        <span className={classes.score}>{score}</span>
+        <input className={classes.score} value={score}></input>
       </div>
       <div className={classes.modifierRoot}>
         <span className={classes.modifier}>{calculateModifier(score)}</span>
