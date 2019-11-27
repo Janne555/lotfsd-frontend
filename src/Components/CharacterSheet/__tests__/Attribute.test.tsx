@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, getByLabelText } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import Attribute from '../Attribute'
 import * as hooks from '../../../hooks/redux'
 import userEvent from '@testing-library/user-event'
