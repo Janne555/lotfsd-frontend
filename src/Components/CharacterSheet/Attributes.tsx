@@ -5,7 +5,7 @@ import { selectAttributes } from '../../Redux/selectors'
 import { ATTRIBUTE_DETAILS } from '../../constants'
 import { calculateModifier } from '../../services'
 
-const useStyles = createUseStyles<string>((theme: Theme) => ({
+const useStyles = createUseStyles((theme: Theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column'
