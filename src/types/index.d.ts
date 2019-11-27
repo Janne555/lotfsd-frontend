@@ -9,3 +9,11 @@ type Attributes = {
   strength: number
   wisdom: number
 }
+
+type SavingThrows = {
+  paralyze: number
+  poison: number
+  breathWeapon: number
+  magicalDevice: number
+  magic: number
+}
