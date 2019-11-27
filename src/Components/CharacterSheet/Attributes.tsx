@@ -3,7 +3,7 @@ import { createUseStyles } from 'react-jss'
 import { useSelector } from '../../hooks/redux'
 import { selectAttributes } from '../../Redux/selectors'
 import { ATTRIBUTE_DETAILS } from '../../constants'
-import calculateModifier from '../../services/modifierCalculator'
+import { calculateModifier } from '../../services'
 
 const useStyles = createUseStyles<string>((theme: Theme) => ({
   root: {
