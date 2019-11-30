@@ -7,14 +7,13 @@ import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   savingThrowsRoot: {
-    display: 'grid',
-    gridTemplateRows: 'auto 40px auto',
-    gridTemplateColumns: (num: number) => `repeat(${num}, 100px)`,
-    gridRowGap: 15,
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
     textAlign: 'center',
     border: theme.border,
-    width: 500, //TODO: remove when composing the final sheet
-    padding: theme.padding
+    padding: theme.padding,
+    maxWidth: 500
   }
 }))
 
