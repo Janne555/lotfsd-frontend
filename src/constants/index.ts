@@ -8,7 +8,7 @@ const ATTRIBUTE_DETAILS = {
 }
 
 const SAVING_THROW_DETAILS = {
-  paralyze: "Mobility Hazards (Petrification, Hold, Etc.",
+  paralyze: "Mobility Hazards (Petrification, Hold, Etc.)",
   poison: "Instant Death/KO Situations",
   breathWeapon: "Area Effects",
   magicalDevice: "Spell-Like Effects from Items",
