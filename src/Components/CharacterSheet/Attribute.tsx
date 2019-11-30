@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 import { createUseStyles } from 'react-jss'
-import { ATTRIBUTE_DETAILS } from '../../constants'
+import { ATTRIBUTE_DETAILS, ATTRIBUTE_TITLES } from '../../constants'
 import { calculateModifier } from '../../services'
 import { useDispatch } from '../../hooks'
 import { updateAttribute } from '../../Redux/actions'
@@ -84,7 +84,7 @@ function Attribute({ title, score, index }: AttributeProps) {
 
   return (
     <>
-      <label htmlFor={`attribute-${title}`} className={classes.title}>{title}</label>
+      <label htmlFor={`attribute-${title}`} className={classes.title}>{ATTRIBUTE_TITLES[title]}</label>
       <div className={classes.scoreRoot}>
         <input id={`attribute-${title}`} ref={inputRef} type="number" className={classes.score} defaultValue={score} onChange={handleChange}></input>
       </div>
