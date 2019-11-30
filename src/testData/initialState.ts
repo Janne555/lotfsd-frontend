@@ -18,7 +18,10 @@ const savingThrows = {
 const initialState: RootState = {
   characterSheet: {
     attributes,
-    savingThrows
+    savingThrows,
+    attackBonus: 1,
+    currentHP: 5,
+    maxHP: 10
   }
 }
 
