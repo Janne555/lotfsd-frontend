@@ -9,7 +9,21 @@ type Props = {
 
 const useStyles = createUseStyles((theme: Theme) => ({
   savingThrow: {
-    border: theme.border
+    height: 40,
+    width: 40,
+    position: 'relative',
+    '&:before': {
+      position: 'absolute',
+      content: '""',
+      border: theme.border,
+      width: '100%',
+      height: '100%',
+      transform: 'rotate(45deg)',
+    },
+    '& span': {
+      position: 'absolute',
+      
+    }
   }
 }))
 
