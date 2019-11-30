@@ -2,7 +2,7 @@ import { calculateSavingThrows, calculateMeleeAttackBonus } from "../services"
 
 const selectAttributes = (state: RootState): Attributes => state.characterSheet.attributes
 
-const selectSavingThrows = (state: RootState): SavingThrows => calculateSavingThrows(state)
+const selectSavingThrows = (state: RootState): SavingThrows => calculateSavingThrows(state.characterSheet.savingThrows, selectAttributes(state))
 
 const selectMaxHP = (state: RootState): number => state.characterSheet.maxHP
 

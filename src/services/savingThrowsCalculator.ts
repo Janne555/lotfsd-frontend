@@ -1,15 +1,14 @@
 import { calculateModifier } from "."
-import { selectAttributes } from "../Redux/selectors"
 
-function calculateSavingThrows(state: RootState) {
+function calculateSavingThrows(savingThrows: SavingThrows, attributes: Attributes) {
   const {
     breathWeapon,
     magic,
     magicalDevice,
     paralyze,
     poison
-  } = state.characterSheet.savingThrows
-  const { wisdom, intelligence } = selectAttributes(state)
+  } = savingThrows
+  const { wisdom, intelligence } = attributes
   const wisdomModifier = calculateModifier(wisdom)
   const intelligenceModifier = calculateModifier(intelligence)
 
