@@ -3,6 +3,7 @@ import { render } from '@testing-library/react'
 import Attribute from '../Attribute'
 import * as hooks from '../../../hooks/redux'
 import userEvent from '@testing-library/user-event'
+import { ATTRIBUTE_TITLES } from '../../../constants'
 
 describe('<Attribute />', () => {
   const mockDispatch = jest.fn()
@@ -12,12 +13,12 @@ describe('<Attribute />', () => {
 
   it('should display a value', () => {
     const { queryByLabelText } = render(<Attribute index={1} score={15} title="charisma" />)
-    expect(queryByLabelText("charisma")).toHaveAttribute("value", "15")
+    expect(queryByLabelText(ATTRIBUTE_TITLES.charisma)).toHaveAttribute("value", "15")
   });
 
   it('should send action when changing value', () => {
     const { getByLabelText } = render(<Attribute index={1} score={15} title="charisma" />)
-    userEvent.type(getByLabelText("charisma"), "20")
+    userEvent.type(getByLabelText(ATTRIBUTE_TITLES.charisma), "20")
     expect(mockDispatch).toHaveBeenCalledTimes(2)
   });
 })
