@@ -1,6 +1,6 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { SAVING_THROW_DETAILS } from '../../constants'
+import { SAVING_THROW_DETAILS, SAVING_THROW_TITLES } from '../../constants'
 
 type Props = {
   title: keyof SavingThrows,
@@ -39,7 +39,7 @@ export default function SavingThrow({ title, value, index }: Props) {
 
   return (
     <>
-      <label className={classes.title}>{title}</label>
+      <label className={classes.title}>{SAVING_THROW_TITLES[title]}</label>
       <div className={classes.value}>
         <span>{value}</span>
       </div>
