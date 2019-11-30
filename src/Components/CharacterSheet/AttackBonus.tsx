@@ -8,6 +8,9 @@ import DieFaceRoot from '../_shared/DieFace'
 
 const useStyles = createUseStyles({
   root: {
+    '& h3': {
+      
+    }
   },
   attackBonus: {
     display: 'grid',
