@@ -1,5 +1,7 @@
-function calculateMeleeAttackBonus(baseAttackBonus: number, dexterity: number) {
-  return baseAttackBonus + dexterity
+import { calculateModifier } from ".";
+
+function calculateMeleeAttackBonus(baseAttackBonus: number, strength: number) {
+  return baseAttackBonus + calculateModifier(strength)
 }
 
 export default calculateMeleeAttackBonus

@@ -1,5 +1,7 @@
+import { calculateModifier } from ".";
+
 function calculateRangedAttackBonus(baseAttackBonus: number, dexterity: number) {
-  return baseAttackBonus + dexterity
+  return baseAttackBonus + calculateModifier(dexterity)
 }
 
 export default calculateRangedAttackBonus
