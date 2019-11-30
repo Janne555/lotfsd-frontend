@@ -8,7 +8,7 @@ import { createUseStyles } from 'react-jss'
 const useStyles = createUseStyles((theme: Theme) => ({
   root: {
     display: 'flex',
-    
+
   }
 }))
 

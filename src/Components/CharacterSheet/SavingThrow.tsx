@@ -9,21 +9,29 @@ type Props = {
 
 const useStyles = createUseStyles((theme: Theme) => ({
   savingThrow: {
-    height: 40,
+    display: 'grid',
+    gridTemplateColumns: 'auto',
+    gridTemplateRows: 'auto 40px auto',
+    gridRowGap: 15,
+    width: 100,
+    textAlign: 'center',
+  },
+  title: {
+  },
+  value: {
     width: 40,
-    position: 'relative',
-    '&:before': {
-      position: 'absolute',
-      content: '""',
-      border: theme.border,
-      width: '100%',
-      height: '100%',
-      transform: 'rotate(45deg)',
-    },
+    height: 40,
+    display: 'flex',
+    transform: 'rotate(45deg)',
+    border: theme.border,
+    justifyContent: 'space-around',
+    justifySelf: 'center',
     '& span': {
-      position: 'absolute',
-      
+      alignSelf: 'center',
+      transform: 'rotate(-45deg)'
     }
+  },
+  details: {
   }
 }))
 
@@ -31,12 +39,12 @@ export default function SavingThrow({ title, value }: Props) {
   const classes = useStyles()
 
   return (
-    <div>
-      <label>{title}</label>
-      <div className={classes.savingThrow}>
+    <div className={classes.savingThrow}>
+      <label className={classes.title}>{title}</label>
+      <div className={classes.value}>
         <span>{value}</span>
       </div>
-      <span>{SAVING_THROW_DETAILS[title]}</span>
+      <span className={classes.details}>{SAVING_THROW_DETAILS[title]}</span>
     </div>
   )
 }
