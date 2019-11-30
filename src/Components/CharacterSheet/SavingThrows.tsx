@@ -9,6 +9,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
   savingThrowsRoot: {
     display: 'grid',
     gridTemplateRows: 'auto 40px auto',
+    gridTemplateColumns: (num: number) => `repeat(${num}, 100px)`,
     gridRowGap: 15,
     textAlign: 'center',
     border: theme.border,
@@ -19,7 +20,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 export default function SavingThrows() {
   const savingThrows = useSelector(selectSavingThrows)
-  const classes = useStyles()
+  const classes = useStyles(5)
 
   return (
     <div className={classes.savingThrowsRoot}>
