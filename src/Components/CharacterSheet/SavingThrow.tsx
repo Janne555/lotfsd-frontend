@@ -4,21 +4,18 @@ import { SAVING_THROW_DETAILS } from '../../constants'
 
 type Props = {
   title: keyof SavingThrows,
-  value: number
+  value: number,
+  index: number
 }
 
 const useStyles = createUseStyles((theme: Theme) => ({
-  savingThrow: {
-    display: 'grid',
-    gridTemplateColumns: 'auto',
-    gridTemplateRows: 'auto 40px auto',
-    gridRowGap: 15,
-    width: 100,
-    textAlign: 'center',
-  },
   title: {
+    gridColumnStart: (index: number) => index + 1,
+    gridRowStart: 1
   },
   value: {
+    gridColumnStart: (index: number) => index + 1,
+    gridRowStart: 2,
     width: 40,
     height: 40,
     display: 'flex',
@@ -32,19 +29,21 @@ const useStyles = createUseStyles((theme: Theme) => ({
     }
   },
   details: {
+    gridColumnStart: (index: number) => index + 1,
+    gridRowStart: 3
   }
 }))
 
-export default function SavingThrow({ title, value }: Props) {
-  const classes = useStyles()
+export default function SavingThrow({ title, value, index }: Props) {
+  const classes = useStyles(index)
 
   return (
-    <div className={classes.savingThrow}>
+    <>
       <label className={classes.title}>{title}</label>
       <div className={classes.value}>
         <span>{value}</span>
       </div>
       <span className={classes.details}>{SAVING_THROW_DETAILS[title]}</span>
-    </div>
+    </>
   )
 }

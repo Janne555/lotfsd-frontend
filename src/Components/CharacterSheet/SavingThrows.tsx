@@ -6,9 +6,14 @@ import SavingThrow from './SavingThrow'
 import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles((theme: Theme) => ({
-  root: {
-    display: 'flex',
-
+  savingThrowsRoot: {
+    display: 'grid',
+    gridTemplateColumns: '40',
+    gridTemplateRows: 'auto 40px auto',
+    gridRowGap: 15,
+    gridColumnGap: 10,
+    width: 100,
+    textAlign: 'center'
   }
 }))
 
@@ -17,10 +22,10 @@ export default function SavingThrows() {
   const classes = useStyles()
 
   return (
-    <div className={classes.root}>
+    <div className={classes.savingThrowsRoot}>
       {
-        Object.entries(savingThrows).map(([name, value]) => (
-          hasKey(savingThrows, name) && <SavingThrow key={name} title={name} value={value} />
+        Object.entries(savingThrows).map(([name, value], index) => (
+          hasKey(savingThrows, name) && <SavingThrow key={name} title={name} value={value} index={index} />
         ))
       }
     </div>
