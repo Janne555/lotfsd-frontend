@@ -8,12 +8,12 @@ import { createUseStyles } from 'react-jss'
 const useStyles = createUseStyles((theme: Theme) => ({
   savingThrowsRoot: {
     display: 'grid',
-    gridTemplateColumns: '40',
     gridTemplateRows: 'auto 40px auto',
     gridRowGap: 15,
-    gridColumnGap: 10,
-    width: 100,
-    textAlign: 'center'
+    textAlign: 'center',
+    border: theme.border,
+    width: 500, //TODO: remove when composing the final sheet
+    padding: theme.padding
   }
 }))
 
