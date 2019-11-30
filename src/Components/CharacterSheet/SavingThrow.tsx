@@ -24,7 +24,7 @@ export default function SavingThrow({ title, value }: Props) {
   return (
     <div className={classes.savingThrowRoot}>
       <h3>{SAVING_THROW_TITLES[title]}</h3>
-      <RotatedCube value={value} />
+      <RotatedCube>{value}</RotatedCube>
       <span>{SAVING_THROW_DETAILS[title]}</span>
     </div>
   )

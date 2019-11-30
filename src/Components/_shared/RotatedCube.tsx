@@ -2,7 +2,7 @@ import React from 'react'
 import { createUseStyles } from 'react-jss'
 
 type Props = {
-  value: number
+  children: string | number
 }
 
 const useStyles = createUseStyles((theme: Theme) => ({
@@ -21,12 +21,12 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-export default function RotatedCube({ value }: Props) {
+export default function RotatedCube({ children }: Props) {
   const classes = useStyles()
 
   return (
     <div className={classes.rotatedCube}>
-      <span>{value}</span>
+      <span>{children}</span>
     </div>
   )
 }
