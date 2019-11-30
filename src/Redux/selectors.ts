@@ -2,7 +2,7 @@ import { calculateModifier } from "../services"
 
 const selectAttributes = (state: RootState): Attributes => state.characterSheet.attributes
 
-const calculateSavingThrows = (state: RootState): SavingThrows => {
+const selectSavingThrows = (state: RootState): SavingThrows => {
   const {
     breathWeapon,
     magic,
@@ -25,5 +25,5 @@ const calculateSavingThrows = (state: RootState): SavingThrows => {
 
 export {
   selectAttributes,
-  calculateSavingThrows
+  selectSavingThrows
 }
