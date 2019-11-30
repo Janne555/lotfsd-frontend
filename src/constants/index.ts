@@ -32,9 +32,16 @@ const SAVING_THROW_TITLES = {
   magic: "Magic"
 }
 
+const TITLES = {
+  BASE_AB: "Base AB",
+  MELEE_AB: "Mêlée AB",
+  RANGED_AB: "Ranged AB"
+}
+
 export {
   ATTRIBUTE_DETAILS,
   SAVING_THROW_DETAILS,
   ATTRIBUTE_TITLES,
-  SAVING_THROW_TITLES
+  SAVING_THROW_TITLES,
+  TITLES
 }
