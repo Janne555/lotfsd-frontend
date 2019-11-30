@@ -1,13 +1,6 @@
 import { createReducer } from 'typesafe-actions'
+import { attributes, savingThrows } from '../../testData/initialState'
 
-const initialState: SavingThrows = {
-  breathWeapon: 10,
-  magic: 10,
-  magicalDevice: 10,
-  paralyze: 10,
-  poison: 10
-}
-
-const savingThrowsReducer = createReducer(initialState)
+const savingThrowsReducer = createReducer(savingThrows)
 
 export default savingThrowsReducer
