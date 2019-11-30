@@ -19,7 +19,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 export default function SavingThrows() {
   const savingThrows = useSelector(selectSavingThrows)
-  const classes = useStyles(5)
+  const classes = useStyles()
 
   return (
     <div className={classes.savingThrowsRoot}>
