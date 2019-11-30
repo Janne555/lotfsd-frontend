@@ -13,7 +13,7 @@ describe('<SavingThrows />', () => {
     }
   );
 
-  it.each(Object.values(savingThrows).map(number => `${number}`))(
+  it.each(["11", "12", "13", "14", "15"])(
     'expect value "%s" to be in the document',
     (value) => {
       const { queryByText } = renderWrapped(<SavingThrows />)
