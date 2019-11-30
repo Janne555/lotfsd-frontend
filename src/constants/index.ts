@@ -1,4 +1,4 @@
-const ATTRIBUTE_DETAILS: { [name: string]: string } = {
+const ATTRIBUTE_DETAILS = {
   charisma: "Retainer\xa0Recruitment, Loyalty",
   constitution: "Hit\xa0Points, Daily\xa0Travel\xa0Distance",
   dexterity: "AC, Ranged\xa0AB, Initiative",
@@ -15,7 +15,26 @@ const SAVING_THROW_DETAILS = {
   magic: "Spells or Innate Abilities"
 }
 
+const ATTRIBUTE_TITLES = {
+  charisma: "Charisma",
+  constitution: "Constitution",
+  dexterity: "Dexterity",
+  intelligence: "Intelligence",
+  strength: "Strength",
+  wisdom: "Wisdom"
+}
+
+const SAVING_THROW_TITLES = {
+  paralyze: "Paralyze",
+  poison: "Poison",
+  breathWeapon: "Breath\xa0Weapon",
+  magicalDevice: "Magical\xa0Device",
+  magic: "Magic"
+}
+
 export {
   ATTRIBUTE_DETAILS,
-  SAVING_THROW_DETAILS
+  SAVING_THROW_DETAILS,
+  ATTRIBUTE_TITLES,
+  SAVING_THROW_TITLES
 }
