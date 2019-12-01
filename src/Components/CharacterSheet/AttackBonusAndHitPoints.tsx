@@ -4,17 +4,20 @@ import AttackBonus from './AttackBonus'
 import { useSelector } from '../../hooks'
 import { selecCurrentHP, selectMaxHP, selectSurpriseChance } from '../../Redux/selectors'
 import DieFace from '../_shared/DieFace'
+import Cube from '../_shared/Cube'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   attackBonusAndHitPointsRoot: {
     display: 'flex',
     border: theme.border,
     padding: theme.padding,
-    alignContent: 'center',
     flexWrap: 'wrap',
-    justifyContent: 'center'
+    justifyContent: 'space-around',
+    maxWidth: 500,
+    alignItems: 'center'
   },
   surpriseChance: {
+    marginTop: 10,
     display: 'grid',
     flexDirection: 'column',
     '& h3': {
@@ -22,7 +25,13 @@ const useStyles = createUseStyles((theme: Theme) => ({
     }
   },
   surpriseValue: {
-    justifySelf: 'center'
+    justifySelf: 'center',
+  },
+  hitpoints: {
+    marginTop: 10,
+    display: 'grid',
+    gridRowGap: 10,
+    justifyItems: 'center'
   }
 }))
 
@@ -40,6 +49,12 @@ function AttackBonusAndHitPoints() {
         <div className={classes.surpriseValue}>
           <DieFace value={supriseChance} />
         </div>
+      </div>
+      <div className={classes.hitpoints}>
+        <h4>Max HP</h4>
+        <Cube>{maxHP}</Cube>
+        <Cube>{currentHP}</Cube>
+        <h4>Current HP</h4>
       </div>
     </div>
   )
