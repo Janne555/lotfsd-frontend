@@ -14,6 +14,8 @@ const selectMeleeAttackBonus = (state: RootState): number => calculateMeleeAttac
 
 const selectRangedAttackBonus = (state: RootState): number => calculateMeleeAttackBonus(selectBaseAttackBonus(state), selectAttributes(state).dexterity)
 
+const selectSurpriseChance = (state: RootState): number => state.characterSheet.surpriseChance
+
 export {
   selectAttributes,
   selectSavingThrows,
@@ -21,5 +23,6 @@ export {
   selectMaxHP,
   selectMeleeAttackBonus,
   selectRangedAttackBonus,
-  selectBaseAttackBonus
+  selectBaseAttackBonus,
+  selectSurpriseChance
 }
