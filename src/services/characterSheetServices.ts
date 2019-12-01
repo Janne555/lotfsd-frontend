@@ -78,10 +78,35 @@ function calculateModifier(value: number) {
   return 3
 }
 
+function calculateCommonActivities(commonActivities: CommonActivities, strengthModifier: number, intelligenceModifier: number, effects: CommonActivityEffect[]): CommonActivities {
+  return Object.keys(commonActivities).reduce((modifiedActivities, key) => {
+    modifiedActivities.architecture += sumOfEffectsFor(effects, key)
+    return modifiedActivities
+  }, { ...commonActivities })
+
+  // return {
+  //   architecture: commonActivities.architecture + sumOfEffectsFor(effects, "architecture"),
+  //   bushcraft: commonActivities.bushcraft,
+  //   climbing: commonActivities.climbing,
+  //   languages: commonActivities.languages,
+  //   openDoors: commonActivities.openDoors,
+  //   search: commonActivities.search,
+  //   sleightOfHand: commonActivities.sleightOfHand,
+  //   sneakAttack: commonActivities.sneakAttack,
+  //   stealth: commonActivities.stealth,
+  //   tinkering: commonActivities.tinkering
+  // }
+}
+
+function sumOfEffectsFor(effects: Effect[], key: string) {
+  return effects.reduce((sum, { value, target }) => target === key ? sum + value : sum, 0)
+}
+
 export {
   calculateAttributeModifiers,
   calculateMeleeAttackBonus,
   calculateRangedAttackBonus,
   calculateSavingThrows,
-  calculateArmorClass
+  calculateArmorClass,
+  calculateCommonActivities
 }
