@@ -1,13 +1,13 @@
 import { calculateSavingThrows } from '../'
 
 describe('savingThrowsCalculator', () => {
-  const attributes = {
+  const attributeModifiers = {
     charisma: 0,
     constitution: 0,
     dexterity: 0,
-    intelligence: 10,
+    intelligence: 0,
     strength: 0,
-    wisdom: 10
+    wisdom: 0
   }
 
   const savingThrows = {
@@ -19,7 +19,7 @@ describe('savingThrowsCalculator', () => {
   }
 
   it('should apply wisdom modifier to non spell related saving throws', () => {
-    expect(calculateSavingThrows(savingThrows, { ...attributes, wisdom: 18 }))
+    expect(calculateSavingThrows(savingThrows, { ...attributeModifiers, wisdom: 3 }))
       .toEqual({
         breathWeapon: 3,
         magic: 0,
@@ -30,7 +30,7 @@ describe('savingThrowsCalculator', () => {
   })
 
   it('should apply intelligence modifier to spell related saving throws', () => {
-    expect(calculateSavingThrows(savingThrows, { ...attributes, intelligence: 18 }))
+    expect(calculateSavingThrows(savingThrows, { ...attributeModifiers, intelligence: 3 }))
       .toEqual({
         breathWeapon: 0,
         magic: 3,

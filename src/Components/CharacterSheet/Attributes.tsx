@@ -1,7 +1,7 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import { useSelector } from '../../hooks'
-import { selectAttributes } from '../../Redux/selectors'
+import { selectAttributes, selectAttributeModifiers } from '../../Redux/selectors'
 import Attribute from './Attribute'
 import { hasKey } from '../../services'
 
@@ -30,7 +30,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
 }))
 
 export default function Attributes() {
-  const attributes = useSelector<Attributes>(selectAttributes)
+  const attributes = useSelector(selectAttributes)
+  const modifiers = useSelector(selectAttributeModifiers)
   const classes = useStyles(Object.keys(attributes).length)
 
   return (
@@ -39,7 +40,7 @@ export default function Attributes() {
       <span className={classes.topTitle}>Modifiers</span>
       {
         Object.entries(attributes).map(([name, value], index) => (
-          hasKey(attributes, name) && <Attribute key={name} title={name} score={value} index={index} />
+          hasKey(attributes, name) && <Attribute key={name} title={name} score={value} index={index} modifier={modifiers[name]} />
         ))
       }
     </div>

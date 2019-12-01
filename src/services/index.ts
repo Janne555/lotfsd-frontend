@@ -1,13 +1,26 @@
-import calculateModifier from './modifierCalculator'
-import { hasKey } from './typeGuards'
-import calculateSavingThrows from './savingThrowsCalculator'
-import calculateMeleeAttackBonus from './meleeAttackBonusCalculator'
-import calculateRangedAttackBonus from './rangedAttackBonusCalculator'
+import {
+  hasKey,
+  isArmor,
+  isAttributeModifierEffect
+} from './typeGuards'
+
+import {
+  calculateBaseArmorClass,
+  calculateAttributeModifiers,
+  calculateRangedArmorClass,
+  calculateMeleeAttackBonus,
+  calculateRangedAttackBonus,
+  calculateSavingThrows
+} from './characterSheetServices'
 
 export {
-  calculateModifier,
   hasKey,
   calculateSavingThrows,
   calculateMeleeAttackBonus,
-  calculateRangedAttackBonus
+  calculateRangedAttackBonus,
+  isArmor,
+  calculateBaseArmorClass,
+  isAttributeModifierEffect,
+  calculateAttributeModifiers,
+  calculateRangedArmorClass
 }

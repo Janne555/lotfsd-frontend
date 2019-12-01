@@ -21,7 +21,6 @@ const useStyles = createUseStyles((theme: Theme) => ({
     },
     '& span': {
       margin: '20% auto',
-      // top: '50%',
       zIndex: 1
     }
   },

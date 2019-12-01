@@ -15,18 +15,37 @@ const savingThrows = {
   poison: 14
 }
 
+const equipmentList: Equipment[] = [
+  {
+    type: 'armor',
+    baseArmorClass: 16,
+    encumberance: 1,
+    equipped: true,
+    name: "Chain Mail"
+  }
+]
+
+const effects: Effect[] = [
+
+]
+
 const initialState: RootState = {
   characterSheet: {
     attributes,
     savingThrows,
     attackBonus: 1,
     currentHP: 5,
-    maxHP: 10
+    maxHP: 10,
+    surpriseChance: 4,
+    equipmentList,
+    effects
   }
 }
 
 export {
   attributes,
   savingThrows,
-  initialState
+  initialState,
+  equipmentList,
+  effects
 }

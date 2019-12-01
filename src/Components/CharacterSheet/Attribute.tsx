@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import { ATTRIBUTE_DETAILS, ATTRIBUTE_TITLES } from '../../constants'
-import { calculateModifier } from '../../services'
 import { useDispatch } from '../../hooks'
 import { updateAttribute } from '../../Redux/actions'
 
@@ -10,6 +9,7 @@ type AttributeProps = {
   title: keyof Attributes
   score: number
   index: number
+  modifier: number
 }
 
 type StyleProps = {
@@ -61,7 +61,7 @@ const useAttributeStyles = createUseStyles((theme: Theme) => ({
 }))
 
 
-function Attribute({ title, score, index }: AttributeProps) {
+function Attribute({ title, score, index, modifier }: AttributeProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [error, setError] = useState(false)
   const classes = useAttributeStyles({ index, error })
@@ -89,7 +89,7 @@ function Attribute({ title, score, index }: AttributeProps) {
         <input id={`attribute-${title}`} ref={inputRef} type="number" className={classes.score} defaultValue={score} onChange={handleChange}></input>
       </div>
       <div className={classes.modifierRoot}>
-        <span className={classes.modifier}>{calculateModifier(score)}</span>
+        <span className={classes.modifier}>{modifier}</span>
       </div>
       <span className={classes.details}>{ATTRIBUTE_DETAILS[title]}</span>
     </>

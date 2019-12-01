@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
 import attributes from './attributes'
 import savingThrows from './savingThrows'
+import equipmentList from './equipmentList'
+import effects from './effects'
 import { createReducer } from 'typesafe-actions'
 
 const attackBonus = createReducer(0)
@@ -14,5 +16,7 @@ export default combineReducers({
   attackBonus,
   maxHP,
   currentHP,
-  surpriseChance
+  surpriseChance,
+  equipmentList,
+  effects
 })
