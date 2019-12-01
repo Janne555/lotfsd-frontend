@@ -1,6 +1,10 @@
-import { calculateSavingThrows } from '../'
+import {
+  calculateSavingThrows,
+  calculateAttributeModifiers
+} from '../'
+import { attributes } from '../../testData/initialState'
 
-describe('savingThrowsCalculator', () => {
+describe('calculateSavingThrows', () => {
   const attributeModifiers = {
     charisma: 0,
     constitution: 0,
@@ -39,4 +43,34 @@ describe('savingThrowsCalculator', () => {
         poison: 0
       })
   })
+});
+
+describe('calculateAttributeModifiers', () => {
+  const expected = {
+    intelligence: 1,
+    charisma: 3,
+    constitution: 2,
+    dexterity: 2,
+    strength: 1,
+    wisdom: 1
+  }
+
+  it.each([
+    ["intelligence", -2],
+    ["charisma", 0],
+    ["constitution", -1],
+    ["dexterity", -1],
+    ["wisdom", -2],
+    ["strength", -2]
+  ])(
+    'should add %s effect',
+    (target, result) => {
+      const effect = { type: "attributeModifierEffect", target, value: -3 }
+      expect(calculateAttributeModifiers(attributes, [effect]))
+        .toEqual({
+          ...expected,
+          [target]: result
+        });
+    }
+  );
 });
