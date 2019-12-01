@@ -8,6 +8,9 @@ import { COMMON_ACTIVITY_TITLES } from '../../constants'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   root: {
+
+  },
+  activities: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around'
@@ -20,11 +23,14 @@ function CommonActivities() {
 
   return (
     <div className={classes.root}>
-      {
-        Object.entries(commonActivities).map(([name, value]) => (
-          hasKey(commonActivities, name) && <Activity title={COMMON_ACTIVITY_TITLES[name]} value={value} />
-        ))
-      }
+      <h2>Common Activities</h2>
+      <div className={classes.activities}>
+        {
+          Object.entries(commonActivities).map(([name, value]) => (
+            hasKey(commonActivities, name) && <Activity title={COMMON_ACTIVITY_TITLES[name]} value={value} />
+          ))
+        }
+      </div>
     </div>
   )
 }
