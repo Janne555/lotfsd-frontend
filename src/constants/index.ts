@@ -32,6 +32,19 @@ const SAVING_THROW_TITLES = {
   magic: "Magic"
 }
 
+const COMMON_ACTIVITY_TITLES = {
+  architecture: "Architecture",
+  bushcraft: "Bushcraft",
+  climbing: "Climbing",
+  languages: "Languages",
+  openDoors: "Open Doors",
+  search: "Search",
+  sleightOfHand: "Sleight of Hand",
+  sneakAttack: "Sneak Attack",
+  stealth: "Stealth",
+  tinkering: "Tinkering"
+}
+
 const TITLES = {
   BASE_AB: "Base AB",
   MELEE_AB: "Mêlée AB",
@@ -46,5 +59,6 @@ export {
   ATTRIBUTE_TITLES,
   SAVING_THROW_TITLES,
   TITLES,
-  BASE_ARMOR_CLASS
+  BASE_ARMOR_CLASS,
+  COMMON_ACTIVITY_TITLES
 }
