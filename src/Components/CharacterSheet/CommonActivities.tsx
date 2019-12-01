@@ -22,7 +22,7 @@ function CommonActivities() {
     <div className={classes.root}>
       {
         Object.entries(commonActivities).map(([name, value]) => (
-          hasKey(commonActivities, name) && <Foo title={COMMON_ACTIVITY_TITLES[name]} value={value} />
+          hasKey(commonActivities, name) && <Activity title={COMMON_ACTIVITY_TITLES[name]} value={value} />
         ))
       }
     </div>
@@ -39,7 +39,7 @@ const useSubStyles = createUseStyles({
   }
 })
 
-function Foo({ title, value }: { title: string, value: number }) {
+function Activity({ title, value }: { title: string, value: number }) {
   const classes = useSubStyles()
   return (
     <div className={classes.root}>
