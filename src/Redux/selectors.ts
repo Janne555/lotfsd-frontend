@@ -7,49 +7,52 @@ import {
   calculateArmorClass
 } from "../services"
 
-const selectAttributes = (state: RootState): Attributes => state.characterSheet.attributes
+const attributes = (state: RootState): Attributes => state.characterSheet.attributes
 
-const selectAttributeModifierEffects = (state: RootState): AttributeModifierEffect[] => state.characterSheet.effects.filter(isAttributeModifierEffect)
+const attributeModifierEffects = (state: RootState): AttributeModifierEffect[] => state.characterSheet.effects.filter(isAttributeModifierEffect)
 
-const selectArmorClassEffects = (state: RootState): ArmorClassEffect[] => state.characterSheet.effects.filter(isArmorClassEffect)
+const armorClassEffects = (state: RootState): ArmorClassEffect[] => state.characterSheet.effects.filter(isArmorClassEffect)
 
-const selectAttributeModifiers = (state: RootState): AttributeModifiers => calculateAttributeModifiers(selectAttributes(state), selectAttributeModifierEffects(state))
+const attributeModifiers = (state: RootState): AttributeModifiers => calculateAttributeModifiers(attributes(state), attributeModifierEffects(state))
 
-const selectSavingThrows = (state: RootState): SavingThrows => calculateSavingThrows(state.characterSheet.savingThrows, selectAttributeModifiers(state))
+const savingThrows = (state: RootState): SavingThrows => calculateSavingThrows(state.characterSheet.savingThrows, attributeModifiers(state))
 
-const selectMaxHP = (state: RootState): number => state.characterSheet.maxHP
+const maxHP = (state: RootState): number => state.characterSheet.maxHP
 
-const selecCurrentHP = (state: RootState): number => state.characterSheet.currentHP
+const currentHP = (state: RootState): number => state.characterSheet.currentHP
 
-const selectBaseAttackBonus = (state: RootState): number => state.characterSheet.attackBonus
+const baseAttackBonus = (state: RootState): number => state.characterSheet.attackBonus
 
-const selectMeleeAttackBonus = (state: RootState): number => calculateMeleeAttackBonus(selectBaseAttackBonus(state), selectAttributeModifiers(state).strength)
+const meleeAttackBonus = (state: RootState): number => calculateMeleeAttackBonus(baseAttackBonus(state), attributeModifiers(state).strength)
 
-const selectRangedAttackBonus = (state: RootState): number => calculateMeleeAttackBonus(selectBaseAttackBonus(state), selectAttributeModifiers(state).dexterity)
+const rangedAttackBonus = (state: RootState): number => calculateMeleeAttackBonus(baseAttackBonus(state), attributeModifiers(state).dexterity)
 
-const selectSurpriseChance = (state: RootState): number => state.characterSheet.surpriseChance
+const surpriseChance = (state: RootState): number => state.characterSheet.surpriseChance
 
-const selectBaseArmorClass = (state: RootState): number => calculateArmorClass(selectAttributeModifiers(state).dexterity, selectArmorClassEffects(state), "base")
+const baseArmorClass = (state: RootState): number => calculateArmorClass(attributeModifiers(state).dexterity, armorClassEffects(state), "base")
 
-const selectRangedArmorClass = (state: RootState): number => calculateArmorClass(selectAttributeModifiers(state).dexterity, selectArmorClassEffects(state), "ranged")
+const rangedArmorClass = (state: RootState): number => calculateArmorClass(attributeModifiers(state).dexterity, armorClassEffects(state), "ranged")
 
-const selectWithoutShieldArmorClass = (state: RootState): number => calculateArmorClass(selectAttributeModifiers(state).dexterity, selectArmorClassEffects(state), "withoutShield")
+const withoutShieldArmorClass = (state: RootState): number => calculateArmorClass(attributeModifiers(state).dexterity, armorClassEffects(state), "withoutShield")
 
-const selectSurprisedArmorClass = (state: RootState): number => calculateArmorClass(selectAttributeModifiers(state).dexterity, selectArmorClassEffects(state), "surprised")
+const surprisedArmorClass = (state: RootState): number => calculateArmorClass(attributeModifiers(state).dexterity, armorClassEffects(state), "surprised")
+
+const commonActivities = (state: RootState): number => 1
 
 export {
-  selectAttributes,
-  selectSavingThrows,
-  selecCurrentHP,
-  selectMaxHP,
-  selectMeleeAttackBonus,
-  selectRangedAttackBonus,
-  selectBaseAttackBonus,
-  selectSurpriseChance,
-  selectBaseArmorClass,
-  selectAttributeModifierEffects,
-  selectAttributeModifiers,
-  selectRangedArmorClass,
-  selectWithoutShieldArmorClass,
-  selectSurprisedArmorClass
+  attributes as selectAttributes,
+  savingThrows as selectSavingThrows,
+  currentHP as selecCurrentHP,
+  maxHP as selectMaxHP,
+  meleeAttackBonus as selectMeleeAttackBonus,
+  rangedAttackBonus as selectRangedAttackBonus,
+  baseAttackBonus as selectBaseAttackBonus,
+  surpriseChance as selectSurpriseChance,
+  baseArmorClass as selectBaseArmorClass,
+  attributeModifierEffects as selectAttributeModifierEffects,
+  attributeModifiers as selectAttributeModifiers,
+  rangedArmorClass as selectRangedArmorClass,
+  withoutShieldArmorClass as selectWithoutShieldArmorClass,
+  surprisedArmorClass as selectSurprisedArmorClass,
+  commonActivities as selectCommonActivities
 }
