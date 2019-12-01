@@ -4,38 +4,34 @@ import { createUseStyles } from 'react-jss'
 import RotatedCube from '../_shared/RotatedCube'
 import { selectBaseAttackBonus, selectMeleeAttackBonus, selectRangedAttackBonus } from '../../Redux/selectors'
 import { TITLES } from '../../constants'
-import DieFaceRoot from '../_shared/DieFace'
 
 const useStyles = createUseStyles({
-  root: {
-    '& h3': {
-      
-    }
-  },
   attackBonus: {
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 100px)',
-    gridTemplateRows: '40px auto',
+    gridTemplateRows: '20px 40px auto',
     gridRowGap: 20,
-    gridColumnGap: 10,
+    gridColumnGap: 10
+  },
+  title: {
+    gridColumnStart: 1,
+    gridColumnEnd: 4,
+    justifySelf: 'center'
   }
 })
 
-export default function AttackBonus() {
+function AttackBonus() {
   const classes = useStyles()
   const baseAB = useSelector(selectBaseAttackBonus)
   const meleeAB = useSelector(selectMeleeAttackBonus)
   const rangedAB = useSelector(selectRangedAttackBonus)
 
   return (
-    <div className={classes.root}>
-      <h3>Attack Bonus</h3>
-      <div className={classes.attackBonus}>
-        <SingleBonus index={1} value={baseAB} title={TITLES.BASE_AB} />
-        <SingleBonus index={2} value={meleeAB} title={TITLES.MELEE_AB} />
-        <SingleBonus index={3} value={rangedAB} title={TITLES.RANGED_AB} />
-      </div>
-      <DieFaceRoot value={3} />
+    <div className={classes.attackBonus}>
+      <h3 className={classes.title}>Attack Bonus</h3>
+      <SingleBonus index={1} value={baseAB} title={TITLES.BASE_AB} />
+      <SingleBonus index={2} value={meleeAB} title={TITLES.MELEE_AB} />
+      <SingleBonus index={3} value={rangedAB} title={TITLES.RANGED_AB} />
     </div>
   )
 }
@@ -44,12 +40,12 @@ const useSubStyles = createUseStyles({
   singleBonus: {
     gridColumnStart: (index: number) => index,
     justifySelf: 'center',
-    gridRowStart: 1
+    gridRowStart: 2
   },
   title: {
     gridColumnStart: (index: number) => index,
     justifySelf: 'center',
-    gridRowStart: 2
+    gridRowStart: 3
   }
 })
 
@@ -67,3 +63,5 @@ function SingleBonus({ index, value, title }: { index: number, value: number, ti
     </>
   )
 }
+
+export default AttackBonus
