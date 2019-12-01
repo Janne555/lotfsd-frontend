@@ -29,6 +29,19 @@ const effects: Effect[] = [
 
 ]
 
+const commonActivities: CommonActivities = {
+  architecture: 1,
+  bushcraft: 1,
+  climbing: 1,
+  languages: 1,
+  openDoors: 1,
+  search: 1,
+  sleightOfHand: 1,
+  sneakAttack: 1,
+  stealth: 1,
+  tinkering: 1
+}
+
 const initialState: RootState = {
   characterSheet: {
     attributes,
@@ -38,7 +51,8 @@ const initialState: RootState = {
     maxHP: 10,
     surpriseChance: 4,
     equipmentList,
-    effects
+    effects,
+    commonActivities
   }
 }
 
@@ -47,5 +61,6 @@ export {
   savingThrows,
   initialState,
   equipmentList,
-  effects
+  effects,
+  commonActivities
 }

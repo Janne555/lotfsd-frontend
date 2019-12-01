@@ -3,6 +3,7 @@ import attributes from './attributes'
 import savingThrows from './savingThrows'
 import equipmentList from './equipmentList'
 import effects from './effects'
+import commonActivities from './commonActivities'
 import { createReducer } from 'typesafe-actions'
 
 const attackBonus = createReducer(0)
@@ -18,5 +19,6 @@ export default combineReducers({
   currentHP,
   surpriseChance,
   equipmentList,
-  effects
+  effects,
+  commonActivities
 })

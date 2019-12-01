@@ -27,6 +27,20 @@ type SavingThrows = {
   magic: number
 }
 
+type CommonActivities = {
+  architecture: number,
+  bushcraft: number,
+  climbing: number,
+  languages: number,
+  openDoors: number,
+  search: number,
+  search: number,
+  sleightOfHand: number,
+  sneakAttack: number,
+  stealth: number,
+  tinkering: number
+}
+
 type Effect = AttributeModifierEffect | AttributeEffect | ArmorClassEffect
 
 type AttributeModifierEffect = {
