@@ -34,7 +34,6 @@ type CommonActivities = {
   languages: number,
   openDoors: number,
   search: number,
-  search: number,
   sleightOfHand: number,
   sneakAttack: number,
   stealth: number,
