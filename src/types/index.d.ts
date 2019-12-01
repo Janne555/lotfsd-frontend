@@ -41,7 +41,7 @@ type CommonActivities = {
   tinkering: number
 }
 
-type Effect = AttributeModifierEffect | AttributeEffect | ArmorClassEffect
+type Effect = AttributeModifierEffect | AttributeEffect | ArmorClassEffect | CommonActivityEffect
 
 type AttributeModifierEffect = {
   type: "attributeModifierEffect"
@@ -59,6 +59,12 @@ type ArmorClassEffect = {
   type: "armorClassEffect"
   target: ArmorClassEffectTarget
   method: "override" | "modify"
+  value: number
+}
+
+type CommonActivityEffect = {
+  type: "commonActivityEffect"
+  target: keyof CommonActivities
   value: number
 }
 
