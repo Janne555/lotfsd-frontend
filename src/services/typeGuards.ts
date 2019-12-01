@@ -14,9 +14,14 @@ function isArmorClassEffect(effect: Effect): effect is ArmorClassEffect {
   return effect.type === 'armorClassEffect'
 }
 
+function isCommonActivityEffect(effect: Effect): effect is CommonActivityEffect {
+  return effect.type === "commonActivityEffect"
+}
+
 export {
   hasKey,
   isArmor,
   isAttributeModifierEffect,
-  isArmorClassEffect
+  isArmorClassEffect,
+  isCommonActivityEffect
 }
