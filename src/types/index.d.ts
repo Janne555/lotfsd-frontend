@@ -27,7 +27,7 @@ type SavingThrows = {
   magic: number
 }
 
-type Effect = AttributeModifierEffect | AttributeEffect
+type Effect = AttributeModifierEffect | AttributeEffect | ArmorClassEffect
 
 type AttributeModifierEffect = {
   type: "attributeModifierEffect"
@@ -40,6 +40,15 @@ type AttributeEffect = {
   target: keyof Attribute
   value: number
 }
+
+type ArmorClassEffect = {
+  type: "armorClassEffect"
+  target: ArmorClassEffectTarget
+  method: "override" | "modify"
+  value: number
+}
+
+type ArmorClassEffectTarget = "base" | "ranged" | "surprised" | "withoutShield"
 
 type Equipment = Armor | Weapon
 
