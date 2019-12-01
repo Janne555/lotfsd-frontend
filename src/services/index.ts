@@ -1,16 +1,16 @@
 import {
   hasKey,
   isArmor,
-  isAttributeModifierEffect
+  isAttributeModifierEffect,
+  isArmorClassEffect
 } from './typeGuards'
 
 import {
-  calculateBaseArmorClass,
   calculateAttributeModifiers,
-  calculateRangedArmorClass,
   calculateMeleeAttackBonus,
   calculateRangedAttackBonus,
-  calculateSavingThrows
+  calculateSavingThrows,
+  calculateArmorClass
 } from './characterSheetServices'
 
 export {
@@ -19,8 +19,8 @@ export {
   calculateMeleeAttackBonus,
   calculateRangedAttackBonus,
   isArmor,
-  calculateBaseArmorClass,
   isAttributeModifierEffect,
   calculateAttributeModifiers,
-  calculateRangedArmorClass
+  isArmorClassEffect,
+  calculateArmorClass
 }
