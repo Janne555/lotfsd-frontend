@@ -4,7 +4,9 @@ import {
   isAttributeModifierEffect,
   calculateAttributeModifiers,
   isArmorClassEffect,
-  calculateArmorClass
+  calculateArmorClass,
+  calculateCommonActivities,
+  isCommonActivityEffect
 } from "../services"
 
 const attributes = (state: RootState): Attributes => state.characterSheet.attributes
@@ -12,6 +14,8 @@ const attributes = (state: RootState): Attributes => state.characterSheet.attrib
 const attributeModifierEffects = (state: RootState): AttributeModifierEffect[] => state.characterSheet.effects.filter(isAttributeModifierEffect)
 
 const armorClassEffects = (state: RootState): ArmorClassEffect[] => state.characterSheet.effects.filter(isArmorClassEffect)
+
+const commonActivityEffects = (state: RootState): CommonActivityEffect[] => state.characterSheet.effects.filter(isCommonActivityEffect)
 
 const attributeModifiers = (state: RootState): AttributeModifiers => calculateAttributeModifiers(attributes(state), attributeModifierEffects(state))
 
@@ -37,7 +41,7 @@ const withoutShieldArmorClass = (state: RootState): number => calculateArmorClas
 
 const surprisedArmorClass = (state: RootState): number => calculateArmorClass(attributeModifiers(state).dexterity, armorClassEffects(state), "surprised")
 
-const commonActivities = (state: RootState): number => 1
+const commonActivities = (state: RootState): CommonActivities => calculateCommonActivities(state.characterSheet.commonActivities, attributeModifiers(state).strength, attributeModifiers(state).intelligence, commonActivityEffects(state))
 
 export {
   attributes as selectAttributes,
