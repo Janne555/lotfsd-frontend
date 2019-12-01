@@ -8,10 +8,9 @@ import { TITLES } from '../../constants'
 const useStyles = createUseStyles({
   attackBonus: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(3, 100px)',
+    gridTemplateColumns: 'repeat(3, 75px)',
     gridTemplateRows: '20px 40px auto',
-    gridRowGap: 20,
-    gridColumnGap: 10
+    gridRowGap: 20
   },
   title: {
     gridColumnStart: 1,
