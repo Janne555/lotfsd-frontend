@@ -10,8 +10,13 @@ function isAttributeModifierEffect(effect: Effect): effect is AttributeModifierE
   return effect.type === 'attributeModifierEffect'
 }
 
+function isArmorClassEffect(effect: Effect): effect is ArmorClassEffect {
+  return effect.type === 'armorClassEffect'
+}
+
 export {
   hasKey,
   isArmor,
-  isAttributeModifierEffect
+  isAttributeModifierEffect,
+  isArmorClassEffect
 }
