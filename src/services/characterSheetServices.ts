@@ -1,4 +1,3 @@
-import { isArmor } from "."
 import { BASE_ARMOR_CLASS } from "../constants"
 
 function calculateAttributeModifiers(attributes: Attributes, effects: AttributeModifierEffect[]): AttributeModifiers {
@@ -16,13 +15,24 @@ function calculateAttributeModifiers(attributes: Attributes, effects: AttributeM
   }
 }
 
-function calculateBaseArmorClass(equipmentList: Equipment[]): number {
-  const armor = equipmentList.filter(isArmor).find(armor => armor.equipped)
-  return armor ? armor.baseArmorClass : BASE_ARMOR_CLASS
+function calculateArmorClass(dexterityModifier: number, effects: ArmorClassEffect[], type: ArmorClassEffectTarget): number {
+  const baseACEffect = effects.find(({ method }) => method === "override")
+  const baseAC = baseACEffect ? baseACEffect.value : BASE_ARMOR_CLASS
+
+  switch (type) {
+    case "base":
+      return baseAC + sumOfArmorClassEffects(effects, "base") + dexterityModifier
+    case "ranged":
+      return baseAC + sumOfArmorClassEffects(effects, "ranged") + dexterityModifier
+    case "surprised":
+      return baseAC - 2 + sumOfArmorClassEffects(effects, "surprised")
+    case "withoutShield":
+      return baseAC + dexterityModifier
+  }
 }
 
-function calculateRangedArmorClass(baseArmorClass: number, dexterity: number) {
-  return
+function sumOfArmorClassEffects(effects: ArmorClassEffect[], targetAC: ArmorClassEffectTarget) {
+  return effects.reduce((sum, { value, target }) => target === targetAC ? value + sum : sum, 0)
 }
 
 function calculateMeleeAttackBonus(baseAttackBonus: number, strengthModifier: number) {
@@ -69,10 +79,9 @@ function calculateModifier(value: number) {
 }
 
 export {
-  calculateBaseArmorClass,
   calculateAttributeModifiers,
-  calculateRangedArmorClass,
   calculateMeleeAttackBonus,
   calculateRangedAttackBonus,
-  calculateSavingThrows
+  calculateSavingThrows,
+  calculateArmorClass
 }
