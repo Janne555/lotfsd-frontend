@@ -1,8 +1,17 @@
-import { calculateSavingThrows, calculateMeleeAttackBonus, calculateBaseArmorClass, isAttributeModifierEffect, calculateAttributeModifiers } from "../services"
+import {
+  calculateSavingThrows,
+  calculateMeleeAttackBonus,
+  isAttributeModifierEffect,
+  calculateAttributeModifiers,
+  isArmorClassEffect,
+  calculateArmorClass
+} from "../services"
 
 const selectAttributes = (state: RootState): Attributes => state.characterSheet.attributes
 
 const selectAttributeModifierEffects = (state: RootState): AttributeModifierEffect[] => state.characterSheet.effects.filter(isAttributeModifierEffect)
+
+const selectArmorClassEffects = (state: RootState): ArmorClassEffect[] => state.characterSheet.effects.filter(isArmorClassEffect)
 
 const selectAttributeModifiers = (state: RootState): AttributeModifiers => calculateAttributeModifiers(selectAttributes(state), selectAttributeModifierEffects(state))
 
@@ -20,9 +29,13 @@ const selectRangedAttackBonus = (state: RootState): number => calculateMeleeAtta
 
 const selectSurpriseChance = (state: RootState): number => state.characterSheet.surpriseChance
 
-const selectBaseArmorClass = (state: RootState): number => calculateBaseArmorClass(state.characterSheet.equipmentList)
+const selectBaseArmorClass = (state: RootState): number => calculateArmorClass(selectAttributeModifiers(state).dexterity, selectArmorClassEffects(state), "base")
 
-// const selectRangedArmorClass = (state: RootState): number => 
+const selectRangedArmorClass = (state: RootState): number => calculateArmorClass(selectAttributeModifiers(state).dexterity, selectArmorClassEffects(state), "ranged")
+
+const selectWithoutShieldArmorClass = (state: RootState): number => calculateArmorClass(selectAttributeModifiers(state).dexterity, selectArmorClassEffects(state), "withoutShield")
+
+const selectSurprisedArmorClass = (state: RootState): number => calculateArmorClass(selectAttributeModifiers(state).dexterity, selectArmorClassEffects(state), "surprised")
 
 export {
   selectAttributes,
@@ -35,5 +48,8 @@ export {
   selectSurpriseChance,
   selectBaseArmorClass,
   selectAttributeModifierEffects,
-  selectAttributeModifiers
+  selectAttributeModifiers,
+  selectRangedArmorClass,
+  selectWithoutShieldArmorClass,
+  selectSurprisedArmorClass
 }
