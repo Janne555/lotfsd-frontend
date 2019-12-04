@@ -1,7 +1,15 @@
-import { createReducer } from 'typesafe-actions'
 import { equipmentList } from '../../testData/initialState'
+import { createSlice } from '@reduxjs/toolkit'
 
 
-const equipmentListReducer = createReducer(equipmentList)
+const equipmentListSlice = createSlice({
+  name: 'equipmentList',
+  initialState: equipmentList,
+  reducers: {
 
-export default equipmentListReducer
+  }
+})
+
+export const { } = equipmentListSlice.actions
+
+export default equipmentListSlice.reducer

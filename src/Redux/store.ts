@@ -1,16 +1,16 @@
-import { combineReducers, createStore } from 'redux'
-import characterSheet from './reducers/characterSheet'
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { configureStore } from '@reduxjs/toolkit'
+import rootReducer from './reducers/rootReducer'
 
-const reducer = combineReducers({
-  characterSheet
+const store = configureStore({
+  reducer: rootReducer
 })
 
-const store = createStore(reducer, composeWithDevTools())
+if (process.env.NODE_ENV === 'development' && module.hot) {
+  module.hot.accept('./reducers/rootReducer', () => {
+    const newRootReducer = require('./reducers/rootReducer').default
+    store.replaceReducer(newRootReducer)
+  })
+}
+
 
 export default store
-
-export {
-  store,
-  reducer
-}

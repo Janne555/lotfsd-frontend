@@ -1,6 +1,14 @@
-import { createReducer } from 'typesafe-actions'
-import { attributes, savingThrows } from '../../testData/initialState'
+import { savingThrows } from '../../testData/initialState'
+import { createSlice } from '@reduxjs/toolkit'
 
-const savingThrowsReducer = createReducer(savingThrows)
+const savingThrowsSlice = createSlice({
+  name: 'savingThrows',
+  initialState: savingThrows,
+  reducers: {
 
-export default savingThrowsReducer
+  }
+})
+
+export const { } = savingThrowsSlice.actions
+
+export default savingThrowsSlice.reducer

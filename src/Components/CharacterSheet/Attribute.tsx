@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import { ATTRIBUTE_DETAILS, ATTRIBUTE_TITLES } from '../../constants'
 import { useDispatch } from '../../hooks'
-import { updateAttribute } from '../../Redux/actions'
+import { setAttribute } from '../../Redux/reducers/attributes'
 
 type AttributeProps = {
   title: keyof Attributes
@@ -75,7 +75,7 @@ function Attribute({ title, score, index, modifier }: AttributeProps) {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const value = parseInt(e.target.value)
     if (!isNaN(value)) {
-      dispatch(updateAttribute(title, value))
+      dispatch(setAttribute({ attributeName: title, value }))
       setError(false)
     } else {
       setError(true)

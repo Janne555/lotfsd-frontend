@@ -1,9 +1,17 @@
-import { createReducer } from 'typesafe-actions'
-import { updateAttribute } from '../actions'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { attributes } from '../../testData/initialState'
 
 
-const attributeReducer = createReducer(attributes)
-  .handleAction(updateAttribute, (state, action) => ({ ...state, [action.payload.name]: action.payload.value }))
+const attributesSlice = createSlice({
+  name: "attributes",
+  initialState: attributes,
+  reducers: {
+    setAttribute(state, { payload: { attributeName, value } }: PayloadAction<{ attributeName: keyof Attributes, value: number }>) {
+      state[attributeName] = value
+    }
+  }
+})
 
-export default attributeReducer
+export const { setAttribute } = attributesSlice.actions
+
+export default attributesSlice.reducer

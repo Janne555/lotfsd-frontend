@@ -1,6 +1,14 @@
-import { createReducer } from "typesafe-actions";
 import { effects } from '../../testData/initialState'
+import { createSlice } from '@reduxjs/toolkit'
 
-const effectReducer = createReducer(effects)
+const effectSlice = createSlice({
+  name: 'effects',
+  initialState: effects,
+  reducers: {
 
-export default effectReducer
+  }
+})
+
+export const { } = effectSlice.actions
+
+export default effectSlice.reducer
