@@ -8,7 +8,7 @@ import { COMMON_ACTIVITY_TITLES } from '../../constants'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   root: {
-
+    textAlign: 'center'
   },
   activities: {
     display: 'flex',
