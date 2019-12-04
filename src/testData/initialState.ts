@@ -15,13 +15,16 @@ const savingThrows = {
   poison: 14
 }
 
-const equipmentList: Equipment[] = [
+const inventory: Item[] = [
   {
     type: 'armor',
     baseArmorClass: 16,
     encumbrance: 1,
     equipped: true,
-    name: "Chain Mail"
+    name: "Chain Mail",
+    effects: [],
+    stackSize: 1,
+    uuid: "123123"
   }
 ]
 
@@ -50,7 +53,7 @@ const initialState: RootState = {
     currentHP: 5,
     maxHP: 10,
     surpriseChance: 4,
-    equipmentList,
+    inventory,
     effects,
     commonActivities
   }
@@ -60,7 +63,7 @@ export {
   attributes,
   savingThrows,
   initialState,
-  equipmentList,
+  inventory,
   effects,
   commonActivities
 }

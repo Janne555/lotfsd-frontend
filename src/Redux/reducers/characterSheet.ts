@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import attributes from './attributes'
 import savingThrows from './savingThrows'
-import equipmentList from './equipmentList'
+import inventory from './inventory'
 import effects from './effects'
 import commonActivities from './commonActivities'
 import { createSlice } from '@reduxjs/toolkit'
@@ -45,7 +45,7 @@ export default combineReducers({
   maxHP: maxHP.reducer,
   currentHP: currentHP.reducer,
   surpriseChance: surpriseChance.reducer,
-  equipmentList,
+  inventory,
   effects,
   commonActivities
 })

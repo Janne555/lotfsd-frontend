@@ -69,21 +69,49 @@ type CommonActivityEffect = {
 
 type ArmorClassEffectTarget = "base" | "ranged" | "surprised" | "withoutShield"
 
-type Equipment = Armor | Weapon
+type Item = Armor | Weapon
 
-type Armor = {
-  type: 'armor',
-  name: string,
-  baseArmorClass: number,
-  encumbrance: number,
-  equipped: boolean
+type ItemEffect = WeaponEffect | ArmorEffect
+
+type ItemEffect = {
+  method: "override" | "modify"
 }
 
-type Weapon = {
-  type: 'weappon',
-  name: string,
-  encumbrance: number,
-  damage: string,
-  range: string,
+type WeaponEffect = ItemEffect & {
+  type: 'weaponItemEffect'
+}
+
+type WeaponEffectNumeric = WeaponEffect & {
+  target: 'attackBonus'
+  value: number
+}
+
+type WeaponItemEffectString = WeaponEffect & {
+  target: 'damage' | 'range'
+  value: string
+}
+
+type ArmorEffect = ItemEffect & {
+  type: 'armorItemEffect'
+  target: 'armorClass'
+}
+
+type ItemBase = {
+  uuid: string
+  name: string
+  stackSize: number
+  encumbrance: number
   equipped: boolean
+  effects: ItemEffect[]
+}
+
+type Armor = ItemBase & {
+  type: 'armor'
+  baseArmorClass: number
+}
+
+type Weapon = ItemBase & {
+  type: 'weapon'
+  damage: string
+  range: string
 }
