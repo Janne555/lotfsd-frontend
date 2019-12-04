@@ -33,7 +33,7 @@ function calculateArmorClass(dexterityModifier: number, effects: ArmorClassEffec
 }
 
 function sumOfArmorClassEffects(effects: ArmorClassEffect[], targetAC: ArmorClassEffectTarget) {
-  return effects.reduce((sum, { value, target }) => target === targetAC ? value + sum : sum, 0)
+  return effects.filter(effect => effect.method !== 'override').reduce((sum, { value, target }) => target === targetAC ? value + sum : sum, 0)
 }
 
 function calculateMeleeAttackBonus(baseAttackBonus: number, strengthModifier: number) {
@@ -101,7 +101,29 @@ function sumOfEffectsFor(effects: Effect[], key: string) {
   return effects.reduce((sum, { value, target }) => target === key ? sum + value : sum, 0)
 }
 
+function mapInventoryToEffects(inventory: Item[]): Effect[] {
+  return inventory
+    .filter(item => item.equipped)
+    .reduce((effects, item) => {
+      let effect: Effect | undefined
 
+      switch (item.type) {
+        case "armor":
+          effect = makeArmorClassEffect(item)
+      }
+
+      return effect ? effects.concat(effect) : effects
+    }, [] as Effect[])
+}
+
+function makeArmorClassEffect(item: Armor): ArmorClassEffect {
+  return {
+    method: 'override',
+    target: "base",
+    type: "armorClassEffect",
+    value: item.baseArmorClass
+  }
+}
 
 export {
   calculateAttributeModifiers,
@@ -109,5 +131,6 @@ export {
   calculateRangedAttackBonus,
   calculateSavingThrows,
   calculateArmorClass,
-  calculateCommonActivities
+  calculateCommonActivities,
+  mapInventoryToEffects
 }
