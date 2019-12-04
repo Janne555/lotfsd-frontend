@@ -6,14 +6,20 @@ import {
   isArmorClassEffect,
   calculateArmorClass,
   calculateCommonActivities,
-  isCommonActivityEffect
+  isCommonActivityEffect,
+  mapInventoryToEffects
 } from "../services"
 
 const attributes = (state: RootState): Attributes => state.characterSheet.attributes
 
 const attributeModifierEffects = (state: RootState): AttributeModifierEffect[] => state.characterSheet.effects.filter(isAttributeModifierEffect)
 
-const armorClassEffects = (state: RootState): ArmorClassEffect[] => state.characterSheet.effects.filter(isArmorClassEffect)
+const effects = (state: RootState): Effect[] => {
+  return state.characterSheet.effects
+    .concat(mapInventoryToEffects(state.characterSheet.inventory))
+}
+
+const armorClassEffects = (state: RootState): ArmorClassEffect[] => effects(state).filter(isArmorClassEffect)
 
 const commonActivityEffects = (state: RootState): CommonActivityEffect[] => state.characterSheet.effects.filter(isCommonActivityEffect)
 
@@ -58,5 +64,6 @@ export {
   rangedArmorClass as selectRangedArmorClass,
   withoutShieldArmorClass as selectWithoutShieldArmorClass,
   surprisedArmorClass as selectSurprisedArmorClass,
-  commonActivities as selectCommonActivities
+  commonActivities as selectCommonActivities,
+  effects as selectEffects
 }
