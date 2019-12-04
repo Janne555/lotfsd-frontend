@@ -75,14 +75,14 @@ type Armor = {
   type: 'armor',
   name: string,
   baseArmorClass: number,
-  encumberance: number,
+  encumbrance: number,
   equipped: boolean
 }
 
 type Weapon = {
   type: 'weappon',
   name: string,
-  encumberance: number,
+  encumbrance: number,
   damage: string,
   range: string,
   equipped: boolean

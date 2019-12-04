@@ -19,7 +19,7 @@ const equipmentList: Equipment[] = [
   {
     type: 'armor',
     baseArmorClass: 16,
-    encumberance: 1,
+    encumbrance: 1,
     equipped: true,
     name: "Chain Mail"
   }
