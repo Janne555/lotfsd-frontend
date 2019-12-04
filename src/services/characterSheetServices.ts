@@ -2,14 +2,10 @@ import { BASE_ARMOR_CLASS } from "../constants"
 import { hasKey } from "./typeGuards"
 
 function calculateAttributeModifiers(attributes: Attributes, effects: AttributeModifierEffect[]): AttributeModifiers {
-  return {
-    charisma: calculateModifier(attributes.charisma) + sumOfEffectsFor("charisma"),
-    constitution: calculateModifier(attributes.constitution) + sumOfEffectsFor("constitution"),
-    dexterity: calculateModifier(attributes.dexterity) + sumOfEffectsFor("dexterity"),
-    intelligence: calculateModifier(attributes.intelligence) + sumOfEffectsFor("intelligence"),
-    strength: calculateModifier(attributes.strength) + sumOfEffectsFor("strength"),
-    wisdom: calculateModifier(attributes.wisdom) + sumOfEffectsFor("wisdom")
-  }
+  return Object.keys(attributes).reduce((attributes, key) => {
+    hasKey(attributes, key) && (attributes[key] = calculateModifier(attributes[key]) + sumOfEffectsFor(key))
+    return attributes
+  }, { ...attributes })
 
   function sumOfEffectsFor(key: keyof Attributes): number {
     return effects.reduce((sum, { value, target }) => target === key ? value + sum : sum, 0)
