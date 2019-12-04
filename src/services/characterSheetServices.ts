@@ -83,19 +83,6 @@ function calculateCommonActivities(commonActivities: CommonActivities, strengthM
     modifiedActivities.architecture += sumOfEffectsFor(effects, key)
     return modifiedActivities
   }, { ...commonActivities })
-
-  // return {
-  //   architecture: commonActivities.architecture + sumOfEffectsFor(effects, "architecture"),
-  //   bushcraft: commonActivities.bushcraft,
-  //   climbing: commonActivities.climbing,
-  //   languages: commonActivities.languages,
-  //   openDoors: commonActivities.openDoors,
-  //   search: commonActivities.search,
-  //   sleightOfHand: commonActivities.sleightOfHand,
-  //   sneakAttack: commonActivities.sneakAttack,
-  //   stealth: commonActivities.stealth,
-  //   tinkering: commonActivities.tinkering
-  // }
 }
 
 function sumOfEffectsFor(effects: Effect[], key: string) {
