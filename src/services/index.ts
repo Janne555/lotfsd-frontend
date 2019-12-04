@@ -12,7 +12,8 @@ import {
   calculateRangedAttackBonus,
   calculateSavingThrows,
   calculateArmorClass,
-  calculateCommonActivities
+  calculateCommonActivities,
+  mapInventoryToEffects
 } from './characterSheetServices'
 
 export {
@@ -26,5 +27,6 @@ export {
   isArmorClassEffect,
   calculateArmorClass,
   calculateCommonActivities,
-  isCommonActivityEffect
+  isCommonActivityEffect,
+  mapInventoryToEffects
 }
