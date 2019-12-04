@@ -1,4 +1,5 @@
 import { BASE_ARMOR_CLASS } from "../constants"
+import { hasKey } from "./typeGuards"
 
 function calculateAttributeModifiers(attributes: Attributes, effects: AttributeModifierEffect[]): AttributeModifiers {
   return {
@@ -80,14 +81,27 @@ function calculateModifier(value: number) {
 
 function calculateCommonActivities(commonActivities: CommonActivities, strengthModifier: number, intelligenceModifier: number, effects: CommonActivityEffect[]): CommonActivities {
   return Object.keys(commonActivities).reduce((modifiedActivities, key) => {
-    modifiedActivities.architecture += sumOfEffectsFor(effects, key)
+    hasKey(commonActivities, key) && (modifiedActivities[key] += sumOfEffectsFor(effects, key) + addModifier(key))
     return modifiedActivities
   }, { ...commonActivities })
+
+  function addModifier(key: keyof CommonActivities) {
+    switch (key) {
+      case 'languages':
+        return intelligenceModifier
+      case 'openDoors':
+        return strengthModifier
+      default:
+        return 0
+    }
+  }
 }
 
 function sumOfEffectsFor(effects: Effect[], key: string) {
   return effects.reduce((sum, { value, target }) => target === key ? sum + value : sum, 0)
 }
+
+
 
 export {
   calculateAttributeModifiers,
