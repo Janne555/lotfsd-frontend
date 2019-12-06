@@ -82,10 +82,10 @@ describe('calculateEncumbrance', () => {
   });
 
   it('should calculate money', () => {
-    expect(calculateEncumbrance(inventory, { copper: 9000, gold: 0, silver: 0 })).toBe(2)
+    expect(calculateEncumbrance(inventory, { copper: 900, gold: 0, silver: 0 })).toBe(3)
   });
 
   it('should calculate money 2', () => {
-    expect(calculateEncumbrance(inventory, { copper: 10000, gold: 0, silver: 0 })).toBe(3)
+    expect(calculateEncumbrance(inventory, { copper: 1000, gold: 0, silver: 0 })).toBe(4)
   });
 });
