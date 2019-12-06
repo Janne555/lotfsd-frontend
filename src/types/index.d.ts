@@ -69,8 +69,6 @@ type CommonActivityEffect = {
 
 type ArmorClassEffectTarget = "base" | "ranged" | "surprised" | "withoutShield"
 
-type Item = Armor | Weapon
-
 type ItemEffect = WeaponEffect | ArmorEffect
 
 type ItemEffect = {
@@ -96,12 +94,14 @@ type ArmorEffect = ItemEffect & {
   target: 'armorClass'
 }
 
+type Item = Armor | Weapon | (ItemBase & { type: 'item' })
+
 type ItemBase = {
   uuid: string
   name: string
   stackSize: number
   encumbrance: number
-  equipped: boolean
+  equipped?: boolean
   effects: ItemEffect[]
 }
 
