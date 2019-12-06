@@ -53,7 +53,9 @@ const commonActivities = (state: RootState): CommonActivities => calculateCommon
 
 const wallet = (state: RootState): Wallet => state.characterSheet.wallet
 
-const inventory = (state: RootState): Item[] => state.characterSheet.inventory
+const inventory = (state: RootState): Item[] => {
+  return state.characterSheet.inventory.map(instance => ({ ...instance, ...state.itemIndex.byId[instance.itemId] }))
+}
 
 const encumbrance = (state: RootState): number => calculateEncumbrance(inventory(state), wallet(state))
 
