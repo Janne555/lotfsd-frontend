@@ -15,67 +15,69 @@ const savingThrows = {
   poison: 14
 }
 
-const inventory: Item[] = [
+const itemIndex: { byId: { [name: string]: Item }, allIds: string[] } = {
+  byId: {
+    armor1: {
+      type: 'armor',
+      baseArmorClass: 16,
+      encumbrancePoints: 1,
+      encumbrance: 1,
+      name: "Chain Mail",
+      effects: [],
+      stackSize: 1,
+      id: 'armor1'
+    },
+    torch: {
+      type: 'item',
+      encumbrancePoints: 0.2,
+      encumbrance: 1,
+      name: "Torch",
+      effects: [],
+      stackSize: 5,
+      id: 'torch'
+    },
+    pavillion: {
+      type: 'item',
+      encumbrancePoints: 1,
+      encumbrance: 1,
+      name: "Pavillion",
+      effects: [],
+      stackSize: 1,
+      id: ''
+    }
+  },
+  allIds: ['armor1', 'torch', 'pavillion']
+}
+
+const inventory: ItemInstance[] = [
   {
-    type: 'armor',
-    baseArmorClass: 16,
-    encumbrancePoints: 1,
-    encumbrance: 1,
     equipped: true,
-    name: "Chain Mail",
-    effects: [],
-    stackSize: 1,
-    uuid: "123123"
+    instanceId: "1",
+    itemId: 'armor1'
   },
   {
-    type: 'item',
-    encumbrancePoints: 0.2,
-    encumbrance: 1,
-    name: "Torch",
-    effects: [],
-    stackSize: 5,
-    uuid: "123123"
+    instanceId: "2",
+    itemId: 'torch'
   },
   {
-    type: 'item',
-    encumbrancePoints: 0.2,
-    name: "Torch",
-    effects: [],
-    stackSize: 5,
-    uuid: "123123"
+    instanceId: "3",
+    itemId: 'torch'
   },
   {
-    type: 'item',
-    encumbrancePoints: 0.2,
-    name: "Torch",
-    effects: [],
-    stackSize: 5,
-    uuid: "123123"
+    instanceId: "4",
+    itemId: 'torch'
   },
   {
-    type: 'item',
-    encumbrancePoints: 0.2,
-    name: "Torch",
-    effects: [],
-    stackSize: 5,
-    uuid: "123123"
+    instanceId: "5",
+    itemId: 'torch'
   },
   {
-    type: 'item',
-    encumbrancePoints: 0.2,
-    name: "Torch",
-    effects: [],
-    stackSize: 5,
-    uuid: "123123"
+    instanceId: "6",
+    itemId: 'torch'
   },
   {
-    type: 'item',
-    encumbrancePoints: 1,
-    encumbrance: 1,
-    name: "Pavillion",
-    effects: [],
-    stackSize: 1,
-    uuid: "123123"
+    itemId: 'pavillion',
+    instanceId: "7"
   }
 ]
 
@@ -114,7 +116,8 @@ const initialState: RootState = {
     effects,
     commonActivities,
     wallet
-  }
+  },
+  itemIndex
 }
 
 export {
@@ -124,5 +127,6 @@ export {
   inventory,
   effects,
   commonActivities,
-  wallet
+  wallet,
+  itemIndex
 }
