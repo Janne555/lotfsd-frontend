@@ -66,7 +66,7 @@ describe('calculateAttributeModifiers', () => {
   ])(
     'should add %s effect',
     (target, result) => {
-      const effect = { type: "attributeModifierEffect", target, value: -3 }
+      const effect: Effect = { type: "attributeModifierEffect", target: target as keyof Attributes, value: -3 }
       expect(calculateAttributeModifiers(attributes, [effect]))
         .toEqual({
           ...expected,
@@ -104,6 +104,6 @@ describe('calculateEncumbrance', () => {
         stackSize: 5,
         uuid: "123123"
       }
-    ]))).toBe(4)
+    ]))).toBe(3)
   });
 });
