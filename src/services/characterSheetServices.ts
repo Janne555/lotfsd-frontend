@@ -135,10 +135,10 @@ function makeArmorClassEffect(item: Armor): ArmorClassEffect {
 }
 
 function calculateEncumbrance(inventory: Item[]): number {
-  return inventory.reduce(reduceEncumbrance, 0)
+  return Math.ceil(encumbrancePoints() / 5)
 
-  function reduceEncumbrance(encumbrance: number, item: Item): number {
-    return 0
+  function encumbrancePoints(): number {
+    return inventory.reduce((encumbrance, item) => encumbrance + item.encumbrance, 0)
   }
 }
 
