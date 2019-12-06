@@ -96,13 +96,18 @@ type ArmorEffect = ItemEffect & {
 
 type Item = Armor | Weapon | (ItemBase & { type: 'item' })
 
+type ItemInstance =  {
+  itemId: string
+  instanceId: string
+  equipped?: boolean
+}
+
 type ItemBase = {
-  uuid: string
+  id: string
   name: string
   stackSize: number
   encumbrancePoints: number
   encumbrance?: number
-  equipped?: boolean
   effects: ItemEffect[]
 }
 
@@ -121,4 +126,12 @@ type Wallet = {
   copper: number
   silver: number
   gold: number
+}
+
+type EquipmentListItem = {
+  name: string
+  amount: number
+  stackSize: number
+  equipped: boolean
+  uuid: string
 }
