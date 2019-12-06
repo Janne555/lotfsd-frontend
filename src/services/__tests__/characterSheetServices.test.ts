@@ -1,8 +1,9 @@
 import {
   calculateSavingThrows,
-  calculateAttributeModifiers
+  calculateAttributeModifiers,
+  calculateEncumbrance
 } from '../'
-import { attributes } from '../../testData/initialState'
+import { attributes, inventory } from '../../testData/initialState'
 
 describe('calculateSavingThrows', () => {
   const attributeModifiers = {
@@ -73,4 +74,36 @@ describe('calculateAttributeModifiers', () => {
         });
     }
   );
+});
+
+describe('calculateEncumbrance', () => {
+  it('should work for testdata', () => {
+    expect(calculateEncumbrance(inventory)).toBe(3)
+  });
+
+  it('should round up partial stacks ', () => {
+    expect(calculateEncumbrance([
+      {
+        type: 'item',
+        encumbrance: 0.2,
+        name: "Torch",
+        effects: [],
+        stackSize: 5,
+        uuid: "123123"
+      }
+    ])).toBe(1)
+  });
+
+  it('should calculate multiple stacks', () => {
+    expect(calculateEncumbrance(inventory.concat([
+      {
+        type: 'item',
+        encumbrance: 0.2,
+        name: "Torch",
+        effects: [],
+        stackSize: 5,
+        uuid: "123123"
+      }
+    ]))).toBe(4)
+  });
 });
