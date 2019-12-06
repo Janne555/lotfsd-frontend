@@ -19,7 +19,8 @@ const inventory: Item[] = [
   {
     type: 'armor',
     baseArmorClass: 16,
-    encumbrance: 5,
+    encumbrancePoints: 1,
+    encumbrance: 1,
     equipped: true,
     name: "Chain Mail",
     effects: [],
@@ -28,7 +29,8 @@ const inventory: Item[] = [
   },
   {
     type: 'item',
-    encumbrance: 0.2,
+    encumbrancePoints: 0.2,
+    encumbrance: 1,
     name: "Torch",
     effects: [],
     stackSize: 5,
@@ -36,7 +38,7 @@ const inventory: Item[] = [
   },
   {
     type: 'item',
-    encumbrance: 0.2,
+    encumbrancePoints: 0.2,
     name: "Torch",
     effects: [],
     stackSize: 5,
@@ -44,7 +46,7 @@ const inventory: Item[] = [
   },
   {
     type: 'item',
-    encumbrance: 0.2,
+    encumbrancePoints: 0.2,
     name: "Torch",
     effects: [],
     stackSize: 5,
@@ -52,7 +54,7 @@ const inventory: Item[] = [
   },
   {
     type: 'item',
-    encumbrance: 0.2,
+    encumbrancePoints: 0.2,
     name: "Torch",
     effects: [],
     stackSize: 5,
@@ -60,7 +62,7 @@ const inventory: Item[] = [
   },
   {
     type: 'item',
-    encumbrance: 0.2,
+    encumbrancePoints: 0.2,
     name: "Torch",
     effects: [],
     stackSize: 5,
@@ -68,7 +70,8 @@ const inventory: Item[] = [
   },
   {
     type: 'item',
-    encumbrance: 5,
+    encumbrancePoints: 1,
+    encumbrance: 1,
     name: "Pavillion",
     effects: [],
     stackSize: 1,
@@ -93,6 +96,12 @@ const commonActivities: CommonActivities = {
   tinkering: 1
 }
 
+const wallet: Wallet = {
+  copper: 50,
+  silver: 50,
+  gold: 50
+}
+
 const initialState: RootState = {
   characterSheet: {
     attributes,
@@ -103,7 +112,8 @@ const initialState: RootState = {
     surpriseChance: 4,
     inventory,
     effects,
-    commonActivities
+    commonActivities,
+    wallet
   }
 }
 
@@ -113,5 +123,6 @@ export {
   initialState,
   inventory,
   effects,
-  commonActivities
+  commonActivities,
+  wallet
 }
