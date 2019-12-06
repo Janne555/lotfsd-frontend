@@ -55,7 +55,7 @@ export default function Encumbrance() {
       <h4>Running</h4>
       <span>{explorationDistance} feet</span>
       <h4>Per Day</h4>
-      <span>{dayDistance} mails</span>
+      <span>{dayDistance} miles</span>
     </div>
   )
 }
