@@ -3,7 +3,7 @@ import {
   calculateAttributeModifiers,
   calculateEncumbrance
 } from '../'
-import { attributes, inventory } from '../../testData/initialState'
+import { attributes, inventory, wallet } from '../../testData/initialState'
 
 describe('calculateSavingThrows', () => {
   const attributeModifiers = {
@@ -78,32 +78,14 @@ describe('calculateAttributeModifiers', () => {
 
 describe('calculateEncumbrance', () => {
   it('should work for testdata', () => {
-    expect(calculateEncumbrance(inventory)).toBe(3)
+    expect(calculateEncumbrance(inventory, wallet)).toBe(2)
   });
 
-  it('should round up partial stacks ', () => {
-    expect(calculateEncumbrance([
-      {
-        type: 'item',
-        encumbrance: 0.2,
-        name: "Torch",
-        effects: [],
-        stackSize: 5,
-        uuid: "123123"
-      }
-    ])).toBe(1)
+  it('should calculate money', () => {
+    expect(calculateEncumbrance(inventory, { copper: 9000, gold: 0, silver: 0 })).toBe(2)
   });
 
-  it('should calculate multiple stacks', () => {
-    expect(calculateEncumbrance(inventory.concat([
-      {
-        type: 'item',
-        encumbrance: 0.2,
-        name: "Torch",
-        effects: [],
-        stackSize: 5,
-        uuid: "123123"
-      }
-    ]))).toBe(3)
+  it('should calculate money 2', () => {
+    expect(calculateEncumbrance(inventory, { copper: 10000, gold: 0, silver: 0 })).toBe(3)
   });
 });
