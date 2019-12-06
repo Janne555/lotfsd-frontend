@@ -19,9 +19,57 @@ const inventory: Item[] = [
   {
     type: 'armor',
     baseArmorClass: 16,
-    encumbrance: 1,
+    encumbrance: 5,
     equipped: true,
     name: "Chain Mail",
+    effects: [],
+    stackSize: 1,
+    uuid: "123123"
+  },
+  {
+    type: 'item',
+    encumbrance: 0.2,
+    name: "Torch",
+    effects: [],
+    stackSize: 5,
+    uuid: "123123"
+  },
+  {
+    type: 'item',
+    encumbrance: 0.2,
+    name: "Torch",
+    effects: [],
+    stackSize: 5,
+    uuid: "123123"
+  },
+  {
+    type: 'item',
+    encumbrance: 0.2,
+    name: "Torch",
+    effects: [],
+    stackSize: 5,
+    uuid: "123123"
+  },
+  {
+    type: 'item',
+    encumbrance: 0.2,
+    name: "Torch",
+    effects: [],
+    stackSize: 5,
+    uuid: "123123"
+  },
+  {
+    type: 'item',
+    encumbrance: 0.2,
+    name: "Torch",
+    effects: [],
+    stackSize: 5,
+    uuid: "123123"
+  },
+  {
+    type: 'item',
+    encumbrance: 5,
+    name: "Pavillion",
     effects: [],
     stackSize: 1,
     uuid: "123123"
