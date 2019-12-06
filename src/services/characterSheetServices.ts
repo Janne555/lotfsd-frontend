@@ -98,8 +98,12 @@ function sumOfEffectsForTarget(effects: Effect[], key: string) {
   return effects.reduce((sum, { value, target }) => target === key ? sum + value : sum, 0)
 }
 
+function partitionInventory(inventory: Item[]): [Item[], Item[]] {
+  return partition(inventory, item => item.equipped)
+}
+
 function mapInventoryToEffects(inventory: Item[]): Effect[] {
-  const [equipped, items] = partition(inventory, item => item.equipped)
+  const [equipped, items] = partitionInventory(inventory)
 
   return mapEquippedToEffects().concat(mapItemsToEffects())
 
@@ -134,11 +138,21 @@ function makeArmorClassEffect(item: Armor): ArmorClassEffect {
   }
 }
 
-function calculateEncumbrance(inventory: Item[]): number {
-  return Math.ceil(encumbrancePoints() / 5)
+function calculateEncumbrance(inventory: Item[], wallet: Wallet): number {
+  const { encumbrance, encumbrancePoints } = calculateValues()
 
-  function encumbrancePoints(): number {
-    return inventory.reduce((encumbrance, item) => encumbrance + item.encumbrance, 0)
+  return encumbrance + (Math.ceil(encumbrancePoints / 5))
+
+  function calculateValues(): { encumbrance: number, encumbrancePoints: number } {
+    const coinEncumbrancePoints = Object.values(wallet).reduce((coins, value) => coins + value, 0) / 100
+
+    return inventory.reduce((encumbrances, item) => {
+      if (item.encumbrance != null)
+        encumbrances.encumbrance += item.encumbrance
+      else
+        encumbrances.encumbrancePoints += item.encumbrancePoints
+      return encumbrances
+    }, { encumbrance: 0, encumbrancePoints: coinEncumbrancePoints - 10 })
   }
 }
 
