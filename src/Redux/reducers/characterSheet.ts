@@ -4,6 +4,7 @@ import savingThrows from './savingThrows'
 import inventory from './inventory'
 import effects from './effects'
 import commonActivities from './commonActivities'
+import wallet from './wallet'
 import { createSlice } from '@reduxjs/toolkit'
 
 const attackBonus = createSlice({
@@ -47,5 +48,6 @@ export default combineReducers({
   surpriseChance: surpriseChance.reducer,
   inventory,
   effects,
-  commonActivities
+  commonActivities,
+  wallet
 })
