@@ -1,5 +1,6 @@
 import { BASE_ARMOR_CLASS } from "../constants"
 import { hasKey } from "./typeGuards"
+import partition from 'lodash/partition'
 
 function calculateAttributeModifiers(attributes: Attributes, effects: AttributeModifierEffect[]): AttributeModifiers {
   return Object.keys(attributes).reduce((attributes, key) => {
@@ -77,7 +78,7 @@ function calculateModifier(value: number) {
 
 function calculateCommonActivities(commonActivities: CommonActivities, strengthModifier: number, intelligenceModifier: number, effects: CommonActivityEffect[]): CommonActivities {
   return Object.keys(commonActivities).reduce((modifiedActivities, key) => {
-    hasKey(commonActivities, key) && (modifiedActivities[key] += sumOfEffectsFor(effects, key) + addModifier(key))
+    hasKey(commonActivities, key) && (modifiedActivities[key] += sumOfEffectsForTarget(effects, key) + addModifier(key))
     return modifiedActivities
   }, { ...commonActivities })
 
@@ -93,23 +94,35 @@ function calculateCommonActivities(commonActivities: CommonActivities, strengthM
   }
 }
 
-function sumOfEffectsFor(effects: Effect[], key: string) {
+function sumOfEffectsForTarget(effects: Effect[], key: string) {
   return effects.reduce((sum, { value, target }) => target === key ? sum + value : sum, 0)
 }
 
 function mapInventoryToEffects(inventory: Item[]): Effect[] {
-  return inventory
-    .filter(item => item.equipped)
-    .reduce((effects, item) => {
-      let effect: Effect | undefined
+  const [equipped, items] = partition(inventory, item => item.equipped)
 
+  return mapEquippedToEffects().concat(mapItemsToEffects())
+
+  function mapEquippedToEffects() {
+    return equipped.reduce((effects, item) => {
       switch (item.type) {
         case "armor":
-          effect = makeArmorClassEffect(item)
+          effects.push(makeArmorClassEffect(item))
       }
 
-      return effect ? effects.concat(effect) : effects
+      return effects
     }, [] as Effect[])
+  }
+
+  function mapItemsToEffects() {
+    return items.reduce((effects, item) => {
+      switch (item.type) {
+
+      }
+
+      return effects
+    }, [] as Effect[])
+  }
 }
 
 function makeArmorClassEffect(item: Armor): ArmorClassEffect {
