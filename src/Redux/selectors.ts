@@ -7,7 +7,8 @@ import {
   calculateArmorClass,
   calculateCommonActivities,
   isCommonActivityEffect,
-  mapInventoryToEffects
+  mapInventoryToEffects,
+  calculateEncumbrance
 } from "../services"
 
 const attributes = (state: RootState): Attributes => state.characterSheet.attributes
@@ -49,6 +50,12 @@ const surprisedArmorClass = (state: RootState): number => calculateArmorClass(at
 
 const commonActivities = (state: RootState): CommonActivities => calculateCommonActivities(state.characterSheet.commonActivities, attributeModifiers(state).strength, attributeModifiers(state).intelligence, commonActivityEffects(state))
 
+const wallet = (state: RootState): Wallet => state.characterSheet.wallet
+
+const inventory = (state: RootState): Item[] => state.characterSheet.inventory
+
+const encumbrance = (state: RootState): number => calculateEncumbrance(inventory(state), wallet(state))
+
 export {
   attributes as selectAttributes,
   savingThrows as selectSavingThrows,
@@ -65,5 +72,7 @@ export {
   withoutShieldArmorClass as selectWithoutShieldArmorClass,
   surprisedArmorClass as selectSurprisedArmorClass,
   commonActivities as selectCommonActivities,
-  effects as selectEffects
+  effects as selectEffects,
+  wallet as selectWallet,
+  encumbrance as selectEncumbrances
 }
