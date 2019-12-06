@@ -13,7 +13,8 @@ import {
   calculateSavingThrows,
   calculateArmorClass,
   calculateCommonActivities,
-  mapInventoryToEffects
+  mapInventoryToEffects,
+  calculateEncumbrance
 } from './characterSheetServices'
 
 export {
@@ -28,5 +29,6 @@ export {
   calculateArmorClass,
   calculateCommonActivities,
   isCommonActivityEffect,
-  mapInventoryToEffects
+  mapInventoryToEffects,
+  calculateEncumbrance
 }
