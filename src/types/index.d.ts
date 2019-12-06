@@ -100,7 +100,8 @@ type ItemBase = {
   uuid: string
   name: string
   stackSize: number
-  encumbrance: number
+  encumbrancePoints: number
+  encumbrance?: number
   equipped?: boolean
   effects: ItemEffect[]
 }
@@ -114,4 +115,10 @@ type Weapon = ItemBase & {
   type: 'weapon'
   damage: string
   range: string
+}
+
+type Wallet = {
+  copper: number
+  silver: number
+  gold: number
 }
