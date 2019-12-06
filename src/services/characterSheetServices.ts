@@ -156,6 +156,55 @@ function calculateEncumbrance(inventory: Item[], wallet: Wallet): number {
   }
 }
 
+function calculateEncumbranceDetails(encumbrance: number) {
+  return {
+    description: description(),
+    explorationDistance: explorationDistance(),
+    combatDistance: combatDistance(),
+    dayDistance: dayDistance()
+  }
+
+  function description() {
+    switch (encumbrance) {
+      case 0:
+      case 1:
+        return "Unencumbered"
+      case 2:
+        return "Lightly Encumbered"
+      case 3:
+        return "Heavily Encumbered"
+      case 4:
+        return "Severly Encumbered"
+      default:
+        return "Overencumbered"
+    }
+  }
+
+  function explorationDistance() {
+    switch (encumbrance) {
+      case 0:
+      case 1:
+        return 120
+      case 2:
+        return 90
+      case 3:
+        return 30
+      case 4:
+        return 30
+      default:
+        return 0
+    }
+  }
+
+  function combatDistance() {
+    return explorationDistance() / 3
+  }
+
+  function dayDistance() {
+    return explorationDistance() / 10 * 2
+  }
+}
+
 export {
   calculateAttributeModifiers,
   calculateMeleeAttackBonus,
@@ -164,5 +213,6 @@ export {
   calculateArmorClass,
   calculateCommonActivities,
   mapInventoryToEffects,
-  calculateEncumbrance
+  calculateEncumbrance,
+  calculateEncumbranceDetails
 }

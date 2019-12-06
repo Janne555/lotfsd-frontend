@@ -8,7 +8,8 @@ import {
   calculateCommonActivities,
   isCommonActivityEffect,
   mapInventoryToEffects,
-  calculateEncumbrance
+  calculateEncumbrance,
+  calculateEncumbranceDetails
 } from "../services"
 
 const attributes = (state: RootState): Attributes => state.characterSheet.attributes
@@ -56,6 +57,8 @@ const inventory = (state: RootState): Item[] => state.characterSheet.inventory
 
 const encumbrance = (state: RootState): number => calculateEncumbrance(inventory(state), wallet(state))
 
+const encumbranceDetails = (state: RootState) => calculateEncumbranceDetails(encumbrance(state))
+
 export {
   attributes as selectAttributes,
   savingThrows as selectSavingThrows,
@@ -74,5 +77,6 @@ export {
   commonActivities as selectCommonActivities,
   effects as selectEffects,
   wallet as selectWallet,
-  encumbrance as selectEncumbrances
+  encumbrance as selectEncumbrance,
+  encumbranceDetails as selectEncumbranceDetails
 }
