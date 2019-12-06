@@ -134,6 +134,14 @@ function makeArmorClassEffect(item: Armor): ArmorClassEffect {
   }
 }
 
+function calculateEncumbrance(inventory: Item[]): number {
+  return inventory.reduce(reduceEncumbrance, 0)
+
+  function reduceEncumbrance(encumbrance: number, item: Item): number {
+    return 0
+  }
+}
+
 export {
   calculateAttributeModifiers,
   calculateMeleeAttackBonus,
@@ -141,5 +149,6 @@ export {
   calculateSavingThrows,
   calculateArmorClass,
   calculateCommonActivities,
-  mapInventoryToEffects
+  mapInventoryToEffects,
+  calculateEncumbrance
 }
