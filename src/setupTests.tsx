@@ -5,21 +5,17 @@ import React, { ReactNode } from 'react'
 import { Provider } from 'react-redux'
 import { JssProvider } from 'react-jss'
 import { render } from '@testing-library/react'
+import store from './Redux/store'
 
-const reducer = combineReducers({
-  characterSheet
-})
 
-const testStore = createStore(reducer)
-
-jest.spyOn(testStore, 'dispatch').mockImplementation(() => { throw Error("Dont mutate store in tests") })
+jest.spyOn(store, 'dispatch').mockImplementation(() => { throw Error("Dont mutate store in tests") })
 
 
 
 function AppWrapper({ children }: { children: ReactNode | ReactNode[] }): JSX.Element {
   return (
     <JssProvider disableStylesGeneration>
-      <Provider store={testStore}>
+      <Provider store={store}>
         {children}
       </Provider>
     </JssProvider>
@@ -35,7 +31,7 @@ function renderWrapped(element: JSX.Element) {
 }
 
 export {
-  testStore,
+  store as testStore,
   AppWrapper,
   renderWrapped
 }
