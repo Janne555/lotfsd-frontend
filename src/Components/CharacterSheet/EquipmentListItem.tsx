@@ -9,6 +9,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
   },
   reserved: {
     gridColumnStart: 1,
+    gridColumnEnd: 5,
     textAlign: 'center',
     backgroundColor: theme.grey,
     width: '100%',

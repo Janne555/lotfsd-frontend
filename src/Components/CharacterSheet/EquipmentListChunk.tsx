@@ -5,7 +5,16 @@ import range from 'lodash/range'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   chunk: {
-    display: 'grid'
+    display: 'grid',
+    border: '1px solid black'
+  },
+  sidebar: {
+    gridColumnStart: '4',
+    gridRowStart: (index: number) => index + 1,
+    gridRowEnd: (index: number) => index + 6,
+    justifySelf: 'center',
+    alignSelf: 'center',
+    transform: 'rotate(90deg)'
   }
 }))
 
@@ -16,7 +25,7 @@ type Props = {
 }
 
 export default function EquipmentListChunk({ chunk, oversizedItem, position }: Props) {
-  const classes = useStyles()
+  const classes = useStyles(position)
 
   if (chunk) {
     return (
@@ -24,6 +33,10 @@ export default function EquipmentListChunk({ chunk, oversizedItem, position }: P
         {
           chunk.map((item, index) => <ListItem key={item.listItemId} item={item} position={index + position * 5} />)
         }
+        {chunk.length < 5 &&
+          range(5 - chunk.length).map((i) => <ListItem key="a" label=" " position={i + position + 5} />)
+        }
+        <span className={classes.sidebar}>+1 Enc</span>
       </div>
     )
   } else if (oversizedItem) {
@@ -35,13 +48,4 @@ export default function EquipmentListChunk({ chunk, oversizedItem, position }: P
   } else {
     return null
   }
-}
-
-
-function Foo() {
-  return (
-    <>
-      <div></div>
-    </>
-  )
 }
