@@ -134,7 +134,13 @@ type EquipmentListItem = {
   name: string
   amount: number
   stackSize: number
-  equipped?: boolean
   itemId?: string
   listItemId: string
+}
+
+type EquipmentListItemOversized = {
+  name: string
+  itemId: string
+  listItemId: string
+  encumbrance: number
 }
