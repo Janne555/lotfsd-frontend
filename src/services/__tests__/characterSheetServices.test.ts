@@ -12,6 +12,7 @@ import {
 import { attributes, inventory, wallet, initialState } from '../../testData/initialState'
 import { MONEY } from '../../constants'
 import range from 'lodash/range'
+import shortid from 'shortid'
 
 describe('calculateSavingThrows', () => {
   const attributeModifiers = {
@@ -99,38 +100,46 @@ describe('calculateEncumbrance', () => {
 });
 
 describe('mapEquipmentList', () => {
+  const { mockRestore } = jest.spyOn(shortid, 'generate').mockReturnValue("key")
+  afterAll(mockRestore)
+
   it('should work for testdata', () => {
     expect(mapEquipmentList(selectInventory(initialState), wallet)).toEqual([
       {
         amount: 100,
         name: MONEY,
         stackSize: 100,
+        listItemId: 'key'
       },
       {
         amount: 50,
         name: MONEY,
         stackSize: 100,
+        listItemId: 'key'
       },
       {
         amount: 1,
         equipped: true,
         itemId: 'armor1',
         name: 'Chain Mail',
-        stackSize: 1
+        stackSize: 1,
+        listItemId: 'key'
       },
       {
         amount: 5,
         itemId: 'torch',
         name: 'Torch',
         stackSize: 5,
-        equipped: false
+        equipped: false,
+        listItemId: 'key'
       },
       {
         amount: 1,
         itemId: 'pavillion',
         name: 'Pavillion',
         stackSize: 1,
-        equipped: false
+        equipped: false,
+        listItemId: 'key'
       }
     ])
   });
@@ -153,25 +162,29 @@ describe('mapEquipmentList', () => {
         amount: 100,
         name: MONEY,
         stackSize: 100,
+        listItemId: 'key'
       },
       {
         amount: 50,
         name: MONEY,
         stackSize: 100,
+        listItemId: 'key'
       },
       {
         amount: 5,
         itemId: 'torch',
         name: 'Torch',
         stackSize: 5,
-        equipped: false
+        equipped: false,
+        listItemId: 'key'
       },
       {
         amount: 3,
         itemId: 'torch',
         name: 'Torch',
         stackSize: 5,
-        equipped: false
+        equipped: false,
+        listItemId: 'key'
       }
     ])
   });
