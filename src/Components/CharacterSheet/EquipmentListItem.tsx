@@ -3,22 +3,28 @@ import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   name: {
-    gridColumnStart: 1
+    gridColumnStart: 1,
+    width: '100%',
+    height: '100%'
   },
   reserved: {
     gridColumnStart: 1,
     textAlign: 'center',
     backgroundColor: theme.grey,
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   stack: {
     gridColumnStart: 2,
     justifySelf: 'end',
+    width: '100%',
+    height: '100%'
   },
   position: {
     gridColumnStart: 3,
-    justifySelf: 'end'
+    justifySelf: 'end',
+    width: '100%',
+    height: '100%'
   }
 }))
 
@@ -26,9 +32,10 @@ type Props = {
   position: number
   label?: string
   item?: EquipmentListItem
+  padding?: boolean
 }
 
-function EquipmentListItem({ item, position, label }: Props) {
+function EquipmentListItem({ item, position, label, padding }: Props) {
   const classes = useStyles()
 
 
@@ -44,9 +51,9 @@ function EquipmentListItem({ item, position, label }: Props) {
   } else {
     return (
       <>
-        {label
-          ? <div className={classes.name}>{label}</div>
-          : <div className={classes.reserved}>reserved</div>
+        {padding
+          ? <div className={classes.reserved}>reserved for <i>{label}</i></div>
+          : <div className={classes.name}>{label}</div>
         }
       </>
     )

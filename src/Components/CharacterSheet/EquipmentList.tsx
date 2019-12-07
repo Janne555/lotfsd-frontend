@@ -10,9 +10,10 @@ const useStyles = createUseStyles((theme: Theme) => ({
   equipment: {
     padding: theme.padding,
     border: theme.border,
-    maxWidth: 300
+    maxWidth: 300,
   },
-  table: {
+  header: {
+    textAlign: 'center'
   }
 }))
 
@@ -22,13 +23,13 @@ export default function EquipmentList() {
 
   return (
     <div className={classes.equipment}>
-      <h2>Equipment</h2>
-      <div className={classes.table}>
-        {
-          chunk(equipment, 5).map((chunk, index) => <EquipmentListChunk key={index} chunk={chunk} position={index} />)
-        }
+      <h2 className={classes.header}>Equipment</h2>
+      <div>
         {
           oversized.map((oversized, index) => <EquipmentListChunk key={index} oversizedItem={oversized} position={index} />)
+        }
+        {
+          chunk(equipment, 5).map((chunk, index) => <EquipmentListChunk key={index} chunk={chunk} position={index} />)
         }
       </div>
     </div>

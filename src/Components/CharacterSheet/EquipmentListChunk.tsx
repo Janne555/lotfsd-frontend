@@ -29,7 +29,7 @@ export default function EquipmentListChunk({ chunk, oversizedItem, position }: P
   } else if (oversizedItem) {
     return (
       <div className={classes.chunk}>
-        {range(5).map((i) => <ListItem key="a" label={i > 0 ? undefined : oversizedItem.name} position={0} />)}
+        {range(5).map((i) => <ListItem key="a" label={oversizedItem.name} padding={i > 0} position={0} />)}
       </div>
     )
   } else {
