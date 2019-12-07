@@ -136,4 +136,5 @@ type EquipmentListItem = {
   stackSize: number
   equipped?: boolean
   itemId?: string
+  listItemId: string
 }
