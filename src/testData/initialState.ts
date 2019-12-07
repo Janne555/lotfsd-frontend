@@ -30,7 +30,6 @@ const itemIndex: { byId: { [name: string]: Item }, allIds: string[] } = {
     torch: {
       type: 'item',
       encumbrancePoints: 0.2,
-      encumbrance: 1,
       name: "Torch",
       effects: [],
       stackSize: 5,
