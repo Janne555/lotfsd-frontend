@@ -94,7 +94,7 @@ type ArmorEffect = ItemEffect & {
   target: 'armorClass'
 }
 
-type InventoryItem = Omit<Item & ItemInstance, 'id'>
+type InventoryItem = Item & ItemInstance
 
 type Item = Armor | Weapon | (ItemBase & { type: 'item' })
 
@@ -105,7 +105,7 @@ type ItemInstance = {
 }
 
 type ItemBase = {
-  id: string
+  itemId: string
   name: string
   stackSize: number
   encumbrancePoints: number
@@ -113,12 +113,12 @@ type ItemBase = {
   effects: ItemEffect[]
 }
 
-type Armor = InventoryItem & {
+type Armor = ItemBase & {
   type: 'armor'
   baseArmorClass: number
 }
 
-type Weapon = InventoryItem & {
+type Weapon = ItemBase & {
   type: 'weapon'
   damage: string
   range: string
@@ -134,6 +134,6 @@ type EquipmentListItem = {
   name: string
   amount: number
   stackSize: number
-  equipped: boolean
-  uuid: string
+  equipped?: boolean
+  itemId?: string
 }
