@@ -94,9 +94,11 @@ type ArmorEffect = ItemEffect & {
   target: 'armorClass'
 }
 
+type InventoryItem = Item & ItemInstance
+
 type Item = Armor | Weapon | (ItemBase & { type: 'item' })
 
-type ItemInstance =  {
+type ItemInstance = {
   itemId: string
   instanceId: string
   equipped?: boolean
