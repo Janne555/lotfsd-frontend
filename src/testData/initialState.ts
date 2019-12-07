@@ -25,7 +25,7 @@ const itemIndex: { byId: { [name: string]: Item }, allIds: string[] } = {
       name: "Chain Mail",
       effects: [],
       stackSize: 1,
-      id: 'armor1'
+      itemId: 'armor1'
     },
     torch: {
       type: 'item',
@@ -33,7 +33,7 @@ const itemIndex: { byId: { [name: string]: Item }, allIds: string[] } = {
       name: "Torch",
       effects: [],
       stackSize: 5,
-      id: 'torch'
+      itemId: 'torch'
     },
     pavillion: {
       type: 'item',
@@ -42,7 +42,7 @@ const itemIndex: { byId: { [name: string]: Item }, allIds: string[] } = {
       name: "Pavillion",
       effects: [],
       stackSize: 1,
-      id: ''
+      itemId: 'pavillion'
     }
   },
   allIds: ['armor1', 'torch', 'pavillion']
