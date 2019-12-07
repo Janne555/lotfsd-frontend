@@ -1,4 +1,4 @@
-import { BASE_ARMOR_CLASS } from "../constants"
+import { BASE_ARMOR_CLASS, MONEY } from "../constants"
 import { hasKey } from "./typeGuards"
 import partition from 'lodash/partition'
 
@@ -208,12 +208,60 @@ function calculateEncumbranceDetails(encumbrance: number) {
   }
 }
 
-function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet) {
-  let equipment: any[] = []
-  for (let i = 0; i < totalCoins(wallet) / 100; i++) {
+function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet): EquipmentListItem[] {
+  let equipment: EquipmentListItem[] = createCoinListItems()
+    .concat(inventoryListItems())
 
+  return equipment
+
+  function createCoinListItems(): EquipmentListItem[] {
+    let coinListItems: EquipmentListItem[] = []
+
+    let coins = totalCoins(wallet)
+    do {
+      const amount = coins > 100 ? 100 : coins
+      coinListItems.push({
+        name: MONEY,
+        stackSize: 100,
+        amount
+      })
+      coins -= 100
+    } while (coins > 0)
+
+    return coinListItems
   }
 
+  function bucketizeInventory() {
+    let buckets: { [name: string]: InventoryItem[] } = {}
+    for (const item of inventory) {
+      if (!(item.itemId in buckets))
+        buckets[item.itemId] = []
+      buckets[item.itemId].push(item)
+    }
+    return buckets
+  }
+
+  function inventoryListItems() {
+    return Object.values(bucketizeInventory()).reduce((listItems, bucket) => {
+      let totalAmount = bucket.length
+      const { stackSize, name, itemId } = bucket[0]
+      const equipped = bucket.some(item => item.equipped)
+
+      do {
+        const amount = totalAmount > stackSize ? stackSize : totalAmount
+        listItems.push({
+          amount,
+          name,
+          stackSize,
+          itemId,
+          equipped
+        })
+        totalAmount -= stackSize
+      } while (totalAmount > 0)
+
+      return listItems
+    }, [] as EquipmentListItem[])
+  }
 }
 
 export {
