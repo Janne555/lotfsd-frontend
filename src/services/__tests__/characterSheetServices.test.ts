@@ -10,6 +10,8 @@ import {
 } from '../../Redux/selectors'
 
 import { attributes, inventory, wallet, initialState } from '../../testData/initialState'
+import { MONEY } from '../../constants'
+import range from 'lodash/range'
 
 describe('calculateSavingThrows', () => {
   const attributeModifiers = {
@@ -96,16 +98,81 @@ describe('calculateEncumbrance', () => {
   });
 });
 
-// describe('mapEquipmentList', () => {
-//   it('should work for testdata', () => {
-//     expect(mapEquipmentList(inventory, wallet)).toEqual([
-//       {
-//         amount: 5,
-//         stackSize: 5,
-//         equipped: false,
-//         name: "Torch",
-//         uuid: 
-//       }
-//     ] as EquipmentListItem[])
-//   });
-// });
+describe('mapEquipmentList', () => {
+  it('should work for testdata', () => {
+    expect(mapEquipmentList(selectInventory(initialState), wallet)).toEqual([
+      {
+        amount: 100,
+        name: MONEY,
+        stackSize: 100,
+      },
+      {
+        amount: 50,
+        name: MONEY,
+        stackSize: 100,
+      },
+      {
+        amount: 1,
+        equipped: true,
+        itemId: 'armor1',
+        name: 'Chain Mail',
+        stackSize: 1
+      },
+      {
+        amount: 5,
+        itemId: 'torch',
+        name: 'Torch',
+        stackSize: 5,
+        equipped: false
+      },
+      {
+        amount: 1,
+        itemId: 'pavillion',
+        name: 'Pavillion',
+        stackSize: 1,
+        equipped: false
+      }
+    ])
+  });
+
+  it('should work for non-full stacks', () => {
+    function foo(): InventoryItem[] {
+      return range(8).map((i: number): InventoryItem => ({
+        itemId: 'torch',
+        name: 'Torch',
+        stackSize: 5,
+        encumbrancePoints: 0.2,
+        effects: [] as ItemEffect,
+        type: 'item',
+        instanceId: `${i}`
+      }))
+    }
+
+    expect(mapEquipmentList(foo(), wallet)).toEqual([
+      {
+        amount: 100,
+        name: MONEY,
+        stackSize: 100,
+      },
+      {
+        amount: 50,
+        name: MONEY,
+        stackSize: 100,
+      },
+      {
+        amount: 5,
+        itemId: 'torch',
+        name: 'Torch',
+        stackSize: 5,
+        equipped: false
+      },
+      {
+        amount: 3,
+        itemId: 'torch',
+        name: 'Torch',
+        stackSize: 5,
+        equipped: false
+      }
+    ])
+  });
+});
