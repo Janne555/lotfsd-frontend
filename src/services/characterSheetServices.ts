@@ -1,6 +1,7 @@
 import { BASE_ARMOR_CLASS, MONEY } from "../constants"
 import { hasKey } from "./typeGuards"
 import partition from 'lodash/partition'
+import { generate } from 'shortid'
 
 function calculateAttributeModifiers(attributes: Attributes, effects: AttributeModifierEffect[]): AttributeModifiers {
   return Object.keys(attributes).reduce((attributes, key) => {
@@ -223,7 +224,8 @@ function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet): Equipment
       coinListItems.push({
         name: MONEY,
         stackSize: 100,
-        amount
+        amount,
+        listItemId: generate()
       })
       coins -= 100
     } while (coins > 0)
@@ -254,7 +256,8 @@ function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet): Equipment
           name,
           stackSize,
           itemId,
-          equipped
+          equipped,
+          listItemId: generate()
         })
         totalAmount -= stackSize
       } while (totalAmount > 0)
