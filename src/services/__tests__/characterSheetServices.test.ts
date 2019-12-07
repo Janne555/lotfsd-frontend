@@ -104,7 +104,9 @@ describe('mapEquipmentList', () => {
   afterAll(mockRestore)
 
   it('should work for testdata', () => {
-    expect(mapEquipmentList(selectInventory(initialState), wallet)).toEqual([
+    const { equipment, oversized } = mapEquipmentList(selectInventory(initialState), wallet)
+
+    expect(equipment).toEqual([
       {
         amount: 100,
         name: MONEY,
@@ -118,28 +120,20 @@ describe('mapEquipmentList', () => {
         listItemId: 'key'
       },
       {
-        amount: 1,
-        equipped: true,
-        itemId: 'armor1',
-        name: 'Chain Mail',
-        stackSize: 1,
-        listItemId: 'key'
-      },
-      {
         amount: 5,
         itemId: 'torch',
         name: 'Torch',
         stackSize: 5,
-        equipped: false,
         listItemId: 'key'
-      },
+      }
+    ])
+
+    expect(oversized).toEqual([
       {
-        amount: 1,
+        encumbrance: 1,
         itemId: 'pavillion',
-        name: 'Pavillion',
-        stackSize: 1,
-        equipped: false,
-        listItemId: 'key'
+        listItemId: 'key',
+        name: 'Pavillion'
       }
     ])
   });
@@ -157,7 +151,9 @@ describe('mapEquipmentList', () => {
       }))
     }
 
-    expect(mapEquipmentList(foo(), wallet)).toEqual([
+    const { equipment, oversized } = mapEquipmentList(foo(), wallet)
+
+    expect(equipment).toEqual([
       {
         amount: 100,
         name: MONEY,
@@ -175,7 +171,6 @@ describe('mapEquipmentList', () => {
         itemId: 'torch',
         name: 'Torch',
         stackSize: 5,
-        equipped: false,
         listItemId: 'key'
       },
       {
@@ -183,9 +178,10 @@ describe('mapEquipmentList', () => {
         itemId: 'torch',
         name: 'Torch',
         stackSize: 5,
-        equipped: false,
         listItemId: 'key'
       }
     ])
+
+    expect(oversized).toEqual([])
   });
 });

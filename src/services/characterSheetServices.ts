@@ -209,11 +209,11 @@ function calculateEncumbranceDetails(encumbrance: number) {
   }
 }
 
-function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet): EquipmentListItem[] {
+function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet): { equipment: EquipmentListItem[], oversized: EquipmentListItemOversized[] } {
   let equipment: EquipmentListItem[] = createCoinListItems()
     .concat(inventoryListItems())
 
-  return equipment
+  return { equipment, oversized: oversized() }
 
   function createCoinListItems(): EquipmentListItem[] {
     let coinListItems: EquipmentListItem[] = []
@@ -233,9 +233,15 @@ function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet): Equipment
     return coinListItems
   }
 
+  /**
+   * puts items into buckets based on their id
+   * filters out equipped and oversized (encumbrance defined) items
+   */
   function bucketizeInventory() {
     let buckets: { [name: string]: InventoryItem[] } = {}
     for (const item of inventory) {
+      if (item.equipped || item.encumbrance != null)
+        continue
       if (!(item.itemId in buckets))
         buckets[item.itemId] = []
       buckets[item.itemId].push(item)
@@ -247,7 +253,6 @@ function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet): Equipment
     return Object.values(bucketizeInventory()).reduce((listItems, bucket) => {
       let totalAmount = bucket.length
       const { stackSize, name, itemId } = bucket[0]
-      const equipped = bucket.some(item => item.equipped)
 
       do {
         const amount = totalAmount > stackSize ? stackSize : totalAmount
@@ -256,7 +261,6 @@ function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet): Equipment
           name,
           stackSize,
           itemId,
-          equipped,
           listItemId: generate()
         })
         totalAmount -= stackSize
@@ -264,6 +268,19 @@ function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet): Equipment
 
       return listItems
     }, [] as EquipmentListItem[])
+  }
+
+  function oversized() {
+    return inventory.reduce((items, item) => {
+      if (!item.equipped && item.encumbrance != null)
+        items.push({
+          encumbrance: item.encumbrance,
+          itemId: item.itemId,
+          listItemId: generate(),
+          name: item.name
+        })
+      return items
+    }, [] as EquipmentListItemOversized[])
   }
 }
 
