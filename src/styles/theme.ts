@@ -1,7 +1,7 @@
 const theme = {
   border: '2px solid black',
   padding: 10,
-  grey: 'grey'
+  grey: '#dadada'
 }
 
 export { theme }
