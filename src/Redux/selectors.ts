@@ -18,7 +18,7 @@ const attributeModifierEffects = (state: RootState): AttributeModifierEffect[] =
 
 const effects = (state: RootState): Effect[] => {
   return state.characterSheet.effects
-    .concat(mapInventoryToEffects(state.characterSheet.inventory))
+    .concat(mapInventoryToEffects(inventory(state)))
 }
 
 const armorClassEffects = (state: RootState): ArmorClassEffect[] => effects(state).filter(isArmorClassEffect)
@@ -53,7 +53,8 @@ const commonActivities = (state: RootState): CommonActivities => calculateCommon
 
 const wallet = (state: RootState): Wallet => state.characterSheet.wallet
 
-const inventory = (state: RootState): Item[] => {
+const inventory = (state: RootState): InventoryItem[] => {
+  //TODO must make sure there are never instances of items not in the item index
   return state.characterSheet.inventory.map(instance => ({ ...instance, ...state.itemIndex.byId[instance.itemId] }))
 }
 
@@ -80,5 +81,6 @@ export {
   effects as selectEffects,
   wallet as selectWallet,
   encumbrance as selectEncumbrance,
-  encumbranceDetails as selectEncumbranceDetails
+  encumbranceDetails as selectEncumbranceDetails,
+  inventory as selectInventory
 }
