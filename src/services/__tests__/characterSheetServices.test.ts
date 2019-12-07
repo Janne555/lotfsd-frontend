@@ -1,9 +1,15 @@
 import {
   calculateSavingThrows,
   calculateAttributeModifiers,
-  calculateEncumbrance
+  calculateEncumbrance,
+  mapEquipmentList
 } from '../'
-import { attributes, inventory, wallet } from '../../testData/initialState'
+
+import {
+  selectInventory
+} from '../../Redux/selectors'
+
+import { attributes, inventory, wallet, initialState } from '../../testData/initialState'
 
 describe('calculateSavingThrows', () => {
   const attributeModifiers = {
@@ -78,14 +84,28 @@ describe('calculateAttributeModifiers', () => {
 
 describe('calculateEncumbrance', () => {
   it('should work for testdata', () => {
-    expect(calculateEncumbrance(inventory, wallet)).toBe(2)
+    expect(calculateEncumbrance(selectInventory(initialState), wallet)).toBe(2)
   });
 
   it('should calculate money', () => {
-    expect(calculateEncumbrance(inventory, { copper: 900, gold: 0, silver: 0 })).toBe(3)
+    expect(calculateEncumbrance(selectInventory(initialState), { copper: 900, gold: 0, silver: 0 })).toBe(2)
   });
 
   it('should calculate money 2', () => {
-    expect(calculateEncumbrance(inventory, { copper: 1000, gold: 0, silver: 0 })).toBe(4)
+    expect(calculateEncumbrance(selectInventory(initialState), { copper: 1000, gold: 0, silver: 0 })).toBe(3)
   });
 });
+
+// describe('mapEquipmentList', () => {
+//   it('should work for testdata', () => {
+//     expect(mapEquipmentList(inventory, wallet)).toEqual([
+//       {
+//         amount: 5,
+//         stackSize: 5,
+//         equipped: false,
+//         name: "Torch",
+//         uuid: 
+//       }
+//     ] as EquipmentListItem[])
+//   });
+// });
