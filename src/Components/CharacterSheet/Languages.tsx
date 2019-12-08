@@ -2,40 +2,60 @@ import React from 'react'
 import { useSelector } from '../../hooks'
 import { selectLanguages } from '../../Redux/selectors'
 import { createUseStyles } from 'react-jss'
+import partition from 'lodash/partition'
+import range from 'lodash/range'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   languages: {
-    display: 'grid',
-    gridAutoFlow: 'dense',
     border: theme.border,
     paddingTop: theme.padding,
     textAlign: 'center',
-    '& h2': {
-      gridColumnStart: 1,
-      gridColumnEnd: 3,
+    maxWidth: 500
+  },
+  table: {
+    width: '100%',
+    borderCollapse: 'collapse',
+    '& td': {
+      border: '1px solid black',
+      height: '1em'
     }
   },
   known: {
-    gridColumnStart: 1,
-    border: '1px solid black'
   },
   notKnown: {
-    gridColumnStart: 2,
-    border: '1px solid black'
   }
 }))
 
 export default function Languages() {
   const classes = useStyles()
-  const languages = useSelector(selectLanguages)
+  const [known, unknown] = partition(useSelector(selectLanguages), language => language.known)
+  const size = Math.max(known.length, unknown.length, 7)
+
   return (
     <div className={classes.languages}>
       <h2>Languages</h2>
-      <h3>Known</h3>
-      <h3>Not Known</h3>
-      {
-        languages.map(({ name, known }) => <div key={name} className={known ? classes.known : classes.notKnown}>{name}</div>)
-      }
+      <table className={classes.table}>
+        <thead>
+          <tr>
+            <th>
+              Known
+            </th>
+            <th>
+              Not Known
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            range(size).map((i) => (
+              <tr>
+                <td>{known[i] ? known[i].name : ""}</td>
+                <td>{unknown[i] ? unknown[i].name : ""}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
     </div>
   )
 }
