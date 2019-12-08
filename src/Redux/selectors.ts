@@ -67,6 +67,8 @@ const equipment = (state: RootState) => mapEquipmentList(inventory(state), walle
 
 const languages = (state: RootState) => state.characterSheet.languages
 
+const retainers = (state: RootState) => state.characterSheet.retainers
+
 export {
   attributes as selectAttributes,
   savingThrows as selectSavingThrows,
@@ -89,5 +91,6 @@ export {
   encumbranceDetails as selectEncumbranceDetails,
   inventory as selectInventory,
   equipment as selectEquipment,
-  languages as selectLanguages
+  languages as selectLanguages,
+  retainers as selectRetainers
 }

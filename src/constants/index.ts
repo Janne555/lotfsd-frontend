@@ -55,6 +55,16 @@ const BASE_ARMOR_CLASS = 12
 
 const MONEY = 'Money'
 
+const RETAINER_KEYS: (keyof Omit<Retainer, 'uuid'>)[] = [
+  "name",
+  "position",
+  "class",
+  "level",
+  "hitpoints",
+  "wage",
+  "share"
+]
+
 export {
   ATTRIBUTE_DETAILS,
   SAVING_THROW_DETAILS,
@@ -63,5 +73,6 @@ export {
   TITLES,
   BASE_ARMOR_CLASS,
   COMMON_ACTIVITY_TITLES,
-  MONEY
+  MONEY,
+  RETAINER_KEYS
 }

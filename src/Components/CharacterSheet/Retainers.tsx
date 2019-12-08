@@ -1,0 +1,76 @@
+import React from 'react'
+import { useSelector } from '../../hooks'
+import { selectRetainers } from '../../Redux/selectors'
+import { createUseStyles } from 'react-jss'
+import { RETAINER_KEYS } from '../../constants'
+
+const useStyles = createUseStyles((theme: Theme) => ({
+  retainers: {
+    border: theme.border,
+    paddingTop: theme.padding,
+    overflow: 'scroll',
+    maxWidth: 500,
+    '& h2': {
+      textAlign: 'center'
+    },
+    '& table': {
+      borderCollapse: 'collapse',
+      width: 'calc(100% - 1px)'
+    },
+    '& th': {
+      // textAlign: 'center',
+    },
+    '& td': {
+      border: '1px solid black'
+    }
+  },
+  level: {
+    textAlign: 'center'
+  },
+  name: {
+  },
+  position: {
+  },
+  class: {
+  },
+  hitpoints: {
+    textAlign: 'center'
+  },
+  wage: {
+    textAlign: 'center'
+  },
+  share: {
+    textAlign: 'center'
+  }
+}))
+
+export default function Retainers() {
+  const classes = useStyles()
+  const retainers = useSelector(selectRetainers)
+
+  return (
+    <div className={classes.retainers}>
+      <h2>Retainers</h2>
+      <table className="">
+        <thead>
+          <tr>
+            {
+              RETAINER_KEYS.map(key => <th key={key}>{key}</th>)
+            }
+          </tr>
+        </thead>
+        <tbody>
+          {
+            retainers.map(retainer => (
+              <tr>
+                {
+                  RETAINER_KEYS.map(key => <td className={classes[key]} key={key}>{retainer[key]}</td>)
+                }
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  )
+}

@@ -125,6 +125,22 @@ const languages: Language[] = [
   }
 ]
 
+const retainers: Retainer[] = [
+  {
+    level: 1,
+    name: 'Mordick',
+    class: 'Fighter',
+    wage: 100,
+    uuid: "1"
+  },
+  {
+    name: 'Jeeves',
+    class: 'Butler',
+    wage: 150,
+    uuid: "1"
+  }
+]
+
 const initialState: RootState = {
   characterSheet: {
     attributes,
@@ -137,7 +153,8 @@ const initialState: RootState = {
     effects,
     commonActivities,
     wallet,
-    languages
+    languages,
+    retainers
   },
   itemIndex
 }
@@ -151,5 +168,6 @@ export {
   commonActivities,
   wallet,
   itemIndex,
-  languages
+  languages,
+  retainers
 }

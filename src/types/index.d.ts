@@ -150,3 +150,14 @@ type Language = {
   known: boolean
   name: string
 }
+
+type Retainer = {
+  name: string
+  position?: string
+  class?: string
+  level?: number
+  hitpoints?: number
+  wage?: number
+  share?: number
+  uuid: string
+}
