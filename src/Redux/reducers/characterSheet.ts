@@ -5,6 +5,7 @@ import inventory from './inventory'
 import effects from './effects'
 import commonActivities from './commonActivities'
 import wallet from './wallet'
+import languages from './languages'
 import { createSlice } from '@reduxjs/toolkit'
 
 const attackBonus = createSlice({
@@ -49,5 +50,6 @@ export default combineReducers({
   inventory,
   effects,
   commonActivities,
-  wallet
+  wallet,
+  languages
 })

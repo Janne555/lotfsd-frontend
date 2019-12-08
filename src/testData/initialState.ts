@@ -103,6 +103,17 @@ const wallet: Wallet = {
   gold: 50
 }
 
+const languages: Language[] = [
+  {
+    name: "common",
+    known: true
+  },
+  {
+    name: 'gnomic',
+    known: false
+  }
+]
+
 const initialState: RootState = {
   characterSheet: {
     attributes,
@@ -114,7 +125,8 @@ const initialState: RootState = {
     inventory,
     effects,
     commonActivities,
-    wallet
+    wallet,
+    languages
   },
   itemIndex
 }
@@ -127,5 +139,6 @@ export {
   effects,
   commonActivities,
   wallet,
-  itemIndex
+  itemIndex,
+  languages
 }

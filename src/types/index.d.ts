@@ -144,3 +144,8 @@ type EquipmentListItemOversized = {
   listItemId: string
   encumbrance: number
 }
+
+type Language = {
+  known: boolean
+  name: string
+}

@@ -65,6 +65,8 @@ const encumbranceDetails = (state: RootState) => calculateEncumbranceDetails(enc
 
 const equipment = (state: RootState) => mapEquipmentList(inventory(state), wallet(state))
 
+const languages = (state: RootState) => state.characterSheet.languages
+
 export {
   attributes as selectAttributes,
   savingThrows as selectSavingThrows,
@@ -86,5 +88,6 @@ export {
   encumbrance as selectEncumbrance,
   encumbranceDetails as selectEncumbranceDetails,
   inventory as selectInventory,
-  equipment as selectEquipment
+  equipment as selectEquipment,
+  languages as selectLanguages
 }
