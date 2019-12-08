@@ -111,6 +111,7 @@ type ItemBase = {
   encumbrancePoints: number
   encumbrance?: number
   effects: ItemEffect[]
+  description: string
 }
 
 type Armor = ItemBase & {
