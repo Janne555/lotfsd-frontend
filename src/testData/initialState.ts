@@ -109,6 +109,14 @@ const languages: Language[] = [
     known: true
   },
   {
+    name: "elvish",
+    known: true
+  },
+  {
+    name: "undercommon",
+    known: true
+  },
+  {
     name: 'gnomic',
     known: false
   }
