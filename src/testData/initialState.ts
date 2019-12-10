@@ -141,6 +141,10 @@ const retainers: Retainer[] = [
   }
 ]
 
+const combatOptions: CombatOptions = {
+  standard: true
+}
+
 const initialState: RootState = {
   characterSheet: {
     attributes,
@@ -154,7 +158,8 @@ const initialState: RootState = {
     commonActivities,
     wallet,
     languages,
-    retainers
+    retainers,
+    combatOptions
   },
   itemIndex
 }
