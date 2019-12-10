@@ -13,10 +13,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
     textAlign: 'center',
     border: theme.border,
     padding: theme.padding,
-    width: 'fit-content',
-    height: 'fit-content',
-    gridColumnStart: 2,
-    gridColumnEnd: 4
+    height: 'fit-content'
   }
 }))
 

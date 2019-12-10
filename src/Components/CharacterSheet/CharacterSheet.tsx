@@ -2,8 +2,7 @@ import React from 'react'
 import Attributes from './Attributes'
 import SavingThrows from './SavingThrows'
 import AttackBonusAndHitPoints from './AttackBonusAndHitPoints'
-import ArmorClass from './ArmorClass'
-import CombatOptions from './CombatOptions'
+import ArmorClassAndCombatOptions from './ArmorClassAndCombatOptions'
 import CommonActivities from './CommonActivities'
 import EquipmentList from './EquipmentList'
 import Encumbrance from './Encumbrance'
@@ -12,12 +11,24 @@ import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
-    maxWidth: '100%',
     display: 'grid',
-    gridTemplateColumns: 'repeat(3, 33%)',
+    // flexWrap: 'wrap'
+    gridTemplateColumns: '50% 50%',
     gridRowGap: '1rem',
-    gridColumGap: '1rem'
-  }
+    gridColumnGap: '1rem',
+    justifyContent: 'center'
+  },
+  attributes: {
+  },
+  savingThrows: {},
+  abAndHp: {
+  },
+  ac: {},
+  combatOptions: {},
+  commonActivities: {},
+  equipment: {},
+  encumbrance: {},
+  retainers: {}
 }))
 
 export default function CharacterSheet() {
@@ -27,8 +38,7 @@ export default function CharacterSheet() {
       <Attributes />
       <SavingThrows />
       <AttackBonusAndHitPoints />
-      <ArmorClass />
-      <CombatOptions />
+      <ArmorClassAndCombatOptions />
       <CommonActivities />
       <EquipmentList />
       <Encumbrance />

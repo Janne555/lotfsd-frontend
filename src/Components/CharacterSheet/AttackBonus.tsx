@@ -9,7 +9,7 @@ const useStyles = createUseStyles({
   attackBonus: {
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 75px)',
-    gridTemplateRows: '20px 40px auto',
+    gridTemplateRows: 'auto 40px auto',
     gridRowGap: 20
   },
   title: {
@@ -27,7 +27,7 @@ function AttackBonus() {
 
   return (
     <div className={classes.attackBonus}>
-      <h3 className={classes.title}>Attack Bonus</h3>
+      <h2 className={classes.title}>Attack Bonus</h2>
       <SingleBonus index={1} value={baseAB} title={TITLES.BASE_AB} />
       <SingleBonus index={2} value={meleeAB} title={TITLES.MELEE_AB} />
       <SingleBonus index={3} value={rangedAB} title={TITLES.RANGED_AB} />

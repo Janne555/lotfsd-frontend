@@ -7,7 +7,6 @@ const useStyles = createUseStyles((theme: Theme) => ({
   combatOptions: {
     padding: theme.padding,
     border: theme.border,
-    maxWidth: 300,
     '& h2': {
       textAlign: 'center'
     }
