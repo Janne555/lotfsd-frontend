@@ -80,42 +80,6 @@ const inventory: ItemInstance[] = [
   {
     itemId: 'pavillion',
     instanceId: "7"
-  },
-  {
-    itemId: 'pavillion',
-    instanceId: "7"
-  },
-  {
-    itemId: 'pavillion',
-    instanceId: "7"
-  },
-  {
-    itemId: 'pavillion',
-    instanceId: "7"
-  },
-  {
-    itemId: 'pavillion',
-    instanceId: "7"
-  },
-  {
-    itemId: 'pavillion',
-    instanceId: "7"
-  },
-  {
-    itemId: 'pavillion',
-    instanceId: "7"
-  },
-  {
-    itemId: 'pavillion',
-    instanceId: "7"
-  },
-  {
-    itemId: 'pavillion',
-    instanceId: "7"
-  },
-  {
-    itemId: 'pavillion',
-    instanceId: "7"
   }
 ]
 
