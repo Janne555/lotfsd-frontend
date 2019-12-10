@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import Attributes from './Attributes'
 import SavingThrows from './SavingThrows'
 import AttackBonusAndHitPoints from './AttackBonusAndHitPoints'
@@ -11,50 +11,79 @@ import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
-    margin: '0 2em',
     display: 'grid',
-    // flexWrap: 'wrap'
     gridTemplateColumns: '50% 50%',
-    gridTemplateRows: 'max-content',
-    gridRowGap: '1rem',
     gridColumnGap: '1rem',
-    justifyContent: 'center',
-    gridAutoFlow: 'dense'
+    maxWidth: 'calc(100vw - 2rem)'
   },
   '@media (max-width: 1024px)': {
     characterSheet: {
       display: 'flex',
       flexWrap: 'wrap',
+      justifyItems: 'center'
+    },
+    attributes: {
+    },
+  },
+  right: {
+    display: 'flex',
+    flexDirection: 'column',
+    '& > div': {
+      marginBottom: '1em'
+    },
+    width: 'max-width'
+  },
+  left: {
+    display: 'flex',
+    flexDirection: 'column',
+    '& > div': {
+      marginBottom: '1em'
     }
-  },
-  attributes: {
-    gridArea: '1 / 1 / 3 / 1'
-  },
-  savingThrows: {},
-  abAndHp: {
-  },
-  ac: {},
-  combatOptions: {},
-  commonActivities: {},
-  equipment: {},
-  encumbrance: {},
-  retainers: {}
+  }
 }))
 
 export default function CharacterSheet() {
+  const [dual, setDual] = useState(window.screen.width > 1024)
+
   const classes = useStyles()
-  return (
-    <div className={classes.characterSheet}>
-      <div className={classes.attributes}>
-        <Attributes />
+  useLayoutEffect(() => {
+    function listener() {
+      setDual(window.screen.width > 1024)
+    }
+    window.addEventListener('resize', listener)
+    return () => window.removeEventListener('resize', listener)
+  })
+
+  if (dual)
+    return (
+      <div className={classes.characterSheet}>
+        <div className={classes.left}>
+          <Attributes />
+          <EquipmentList />
+          <Retainers />
+        </div>
+        <div className={classes.right}>
+          <SavingThrows />
+          <AttackBonusAndHitPoints />
+          <ArmorClassAndCombatOptions />
+          <CommonActivities />
+          <Encumbrance />
+        </div>
       </div>
-      <SavingThrows />
-      <AttackBonusAndHitPoints />
-      <ArmorClassAndCombatOptions />
-      <CommonActivities />
-      <EquipmentList />
-      <Encumbrance />
-      <Retainers />
-    </div>
-  )
+    )
+  else
+    return (
+      <div className={classes.characterSheet}>
+        <div className={classes.left}>
+          <Attributes />
+          <SavingThrows />
+          <AttackBonusAndHitPoints />
+          <ArmorClassAndCombatOptions />
+          <CommonActivities />
+          <Encumbrance />
+          <EquipmentList />
+          <Retainers />
+        </div>
+      </div>
+    )
 }
