@@ -161,3 +161,10 @@ type Retainer = {
   share?: number
   uuid: string
 }
+
+type CombatOptions = {
+  standard?: boolean
+  parry?: boolean
+  press?: boolean
+  defensive?: boolean
+}
