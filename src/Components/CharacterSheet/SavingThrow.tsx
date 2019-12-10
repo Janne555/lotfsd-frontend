@@ -14,7 +14,11 @@ const useStyles = createUseStyles({
     gridTemplateRows: '20px 40px auto',
     gridRowGap: 15,
     textAlign: 'center',
-    width: 100
+    maxWidth: 100,
+    maxHeight: 150,
+    '& span': {
+      alignSelf: 'center'
+    }
   }
 })
 

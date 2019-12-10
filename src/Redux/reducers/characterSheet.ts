@@ -41,6 +41,13 @@ const surpriseChance = createSlice({
   }
 })
 
+const combatOptions = createSlice({
+  name: 'combatOptions',
+  initialState: {} as CombatOptions,
+  reducers: {
+  }
+})
+
 export default combineReducers({
   attributes,
   savingThrows,
@@ -48,6 +55,7 @@ export default combineReducers({
   maxHP: maxHP.reducer,
   currentHP: currentHP.reducer,
   surpriseChance: surpriseChance.reducer,
+  combatOptions: combatOptions.reducer,
   inventory,
   effects,
   commonActivities,
