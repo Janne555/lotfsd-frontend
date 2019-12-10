@@ -69,6 +69,8 @@ const languages = (state: RootState) => state.characterSheet.languages
 
 const retainers = (state: RootState) => state.characterSheet.retainers
 
+const combatOptions = (state: RootState) => state.characterSheet.combatOptions
+
 export {
   attributes as selectAttributes,
   savingThrows as selectSavingThrows,
@@ -92,5 +94,6 @@ export {
   inventory as selectInventory,
   equipment as selectEquipment,
   languages as selectLanguages,
-  retainers as selectRetainers
+  retainers as selectRetainers,
+  combatOptions as selectCombatOptions
 }
