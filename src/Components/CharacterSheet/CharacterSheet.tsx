@@ -31,7 +31,6 @@ const useStyles = createUseStyles((theme: Theme) => ({
     '& > div': {
       marginBottom: '1em'
     },
-    width: 'max-width'
   },
   left: {
     display: 'flex',
