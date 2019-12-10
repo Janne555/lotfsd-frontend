@@ -11,14 +11,24 @@ import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
+    margin: '0 2em',
     display: 'grid',
     // flexWrap: 'wrap'
     gridTemplateColumns: '50% 50%',
+    gridTemplateRows: 'max-content',
     gridRowGap: '1rem',
     gridColumnGap: '1rem',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    gridAutoFlow: 'dense'
+  },
+  '@media (max-width: 1024px)': {
+    characterSheet: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    }
   },
   attributes: {
+    gridArea: '1 / 1 / 3 / 1'
   },
   savingThrows: {},
   abAndHp: {
@@ -35,7 +45,9 @@ export default function CharacterSheet() {
   const classes = useStyles()
   return (
     <div className={classes.characterSheet}>
-      <Attributes />
+      <div className={classes.attributes}>
+        <Attributes />
+      </div>
       <SavingThrows />
       <AttackBonusAndHitPoints />
       <ArmorClassAndCombatOptions />

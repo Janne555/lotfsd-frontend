@@ -13,7 +13,6 @@ const useStyles = createUseStyles((theme: Theme) => ({
     padding: theme.padding,
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    width: '100%',
     alignItems: 'center'
   },
   surpriseChance: {

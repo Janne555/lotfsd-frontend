@@ -9,7 +9,6 @@ const useStyles = createUseStyles((theme: Theme) => ({
     border: theme.border,
     paddingTop: theme.padding,
     overflow: 'scroll',
-    maxWidth: 500,
     '& h2': {
       textAlign: 'center'
     },

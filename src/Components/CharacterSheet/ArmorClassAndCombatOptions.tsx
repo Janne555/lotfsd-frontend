@@ -7,8 +7,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
   root: {
     display: 'grid',
     gridTemplateColumns: '50% 50%',
-    gridColumnGap: '4rem',
-    width: 'calc(100% - 4rem)'
+    gridColumnGap: '1rem',
+    width: 'calc(100% - 1rem)'
   }
 }))
 

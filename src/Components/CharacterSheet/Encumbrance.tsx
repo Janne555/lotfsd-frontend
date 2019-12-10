@@ -9,7 +9,6 @@ const useStyles = createUseStyles((theme: Theme) => ({
     display: 'grid',
     gridTemplateColumns: '25% 25% 50%',
     gridTemplateRows: 'repeat(20%, 5)',
-    maxWidth: 500,
     border: theme.border,
     padding: theme.padding,
     '& h2': {
