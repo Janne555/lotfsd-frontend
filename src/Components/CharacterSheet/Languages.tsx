@@ -17,7 +17,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
     borderCollapse: 'collapse',
     '& td': {
       border: '1px solid black',
-      height: '1em'
+      height: '1em',
+      borderLeft: 'none'
     }
   },
   known: {
