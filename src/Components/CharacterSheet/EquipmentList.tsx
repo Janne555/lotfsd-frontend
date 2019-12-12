@@ -1,7 +1,6 @@
 import React from 'react'
 import { useSelector } from '../../hooks'
 import { selectEquipment } from '../../Redux/selectors'
-import ListItem from './EquipmentListItem'
 import { createUseStyles } from 'react-jss'
 import EquipmentListChunk from './EquipmentListChunk'
 import chunk from 'lodash/chunk'

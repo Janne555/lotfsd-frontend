@@ -9,6 +9,6 @@ const itemIndexSlice = createSlice({
   }
 })
 
-export const {} = itemIndexSlice.actions
+// export const {} = itemIndexSlice.actions
 
 export default itemIndexSlice.reducer

@@ -9,6 +9,6 @@ const walletSlice = createSlice({
   }
 })
 
-export const { } = walletSlice.actions
+// export const { } = walletSlice.actions
 
 export default walletSlice.reducer

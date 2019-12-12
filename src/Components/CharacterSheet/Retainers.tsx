@@ -14,13 +14,13 @@ const useStyles = createUseStyles((theme: Theme) => ({
     },
     '& table': {
       borderCollapse: 'collapse',
-      width: 'calc(100% - 1px)'
+      width: '100%'
     },
     '& th': {
       // textAlign: 'center',
     },
     '& td': {
-      border: '1px solid black'
+      borderTop: '1px solid black'
     },
     backgroundColor: theme.componentBackgroundColor
   },

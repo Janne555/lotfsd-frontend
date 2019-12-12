@@ -21,7 +21,10 @@ export default function CombatOptions() {
   return (
     <div className={classes.combatOptions}>
       <h2>Combat Options</h2>
-      
+      <p>{defensive}</p>
+      <p>{parry}</p>
+      <p>{press}</p>
+      <p>{standard}</p>
     </div>
   )
 }

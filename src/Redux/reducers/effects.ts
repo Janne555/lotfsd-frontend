@@ -9,6 +9,6 @@ const effectSlice = createSlice({
   }
 })
 
-export const { } = effectSlice.actions
+// export const { } = effectSlice.actions
 
 export default effectSlice.reducer

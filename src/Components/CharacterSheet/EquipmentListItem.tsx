@@ -41,7 +41,7 @@ function EquipmentListItem({ item, position, label, padding }: Props) {
 
 
   if (item) {
-    const { name, stackSize, amount, itemId } = item
+    const { name, stackSize, amount } = item
     return (
       <>
         <div className={classes.name}>{name}</div>
