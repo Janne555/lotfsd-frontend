@@ -8,6 +8,7 @@ import EquipmentList from './EquipmentList'
 import Encumbrance from './Encumbrance'
 import Retainers from './Retainers'
 import { createUseStyles } from 'react-jss'
+import { useScreenResizeEvent } from '../../hooks'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
@@ -42,16 +43,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
 }))
 
 export default function CharacterSheet() {
-  const [dual, setDual] = useState(window.screen.width > 1024)
-
+  const dual = useScreenResizeEvent(width => width > 1024)
   const classes = useStyles()
-  useLayoutEffect(() => {
-    function listener() {
-      setDual(window.screen.width > 1024)
-    }
-    window.addEventListener('resize', listener)
-    return () => window.removeEventListener('resize', listener)
-  })
 
   if (dual)
     return (
