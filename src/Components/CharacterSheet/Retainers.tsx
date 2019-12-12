@@ -21,7 +21,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
     },
     '& td': {
       border: '1px solid black'
-    }
+    },
+    backgroundColor: theme.componentBackgroundColor
   },
   level: {
     textAlign: 'center'

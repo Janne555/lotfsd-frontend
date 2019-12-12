@@ -13,7 +13,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
     gridColumnGap: 10,
     border: theme.border,
     padding: theme.padding,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: theme.componentBackgroundColor
   },
   leftTitle: {
     gridRowStart: 2,

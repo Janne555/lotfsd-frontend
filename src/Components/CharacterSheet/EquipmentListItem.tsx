@@ -11,7 +11,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
     gridColumnStart: 1,
     gridColumnEnd: 5,
     textAlign: 'center',
-    backgroundColor: theme.grey,
+    backgroundColor: theme.colorGrey,
     width: '100%',
     height: '100%',
   },

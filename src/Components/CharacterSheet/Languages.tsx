@@ -10,7 +10,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
     border: theme.border,
     paddingTop: theme.padding,
     textAlign: 'center',
-    maxWidth: 500
+    backgroundColor: theme.componentBackgroundColor
   },
   table: {
     width: '100%',

@@ -11,7 +11,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
     padding: theme.padding,
     '& h2': {
       textAlign: 'center'
-    }
+    },
+    backgroundColor: theme.componentBackgroundColor
   },
   armorClass: {
     display: 'grid',

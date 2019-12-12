@@ -13,7 +13,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
     textAlign: 'center',
     border: theme.border,
     padding: theme.padding,
-    height: 'fit-content'
+    height: 'fit-content',
+    backgroundColor: theme.componentBackgroundColor
   }
 }))
 

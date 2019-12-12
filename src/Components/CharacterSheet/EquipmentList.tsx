@@ -9,7 +9,8 @@ import chunk from 'lodash/chunk'
 const useStyles = createUseStyles((theme: Theme) => ({
   equipment: {
     padding: theme.padding,
-    border: theme.border
+    border: theme.border,
+    backgroundColor: theme.componentBackgroundColor
   },
   header: {
     textAlign: 'center'

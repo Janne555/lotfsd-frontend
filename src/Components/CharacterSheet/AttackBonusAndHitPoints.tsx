@@ -13,7 +13,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
     padding: theme.padding,
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: theme.componentBackgroundColor
   },
   surpriseChance: {
     marginTop: 10,

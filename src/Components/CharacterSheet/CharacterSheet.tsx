@@ -12,10 +12,12 @@ import { useScreenResizeEvent } from '../../hooks'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
+    backgroundColor: theme.colorLightest,
     display: 'grid',
-    gridTemplateColumns: '50% 50%',
+    gridTemplateColumns: 'repeat(2, calc(50% - 0.5rem))',
     gridColumnGap: '1rem',
-    maxWidth: 'calc(100vw - 2rem)'
+    maxWidth: '100%',
+    padding: '0 1rem'
   },
   '@media (max-width: 1024px)': {
     characterSheet: {

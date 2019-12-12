@@ -5,7 +5,7 @@ import RotatedCube from '../_shared/RotatedCube'
 import { selectBaseAttackBonus, selectMeleeAttackBonus, selectRangedAttackBonus } from '../../Redux/selectors'
 import { TITLES } from '../../constants'
 
-const useStyles = createUseStyles({
+const useStyles = createUseStyles((theme: Theme) => ({
   attackBonus: {
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 75px)',
@@ -17,7 +17,7 @@ const useStyles = createUseStyles({
     gridColumnEnd: 4,
     justifySelf: 'center'
   }
-})
+}))
 
 function AttackBonus() {
   const classes = useStyles()

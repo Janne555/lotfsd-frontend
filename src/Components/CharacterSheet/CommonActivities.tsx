@@ -10,7 +10,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
   root: {
     textAlign: 'center',
     border: theme.border,
-    padding: theme.padding
+    padding: theme.padding,
+    backgroundColor: theme.componentBackgroundColor
   },
   activities: {
     display: 'flex',

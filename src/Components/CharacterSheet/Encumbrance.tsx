@@ -18,7 +18,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
     },
     '& h4': {
       gridColumnStart: 1
-    }
+    },
+    backgroundColor: theme.componentBackgroundColor
   },
   total: {
     gridColumnStart: 3,

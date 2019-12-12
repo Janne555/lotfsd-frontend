@@ -9,7 +9,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
     border: theme.border,
     '& h2': {
       textAlign: 'center'
-    }
+    },
+    backgroundColor: theme.componentBackgroundColor
   }
 }))
 
