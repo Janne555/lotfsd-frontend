@@ -9,6 +9,7 @@ import Encumbrance from './Encumbrance'
 import Retainers from './Retainers'
 import { createUseStyles } from 'react-jss'
 import { useScreenResizeEvent } from '../../hooks'
+import Languages from './Languages'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
@@ -62,6 +63,7 @@ export default function CharacterSheet() {
           <ArmorClassAndCombatOptions />
           <CommonActivities />
           <Encumbrance />
+          <Languages />
         </div>
       </div>
     )
