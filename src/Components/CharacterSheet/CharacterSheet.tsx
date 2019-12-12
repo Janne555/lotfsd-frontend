@@ -17,8 +17,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
     display: 'grid',
     gridTemplateColumns: 'repeat(2, calc(50% - 0.5rem))',
     gridColumnGap: '1rem',
-    maxWidth: '100%',
-    padding: '0 1rem'
+    maxWidth: 1024,
+    padding: '1rem',
   },
   '@media (max-width: 1024px)': {
     characterSheet: {
