@@ -20,13 +20,12 @@ type Props = {
   name: string
   label?: string
   onMouseEnter: (name: string) => void
-  onMouseLeave: (name: string) => void
 }
 
-export default function NavItem({ name, label, onMouseEnter, onMouseLeave }: Props) {
+export default function NavItem({ name, label, onMouseEnter }: Props) {
   const classes = useStyles()
   return (
-    <div className={classes.navItem} onMouseEnter={() => onMouseEnter(name)} onMouseLeave={() => onMouseLeave(name)} >
+    <div className={classes.navItem} onMouseEnter={() => onMouseEnter(name)} >
       <span>{label || name}</span>
     </div>
   )
