@@ -26,7 +26,7 @@ export default function NavBar({ }: Props) {
     }
   }
 
-  function handleMouseLeave(name: string) {
+  function handleMouseLeave() {
     if (visible)
       setVisible(false)
   }
@@ -34,9 +34,9 @@ export default function NavBar({ }: Props) {
 
   return (
     <div className={classes.navBar}>
-      <NavList>
-        <NavItem name="foo" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />
-        <NavItem name="bar" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />
+      <NavList onMouseLeave={handleMouseLeave}>
+        <NavItem name="foo" onMouseEnter={handleMouseEnter} />
+        <NavItem name="bar" onMouseEnter={handleMouseEnter} />
       </NavList>
       {visible && <MenuBox />}
     </div>

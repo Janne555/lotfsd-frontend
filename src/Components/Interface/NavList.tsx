@@ -13,12 +13,13 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 type Props = {
   children: ReactNode
+  onMouseLeave: () => void
 }
 
-export default function NavList({ children }: Props): JSX.Element {
+export default function NavList({ children, onMouseLeave }: Props): JSX.Element {
   const classes = useStyles()
   return (
-    <div className={classes.navList}>
+    <div className={classes.navList} onMouseLeave={onMouseLeave}>
       {children}
     </div>
   )
