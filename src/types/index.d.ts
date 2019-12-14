@@ -186,3 +186,9 @@ type CharacterSheet = {
   retainers: Retainer[]
   combatOptions: CombatOptions
 }
+
+type UserData = {
+  characters: {
+    [name: string]: CharacterSheet
+  }
+}
