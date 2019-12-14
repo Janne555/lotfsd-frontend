@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { languages } from '../../testData/initialState'
+import { languages } from '../../../testData/initialState'
 
 
 const languagesSlice = createSlice({

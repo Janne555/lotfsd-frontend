@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { attributes } from '../../testData/initialState'
+import { attributes } from '../../../testData/initialState'
 
 
 const attributesSlice = createSlice({

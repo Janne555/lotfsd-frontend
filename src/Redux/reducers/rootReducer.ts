@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import characterSheet from './characterSheet'
+import characterSheet from './characterSheet/characterSheet'
 import itemIndex from './itemIndex'
 
 export default combineReducers({

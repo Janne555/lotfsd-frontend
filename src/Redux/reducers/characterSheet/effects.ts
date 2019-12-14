@@ -1,4 +1,4 @@
-import { effects } from '../../testData/initialState'
+import { effects } from '../../../testData/initialState'
 import { createSlice } from '@reduxjs/toolkit'
 
 const effectSlice = createSlice({

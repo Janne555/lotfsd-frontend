@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import { ATTRIBUTE_DETAILS, ATTRIBUTE_TITLES } from '../../constants'
 import { useDispatch } from '../../hooks'
-import { setAttribute } from '../../Redux/reducers/attributes'
+import { setAttribute } from '../../Redux/reducers/characterSheet/attributes'
 
 type AttributeProps = {
   title: keyof Attributes

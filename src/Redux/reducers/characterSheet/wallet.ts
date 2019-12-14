@@ -1,4 +1,4 @@
-import { wallet } from '../../testData/initialState'
+import { wallet } from '../../../testData/initialState'
 import { createSlice } from '@reduxjs/toolkit'
 
 const walletSlice = createSlice({

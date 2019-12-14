@@ -1,4 +1,4 @@
-import { savingThrows } from '../../testData/initialState'
+import { savingThrows } from '../../../testData/initialState'
 import { createSlice } from '@reduxjs/toolkit'
 
 const savingThrowsSlice = createSlice({

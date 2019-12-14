@@ -1,4 +1,4 @@
-import { commonActivities } from '../../testData/initialState'
+import { commonActivities } from '../../../testData/initialState'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const commonActivitiesSlice = createSlice({

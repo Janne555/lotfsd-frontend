@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { retainers } from '../../testData/initialState'
+import { retainers } from '../../../testData/initialState'
 
 
 const retainersSlice = createSlice({

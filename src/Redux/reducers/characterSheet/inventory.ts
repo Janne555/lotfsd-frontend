@@ -1,4 +1,4 @@
-import { inventory } from '../../testData/initialState'
+import { inventory } from '../../../testData/initialState'
 import { createSlice } from '@reduxjs/toolkit'
 
 
