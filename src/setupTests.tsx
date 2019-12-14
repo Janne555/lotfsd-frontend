@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/extend-expect'
 import { combineReducers, createStore } from 'redux'
-import characterSheet from './Redux/reducers/characterSheet/characterSheet'
+import characterSheet from './Redux/reducers/characterSheet'
 import React, { ReactNode } from 'react'
 import { Provider } from 'react-redux'
 import { JssProvider } from 'react-jss'
