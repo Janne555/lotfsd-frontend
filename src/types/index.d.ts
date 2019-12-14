@@ -187,8 +187,7 @@ type CharacterSheet = {
   combatOptions: CombatOptions
 }
 
-type UserData = {
-  characters: {
-    [name: string]: CharacterSheet
-  }
+type UserData = {
+  username: string
+  token: string
 }
