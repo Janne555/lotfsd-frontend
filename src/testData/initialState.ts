@@ -178,5 +178,7 @@ export {
   wallet,
   itemIndex,
   languages,
-  retainers
+  retainers,
+  characterSheet,
+  combatOptions
 }

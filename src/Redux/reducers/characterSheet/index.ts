@@ -7,55 +7,20 @@ import commonActivities from './commonActivities'
 import wallet from './wallet'
 import languages from './languages'
 import retainers from './retainers'
-import { createSlice } from '@reduxjs/toolkit'
-
-const attackBonus = createSlice({
-  name: 'attacBonus',
-  initialState: 0,
-  reducers: {
-
-  }
-})
-
-const maxHP = createSlice({
-  name: 'maxHP',
-  initialState: 15,
-  reducers: {
-
-  }
-})
-
-const currentHP = createSlice({
-  name: 'currentHP',
-  initialState: 10,
-  reducers: {
-
-  }
-})
-
-const surpriseChance = createSlice({
-  name: 'surpriseChance',
-  initialState: 4,
-  reducers: {
-
-  }
-})
-
-const combatOptions = createSlice({
-  name: 'combatOptions',
-  initialState: {} as CombatOptions,
-  reducers: {
-  }
-})
+import attackBonus from './attackBonus'
+import maxHP from './maxHP'
+import currentHP from './currentHP'
+import surpriseChance from './surpriseChance'
+import combatOptions from './combatOptions'
 
 export default combineReducers({
   attributes,
   savingThrows,
-  attackBonus: attackBonus.reducer,
-  maxHP: maxHP.reducer,
-  currentHP: currentHP.reducer,
-  surpriseChance: surpriseChance.reducer,
-  combatOptions: combatOptions.reducer,
+  attackBonus,
+  maxHP,
+  currentHP,
+  surpriseChance,
+  combatOptions,
   inventory,
   effects,
   commonActivities,
