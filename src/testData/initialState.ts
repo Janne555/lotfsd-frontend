@@ -145,22 +145,26 @@ const combatOptions: CombatOptions = {
   standard: true
 }
 
+const characterSheet: CharacterSheet = {
+  name: "Hahmo",
+  experience: 1000,
+  attributes,
+  savingThrows,
+  attackBonus: 1,
+  currentHP: 5,
+  maxHP: 10,
+  surpriseChance: 4,
+  inventory,
+  effects,
+  commonActivities,
+  wallet,
+  languages,
+  retainers,
+  combatOptions
+}
+
 const initialState: RootState = {
-  characterSheet: {
-    attributes,
-    savingThrows,
-    attackBonus: 1,
-    currentHP: 5,
-    maxHP: 10,
-    surpriseChance: 4,
-    inventory,
-    effects,
-    commonActivities,
-    wallet,
-    languages,
-    retainers,
-    combatOptions
-  },
+  characterSheet,
   itemIndex
 }
 

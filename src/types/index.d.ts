@@ -168,3 +168,21 @@ type CombatOptions = {
   press?: boolean
   defensive?: boolean
 }
+
+type CharacterSheet = {
+  name: string
+  experience: number
+  attributes: Attributes
+  savingThrows: SavingThrows
+  attackBonus: number
+  currentHP: number
+  maxHP: number
+  surpriseChance: number
+  inventory: ItemInstance[]
+  effects: Effect[]
+  commonActivities: CommonActivities
+  wallet: Wallet
+  languages: Language[]
+  retainers: Retainer[]
+  combatOptions: CombatOptions
+}
