@@ -13,7 +13,7 @@ import Languages from './Languages'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
-    backgroundColor: theme.colorLightest,
+    backgroundColor: theme.colorGreyLightest,
     display: 'grid',
     gridTemplateColumns: 'repeat(2, calc(50% - 0.5rem))',
     gridColumnGap: '1rem',

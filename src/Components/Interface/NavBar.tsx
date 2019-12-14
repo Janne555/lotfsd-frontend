@@ -18,27 +18,31 @@ type Props = {
 
 export default function NavBar({ }: Props) {
   const classes = useStyles()
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState<string>()
 
   function handleMouseEnter(name: string) {
     if (!visible) {
-      setVisible(true)
+      setVisible(name)
     }
   }
 
   function handleMouseLeave() {
     if (visible)
-      setVisible(false)
+      setVisible(undefined)
   }
 
 
   return (
     <div className={classes.navBar}>
       <NavList onMouseLeave={handleMouseLeave}>
-        <NavItem name="foo" onMouseEnter={handleMouseEnter} />
-        <NavItem name="bar" onMouseEnter={handleMouseEnter} />
+        <NavItem name="Characters" onMouseEnter={handleMouseEnter} />
+        <NavItem name="Login" end />
+        {visible &&
+          <MenuBox>
+            
+          </MenuBox>
+        }
       </NavList>
-      {visible && <MenuBox />}
     </div>
   )
 }

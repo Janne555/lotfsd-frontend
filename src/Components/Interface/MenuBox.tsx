@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles((theme: Theme) => ({
@@ -6,19 +6,21 @@ const useStyles = createUseStyles((theme: Theme) => ({
     position: 'absolute',
     width: '100%',
     height: 200,
-    backgroundColor: 'green',
-    zIndex: 2
+    backgroundColor: theme.colorPurpleMid,
+    zIndex: 2,
+    top: 50
   }
 }))
 
 type Props = {
+  children: ReactNode
 }
 
-export default function MenuBox({ }: Props) {
+export default function MenuBox({ children }: Props) {
   const classes = useStyles()
   return (
     <div className={classes.navItem}>
-
+      {children}
     </div>
   )
 }

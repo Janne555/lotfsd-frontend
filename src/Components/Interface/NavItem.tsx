@@ -9,23 +9,25 @@ const useStyles = createUseStyles((theme: Theme) => ({
     height: '100%',
     backgroundColor: theme.colorDark,
     color: 'white',
-    verticalAlign: 'center',
     '&:hover': {
-      backgroundColor: theme.colorDarkest,
-    }
+      backgroundColor: theme.colorPurpleDark,
+      cursor: 'pointer'
+    },
+    marginLeft: (end: boolean | undefined) => end ? 'auto' : ''
   }
 }))
 
 type Props = {
   name: string
   label?: string
-  onMouseEnter: (name: string) => void
+  onMouseEnter?: (name: string) => void
+  end?: boolean
 }
 
-export default function NavItem({ name, label, onMouseEnter }: Props) {
-  const classes = useStyles()
+export default function NavItem({ name, label, onMouseEnter, end }: Props) {
+  const classes = useStyles(end)
   return (
-    <div className={classes.navItem} onMouseEnter={() => onMouseEnter(name)} >
+    <div className={classes.navItem} {...(onMouseEnter ? { onMouseEnter: () => onMouseEnter(name) } : {})} >
       <span>{label || name}</span>
     </div>
   )
