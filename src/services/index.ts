@@ -19,6 +19,12 @@ import {
   mapEquipmentList
 } from './characterSheetServices'
 
+import {
+  post,
+  get
+} from './api'
+
+
 export {
   hasKey,
   calculateSavingThrows,
@@ -34,5 +40,7 @@ export {
   mapInventoryToEffects,
   calculateEncumbrance,
   calculateEncumbranceDetails,
-  mapEquipmentList
+  mapEquipmentList,
+  post,
+  get
 }
