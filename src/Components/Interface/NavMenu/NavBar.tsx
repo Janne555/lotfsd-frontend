@@ -10,7 +10,6 @@ const navMenuContext = React.createContext({
   onMouseLeave() {
     return
   },
-
 })
 
 function useNavMenuContext() {

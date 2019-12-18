@@ -5,7 +5,6 @@ import NavBar from './Components/Interface/NavMenu/NavBar'
 import Login from './Components/Interface/Login'
 import NavList from './Components/Interface/NavMenu/NavList'
 import NavItem from './Components/Interface/NavMenu/NavItem'
-import NavContent from './Components/Interface/NavMenu/NavContent'
 import { useSelector } from './hooks'
 import { selectIsLoggedIn } from './Redux/selectors'
 

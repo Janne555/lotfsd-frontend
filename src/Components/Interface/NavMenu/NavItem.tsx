@@ -1,7 +1,6 @@
-import React, { ReactElement, ReactNode, ReactNodeArray } from 'react'
+import React, { ReactNode, ReactNodeArray } from 'react'
 import { createUseStyles } from 'react-jss'
 import { useNavMenuContext } from './NavBar'
-import NavContent from './NavContent'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   navItem: {
