@@ -152,7 +152,8 @@ const info: Info = {
   experience: 4000,
   gender: 'male',
   name: 'Zoidberg',
-  race: 'Crab'
+  race: 'Crab',
+  player: 'Janne'
 }
 
 const characterSheet: CharacterSheet = {
