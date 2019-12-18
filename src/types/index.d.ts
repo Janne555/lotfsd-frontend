@@ -182,6 +182,7 @@ type Info = {
   age: number
   gender: string
   alignment: string
+  player: string
 }
 
 type CharacterSheet = {
