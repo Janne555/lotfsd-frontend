@@ -16,7 +16,7 @@ type Props = {
   children: ReactNode
 }
 
-export default function MenuBox({ children }: Props) {
+function NavContent({ children }: Props) {
   const classes = useStyles()
   return (
     <div className={classes.navItem}>
@@ -24,3 +24,5 @@ export default function MenuBox({ children }: Props) {
     </div>
   )
 }
+
+export default NavContent

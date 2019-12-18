@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { ReactElement, ReactNode, ReactNodeArray } from 'react'
 import { createUseStyles } from 'react-jss'
+import { useNavMenuContext } from './NavBar'
+import NavContent from './NavContent'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   navItem: {
@@ -22,12 +24,15 @@ type Props = {
   label?: string
   onMouseEnter?: (name: string) => void
   end?: boolean
+  children?: ReactNode | ReactNodeArray
 }
 
-export default function NavItem({ name, label, onMouseEnter, end }: Props) {
+export default function NavItem({ name, label, end }: Props) {
   const classes = useStyles(end)
+  const { onMouseEnter } = useNavMenuContext()
+
   return (
-    <div className={classes.navItem} {...(onMouseEnter ? { onMouseEnter: () => onMouseEnter(name) } : {})} >
+    <div className={classes.navItem} onMouseEnter={() => !end && onMouseEnter(name)} >
       <span>{label || name}</span>
     </div>
   )
