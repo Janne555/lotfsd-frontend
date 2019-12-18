@@ -147,7 +147,8 @@ describe('mapEquipmentList', () => {
         encumbrancePoints: 0.2,
         effects: [] as ItemEffect,
         type: 'item',
-        instanceId: `${i}`
+        instanceId: `${i}`,
+        description: ''
       }))
     }
 
