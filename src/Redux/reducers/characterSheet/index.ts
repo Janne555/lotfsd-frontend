@@ -12,6 +12,7 @@ import maxHP from './maxHP'
 import currentHP from './currentHP'
 import surpriseChance from './surpriseChance'
 import combatOptions from './combatOptions'
+import info from './info'
 
 export default combineReducers({
   attributes,
@@ -26,5 +27,6 @@ export default combineReducers({
   commonActivities,
   wallet,
   languages,
-  retainers
+  retainers,
+  info
 })

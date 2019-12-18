@@ -174,6 +174,16 @@ type CombatOptions = {
   defensive?: boolean
 }
 
+type Info = {
+  name: string
+  experience: number
+  class: string
+  race: string
+  age: number
+  gender: string
+  alignment: string
+}
+
 type CharacterSheet = {
   name: string
   experience: number
@@ -190,6 +200,7 @@ type CharacterSheet = {
   languages: Language[]
   retainers: Retainer[]
   combatOptions: CombatOptions
+  info: Info
 }
 
 type UserData = {

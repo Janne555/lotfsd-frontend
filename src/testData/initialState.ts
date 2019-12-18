@@ -145,6 +145,16 @@ const combatOptions: CombatOptions = {
   standard: true
 }
 
+const info: Info = {
+  age: 28,
+  alignment: 'chaotic',
+  class: 'fighter',
+  experience: 4000,
+  gender: 'male',
+  name: 'Zoidberg',
+  race: 'Crab'
+}
+
 const characterSheet: CharacterSheet = {
   name: "Hahmo",
   experience: 1000,
@@ -160,7 +170,8 @@ const characterSheet: CharacterSheet = {
   wallet,
   languages,
   retainers,
-  combatOptions
+  combatOptions,
+  info
 }
 
 const initialState: RootState = {
