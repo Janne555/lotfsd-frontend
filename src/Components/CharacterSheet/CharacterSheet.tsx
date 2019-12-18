@@ -10,6 +10,7 @@ import Retainers from './Retainers'
 import { createUseStyles } from 'react-jss'
 import { useScreenResizeEvent } from '../../hooks'
 import Languages from './Languages'
+import InfoBar from './InfoBar'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
@@ -17,7 +18,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
     display: 'grid',
     gridTemplateColumns: 'repeat(2, calc(50% - 0.5rem))',
     gridColumnGap: '1rem',
-    maxWidth: 1024,
+    maxWidth: 1100,
     padding: '1rem',
   },
   '@media (max-width: 1024px)': {
@@ -42,16 +43,23 @@ const useStyles = createUseStyles((theme: Theme) => ({
     '& > div': {
       marginBottom: '1em'
     }
+  },
+  foo: {
+    gridColumnStart: 1,
+    gridColumnEnd: 3,
+    marginBottom: '1em'
   }
 }))
 
 export default function CharacterSheet() {
   const dual = useScreenResizeEvent(width => width > 1024)
   const classes = useStyles()
-
   if (dual)
     return (
       <div className={classes.characterSheet}>
+        <div className={classes.foo}>
+          <InfoBar></InfoBar>
+        </div>
         <div className={classes.left}>
           <Attributes />
           <EquipmentList />
