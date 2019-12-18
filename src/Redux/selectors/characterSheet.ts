@@ -71,6 +71,8 @@ const retainers = (state: RootState) => state.characterSheet.retainers
 
 const combatOptions = (state: RootState) => state.characterSheet.combatOptions
 
+const info = (state: RootState): Info => state.characterSheet.info
+
 export {
   attributes as selectAttributes,
   savingThrows as selectSavingThrows,
@@ -95,5 +97,6 @@ export {
   equipment as selectEquipment,
   languages as selectLanguages,
   retainers as selectRetainers,
-  combatOptions as selectCombatOptions
+  combatOptions as selectCombatOptions,
+  info as selectInfo
 }
