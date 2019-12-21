@@ -6,7 +6,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
     width: '100%',
     textAlign: 'center',
     fontSize: '1em',
-    color: (error: boolean) => error ? 'red' : ''
+    color: (error: boolean) => error ? 'red' : '',
+    border: 'none'
   }
 }))
 
