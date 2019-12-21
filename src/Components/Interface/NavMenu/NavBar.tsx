@@ -1,15 +1,12 @@
 import React, { useState, ReactElement, useContext, ReactNode } from 'react'
 import { createUseStyles } from 'react-jss'
-import NavList from './NavList'
 import NavContent from './NavContent'
+import NavItem from './NavItem'
 
 const navMenuContext = React.createContext({
   onMouseEnter(name: string) {
     return
-  },
-  onMouseLeave() {
-    return
-  },
+  }
 })
 
 function useNavMenuContext() {
@@ -18,15 +15,15 @@ function useNavMenuContext() {
 
 const useStyles = createUseStyles((theme: Theme) => ({
   navBar: {
-    height: 50,
     backgroundColor: theme.colorDark,
-    position: 'relative'
+    position: 'relative',
+    display: 'flex'
   }
 }))
 
 
 type Props = {
-  children: ReactElement<Parameters<typeof NavList>[0]>
+  children: ReactElement<Parameters<typeof NavItem>[0]>[]
 }
 
 
@@ -48,21 +45,19 @@ function NavBar({ children }: Props) {
   let navContent: { [name: string]: ReactNode } = {}
 
   React.Children.forEach(children, child => (
-    child.props.children.forEach(subchild => (
-      navContent[subchild.props.name] = subchild.props.children
-    ))
+    navContent[child.props.name] = child.props.children
   ))
 
   return (
-    <navMenuContext.Provider value={{ onMouseEnter: handleMouseEnter, onMouseLeave: handleMouseLeave }}>
-      <div className={classes.navBar}>
+    <navMenuContext.Provider value={{ onMouseEnter: handleMouseEnter }}>
+      <header className={classes.navBar} onMouseLeave={handleMouseLeave}>
         {children}
         {visible &&
           <NavContent>
             {navContent[visible]}
           </NavContent>
         }
-      </div>
+      </header>
     </navMenuContext.Provider>
   )
 }

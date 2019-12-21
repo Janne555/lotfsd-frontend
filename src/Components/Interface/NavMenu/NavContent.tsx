@@ -8,7 +8,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
     height: 200,
     backgroundColor: theme.colorPurpleMid,
     zIndex: 2,
-    top: 50
+    top: '100%'
   }
 }))
 
