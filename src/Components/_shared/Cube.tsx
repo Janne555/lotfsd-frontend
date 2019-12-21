@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { createUseStyles } from 'react-jss'
 
 type Props = {
-  children: string | number
+  children: ReactNode
 }
 
 const useStyles = createUseStyles((theme: Theme) => ({
