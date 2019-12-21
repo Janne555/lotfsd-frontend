@@ -1,5 +1,6 @@
 const theme = {
   border: '2px solid black',
+  borderColor: (color?: string) => `2px solid ${color ? color : 'black'}`,
   padding: 10,
   colorGrey: '#dadada',
   colorPurpleMid: '#582A72',
