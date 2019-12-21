@@ -42,7 +42,7 @@ function calculateRangedAttackBonus(baseAttackBonus: number, dexterityModifier: 
   return baseAttackBonus + dexterityModifier
 }
 
-function calculateSavingThrows(savingThrows: SavingThrows, attributeModifiers: AttributeModifiers) {
+function calculateSavingThrows(savingThrows: SavingThrows, attributeModifiers: AttributeModifiers): Record<keyof SavingThrows, [number, number]> {
   const {
     breathWeapon,
     magic,
@@ -52,12 +52,14 @@ function calculateSavingThrows(savingThrows: SavingThrows, attributeModifiers: A
   } = savingThrows
   const { wisdom, intelligence } = attributeModifiers
 
+
+
   return {
-    breathWeapon: breathWeapon + wisdom,
-    magic: magic + intelligence,
-    magicalDevice: magicalDevice + intelligence,
-    paralyze: paralyze + wisdom,
-    poison: poison + wisdom
+    breathWeapon: [breathWeapon, breathWeapon - wisdom],
+    magic: [magic, magic - intelligence],
+    magicalDevice: [magicalDevice, magicalDevice - intelligence],
+    paralyze: [paralyze, paralyze - wisdom],
+    poison: [poison, poison - wisdom]
   }
 }
 
