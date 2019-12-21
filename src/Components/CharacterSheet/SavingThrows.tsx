@@ -26,7 +26,7 @@ export default function SavingThrows() {
     <div className={classes.savingThrowsRoot}>
       {
         Object.entries(savingThrows).map(([name, value]) => (
-          hasKey(savingThrows, name) && <SavingThrow key={name} title={name} value={value} />
+          hasKey(savingThrows, name) && <SavingThrow key={name} name={name} value={value} />
         ))
       }
     </div>
