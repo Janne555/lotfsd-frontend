@@ -21,18 +21,16 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-
 type Props = {
   children: ReactElement<Parameters<typeof NavItem>[0]>[]
 }
-
 
 function NavBar({ children }: Props) {
   const classes = useStyles()
   const [visible, setVisible] = useState<string>()
 
   function handleFocusOrHover(name: string) {
-    if (!visible) {
+    if (visible !== name) {
       setVisible(name)
     }
   }
