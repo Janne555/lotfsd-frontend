@@ -14,9 +14,10 @@ type Props = {
   value: string
   isValid: (value: string) => boolean
   onChange: (value: string) => void
+  inputProps?: Omit<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'onChange' | 'value' | 'defaultValue'>
 }
 
-function Input({ value, isValid, onChange }: Props) {
+function Input({ value, isValid, onChange, inputProps = {} }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [error, setError] = useState(false)
   const { input } = useStyles(error)
@@ -36,7 +37,7 @@ function Input({ value, isValid, onChange }: Props) {
   }
 
   return (
-    <input className={input} ref={inputRef} onChange={handleChange} defaultValue={value} />
+    <input {...inputProps} className={input} ref={inputRef} onChange={handleChange} defaultValue={value} />
   )
 }
 export default Input

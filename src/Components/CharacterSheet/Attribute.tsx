@@ -67,6 +67,7 @@ function Attribute({ title, score, index, modifier }: AttributeProps) {
           isValid={value => value.length !== 0 && !isNaN(Number(value))}
           onChange={value => dispatch(setAttribute({ attributeName: title, value: Number(value) }))}
           value={`${score}`}
+          inputProps={{ id: `attribute-${title}` }}
         />
       </div>
       <div className={classes.modifierRoot}>
