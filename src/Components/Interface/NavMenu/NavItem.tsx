@@ -10,7 +10,13 @@ const useStyles = createUseStyles((theme: Theme) => ({
     height: '100%',
     backgroundColor: theme.colorDark,
     color: 'white',
+    border: 'none',
+    font: 'initial',
     '&:hover': {
+      backgroundColor: theme.colorPurpleDark,
+      cursor: 'pointer'
+    },
+    '&:focus': {
       backgroundColor: theme.colorPurpleDark,
       cursor: 'pointer'
     },
@@ -21,18 +27,24 @@ const useStyles = createUseStyles((theme: Theme) => ({
 type Props = {
   name: string
   label?: string
-  onMouseEnter?: (name: string) => void
   end?: boolean
   children?: ReactNode | ReactNodeArray
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export default function NavItem({ name, label, end }: Props) {
+export default function NavItem({ name, label, end, onClick }: Props) {
   const classes = useStyles(end)
-  const { onMouseEnter } = useNavMenuContext()
+  const { onFocusOrHover } = useNavMenuContext()
+
+  function handleFocusOrHover() {
+    if (!end) {
+      onFocusOrHover(name)
+    }
+  }
 
   return (
-    <div className={classes.navItem} onMouseEnter={() => !end && onMouseEnter(name)} >
+    <button className={classes.navItem} onMouseEnter={handleFocusOrHover} onFocus={handleFocusOrHover} onClick={onClick} >
       <span>{label || name}</span>
-    </div>
+    </button>
   )
 }

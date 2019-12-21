@@ -47,6 +47,9 @@ const App: React.FC = () => {
         <NavItem name="Characters">
           hei
           </NavItem>
+        <NavItem name="Campaigns">
+          moi
+          </NavItem>
         <NavItem name="Login" end />
       </NavBar>
       <CharacterSheet />
