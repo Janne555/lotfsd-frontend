@@ -73,7 +73,12 @@ function Attribute({ title, score, index, modifier }: AttributeProps) {
   }, [score])
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
-    const value = parseInt(e.target.value)
+    if (e.target.value.length === 0) {
+      setError(true)
+      return
+    }
+
+    const value = Number(e.target.value)
     if (!isNaN(value)) {
       dispatch(setAttribute({ attributeName: title, value }))
       setError(false)
@@ -86,7 +91,7 @@ function Attribute({ title, score, index, modifier }: AttributeProps) {
     <>
       <label htmlFor={`attribute-${title}`} className={classes.title}>{ATTRIBUTE_TITLES[title]}</label>
       <div className={classes.scoreRoot}>
-        <input id={`attribute-${title}`} ref={inputRef} type="number" className={classes.score} defaultValue={score} onChange={handleChange}></input>
+        <input id={`attribute-${title}`} ref={inputRef} className={classes.score} defaultValue={score} onChange={handleChange} />
       </div>
       <div className={classes.modifierRoot}>
         <span className={classes.modifier}>{modifier}</span>
