@@ -28,7 +28,7 @@ const commonActivityEffects = (state: RootState): CommonActivityEffect[] => stat
 
 const attributeModifiers = (state: RootState): AttributeModifiers => calculateAttributeModifiers(attributes(state), attributeModifierEffects(state))
 
-const savingThrows = (state: RootState): SavingThrows => calculateSavingThrows(state.characterSheet.savingThrows, attributeModifiers(state))
+const savingThrows = (state: RootState): Record<keyof SavingThrows, [number, number]> => calculateSavingThrows(state.characterSheet.savingThrows, attributeModifiers(state))
 
 const maxHP = (state: RootState): number => state.characterSheet.maxHP
 
