@@ -10,7 +10,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
     border: theme.border,
     padding: theme.padding,
     display: 'grid',
-    gridTemplateColumns: '50% 50%'
+    gridTemplateColumns: '50% 50%',
+    columnSpan: 'all'
   },
   info: {
     display: 'grid',
