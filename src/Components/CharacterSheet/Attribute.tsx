@@ -4,6 +4,7 @@ import { createUseStyles } from 'react-jss'
 import { ATTRIBUTE_DETAILS, ATTRIBUTE_TITLES } from '../../constants'
 import { useDispatch } from '../../hooks'
 import { setAttribute } from '../../Redux/reducers/characterSheet/attributes'
+import Input from '../_shared/Input'
 
 type AttributeProps = {
   title: keyof Attributes
@@ -13,8 +14,7 @@ type AttributeProps = {
 }
 
 type StyleProps = {
-  index: number,
-  error: boolean
+  index: number
 }
 
 const useAttributeStyles = createUseStyles((theme: Theme) => ({
@@ -33,12 +33,6 @@ const useAttributeStyles = createUseStyles((theme: Theme) => ({
     height: 40,
     display: 'flex',
     justifyContent: 'center'
-  },
-  score: {
-    width: '100%',
-    textAlign: 'center',
-    fontSize: '1em',
-    color: ({ error }: StyleProps) => error ? 'red' : ''
   },
   modifierRoot: {
     gridRowStart: ({ index }: StyleProps) => (index + 1) * 2,
@@ -62,36 +56,18 @@ const useAttributeStyles = createUseStyles((theme: Theme) => ({
 
 
 function Attribute({ title, score, index, modifier }: AttributeProps) {
-  const inputRef = useRef<HTMLInputElement>(null)
-  const [error, setError] = useState(false)
-  const classes = useAttributeStyles({ index, error })
+  const classes = useAttributeStyles({ index })
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    if (inputRef.current)
-      inputRef.current.value = `${score}`
-  }, [score])
-
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
-    if (e.target.value.length === 0) {
-      setError(true)
-      return
-    }
-
-    const value = Number(e.target.value)
-    if (!isNaN(value)) {
-      dispatch(setAttribute({ attributeName: title, value }))
-      setError(false)
-    } else {
-      setError(true)
-    }
-  }
 
   return (
     <>
       <label htmlFor={`attribute-${title}`} className={classes.title}>{ATTRIBUTE_TITLES[title]}</label>
       <div className={classes.scoreRoot}>
-        <input id={`attribute-${title}`} ref={inputRef} className={classes.score} defaultValue={score} onChange={handleChange} />
+        <Input
+          isValid={value => value.length !== 0 && !isNaN(Number(value))}
+          onChange={value => dispatch(setAttribute({ attributeName: title, value: Number(value) }))}
+          value={`${score}`}
+        />
       </div>
       <div className={classes.modifierRoot}>
         <span className={classes.modifier}>{modifier}</span>
