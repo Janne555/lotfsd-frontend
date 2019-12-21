@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles((theme: Theme) => ({
@@ -27,7 +27,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
 }))
 
 type Props = {
-  children: string | number
+  children: ReactNode
 }
 
 function Triangle({ children }: Props) {
