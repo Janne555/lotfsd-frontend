@@ -24,6 +24,7 @@ import {
   get
 } from './api'
 
+export * from './validators'
 
 export {
   hasKey,
