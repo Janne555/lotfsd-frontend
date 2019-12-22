@@ -4,7 +4,10 @@ import NavContent from './NavContent'
 import NavItem from './NavItem'
 
 const navMenuContext = React.createContext({
-  onFocusOrHover(name: string) {
+  onSetVisible(name: string) {
+    return
+  },
+  onHide(e: React.SyntheticEvent) {
     return
   }
 })
@@ -47,7 +50,7 @@ function NavBar({ children }: Props) {
   ))
 
   return (
-    <navMenuContext.Provider value={{ onFocusOrHover: handleFocusOrHover }}>
+    <navMenuContext.Provider value={{ onSetVisible: handleFocusOrHover, onHide: handleMouseLeaveOrBlur }}>
       <header className={classes.navBar} onMouseLeave={handleMouseLeaveOrBlur} onBlur={handleMouseLeaveOrBlur}>
         {children}
         {visible &&

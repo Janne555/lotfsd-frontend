@@ -34,11 +34,11 @@ type Props = {
 
 export default function NavItem({ name, label, end, onClick }: Props) {
   const classes = useStyles(end)
-  const { onFocusOrHover } = useNavMenuContext()
+  const { onSetVisible } = useNavMenuContext()
 
   function handleFocusOrHover() {
     if (!end) {
-      onFocusOrHover(name)
+      onSetVisible(name)
     }
   }
 
