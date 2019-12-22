@@ -6,6 +6,7 @@ import Login from './Components/Interface/Login'
 import NavItem from './Components/Interface/NavMenu/NavItem'
 import { useSelector } from './hooks'
 import { selectIsLoggedIn } from './Redux/selectors'
+import { useRouteMatch } from 'react-router-dom'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   app: {
@@ -33,16 +34,13 @@ const useStyles = createUseStyles((theme: Theme) => ({
 const App: React.FC = () => {
   const classes = useStyles()
   const isLoggedIn = useSelector(selectIsLoggedIn)
-
+  const match = useRouteMatch<{ character: string }>('/characters/:character')
   if (!isLoggedIn) {
     return <Login />
   }
 
   return (
     <div className={classes.app}>
-      {/* <header className={classes.navBar}><div></div></header>
-      <article className={classes.article}></article>
-      <footer className={classes.footer}></footer> */}
       <NavBar>
         <NavItem name="Characters">
           hei
@@ -52,7 +50,10 @@ const App: React.FC = () => {
           </NavItem>
         <NavItem name="Login" end />
       </NavBar>
-      <CharacterSheet />
+      {match
+        ? <CharacterSheet character={match.params.character} />
+        : <div>select a character</div>
+      }
       <footer className={classes.footer}></footer>
     </div>
   );

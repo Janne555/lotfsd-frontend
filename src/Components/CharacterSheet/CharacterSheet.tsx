@@ -24,7 +24,11 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-export default function CharacterSheet() {
+type Props = {
+  character: string
+}
+
+export default function CharacterSheet({ character }: Props) {
   const classes = useStyles()
   return (
     <div className={classes.characterSheet}>

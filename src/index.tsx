@@ -6,13 +6,16 @@ import store from './Redux/store'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'react-jss'
 import { theme } from './styles/theme'
+import { BrowserRouter as Router } from 'react-router-dom'
 import './index.css'
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </ThemeProvider>,
+  <Router>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ThemeProvider>
+  </Router>,
   document.getElementById('root'));
 serviceWorker.unregister();
