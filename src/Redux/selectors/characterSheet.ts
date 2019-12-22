@@ -84,7 +84,7 @@ const surprisedArmorClass = (characterId: string) =>
     calculateArmorClass(attributeModifiers(characterId)(state).dexterity, armorClassEffects(characterId)(state), "surprised")
 
 const commonActivities = (characterId: string) =>
-  (state: RootState): Id & CommonActivities =>
+  (state: RootState): Record<keyof CommonActivities, { base: number, modified: number }> =>
     calculateCommonActivities(state.characterSheet.commonActivities.byId[characterId], attributeModifiers(characterId)(state).strength, attributeModifiers(characterId)(state).intelligence, commonActivityEffects(characterId)(state))
 
 const wallet = (characterId: string) =>
