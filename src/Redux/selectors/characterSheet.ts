@@ -12,67 +12,119 @@ import {
   calculateEncumbranceDetails,
   mapEquipmentList
 } from "../../services"
-import { selectCharacterId } from "./system"
 
-const attributes = (state: RootState): Attributes => state.characterSheet.attributes.byId[selectCharacterId(state)]
+const attributes = (characterId: string) =>
+  (state: RootState): Attributes =>
+    state.characterSheet.attributes.byId[characterId]
 
-const attributeModifierEffects = (state: RootState): AttributeModifierEffect[] => state.characterSheet.effects.byId[selectCharacterId(state)].effects.filter(isAttributeModifierEffect)
+const attributeModifierEffects = (characterId: string) =>
+  (state: RootState): AttributeModifierEffect[] =>
+    state.characterSheet.effects.byId[characterId].effects.filter(isAttributeModifierEffect)
 
-const effects = (state: RootState): Effect[] => {
-  return state.characterSheet.effects.byId[selectCharacterId(state)].effects
-    .concat(mapInventoryToEffects(inventory(state)))
-}
+const effects = (characterId: string) =>
+  (state: RootState): Effect[] => {
+    return state.characterSheet.effects.byId[characterId].effects
+      .concat(mapInventoryToEffects(inventory(characterId)(state)))
+  }
 
-const armorClassEffects = (state: RootState): ArmorClassEffect[] => effects(state).filter(isArmorClassEffect)
+const armorClassEffects = (characterId: string) =>
+  (state: RootState): ArmorClassEffect[] =>
+    effects(characterId)(state).filter(isArmorClassEffect)
 
-const commonActivityEffects = (state: RootState): CommonActivityEffect[] => state.characterSheet.effects.byId[selectCharacterId(state)].effects.filter(isCommonActivityEffect)
+const commonActivityEffects = (characterId: string) =>
+  (state: RootState): CommonActivityEffect[] =>
+    state.characterSheet.effects.byId[characterId].effects.filter(isCommonActivityEffect)
 
-const attributeModifiers = (state: RootState): AttributeModifiers => calculateAttributeModifiers(attributes(state), attributeModifierEffects(state))
+const attributeModifiers = (characterId: string) =>
+  (state: RootState): AttributeModifiers =>
+    calculateAttributeModifiers(attributes(characterId)(state), attributeModifierEffects(characterId)(state))
 
-const savingThrows = (state: RootState): Record<keyof SavingThrows, [number, number]> => calculateSavingThrows(state.characterSheet.savingThrows.byId[selectCharacterId(state)], attributeModifiers(state))
+const savingThrows = (characterId: string) =>
+  (state: RootState): Record<keyof SavingThrows, [number, number]> =>
+    calculateSavingThrows(state.characterSheet.savingThrows.byId[characterId], attributeModifiers(characterId)(state))
 
-const maxHP = (state: RootState): number => state.characterSheet.maxHp.byId[selectCharacterId(state)].maxHp
+const maxHP = (characterId: string) =>
+  (state: RootState): number =>
+    state.characterSheet.maxHp.byId[characterId].maxHp
 
-const currentHP = (state: RootState): number => state.characterSheet.currentHp.byId[selectCharacterId(state)].currentHp
+const currentHP = (characterId: string) =>
+  (state: RootState): number =>
+    state.characterSheet.currentHp.byId[characterId].currentHp
 
-const baseAttackBonus = (state: RootState): number => state.characterSheet.attackBonus.byId[selectCharacterId(state)].attackBonus
+const baseAttackBonus = (characterId: string) =>
+  (state: RootState): number =>
+    state.characterSheet.attackBonus.byId[characterId].attackBonus
 
-const meleeAttackBonus = (state: RootState): number => calculateMeleeAttackBonus(baseAttackBonus(state), attributeModifiers(state).strength)
+const meleeAttackBonus = (characterId: string) =>
+  (state: RootState): number =>
+    calculateMeleeAttackBonus(baseAttackBonus(characterId)(state), attributeModifiers(characterId)(state).strength)
 
-const rangedAttackBonus = (state: RootState): number => calculateMeleeAttackBonus(baseAttackBonus(state), attributeModifiers(state).dexterity)
+const rangedAttackBonus = (characterId: string) =>
+  (state: RootState): number =>
+    calculateMeleeAttackBonus(baseAttackBonus(characterId)(state), attributeModifiers(characterId)(state).dexterity)
 
-const surpriseChance = (state: RootState): number => state.characterSheet.surpriseChance.byId[selectCharacterId(state)].surpriseChance
+const surpriseChance = (characterId: string) =>
+  (state: RootState): number =>
+    state.characterSheet.surpriseChance.byId[characterId].surpriseChance
 
-const baseArmorClass = (state: RootState): number => calculateArmorClass(attributeModifiers(state).dexterity, armorClassEffects(state), "base")
+const baseArmorClass = (characterId: string) =>
+  (state: RootState): number =>
+    calculateArmorClass(attributeModifiers(characterId)(state).dexterity, armorClassEffects(characterId)(state), "base")
 
-const rangedArmorClass = (state: RootState): number => calculateArmorClass(attributeModifiers(state).dexterity, armorClassEffects(state), "ranged")
+const rangedArmorClass = (characterId: string) =>
+  (state: RootState): number =>
+    calculateArmorClass(attributeModifiers(characterId)(state).dexterity, armorClassEffects(characterId)(state), "ranged")
 
-const withoutShieldArmorClass = (state: RootState): number => calculateArmorClass(attributeModifiers(state).dexterity, armorClassEffects(state), "withoutShield")
+const withoutShieldArmorClass = (characterId: string) =>
+  (state: RootState): number =>
+    calculateArmorClass(attributeModifiers(characterId)(state).dexterity, armorClassEffects(characterId)(state), "withoutShield")
 
-const surprisedArmorClass = (state: RootState): number => calculateArmorClass(attributeModifiers(state).dexterity, armorClassEffects(state), "surprised")
+const surprisedArmorClass = (characterId: string) =>
+  (state: RootState): number =>
+    calculateArmorClass(attributeModifiers(characterId)(state).dexterity, armorClassEffects(characterId)(state), "surprised")
 
-const commonActivities = (state: RootState): CommonActivities => calculateCommonActivities(state.characterSheet.commonActivities.byId[selectCharacterId(state)], attributeModifiers(state).strength, attributeModifiers(state).intelligence, commonActivityEffects(state))
+const commonActivities = (characterId: string) =>
+  (state: RootState): CommonActivities =>
+    calculateCommonActivities(state.characterSheet.commonActivities.byId[characterId], attributeModifiers(characterId)(state).strength, attributeModifiers(characterId)(state).intelligence, commonActivityEffects(characterId)(state))
 
-const wallet = (state: RootState): Wallet => state.characterSheet.wallet.byId[selectCharacterId(state)]
+const wallet = (characterId: string) =>
+  (state: RootState): Wallet =>
+    state.characterSheet.wallet.byId[characterId]
 
-const inventory = (state: RootState): InventoryItem[] => {
-  //TODO must make sure there are never instances of items not in the item index
-  return state.characterSheet.inventory.byId[selectCharacterId(state)].inventory.map(instance => ({ ...instance, ...state.itemIndex.byId[instance.itemId] }))
-}
+const inventory = (characterId: string) =>
+  (state: RootState): InventoryItem[] => {
+    //TODO must make sure there are never instances of items not in the item index
+    return state.characterSheet.inventory.byId[characterId].inventory.map(instance =>
+      ({ ...instance, ...state.itemIndex.byId[instance.itemId] }))
+  }
 
-const encumbrance = (state: RootState): number => calculateEncumbrance(inventory(state), wallet(state))
+const encumbrance = (characterId: string) =>
+  (state: RootState): number =>
+    calculateEncumbrance(inventory(characterId)(state), wallet(characterId)(state))
 
-const encumbranceDetails = (state: RootState) => calculateEncumbranceDetails(encumbrance(state))
+const encumbranceDetails = (characterId: string) =>
+  (state: RootState) =>
+    calculateEncumbranceDetails(encumbrance(characterId)(state))
 
-const equipment = (state: RootState) => mapEquipmentList(inventory(state), wallet(state))
+const equipment = (characterId: string) =>
+  (state: RootState) =>
+    mapEquipmentList(inventory(characterId)(state), wallet(characterId)(state))
 
-const languages = (state: RootState): Language[] => state.characterSheet.languages.byId[selectCharacterId(state)].languages
+const languages = (characterId: string) =>
+  (state: RootState): Language[] =>
+    state.characterSheet.languages.byId[characterId].languages
 
-const retainers = (state: RootState): Retainer[] => state.characterSheet.retainers.byId[selectCharacterId(state)].retainers
+const retainers = (characterId: string) =>
+  (state: RootState): Retainer[] =>
+    state.characterSheet.retainers.byId[characterId].retainers
 
-const combatOptions = (state: RootState): CombatOptions => state.characterSheet.combatOptions.byId[selectCharacterId(state)]
+const combatOptions = (characterId: string) =>
+  (state: RootState): CombatOptions =>
+    state.characterSheet.combatOptions.byId[characterId]
 
-const info = (state: RootState): Info => state.characterSheet.info.byId[selectCharacterId(state)]
+const info = (characterId: string) =>
+  (state: RootState): Info =>
+    state.characterSheet.info.byId[characterId]
 
 export {
   attributes as selectAttributes,
