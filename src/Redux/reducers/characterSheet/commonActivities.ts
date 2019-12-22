@@ -5,7 +5,7 @@ const commonActivitiesSlice = createSlice({
   name: 'commonActivities',
   initialState: commonActivities,
   reducers: {
-    setValue(state, action: AppAction<{ activity: keyof CommonActivities, value: number }>) {
+    setCommonActivityValue(state, action: AppAction<{ activity: keyof CommonActivities, value: number }>) {
       const { id, activity, value } = action.payload
       if (id) {
         state.byId[id][activity] = value
@@ -14,6 +14,6 @@ const commonActivitiesSlice = createSlice({
   }
 })
 
-export const { setValue } = commonActivitiesSlice.actions
+export const { setCommonActivityValue } = commonActivitiesSlice.actions
 
 export default commonActivitiesSlice.reducer
