@@ -221,10 +221,11 @@ const characterSheet: CharacterSheet = {
 const system: System = {
   characters: {
     byId: {
-      a: 'Zoidberg'
+      a: 'Zoidberg',
     },
     byName: {
-      Zoidberg: 'a'
+      Zoidberg: 'a',
+      Mardrick: 'a'
     }
   }
 }
