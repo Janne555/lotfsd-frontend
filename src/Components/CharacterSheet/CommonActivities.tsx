@@ -23,7 +23,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
 function CommonActivities() {
   const classes = useStyles()
   const { characterId } = useCharacterContext()
-  const commonActivities = useSelector(selectCommonActivities(characterId))
+  const { id, ...commonActivities } = useSelector(selectCommonActivities(characterId))
 
   return (
     <div className={classes.root}>

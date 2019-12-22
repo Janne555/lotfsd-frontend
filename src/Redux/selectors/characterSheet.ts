@@ -14,7 +14,7 @@ import {
 } from "../../services"
 
 const attributes = (characterId: string) =>
-  (state: RootState): Attributes =>
+  (state: RootState): Id & Attributes =>
     state.characterSheet.attributes.byId[characterId]
 
 const attributeModifierEffects = (characterId: string) =>
@@ -84,7 +84,7 @@ const surprisedArmorClass = (characterId: string) =>
     calculateArmorClass(attributeModifiers(characterId)(state).dexterity, armorClassEffects(characterId)(state), "surprised")
 
 const commonActivities = (characterId: string) =>
-  (state: RootState): CommonActivities =>
+  (state: RootState): Id & CommonActivities =>
     calculateCommonActivities(state.characterSheet.commonActivities.byId[characterId], attributeModifiers(characterId)(state).strength, attributeModifiers(characterId)(state).intelligence, commonActivityEffects(characterId)(state))
 
 const wallet = (characterId: string) =>
@@ -119,7 +119,7 @@ const retainers = (characterId: string) =>
     state.characterSheet.retainers.byId[characterId].retainers
 
 const combatOptions = (characterId: string) =>
-  (state: RootState): CombatOptions =>
+  (state: RootState): Id & CombatOptions =>
     state.characterSheet.combatOptions.byId[characterId]
 
 const info = (characterId: string) =>

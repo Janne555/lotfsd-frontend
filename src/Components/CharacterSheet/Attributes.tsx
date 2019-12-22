@@ -33,7 +33,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 export default function Attributes() {
   const { characterId } = useCharacterContext()
-  const attributes = useSelector(selectAttributes(characterId))
+  const { id, ...attributes } = useSelector(selectAttributes(characterId))
   const modifiers = useSelector(selectAttributeModifiers(characterId))
   const classes = useStyles(Object.keys(attributes).length)
 

@@ -79,9 +79,10 @@ function calculateModifier(value: number) {
   return 3
 }
 
-function calculateCommonActivities(commonActivities: CommonActivities, strengthModifier: number, intelligenceModifier: number, effects: CommonActivityEffect[]): CommonActivities {
-  return Object.keys(commonActivities).reduce((modifiedActivities, key) => {
-    hasKey(commonActivities, key) && (modifiedActivities[key] += sumOfEffectsForTarget(effects, key) + addModifier(key))
+function calculateCommonActivities(commonActivities: Id & CommonActivities, strengthModifier: number, intelligenceModifier: number, effects: CommonActivityEffect[]): Id & CommonActivities {
+  const { id, ...sansId } = commonActivities
+  return Object.keys(sansId).reduce((modifiedActivities, key) => {
+    hasKey(sansId, key) && (modifiedActivities[key] += sumOfEffectsForTarget(effects, key) + addModifier(key))
     return modifiedActivities
   }, { ...commonActivities })
 
