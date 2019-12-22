@@ -7,9 +7,7 @@ const savingThrowsSlice = createSlice({
   reducers: {
     setSavingThrow(state, action: AppAction<{ savingThrow: keyof SavingThrows, value: number }>) {
       const { id, savingThrow, value } = action.payload
-      if (id) {
-        state.byId[id][savingThrow] = value
-      }
+      state.byId[id][savingThrow] = value
     }
   }
 })
