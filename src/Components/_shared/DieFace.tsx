@@ -1,8 +1,10 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
+import range from 'lodash/range'
 
 type Props = {
-  value: number
+  value: number,
+  onValueChange?: (value: number) => void
 }
 
 const useStyles = createUseStyles((theme: Theme) => ({
@@ -19,14 +21,18 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-export default function DieFace({ value }: Props) {
+export default function DieFace({ value, onValueChange }: Props) {
   const classes = useStyles()
+
+  function handleClick(index: number) {
+    onValueChange?.(index + 1)
+  }
 
   return (
     <div className={classes.dieFaceRoot}>
       {
-        Array.from({ length: 6 }, (v, i) => (
-          <Circle key={i} filled={value > i} />
+        range(6).map(i => (
+          <Circle key={i} filled={value > i} index={i} onClick={handleClick} />
         ))
       }
     </div>
@@ -45,9 +51,15 @@ const useSubStyles = createUseStyles({
   }
 })
 
-function Circle({ filled }: { filled: boolean }) {
+type SubProps = {
+  filled: boolean
+  index: number
+  onClick: (index: number) => void
+}
+
+function Circle({ filled, index, onClick }: SubProps) {
   const classes = useSubStyles(filled)
   return (
-    <div className={classes.circleRoot} />
+    <div className={classes.circleRoot} onClick={() => onClick(index)} />
   )
 }
