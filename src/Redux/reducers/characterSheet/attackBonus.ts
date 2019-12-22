@@ -5,7 +5,7 @@ const attackBonusSlice = createSlice({
   name: 'attackBonus',
   initialState: attackBonus,
   reducers: {
-    setValue(state, action: AppAction<AttackBonus>) {
+    setAttackBonus(state, action: AppAction<AttackBonus>) {
       const { id, attackBonus } = action.payload
       if (id) {
         state.byId[id].attackBonus = attackBonus
@@ -14,6 +14,6 @@ const attackBonusSlice = createSlice({
   }
 })
 
-export const { setValue } = attackBonusSlice.actions
+export const { setAttackBonus } = attackBonusSlice.actions
 
 export default attackBonusSlice.reducer
