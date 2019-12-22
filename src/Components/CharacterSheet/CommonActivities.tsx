@@ -1,10 +1,11 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { useSelector, useCharacterContext } from '../../hooks'
+import { useSelector, useCharacterContext, useDispatch } from '../../hooks'
 import { selectCommonActivities } from '../../Redux/selectors'
 import DieFace from '../_shared/DieFace'
 import { hasKey } from '../../services'
 import { COMMON_ACTIVITY_TITLES } from '../../constants'
+import { setCommonActivityValue } from '../../Redux/actions'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   root: {
@@ -23,15 +24,15 @@ const useStyles = createUseStyles((theme: Theme) => ({
 function CommonActivities() {
   const classes = useStyles()
   const { characterId } = useCharacterContext()
-  const { id, ...commonActivities } = useSelector(selectCommonActivities(characterId))
+  const commonActivities = useSelector(selectCommonActivities(characterId))
 
   return (
     <div className={classes.root}>
       <h2>Common Activities</h2>
       <div className={classes.activities}>
         {
-          Object.entries(commonActivities).map(([name, value]) => (
-            hasKey(commonActivities, name) && <Activity title={COMMON_ACTIVITY_TITLES[name]} value={value} />
+          Object.entries(commonActivities).map(([name, { base, modified }]) => (
+            hasKey(commonActivities, name) && <Activity name={name} base={base} modified={modified} />
           ))
         }
       </div>
@@ -49,12 +50,25 @@ const useSubStyles = createUseStyles({
   }
 })
 
-function Activity({ title, value }: { title: string, value: number }) {
+type SubProps = {
+  name: keyof CommonActivities
+  base: number
+  modified: number
+}
+
+function Activity({ name, base, modified }: SubProps) {
   const classes = useSubStyles()
+  const dispatch = useDispatch()
+  const { characterId } = useCharacterContext()
+
+  function handleChange(value: number) {
+    dispatch(setCommonActivityValue({ activity: name, id: characterId, value: value - (modified - base) }))
+  }
+
   return (
     <div className={classes.root}>
-      <h4>{title}</h4>
-      <DieFace value={value} />
+      <h4>{COMMON_ACTIVITY_TITLES[name]}</h4>
+      <DieFace value={modified} onValueChange={handleChange} />
     </div>
   )
 }
