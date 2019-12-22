@@ -2,11 +2,10 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import { ATTRIBUTE_DETAILS, ATTRIBUTE_TITLES } from '../../constants'
-import { useDispatch, useSelector, useCharacterContext } from '../../hooks'
+import { useDispatch, useCharacterContext } from '../../hooks'
 import { setAttribute } from '../../Redux/reducers/characterSheet/attributes'
 import Input from '../_shared/Input'
 import { Validator } from '../../services'
-import { selectCharacterId } from '../../Redux/selectors'
 
 type AttributeProps = {
   title: keyof Attributes
