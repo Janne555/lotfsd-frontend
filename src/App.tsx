@@ -7,6 +7,7 @@ import NavItem from './Components/Interface/NavMenu/NavItem'
 import { useSelector } from './hooks'
 import { selectIsLoggedIn } from './Redux/selectors'
 import { useRouteMatch } from 'react-router-dom'
+import CharacterList from './Components/Interface/CharacterList/CharacterList'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   app: {
@@ -43,8 +44,8 @@ const App: React.FC = () => {
     <div className={classes.app}>
       <NavBar>
         <NavItem name="Characters">
-          hei
-          </NavItem>
+          <CharacterList />
+        </NavItem>
         <NavItem name="Campaigns">
           moi
           </NavItem>
