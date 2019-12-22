@@ -6,7 +6,7 @@ import { selectBaseAttackBonus, selectMeleeAttackBonus, selectRangedAttackBonus 
 import { TITLES } from '../../constants'
 import Input from '../_shared/Input'
 import { Validator } from '../../services'
-import { setAttackBonus } from '../../Redux/reducers/characterSheet/attackBonus'
+import { setAttackBonus } from '../../Redux/actions'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   attackBonus: {
@@ -67,7 +67,7 @@ function SingleBonus({ index, value, title, base }: SubProps) {
   const { characterId } = useCharacterContext()
 
   function handleChange(value: string) {
-    dispatch(setAttackBonus({ attackBonus: Number(value), id: characterId }))
+    dispatch(setAttackBonus({ value: Number(value), id: characterId }))
   }
 
 

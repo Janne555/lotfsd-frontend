@@ -196,15 +196,14 @@ type Info = {
   gender: string
   alignment: string
   player: string
+  attackBonus: number
+  currentHp: number
+  maxHp: number
+  surpriseChance: number
 }
 
-type AttackBonus = Id & { attackBonus: number }
 
-type CurrentHp = Id & { currentHp: number }
-
-type MaxHp = Id & { maxHp: number }
-
-type SurpriseChance = Id & { surpriseChance: number }
+type InfoBarData = Omit<Info, 'attackBonus' | 'currentHp' | 'maxHp' | 'surpriseChance'>
 
 type Inventory = Id & { inventory: ItemInstance[] }
 
@@ -217,10 +216,6 @@ type Retainers = Id & { retainers: Retainer[] }
 type CharacterSheet = {
   attributes: Normalized<Id & Attributes>
   savingThrows: Normalized<Id & SavingThrows>
-  attackBonus: Normalized<AttackBonus>
-  currentHp: Normalized<CurrentHp>
-  maxHp: Normalized<MaxHp>
-  surpriseChance: Normalized<SurpriseChance>
   inventory: Normalized<Inventory>
   effects: Normalized<Effects>
   commonActivities: Normalized<Id & CommonActivities>

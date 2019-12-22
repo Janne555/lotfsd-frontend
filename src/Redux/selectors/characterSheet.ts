@@ -45,15 +45,15 @@ const savingThrows = (characterId: string) =>
 
 const maxHp = (characterId: string) =>
   (state: RootState): number =>
-    state.characterSheet.maxHp.byId[characterId].maxHp
+    state.characterSheet.info.byId[characterId].maxHp
 
 const currentHp = (characterId: string) =>
   (state: RootState): number =>
-    state.characterSheet.currentHp.byId[characterId].currentHp
+    state.characterSheet.info.byId[characterId].currentHp
 
 const baseAttackBonus = (characterId: string) =>
   (state: RootState): number =>
-    state.characterSheet.attackBonus.byId[characterId].attackBonus
+    state.characterSheet.info.byId[characterId].attackBonus
 
 const meleeAttackBonus = (characterId: string) =>
   (state: RootState): number =>
@@ -65,7 +65,7 @@ const rangedAttackBonus = (characterId: string) =>
 
 const surpriseChance = (characterId: string) =>
   (state: RootState): number =>
-    state.characterSheet.surpriseChance.byId[characterId].surpriseChance
+    state.characterSheet.info.byId[characterId].surpriseChance
 
 const baseArmorClass = (characterId: string) =>
   (state: RootState): number =>
@@ -123,9 +123,10 @@ const combatOptions = (characterId: string) =>
     state.characterSheet.combatOptions.byId[characterId]
 
 const info = (characterId: string) =>
-  (state: RootState): Info =>
-    state.characterSheet.info.byId[characterId]
-
+  (state: RootState): InfoBarData => {
+    const { maxHp, currentHp, attackBonus, surpriseChance, ...rest } = state.characterSheet.info.byId[characterId]
+    return rest
+  }
 export {
   attributes as selectAttributes,
   savingThrows as selectSavingThrows,

@@ -196,26 +196,18 @@ const singleInfo: Info = {
   gender: 'male',
   name: 'Zoidberg',
   race: 'Crab',
-  player: 'Janne'
+  player: 'Janne',
+  attackBonus: 1,
+  currentHp: 5,
+  maxHp: 10,
+  surpriseChance: 4
 }
 
 const info = normalize(singleInfo)
 
-const attackBonus = normalize<AttackBonus>({ id: 'a', attackBonus: 1 })
-
-const currentHp = normalize<CurrentHp>({ id: 'a', currentHp: 5 })
-
-const maxHp = normalize<MaxHp>({ id: 'a', maxHp: 10 })
-
-const surpriseChance = normalize<SurpriseChance>({ id: 'a', surpriseChance: 4 })
-
 const characterSheet: CharacterSheet = {
   attributes,
   savingThrows,
-  attackBonus,
-  currentHp,
-  maxHp,
-  surpriseChance,
   inventory,
   effects,
   commonActivities,
@@ -257,9 +249,5 @@ export {
   characterSheet,
   combatOptions,
   info,
-  attackBonus,
-  currentHp,
-  maxHp,
-  surpriseChance,
   system
 }
