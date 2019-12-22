@@ -8,8 +8,8 @@ import wallet from './wallet'
 import languages from './languages'
 import retainers from './retainers'
 import attackBonus from './attackBonus'
-import maxHP from './maxHP'
-import currentHP from './currentHp'
+import maxHp from './maxHP'
+import currentHp from './currentHp'
 import surpriseChance from './surpriseChance'
 import combatOptions from './combatOptions'
 import info from './info'
@@ -18,8 +18,8 @@ export default combineReducers({
   attributes,
   savingThrows,
   attackBonus,
-  maxHP,
-  currentHP,
+  maxHp,
+  currentHp,
   surpriseChance,
   combatOptions,
   inventory,

@@ -17,8 +17,6 @@ type Id = {
   id: string
 }
 
-type SansId<T> = Omit<T, 'id'>
-
 type Attributes = {
   charisma: number
   constitution: number
@@ -220,19 +218,19 @@ type Retainers = Id & { retainers: Retainer[] }
 
 type CharacterSheet = {
   experience: Normalized<Experience>
-  attributes: Normalized<Attributes>
-  savingThrows: Normalized<SavingThrows>
+  attributes: Normalized<Id & Attributes>
+  savingThrows: Normalized<Id & SavingThrows>
   attackBonus: Normalized<AttackBonus>
   currentHp: Normalized<CurrentHp>
   maxHp: Normalized<MaxHp>
   surpriseChance: Normalized<SurpriseChance>
   inventory: Normalized<Inventory>
   effects: Normalized<Effects>
-  commonActivities: Normalized<CommonActivities>
+  commonActivities: Normalized<Id & CommonActivities>
   wallet: Normalized<Wallet>
   languages: Normalized<Languages>
   retainers: Normalized<Retainers>
-  combatOptions: Normalized<CombatOptions>
+  combatOptions: Normalized<Id & CombatOptions>
   info: Normalized<Info>
 }
 

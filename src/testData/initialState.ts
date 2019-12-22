@@ -235,7 +235,8 @@ const system: System = {
 
 const initialState: RootState = {
   characterSheet,
-  itemIndex
+  itemIndex,
+  system
 }
 
 export {
