@@ -6,7 +6,17 @@ type EndpointType = keyof typeof import('../constants').ENDPOINTS
 
 type AppThunk = import('redux-thunk').ThunkAction<void, RootState, null, Action<string>>
 
+type Normalized<T extends Id> = {
+  byId: Record<string, T>
+  allIds: string[]
+}
+
+type Id = {
+  id: string
+}
+
 type Attributes = {
+  id: string
   charisma: number
   constitution: number
   dexterity: number
@@ -25,6 +35,7 @@ type AttributeModifiers = {
 }
 
 type SavingThrows = {
+  id: string
   paralyze: number
   poison: number
   breathWeapon: number
@@ -33,6 +44,7 @@ type SavingThrows = {
 }
 
 type CommonActivities = {
+  id: string
   architecture: number,
   bushcraft: number,
   climbing: number,
@@ -110,7 +122,7 @@ type ItemInstance = {
 }
 
 type ItemBase = {
-  itemId: string
+  id: string
   name: string
   stackSize: number
   encumbrancePoints: number
@@ -131,6 +143,7 @@ type Weapon = ItemBase & {
 }
 
 type Wallet = {
+  id: string
   copper: number
   silver: number
   gold: number
@@ -168,6 +181,7 @@ type Retainer = {
 }
 
 type CombatOptions = {
+  id: string
   standard?: boolean
   parry?: boolean
   press?: boolean
@@ -175,6 +189,7 @@ type CombatOptions = {
 }
 
 type Info = {
+  id: string
   name: string
   experience: number
   class: string
@@ -185,23 +200,40 @@ type Info = {
   player: string
 }
 
+type Experience = Id & { experience: number }
+
+type AttackBonus = Id & { attackBonus: number }
+
+type CurrentHp = Id & { currentHp: number }
+
+type MaxHp = Id & { maxHp: number }
+
+type SurpriseChance = Id & { surpriseChance: number }
+
+type Inventory = Id & { inventory: ItemInstance[] }
+
+type Effects = Id & { effects: Effect[] }
+
+type Languages = Id & { languages: Language[] }
+
+type Retainers = Id & { retainers: Retainer[] }
+
 type CharacterSheet = {
-  name: string
-  experience: number
-  attributes: Attributes
-  savingThrows: SavingThrows
-  attackBonus: number
-  currentHP: number
-  maxHP: number
-  surpriseChance: number
-  inventory: ItemInstance[]
-  effects: Effect[]
-  commonActivities: CommonActivities
-  wallet: Wallet
-  languages: Language[]
-  retainers: Retainer[]
-  combatOptions: CombatOptions
-  info: Info
+  experience: Normalized<Experience>
+  attributes: Normalized<Attributes>
+  savingThrows: Normalized<SavingThrows>
+  attackBonus: Normalized<AttackBonus>
+  currentHp: Normalized<CurrentHp>
+  maxHp: Normalized<MaxHp>
+  surpriseChance: Normalized<SurpriseChance>
+  inventory: Normalized<Inventory>
+  effects: Normalized<Effects>
+  commonActivities: Normalized<CommonActivities>
+  wallet: Normalized<Wallet>
+  languages: Normalized<Languages>
+  retainers: Normalized<Retainers>
+  combatOptions: Normalized<CombatOptions>
+  info: Normalized<Info>
 }
 
 type UserData = {

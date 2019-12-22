@@ -1,4 +1,14 @@
-const attributes = {
+function normalize<T extends { id: string }>(obj: T): Normalized<T> {
+  return {
+    byId: {
+      [obj.id]: obj
+    },
+    allIds: [obj.id]
+  }
+}
+
+const singleAttributes: Attributes = {
+  id: 'a',
   charisma: 18,
   constitution: 17,
   dexterity: 16,
@@ -7,7 +17,10 @@ const attributes = {
   wisdom: 13
 }
 
-const savingThrows = {
+const attributes = normalize(singleAttributes)
+
+const singleSavingThrows: SavingThrows = {
+  id: 'a',
   breathWeapon: 10,
   magic: 11,
   magicalDevice: 12,
@@ -15,7 +28,9 @@ const savingThrows = {
   poison: 14
 }
 
-const itemIndex: { byId: { [name: string]: Item }, allIds: string[] } = {
+const savingThrows = normalize(singleSavingThrows)
+
+const itemIndex: Normalized<Item> = {
   byId: {
     armor1: {
       type: 'armor',
@@ -25,7 +40,7 @@ const itemIndex: { byId: { [name: string]: Item }, allIds: string[] } = {
       name: "Chain Mail",
       effects: [],
       stackSize: 1,
-      itemId: 'armor1',
+      id: 'armor1',
       description: 'armor'
     },
     torch: {
@@ -34,7 +49,7 @@ const itemIndex: { byId: { [name: string]: Item }, allIds: string[] } = {
       name: "Torch",
       effects: [],
       stackSize: 5,
-      itemId: 'torch',
+      id: 'torch',
       description: 'torch'
     },
     pavillion: {
@@ -44,50 +59,59 @@ const itemIndex: { byId: { [name: string]: Item }, allIds: string[] } = {
       name: "Pavillion",
       effects: [],
       stackSize: 1,
-      itemId: 'pavillion',
+      id: 'pavillion',
       description: 'tent'
     }
   },
   allIds: ['armor1', 'torch', 'pavillion']
 }
 
-const inventory: ItemInstance[] = [
-  {
-    equipped: true,
-    instanceId: "1",
-    itemId: 'armor1'
-  },
-  {
-    instanceId: "2",
-    itemId: 'torch'
-  },
-  {
-    instanceId: "3",
-    itemId: 'torch'
-  },
-  {
-    instanceId: "4",
-    itemId: 'torch'
-  },
-  {
-    instanceId: "5",
-    itemId: 'torch'
-  },
-  {
-    instanceId: "6",
-    itemId: 'torch'
-  },
-  {
-    itemId: 'pavillion',
-    instanceId: "7"
-  }
-]
+const singleInventory: Inventory = {
+  id: 'a',
+  inventory: [
+    {
+      equipped: true,
+      instanceId: "1",
+      itemId: 'armor1'
+    },
+    {
+      instanceId: "2",
+      itemId: 'torch'
+    },
+    {
+      instanceId: "3",
+      itemId: 'torch'
+    },
+    {
+      instanceId: "4",
+      itemId: 'torch'
+    },
+    {
+      instanceId: "5",
+      itemId: 'torch'
+    },
+    {
+      instanceId: "6",
+      itemId: 'torch'
+    },
+    {
+      itemId: 'pavillion',
+      instanceId: "7"
+    }
+  ]
+}
 
-const effects: Effect[] = [
+const inventory = normalize(singleInventory)
 
-]
+const singleEffects: Effects = {
+  id: 'a',
+  effects: []
+}
 
-const commonActivities: CommonActivities = {
+const effects = normalize(singleEffects)
+
+const singleCommonActivities: CommonActivities = {
+  id: 'a',
   architecture: 1,
   bushcraft: 1,
   climbing: 1,
@@ -100,52 +124,71 @@ const commonActivities: CommonActivities = {
   tinkering: 1
 }
 
-const wallet: Wallet = {
+const commonActivities = normalize(singleCommonActivities)
+
+const singleWallet: Wallet = {
+  id: 'a',
   copper: 50,
   silver: 50,
   gold: 50
 }
 
-const languages: Language[] = [
-  {
-    name: "common",
-    known: true
-  },
-  {
-    name: "elvish",
-    known: true
-  },
-  {
-    name: "undercommon",
-    known: true
-  },
-  {
-    name: 'gnomic',
-    known: false
-  }
-]
+const wallet = normalize(singleWallet)
 
-const retainers: Retainer[] = [
-  {
-    level: 1,
-    name: 'Mordick',
-    class: 'Fighter',
-    wage: 100,
-    uuid: "1"
-  },
-  {
-    name: 'Jeeves',
-    class: 'Butler',
-    wage: 150,
-    uuid: "1"
-  }
-]
+const singleLanguages: Languages = {
+  id: 'a',
+  languages: [
+    {
+      name: "common",
+      known: true
+    },
+    {
+      name: "elvish",
+      known: true
+    },
+    {
+      name: "undercommon",
+      known: true
+    },
+    {
+      name: 'gnomic',
+      known: false
+    }
+  ]
+}
 
-const combatOptions: CombatOptions = {
+const languages = normalize(singleLanguages)
+
+const singleRetainers: Retainers = {
+  id: 'a',
+  retainers: [
+    {
+      level: 1,
+      name: 'Mordick',
+      class: 'Fighter',
+      wage: 100,
+      uuid: "1"
+    },
+    {
+      name: 'Jeeves',
+      class: 'Butler',
+      wage: 150,
+      uuid: "1"
+    }
+  ]
+}
+
+const retainers = normalize(singleRetainers)
+
+const singleCombatOptions: CombatOptions = {
+  id: 'a',
   standard: true
 }
 
-const info: Info = {
+const combatOptions = normalize(singleCombatOptions)
+
+const singleInfo: Info = {
+  id: 'a',
   age: 28,
   alignment: 'chaotic',
   class: 'fighter',
@@ -156,15 +199,26 @@ const info: Info = {
   player: 'Janne'
 }
 
+const info = normalize(singleInfo)
+
+const attackBonus = normalize<AttackBonus>({ id: 'a', attackBonus: 1 })
+
+const experience = normalize<Experience>({ id: 'a', experience: 1000 })
+
+const currentHp = normalize<CurrentHp>({ id: 'a', currentHp: 5 })
+
+const maxHp = normalize<MaxHp>({ id: 'a', maxHp: 10 })
+
+const surpriseChance = normalize<SurpriseChance>({ id: 'a', surpriseChance: 4 })
+
 const characterSheet: CharacterSheet = {
-  name: "Hahmo",
-  experience: 1000,
+  experience,
   attributes,
   savingThrows,
-  attackBonus: 1,
-  currentHP: 5,
-  maxHP: 10,
-  surpriseChance: 4,
+  attackBonus,
+  currentHp,
+  maxHp,
+  surpriseChance,
   inventory,
   effects,
   commonActivities,
@@ -192,5 +246,6 @@ export {
   languages,
   retainers,
   characterSheet,
-  combatOptions
+  combatOptions,
+  info
 }
