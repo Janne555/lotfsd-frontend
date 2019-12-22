@@ -1,12 +1,15 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { characterSheet } from '../../../testData/initialState'
+import { createSlice } from '@reduxjs/toolkit'
+import { currentHp } from '../../../testData/initialState'
 
 const currentHPSlice = createSlice({
   name: 'currentHP',
-  initialState: characterSheet.currentHP,
+  initialState: currentHp,
   reducers: {
-    setValue(state, action: PayloadAction<number>) {
-      return action.payload
+    setValue(state, action: AppAction<CurrentHp>) {
+      const { id, currentHp } = action.payload
+      if (id) {
+        state.byId[id].currentHp = currentHp
+      }
     }
   }
 })

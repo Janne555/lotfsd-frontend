@@ -1,12 +1,15 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { combatOptions } from '../../../testData/initialState'
 
 const combatOptionsSlice = createSlice({
   name: 'combatOptions',
   initialState: combatOptions,
   reducers: {
-    setValue(state, action: PayloadAction<CombatOptions>) {
-      return action.payload
+    setValue(state, action: AppAction<CombatOptions>) {
+      const { id, ...combatOptions } = action.payload
+      if (id) {
+        state.byId[id] = { id, ...combatOptions }
+      }
     }
   }
 })

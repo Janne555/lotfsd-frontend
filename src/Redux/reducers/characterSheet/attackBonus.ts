@@ -1,12 +1,15 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { characterSheet } from '../../../testData/initialState'
+import { createSlice } from '@reduxjs/toolkit'
+import { attackBonus } from '../../../testData/initialState'
 
 const attackBonusSlice = createSlice({
   name: 'attackBonus',
-  initialState: characterSheet.attackBonus,
+  initialState: attackBonus,
   reducers: {
-    setValue(state, action: PayloadAction<number>) {
-      return action.payload
+    setValue(state, action: AppAction<AttackBonus>) {
+      const { id, attackBonus } = action.payload
+      if (id) {
+        state.byId[id].attackBonus = attackBonus
+      }
     }
   }
 })

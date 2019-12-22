@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { attributes } from '../../../testData/initialState'
 
 
@@ -6,8 +6,11 @@ const attributesSlice = createSlice({
   name: "attributes",
   initialState: attributes,
   reducers: {
-    setAttribute(state, { payload: { attributeName, value } }: PayloadAction<{ attributeName: keyof Attributes, value: number }>) {
-      state[attributeName] = value
+    setAttribute(state, action: AppAction<{ attributeName: keyof Attributes, value: number }>) {
+      const { id, attributeName, value } = action.payload
+      if (id) {
+        state.byId[id][attributeName] = value
+      }
     }
   }
 })

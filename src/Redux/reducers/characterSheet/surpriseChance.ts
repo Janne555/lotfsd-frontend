@@ -1,12 +1,15 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { characterSheet } from '../../../testData/initialState'
 
 const surpriseChanceSlice = createSlice({
   name: 'surpriseChance',
   initialState: characterSheet.surpriseChance,
   reducers: {
-    setValue(state, action: PayloadAction<number>) {
-      return action.payload
+    setValue(state, action: AppAction<SurpriseChance>) {
+      const { id, surpriseChance } = action.payload
+      if (id) {
+        state.byId[id].surpriseChance = surpriseChance
+      }
     }
   }
 })

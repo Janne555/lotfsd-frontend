@@ -1,12 +1,15 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { characterSheet } from '../../../testData/initialState'
+import { createSlice } from '@reduxjs/toolkit'
+import { maxHp } from '../../../testData/initialState'
 
 const maxHPSlice = createSlice({
   name: 'maxHP',
-  initialState: characterSheet.maxHP,
+  initialState: maxHp,
   reducers: {
-    setValue(state, action: PayloadAction<number>) {
-      return action.payload
+    setValue(state, action: AppAction<MaxHp>) {
+      const { id, maxHp } = action.payload
+      if (id) {
+        state.byId[id].maxHp = maxHp
+      }
     }
   }
 })

@@ -1,12 +1,15 @@
 import { commonActivities } from '../../../testData/initialState'
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const commonActivitiesSlice = createSlice({
   name: 'commonActivities',
   initialState: commonActivities,
   reducers: {
-    setValue(state, { payload: { activity, value } }: PayloadAction<{ activity: keyof CommonActivities, value: number }>) {
-      state[activity] = value
+    setValue(state, action: AppAction<{ activity: keyof CommonActivities, value: number }>) {
+      const { id, activity, value } = action.payload
+      if (id) {
+        state.byId[id][activity] = value
+      }
     }
   }
 })

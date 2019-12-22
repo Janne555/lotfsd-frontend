@@ -1,12 +1,15 @@
 import { savingThrows } from '../../../testData/initialState'
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const savingThrowsSlice = createSlice({
   name: 'savingThrows',
   initialState: savingThrows,
   reducers: {
-    setSavingThrow(state, action: PayloadAction<{ savingThrow: keyof SavingThrows, value: number }>) {
-      state[action.payload.savingThrow] = action.payload.value
+    setSavingThrow(state, action: AppAction<{ savingThrow: keyof SavingThrows, value: number }>) {
+      const { id, savingThrow, value } = action.payload
+      if (id) {
+        state.byId[id][savingThrow] = value
+      }
     }
   }
 })

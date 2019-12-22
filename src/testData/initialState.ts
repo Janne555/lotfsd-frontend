@@ -7,7 +7,7 @@ function normalize<T extends { id: string }>(obj: T): Normalized<T> {
   }
 }
 
-const singleAttributes: Attributes = {
+const singleAttributes: Id & Attributes = {
   id: 'a',
   charisma: 18,
   constitution: 17,
@@ -19,7 +19,7 @@ const singleAttributes: Attributes = {
 
 const attributes = normalize(singleAttributes)
 
-const singleSavingThrows: SavingThrows = {
+const singleSavingThrows: Id & SavingThrows = {
   id: 'a',
   breathWeapon: 10,
   magic: 11,
@@ -110,7 +110,7 @@ const singleEffects: Effects = {
 
 const effects = normalize(singleEffects)
 
-const singleCommonActivities: CommonActivities = {
+const singleCommonActivities: Id & CommonActivities = {
   id: 'a',
   architecture: 1,
   bushcraft: 1,
@@ -180,7 +180,7 @@ const singleRetainers: Retainers = {
 
 const retainers = normalize(singleRetainers)
 
-const singleCombatOptions: CombatOptions = {
+const singleCombatOptions: Id & CombatOptions = {
   id: 'a',
   standard: true
 }
@@ -229,6 +229,10 @@ const characterSheet: CharacterSheet = {
   info
 }
 
+const system: System = {
+  characterId: 'a'
+}
+
 const initialState: RootState = {
   characterSheet,
   itemIndex
@@ -247,5 +251,11 @@ export {
   retainers,
   characterSheet,
   combatOptions,
-  info
+  info,
+  attackBonus,
+  currentHp,
+  maxHp,
+  surpriseChance,
+  experience,
+  system
 }

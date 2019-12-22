@@ -2,10 +2,11 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import { ATTRIBUTE_DETAILS, ATTRIBUTE_TITLES } from '../../constants'
-import { useDispatch } from '../../hooks'
+import { useDispatch, useSelector } from '../../hooks'
 import { setAttribute } from '../../Redux/reducers/characterSheet/attributes'
 import Input from '../_shared/Input'
 import { Validator } from '../../services'
+import { selectCharacterId } from '../../Redux/selectors'
 
 type AttributeProps = {
   title: keyof Attributes
@@ -60,13 +61,15 @@ const validator = new Validator().isLengthy.isNumber
 function Attribute({ title, score, index, modifier }: AttributeProps) {
   const classes = useAttributeStyles({ index })
   const dispatch = useDispatch()
+  const id = useSelector(selectCharacterId)
+
   return (
     <>
       <label htmlFor={`attribute-${title}`} className={classes.title}>{ATTRIBUTE_TITLES[title]}</label>
       <div className={classes.scoreRoot}>
         <Input
           isValid={validator.validate}
-          onChange={value => dispatch(setAttribute({ attributeName: title, value: Number(value) }))}
+          onChange={value => dispatch(setAttribute({ attributeName: title, value: Number(value), id }))}
           value={`${score}`}
           inputProps={{ id: `attribute-${title}` }}
         />
