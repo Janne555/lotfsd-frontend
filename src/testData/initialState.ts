@@ -203,8 +203,6 @@ const info = normalize(singleInfo)
 
 const attackBonus = normalize<AttackBonus>({ id: 'a', attackBonus: 1 })
 
-const experience = normalize<Experience>({ id: 'a', experience: 1000 })
-
 const currentHp = normalize<CurrentHp>({ id: 'a', currentHp: 5 })
 
 const maxHp = normalize<MaxHp>({ id: 'a', maxHp: 10 })
@@ -212,7 +210,6 @@ const maxHp = normalize<MaxHp>({ id: 'a', maxHp: 10 })
 const surpriseChance = normalize<SurpriseChance>({ id: 'a', surpriseChance: 4 })
 
 const characterSheet: CharacterSheet = {
-  experience,
   attributes,
   savingThrows,
   attackBonus,
@@ -264,6 +261,5 @@ export {
   currentHp,
   maxHp,
   surpriseChance,
-  experience,
   system
 }

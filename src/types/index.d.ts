@@ -6,7 +6,7 @@ type EndpointType = keyof typeof import('../constants').ENDPOINTS
 
 type AppThunk = import('redux-thunk').ThunkAction<void, RootState, null, Action<string>>
 
-type AppAction<T> = import('@reduxjs/toolkit').PayloadAction<T> & { payload: { id?: string } }
+type AppAction<T> = import('@reduxjs/toolkit').PayloadAction<T> & { payload: { id: string } }
 
 type Normalized<T extends Id> = {
   byId: Record<string, T>
@@ -198,8 +198,6 @@ type Info = {
   player: string
 }
 
-type Experience = Id & { experience: number }
-
 type AttackBonus = Id & { attackBonus: number }
 
 type CurrentHp = Id & { currentHp: number }
@@ -217,7 +215,6 @@ type Languages = Id & { languages: Language[] }
 type Retainers = Id & { retainers: Retainer[] }
 
 type CharacterSheet = {
-  experience: Normalized<Experience>
   attributes: Normalized<Id & Attributes>
   savingThrows: Normalized<Id & SavingThrows>
   attackBonus: Normalized<AttackBonus>
