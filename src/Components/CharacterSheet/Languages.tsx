@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from '../../hooks'
+import { useSelector, useCharacterContext } from '../../hooks'
 import { selectLanguages } from '../../Redux/selectors'
 import { createUseStyles } from 'react-jss'
 import partition from 'lodash/partition'
@@ -29,7 +29,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 export default function Languages() {
   const classes = useStyles()
-  const [known, unknown] = partition(useSelector(selectLanguages), language => language.known)
+  const { characterId } = useCharacterContext()
+  const [known, unknown] = partition(useSelector(selectLanguages(characterId)), language => language.known)
   const size = Math.max(known.length, unknown.length, 7)
 
   return (

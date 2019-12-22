@@ -1,6 +1,6 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { useSelector } from '../../hooks'
+import { useSelector, useCharacterContext } from '../../hooks'
 import { selectInfo } from '../../Redux/selectors'
 
 const useStyles = createUseStyles((theme: Theme) => ({
@@ -32,7 +32,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 function InfoBar() {
   const classes = useStyles()
-  const info = useSelector(selectInfo)
+  const { characterId } = useCharacterContext()
+  const info = useSelector(selectInfo(characterId))
 
   return (
     <div className={classes.infoBarRoot}>

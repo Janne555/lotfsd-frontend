@@ -51,7 +51,7 @@ const App: React.FC = () => {
         <NavItem name="Login" end />
       </NavBar>
       {match
-        ? <CharacterSheet character={match.params.character} />
+        ? <CharacterSheet characterName={match.params.character} />
         : <div>select a character</div>
       }
       <footer className={classes.footer}></footer>

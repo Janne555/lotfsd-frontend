@@ -1,6 +1,6 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { useSelector } from '../../hooks'
+import { useSelector, useCharacterContext } from '../../hooks'
 import { selectAttributes, selectAttributeModifiers } from '../../Redux/selectors'
 import Attribute from './Attribute'
 import { hasKey } from '../../services'
@@ -32,8 +32,9 @@ const useStyles = createUseStyles((theme: Theme) => ({
 }))
 
 export default function Attributes() {
-  const attributes = useSelector(selectAttributes)
-  const modifiers = useSelector(selectAttributeModifiers)
+  const { characterId } = useCharacterContext()
+  const attributes = useSelector(selectAttributes(characterId))
+  const modifiers = useSelector(selectAttributeModifiers(characterId))
   const classes = useStyles(Object.keys(attributes).length)
 
   return (

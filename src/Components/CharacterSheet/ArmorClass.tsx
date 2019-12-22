@@ -2,7 +2,7 @@ import React from 'react'
 import { createUseStyles } from 'react-jss'
 import Cube from '../_shared/Cube'
 import Triangle from '../_shared/Triangle'
-import { useSelector } from '../../hooks'
+import { useSelector, useCharacterContext } from '../../hooks'
 import { selectBaseArmorClass, selectRangedArmorClass, selectWithoutShieldArmorClass, selectSurprisedArmorClass } from '../../Redux/selectors'
 
 const useStyles = createUseStyles((theme: Theme) => ({
@@ -34,10 +34,11 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 function ArmorClass() {
   const classes = useStyles()
-  const baseAC = useSelector(selectBaseArmorClass)
-  const rangedAC = useSelector(selectRangedArmorClass)
-  const withoutShieldAC = useSelector(selectWithoutShieldArmorClass)
-  const surprisedAC = useSelector(selectSurprisedArmorClass)
+  const { characterId } = useCharacterContext()
+  const baseAC = useSelector(selectBaseArmorClass(characterId))
+  const rangedAC = useSelector(selectRangedArmorClass(characterId))
+  const withoutShieldAC = useSelector(selectWithoutShieldArmorClass(characterId))
+  const surprisedAC = useSelector(selectSurprisedArmorClass(characterId))
 
   return (
     <div className={classes.root}>

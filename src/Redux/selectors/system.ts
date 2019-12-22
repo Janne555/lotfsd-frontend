@@ -1,5 +1,5 @@
 const isLoggedIn = (state: RootState) => true
-const characterId = (state: RootState): string => state.system.characterId ?? 'default'
+const characterId = (characterName: string) => (state: RootState) => state.system.characters.byName[characterName]
 
 export {
   isLoggedIn as selectIsLoggedIn,

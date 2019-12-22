@@ -240,5 +240,8 @@ type UserData = {
 }
 
 type System = {
-  characterId?: string
+  characters: {
+    byName: Record<string, string>
+    byId: Record<string, string>
+  }
 }

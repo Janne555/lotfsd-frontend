@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from '../../hooks'
+import { useSelector, useCharacterContext } from '../../hooks'
 import { selectRetainers } from '../../Redux/selectors'
 import { createUseStyles } from 'react-jss'
 import { RETAINER_KEYS } from '../../constants'
@@ -46,7 +46,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 export default function Retainers() {
   const classes = useStyles()
-  const retainers = useSelector(selectRetainers)
+  const { characterId } = useCharacterContext()
+  const retainers = useSelector(selectRetainers(characterId))
 
   return (
     <div className={classes.retainers}>

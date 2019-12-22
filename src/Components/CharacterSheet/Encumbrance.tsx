@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from '../../hooks'
+import { useSelector, useCharacterContext } from '../../hooks'
 import { selectEncumbranceDetails, selectEncumbrance } from '../../Redux/selectors'
 import RotatedCube from '../_shared/RotatedCube'
 import { createUseStyles } from 'react-jss'
@@ -35,8 +35,9 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 export default function Encumbrance() {
   const classes = useStyles()
-  const encumbrance = useSelector(selectEncumbrance)
-  const { combatDistance, dayDistance, description, explorationDistance } = useSelector(selectEncumbranceDetails)
+  const { characterId } = useCharacterContext()
+  const encumbrance = useSelector(selectEncumbrance(characterId))
+  const { combatDistance, dayDistance, description, explorationDistance } = useSelector(selectEncumbranceDetails(characterId))
 
   return (
     <div className={classes.encumbrance}>

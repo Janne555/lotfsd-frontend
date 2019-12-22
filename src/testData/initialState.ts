@@ -230,7 +230,14 @@ const characterSheet: CharacterSheet = {
 }
 
 const system: System = {
-  characterId: 'a'
+  characters: {
+    byId: {
+      a: 'Zoidberg'
+    },
+    byName: {
+      Zoidberg: 'a'
+    }
+  }
 }
 
 const initialState: RootState = {

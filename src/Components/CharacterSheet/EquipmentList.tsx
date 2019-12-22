@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from '../../hooks'
+import { useSelector, useCharacterContext } from '../../hooks'
 import { selectEquipment } from '../../Redux/selectors'
 import { createUseStyles } from 'react-jss'
 import EquipmentListChunk from './EquipmentListChunk'
@@ -18,7 +18,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 export default function EquipmentList() {
   const classes = useStyles()
-  const { equipment, oversized } = useSelector(selectEquipment)
+  const { characterId } = useCharacterContext()
+  const { equipment, oversized } = useSelector(selectEquipment(characterId))
 
   return (
     <div className={classes.equipment}>

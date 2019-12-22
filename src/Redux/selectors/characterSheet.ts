@@ -43,11 +43,11 @@ const savingThrows = (characterId: string) =>
   (state: RootState): Record<keyof SavingThrows, [number, number]> =>
     calculateSavingThrows(state.characterSheet.savingThrows.byId[characterId], attributeModifiers(characterId)(state))
 
-const maxHP = (characterId: string) =>
+const maxHp = (characterId: string) =>
   (state: RootState): number =>
     state.characterSheet.maxHp.byId[characterId].maxHp
 
-const currentHP = (characterId: string) =>
+const currentHp = (characterId: string) =>
   (state: RootState): number =>
     state.characterSheet.currentHp.byId[characterId].currentHp
 
@@ -129,8 +129,8 @@ const info = (characterId: string) =>
 export {
   attributes as selectAttributes,
   savingThrows as selectSavingThrows,
-  currentHP as selecCurrentHP,
-  maxHP as selectMaxHP,
+  currentHp as selecCurrentHp,
+  maxHp as selectMaxHp,
   meleeAttackBonus as selectMeleeAttackBonus,
   rangedAttackBonus as selectRangedAttackBonus,
   baseAttackBonus as selectBaseAttackBonus,

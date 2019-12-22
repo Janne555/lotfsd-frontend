@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from '../../hooks'
+import { useSelector, useCharacterContext } from '../../hooks'
 import { createUseStyles } from 'react-jss'
 import RotatedCube from '../_shared/RotatedCube'
 import { selectBaseAttackBonus, selectMeleeAttackBonus, selectRangedAttackBonus } from '../../Redux/selectors'
@@ -21,9 +21,10 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 function AttackBonus() {
   const classes = useStyles()
-  const baseAB = useSelector(selectBaseAttackBonus)
-  const meleeAB = useSelector(selectMeleeAttackBonus)
-  const rangedAB = useSelector(selectRangedAttackBonus)
+  const { characterId } = useCharacterContext()
+  const baseAB = useSelector(selectBaseAttackBonus(characterId))
+  const meleeAB = useSelector(selectMeleeAttackBonus(characterId))
+  const rangedAB = useSelector(selectRangedAttackBonus(characterId))
 
   return (
     <div className={classes.attackBonus}>

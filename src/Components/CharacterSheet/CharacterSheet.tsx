@@ -8,9 +8,10 @@ import EquipmentList from './EquipmentList'
 import Encumbrance from './Encumbrance'
 import Retainers from './Retainers'
 import { createUseStyles } from 'react-jss'
-import { useScreenResizeEvent } from '../../hooks'
 import Languages from './Languages'
 import InfoBar from './InfoBar'
+import { useSelector } from '../../hooks'
+import { selectCharacterId } from '../../Redux/selectors'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
@@ -24,24 +25,38 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
+const context = React.createContext({
+  characterName: "default",
+  characterId: 'default'
+})
+
 type Props = {
-  character: string
+  characterName: string
 }
 
-export default function CharacterSheet({ character }: Props) {
+function CharacterSheet({ characterName }: Props) {
   const classes = useStyles()
+  const characterId = useSelector(selectCharacterId(characterName))
   return (
-    <div className={classes.characterSheet}>
-      <InfoBar />
-      <Attributes />
-      <CommonActivities />
-      <EquipmentList />
-      <Retainers />
-      <SavingThrows />
-      <AttackBonusAndHitPoints />
-      <ArmorClassAndCombatOptions />
-      <Encumbrance />
-      <Languages />
-    </div>
+    <context.Provider value={{ characterName, characterId }}>
+      <div className={classes.characterSheet}>
+        <InfoBar />
+        <Attributes />
+        <CommonActivities />
+        <EquipmentList />
+        <Retainers />
+        <SavingThrows />
+        <AttackBonusAndHitPoints />
+        <ArmorClassAndCombatOptions />
+        <Encumbrance />
+        <Languages />
+      </div>
+    </context.Provider>
   )
 }
+
+export {
+  context as characterSheetContext
+}
+
+export default CharacterSheet

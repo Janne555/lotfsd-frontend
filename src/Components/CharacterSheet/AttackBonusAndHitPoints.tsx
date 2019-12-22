@@ -1,8 +1,8 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import AttackBonus from './AttackBonus'
-import { useSelector } from '../../hooks'
-import { selecCurrentHP, selectMaxHP, selectSurpriseChance } from '../../Redux/selectors'
+import { useSelector, useCharacterContext } from '../../hooks'
+import { selecCurrentHp, selectMaxHp, selectSurpriseChance } from '../../Redux/selectors'
 import DieFace from '../_shared/DieFace'
 import Cube from '../_shared/Cube'
 
@@ -37,9 +37,10 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 function AttackBonusAndHitPoints() {
   const classes = useStyles()
-  const currentHP = useSelector(selecCurrentHP)
-  const maxHP = useSelector(selectMaxHP)
-  const supriseChance = useSelector(selectSurpriseChance)
+  const { characterId } = useCharacterContext()
+  const currentHP = useSelector(selecCurrentHp(characterId))
+  const maxHP = useSelector(selectMaxHp(characterId))
+  const supriseChance = useSelector(selectSurpriseChance(characterId))
 
   return (
     <div className={classes.attackBonusAndHitPointsRoot}>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { useSelector } from '../../hooks'
+import { useSelector, useCharacterContext } from '../../hooks'
 import { selectCommonActivities } from '../../Redux/selectors'
 import DieFace from '../_shared/DieFace'
 import { hasKey } from '../../services'
@@ -22,7 +22,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 function CommonActivities() {
   const classes = useStyles()
-  const commonActivities = useSelector(selectCommonActivities)
+  const { characterId } = useCharacterContext()
+  const commonActivities = useSelector(selectCommonActivities(characterId))
 
   return (
     <div className={classes.root}>

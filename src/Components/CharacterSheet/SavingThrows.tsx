@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from '../../hooks'
+import { useSelector, useCharacterContext } from '../../hooks'
 import { selectSavingThrows } from '../../Redux/selectors'
 import { hasKey } from '../../services'
 import SavingThrow from './SavingThrow'
@@ -19,7 +19,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
 }))
 
 export default function SavingThrows() {
-  const savingThrows = useSelector(selectSavingThrows)
+  const { characterId } = useCharacterContext()
+  const savingThrows = useSelector(selectSavingThrows(characterId))
   const classes = useStyles()
 
   return (
