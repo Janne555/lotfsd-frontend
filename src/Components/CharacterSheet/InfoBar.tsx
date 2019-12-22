@@ -33,7 +33,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
 function InfoBar() {
   const classes = useStyles()
   const { characterId } = useCharacterContext()
-  const info = useSelector(selectInfo(characterId))
+  const { id, ...info } = useSelector(selectInfo(characterId))
 
   return (
     <div className={classes.infoBarRoot}>
