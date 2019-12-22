@@ -127,6 +127,11 @@ const info = (characterId: string) =>
     const { maxHp, currentHp, attackBonus, surpriseChance, ...rest } = state.characterSheet.info.byId[characterId]
     return rest
   }
+
+const className = (characterId?: string) =>
+  (state: RootState): string | undefined =>
+    characterId ? state.characterSheet.info.byId[characterId].class : undefined
+
 export {
   attributes as selectAttributes,
   savingThrows as selectSavingThrows,
@@ -152,5 +157,6 @@ export {
   languages as selectLanguages,
   retainers as selectRetainers,
   combatOptions as selectCombatOptions,
-  info as selectInfo
+  info as selectInfo,
+  className as selectClass
 }
