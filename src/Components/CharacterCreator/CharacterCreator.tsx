@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import { useDispatch } from 'react-redux'
 import { newCharacter } from '../../Redux/thunks/newCharacter'
@@ -16,10 +16,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
     padding: theme.padding
   },
   form: {
-    columnCount: 2,
-    '& > *': {
-      breakInside: 'avoid-column'
-    },
+    maxWidth: 500,
     '& > div': {
       marginBottom: '1rem'
     }
@@ -36,6 +33,7 @@ type Props = {
 function CharacterCreator({ }: Props) {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const [attributes, setAttributes] = useState<Attributes>({ charisma: 0, constitution: 0, dexterity: 0, intelligence: 0, strength: 0, wisdom: 0 })
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     const target = (e.target as unknown) as { elements: NewCharacterForm }
@@ -46,6 +44,7 @@ function CharacterCreator({ }: Props) {
   return (
     <div className={classes.characterCreator}>
       <form className={classes.form} onSubmit={handleSubmit}>
+        <Attributes attributes={attributes} onChange={(key, value) => setAttributes({ ...attributes, [key]: value })} />
         <TextField className={classes.field} id="name" label="Name" />
         <TextField className={classes.field} id="gender" label="Gender" />
         <TextField className={classes.field} id="race" label="Race" />
@@ -67,7 +66,6 @@ function CharacterCreator({ }: Props) {
           </Select>
         </FormControl>
         <Button className={classes.field} variant="outlined" type="submit">Create</Button>
-        <Attributes attributes={{ charisma: 0, constitution: 0, dexterity: 0, intelligence: 0, strength: 0, wisdom: 0 }} />
       </form>
     </div>
   )
