@@ -31,7 +31,7 @@ export default function CharacterList() {
       <div className={classes.list}>
         {
           characters.map(name => (
-            <CharacterListWrapper to={`/characters/${name}`}>
+            <CharacterListWrapper key={name} to={`/characters/${name}`}>
               <Character name={name} />
             </CharacterListWrapper>
           ))
