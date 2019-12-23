@@ -50,7 +50,7 @@ export default function Languages() {
         <tbody>
           {
             range(size).map((i) => (
-              <tr>
+              <tr key={i}>
                 <td>{known[i] ? known[i].name : ""}</td>
                 <td>{unknown[i] ? unknown[i].name : ""}</td>
               </tr>

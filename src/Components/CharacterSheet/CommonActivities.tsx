@@ -32,7 +32,7 @@ function CommonActivities() {
       <div className={classes.activities}>
         {
           Object.entries(commonActivities).map(([name, { base, modified }]) => (
-            hasKey(commonActivities, name) && <Activity name={name} base={base} modified={modified} />
+            hasKey(commonActivities, name) && <Activity key={name} name={name} base={base} modified={modified} />
           ))
         }
       </div>

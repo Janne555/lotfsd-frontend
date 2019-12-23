@@ -63,7 +63,7 @@ export default function Retainers() {
         <tbody>
           {
             retainers.map(retainer => (
-              <tr>
+              <tr key={retainer.uuid}>
                 {
                   RETAINER_KEYS.map(key => <td className={classes[key]} key={key}>{retainer[key]}</td>)
                 }

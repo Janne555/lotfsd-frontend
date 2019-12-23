@@ -40,15 +40,38 @@ function InfoBar() {
       <h1>Lamentations of the fullstack developer</h1>
       <div className={classes.info}>
         {
-          Object.entries(info).map(([key, value]) => (
-            <>
-              <span className={classes.left}>{key}</span>
-              <span className={classes.right}>{value}</span>
-            </>
-          ))
+          Object.entries(info).map(([key, value]) => <KeyVal key={key} name={key} value={value} />)
         }
       </div>
     </div>
+  )
+}
+
+const useSubStyles = createUseStyles((theme: Theme) => ({
+  left: {
+    textAlign: 'right',
+    marginRight: '0.5em',
+    fontWeight: 'bold',
+    fontSize: '1.1em'
+  },
+  right: {
+    textAlign: 'left',
+    marginLeft: '0.5em'
+  }
+}))
+
+type SubProps = {
+  name: string
+  value: string
+}
+
+function KeyVal({ name, value }: SubProps) {
+  const classes = useSubStyles()
+  return (
+    <>
+      <span className={classes.left}>{name}</span>
+      <span className={classes.right}>{value}</span>
+    </>
   )
 }
 
