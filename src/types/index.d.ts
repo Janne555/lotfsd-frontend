@@ -237,3 +237,17 @@ type System = {
     byId: Record<string, string>
   }
 }
+
+interface NewCharacterForm extends HTMLFormControlsCollection {
+  name: HTMLInputElement
+  gender: HTMLInputElement
+  race: HTMLInputElement
+  alignment: HTMLSelectElement
+  class: HTMLSelectElement
+  charisma: HTMLInputElement
+  constitution: HTMLInputElement
+  dexterity: HTMLInputElement
+  intelligence: HTMLInputElement
+  strength: HTMLInputElement
+  wisdom: HTMLInputElement
+}

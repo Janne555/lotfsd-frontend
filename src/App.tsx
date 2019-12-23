@@ -8,6 +8,7 @@ import { useSelector } from './hooks'
 import { selectIsLoggedIn } from './Redux/selectors'
 import { Switch, Route } from 'react-router-dom'
 import CharacterList from './Components/Interface/CharacterList/CharacterList'
+import CharacterCreator from './Components/CharacterCreator/CharacterCreator'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   app: {
@@ -19,17 +20,13 @@ const useStyles = createUseStyles((theme: Theme) => ({
       gridColumnStart: 2
     }
   },
-  // navBar: {
-  //   backgroundColor: 'purple'
-  // },
-  // article: {
-  //   height: '2000px',
-  //   backgroundColor: 'gray'
-  // },
   footer: {
     backgroundColor: 'pink'
+  },
+  body: {
+    minHeight: 'calc(100vh - 8rem)',
+    backgroundColor: theme.colorGreyLightest,
   }
-
 }))
 
 const App: React.FC = () => {
@@ -50,15 +47,16 @@ const App: React.FC = () => {
           </NavItem>
         <NavItem name="Login" end />
       </NavBar>
-
-      <Switch>
-        <Route path="/characters">
-          <CharacterSheet />
-        </Route>
-        <Route path="/newcharacter">
-
-        </Route>
-      </Switch>
+      <div className={classes.body}>
+        <Switch>
+          <Route path="/characters">
+            <CharacterSheet />
+          </Route>
+          <Route path="/newcharacter">
+            <CharacterCreator />
+          </Route>
+        </Switch>
+      </div>
       <footer className={classes.footer}></footer>
     </div>
   );

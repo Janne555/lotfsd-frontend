@@ -31,7 +31,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-export default function Attributes() {
+function Attributes() {
   const { characterId } = useCharacterContext()
   const { id, ...attributes } = useSelector(selectAttributes(characterId))
   const modifiers = useSelector(selectAttributeModifiers(characterId))
@@ -49,3 +49,5 @@ export default function Attributes() {
     </div>
   )
 }
+
+export default Attributes
