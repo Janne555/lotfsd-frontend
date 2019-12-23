@@ -9,6 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
 import { randomAttributes } from '../../services'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterCreator: {
@@ -42,6 +43,7 @@ function CharacterCreator(/* { }: Props */) {
   const dispatch = useDispatch()
   const [attributes, setAttributes] = useState<Attributes>({ charisma: 0, constitution: 0, dexterity: 0, intelligence: 0, strength: 0, wisdom: 0 })
   const [attributeError, setAttributeError] = useState<string>()
+  const history = useHistory()
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     const target = (e.target as unknown) as { elements: NewCharacterForm }
@@ -54,7 +56,7 @@ function CharacterCreator(/* { }: Props */) {
       setAttributeError(undefined)
     }
 
-    dispatch(newCharacter(target.elements))
+    dispatch(newCharacter(target.elements, history))
   }
 
   function handleRandomize() {
@@ -69,6 +71,9 @@ function CharacterCreator(/* { }: Props */) {
         <TextField className={classes.field} id="name" label="Name" required />
         <TextField className={classes.field} id="gender" label="Gender" required />
         <TextField className={classes.field} id="race" label="Race" required />
+        <TextField type="number" className={classes.field} id="age" label="Age" required />
+        <TextField type="number" className={classes.field} id="money" label="Money" required />
+        <TextField type="number" className={classes.field} id="maxHp" label="HP" required />
         <FormControl required className={classes.field}>
           <InputLabel htmlFor="alignment">Alignment</InputLabel>
           <Select inputProps={{ id: 'alignment' }}>

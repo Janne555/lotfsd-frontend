@@ -1,24 +1,35 @@
 import { generate } from 'shortid'
-import { createCharacter } from '../actions'
+import { createCharacter } from '../newCharacterAction'
+import { useHistory } from 'react-router-dom'
+import { selectUsername } from '../selectors'
 
 const newCharacter = (
-  formElements: NewCharacterForm
-): AppThunk => dispatch => {
+  formElements: NewCharacterForm,
+  history: ReturnType<typeof useHistory>
+): AppThunk => (dispatch, getState) => {
   const id = generate()
+  const username = selectUsername(getState())
+
   dispatch(createCharacter({
     alignment: formElements.alignment.value,
-    charisma: formElements.charisma.value,
-    class: formElements.class.value,
-    constitution: formElements.constitution.value,
-    dexterity: formElements.dexterity.value,
+    charisma: Number(formElements.charisma.value),
+    class: formElements.class.value as Classes,
+    constitution: Number(formElements.constitution.value),
+    dexterity: Number(formElements.dexterity.value),
     gender: formElements.gender.value,
-    intelligence: formElements.intelligence.value,
+    intelligence: Number(formElements.intelligence.value),
     name: formElements.name.value,
     race: formElements.race.value,
-    strength: formElements.strength.value,
-    wisdom: formElements.wisdom.value,
-    id
+    strength: Number(formElements.strength.value),
+    wisdom: Number(formElements.wisdom.value),
+    age: Number(formElements.age.value),
+    money: Number(formElements.money.value),
+    maxHp: Number(formElements.maxHp.value),
+    id,
+    player: username
   }))
+
+  history.push(`/characters/${formElements.name.value}`)
 }
 
 export { newCharacter }

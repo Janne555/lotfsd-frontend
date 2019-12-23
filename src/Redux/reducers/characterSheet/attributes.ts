@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { attributes } from '../../../testData/initialState'
-import { createCharacter } from '../../actions'
+import { createCharacter } from '../../newCharacterAction'
 import { areOnlyAttributes } from '../../../services'
-
+import pick from 'lodash/pick'
 
 const attributesSlice = createSlice({
   name: "attributes",
@@ -15,12 +15,11 @@ const attributesSlice = createSlice({
       }
     }
   },
-  extraReducers: acrBuilder => {
-    acrBuilder.addCase(createCharacter, (state, action) => {
-      const { id, alignment, class: className, name, race, gender, ...attributes } = action.payload
-      if (!areOnlyAttributes(attributes))
-        throw Error("Not attributes")
-      state.byId[id] = { id, ...attributes }
+  extraReducers: acmBuilder => {
+    acmBuilder.addCase(createCharacter, (state, action) => {
+      const { id } = action.payload
+      state.byId[id] = { id, ...pick(action.payload, ['charisma', 'constitution', 'dexterity', 'intelligence', 'strength', 'wisdom']) }
+      state.allIds.push(id)
     })
   }
 })

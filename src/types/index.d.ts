@@ -235,21 +235,34 @@ type System = {
   characters: {
     byName: Record<string, string>
     byId: Record<string, string>
-  }
+  },
+  username: string
 }
 
-interface NewCharacterForm {
+type NewCharacterForm = Record<keyof Attributes, HTMLInputElement> & {
   name: HTMLInputElement
   gender: HTMLInputElement
   race: HTMLInputElement
   alignment: HTMLSelectElement
   class: HTMLSelectElement
-  charisma: HTMLInputElement
-  constitution: HTMLInputElement
-  dexterity: HTMLInputElement
-  intelligence: HTMLInputElement
-  strength: HTMLInputElement
-  wisdom: HTMLInputElement
+  age: HTMLInputElement
+  money: HTMLInputElement
+  maxHp: HTMLInputElement
 }
 
-type NewCharacterPayload = Record<keyof NewCharacterForm, string> & { id: string }
+type NewCharacterPayload = Attributes & {
+  [P in keyof NewCharacterForm]: P extends ("age" | "money" | "maxHp" | keyof Attributes) ? number : P extends ("class") ? Classes : string
+} & { id: string, player: string }
+
+type CharacterClass = {
+  savingThrows: SavingThrows
+  combatOptions: CombatOptions
+  levels: number[]
+  commonActivities: CommonActivities
+  attackBonus: number
+  surpriseChance: number
+}
+
+type Classes = "fighter" | "cleric" | "specialist" | "magic-user"
+
+type CharacterClasses = Record<Classes, CharacterClass>

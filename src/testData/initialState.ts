@@ -219,6 +219,7 @@ const characterSheet: CharacterSheet = {
 }
 
 const system: System = {
+  username: 'Janne',
   characters: {
     byId: {
       a: 'Zoidberg',

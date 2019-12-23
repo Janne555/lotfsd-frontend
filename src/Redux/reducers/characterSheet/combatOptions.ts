@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { combatOptions } from '../../../testData/initialState'
+import { createCharacter } from '../../newCharacterAction'
+import { CHARACTER_CLASSES } from '../../../constants/characterClasses'
 
 const combatOptionsSlice = createSlice({
   name: 'combatOptions',
@@ -11,6 +13,13 @@ const combatOptionsSlice = createSlice({
         state.byId[id] = { id, ...combatOptions }
       }
     }
+  },
+  extraReducers: acmBuilder => {
+    acmBuilder.addCase(createCharacter, (state, action) => {
+      const { id, class: className } = action.payload
+      state.byId[id] = { id, ...CHARACTER_CLASSES[className].combatOptions }
+      state.allIds.push(id)
+    })
   }
 })
 
