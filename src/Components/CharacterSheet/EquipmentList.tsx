@@ -4,6 +4,7 @@ import { selectEquipment } from '../../Redux/selectors'
 import { createUseStyles } from 'react-jss'
 import EquipmentListChunk from './EquipmentListChunk'
 import chunk from 'lodash/chunk'
+import EquipmentListItem from './EquipmentListItem'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   equipment: {
@@ -13,6 +14,11 @@ const useStyles = createUseStyles((theme: Theme) => ({
   },
   header: {
     textAlign: 'center'
+  },
+  list: {
+    display: 'flex',
+    listStyleType: 'none',
+    flexDirection: 'column'
   }
 }))
 
@@ -20,18 +26,15 @@ export default function EquipmentList() {
   const classes = useStyles()
   const { characterId } = useCharacterContext()
   const { equipment, oversized } = useSelector(selectEquipment(characterId))
-
   return (
     <div className={classes.equipment}>
       <h2 className={classes.header}>Equipment</h2>
-      <div>
+      <ul className={classes.list}>
+        <EquipmentListItem key="default" />
         {
-          oversized.map((oversized, index) => <EquipmentListChunk key={index} oversizedItem={oversized} position={index} />)
+          equipment.map((item, index) => <EquipmentListItem key={item.listItemId} item={item} position={index + 1} />)
         }
-        {
-          chunk(equipment, 5).map((chunk, index) => <EquipmentListChunk key={index} chunk={chunk} position={index} />)
-        }
-      </div>
+      </ul>
     </div>
   )
 }

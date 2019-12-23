@@ -2,27 +2,20 @@ import React from 'react'
 import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles((theme: Theme) => ({
+  listItem: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, 33%)'
+  },
   name: {
-    gridColumnStart: 1,
     width: '100%',
     height: '100%'
   },
-  reserved: {
-    gridColumnStart: 1,
-    gridColumnEnd: 5,
-    textAlign: 'center',
-    backgroundColor: theme.colorGrey,
-    width: '100%',
-    height: '100%',
-  },
   stack: {
-    gridColumnStart: 2,
     justifySelf: 'end',
     width: '100%',
     height: '100%'
   },
   position: {
-    gridColumnStart: 3,
     justifySelf: 'end',
     width: '100%',
     height: '100%'
@@ -30,35 +23,30 @@ const useStyles = createUseStyles((theme: Theme) => ({
 }))
 
 type Props = {
-  position: number
-  label?: string
+  position?: number
   item?: EquipmentListItem
-  padding?: boolean
 }
 
-function EquipmentListItem({ item, position, label, padding }: Props) {
-  const classes = useStyles()
+function EquipmentListItem({ item, position }: Props) {
+  const classes = useStyles(!item)
 
+  const { name = "Name", stackSize = "Stack Size", amount } = item ?? {}
 
-  if (item) {
-    const { name, stackSize, amount } = item
-    return (
-      <>
-        <div className={classes.name}>{name}</div>
-        <div className={classes.stack}>{stackSize > 1 ? `${amount}/${stackSize}` : ''}</div>
-        <div className={classes.position}>{position + 1}</div>
-      </>
-    )
-  } else {
-    return (
-      <>
-        {padding
-          ? <div className={classes.reserved}>reserved for <i>{label}</i></div>
-          : <div className={classes.name}>{label}</div>
-        }
-      </>
-    )
+  function stackText() {
+    if (typeof stackSize === 'number') {
+      return stackSize > 1 ? `${amount}/${stackSize}` : ''
+    } else {
+      return stackSize
+    }
   }
+
+  return (
+    <li className={classes.listItem}>
+      <div className={classes.name}>{name}</div>
+      <div className={classes.stack}>{stackText()}</div>
+      <div className={classes.position}>{position != null ? position : "Position"}</div>
+    </li>
+  )
 }
 
 export default EquipmentListItem

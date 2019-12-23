@@ -25,27 +25,5 @@ type Props = {
 }
 
 export default function EquipmentListChunk({ chunk, oversizedItem, position }: Props) {
-  const classes = useStyles(position)
-
-  if (chunk) {
-    return (
-      <div className={classes.chunk}>
-        {
-          chunk.map((item, index) => <ListItem key={item.listItemId} item={item} position={index + position * 5} />)
-        }
-        {chunk.length < 5 &&
-          range(5 - chunk.length).map((i) => <ListItem key="a" label=" " position={i + position + 5} />)
-        }
-        <span className={classes.sidebar}>+1 Enc</span>
-      </div>
-    )
-  } else if (oversizedItem) {
-    return (
-      <div className={classes.chunk}>
-        {range(5).map((i) => <ListItem key="a" label={oversizedItem.name} padding={i > 0} position={0} />)}
-      </div>
-    )
-  } else {
-    return null
-  }
+  return null
 }
