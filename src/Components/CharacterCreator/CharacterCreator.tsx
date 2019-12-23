@@ -8,7 +8,7 @@ import Select from '@material-ui/core/NativeSelect'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
-
+import { randomAttributes } from '../../services'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterCreator: {
@@ -19,11 +19,14 @@ const useStyles = createUseStyles((theme: Theme) => ({
     maxWidth: 500,
     '& > div': {
       marginBottom: '1rem'
+    },
+    '& button:first-of-type': {
+      float: 'right'
     }
   },
   field: {
     width: '100%',
-  }
+  },
 }))
 
 type Props = {
@@ -34,6 +37,7 @@ function CharacterCreator({ }: Props) {
   const classes = useStyles()
   const dispatch = useDispatch()
   const [attributes, setAttributes] = useState<Attributes>({ charisma: 0, constitution: 0, dexterity: 0, intelligence: 0, strength: 0, wisdom: 0 })
+  const [errors, setErrors] = useState<Partial<Record<keyof NewCharacterForm, string>>>({})
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     const target = (e.target as unknown) as { elements: NewCharacterForm }
@@ -41,10 +45,15 @@ function CharacterCreator({ }: Props) {
     dispatch(newCharacter(target.elements))
   }
 
+  function handleRandomize() {
+    setAttributes(randomAttributes())
+  }
+
   return (
     <div className={classes.characterCreator}>
       <form className={classes.form} onSubmit={handleSubmit}>
         <Attributes attributes={attributes} onChange={(key, value) => setAttributes({ ...attributes, [key]: value })} />
+        <Button onClick={handleRandomize}>Randomize</Button>
         <TextField className={classes.field} id="name" label="Name" />
         <TextField className={classes.field} id="gender" label="Gender" />
         <TextField className={classes.field} id="race" label="Race" />

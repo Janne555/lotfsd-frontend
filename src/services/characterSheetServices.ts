@@ -2,15 +2,16 @@ import { BASE_ARMOR_CLASS, MONEY } from "../constants"
 import { hasKey } from "./typeGuards"
 import partition from 'lodash/partition'
 import { generate } from 'shortid'
+import random from 'lodash/random'
 
-function calculateAttributeModifiers(attributes: Attributes, effects: AttributeModifierEffect[]): AttributeModifiers {
+function calculateAttributeModifiers(attributes: Attributes, effects?: AttributeModifierEffect[]): AttributeModifiers {
   return Object.keys(attributes).reduce((attributes, key) => {
     hasKey(attributes, key) && (attributes[key] = calculateModifier(attributes[key]) + sumOfEffectsFor(key))
     return attributes
   }, { ...attributes })
 
   function sumOfEffectsFor(key: keyof Attributes): number {
-    return effects.reduce((sum, { value, target }) => target === key ? value + sum : sum, 0)
+    return effects ? effects.reduce((sum, { value, target }) => target === key ? value + sum : sum, 0) : 0
   }
 }
 
@@ -290,6 +291,31 @@ function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet): { equipme
   }
 }
 
+function randomAttributes(): Attributes {
+  let attributes: Attributes = {
+    charisma: 0,
+    constitution: 0,
+    dexterity: 0,
+    intelligence: 0,
+    strength: 0,
+    wisdom: 0
+  }
+
+  do {
+    attributes = {
+      charisma: random(3, 18),
+      constitution: random(3, 18),
+      dexterity: random(3, 18),
+      intelligence: random(3, 18),
+      strength: random(3, 18),
+      wisdom: random(3, 18)
+    }
+  } while (Object.values(calculateAttributeModifiers(attributes, []))
+    .reduce((sum, value) => sum + value) < 0)
+
+  return attributes
+}
+
 export {
   calculateAttributeModifiers,
   calculateMeleeAttackBonus,
@@ -301,5 +327,6 @@ export {
   calculateEncumbrance,
   calculateEncumbranceDetails,
   mapEquipmentList,
-  calculateModifier
+  calculateModifier,
+  randomAttributes
 }
