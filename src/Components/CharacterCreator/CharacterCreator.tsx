@@ -27,21 +27,33 @@ const useStyles = createUseStyles((theme: Theme) => ({
   field: {
     width: '100%',
   },
+  error: {
+    color: 'red',
+    textAlign: 'center'
+  }
 }))
 
 type Props = {
 
 }
 
-function CharacterCreator({ }: Props) {
+function CharacterCreator(/* { }: Props */) {
   const classes = useStyles()
   const dispatch = useDispatch()
   const [attributes, setAttributes] = useState<Attributes>({ charisma: 0, constitution: 0, dexterity: 0, intelligence: 0, strength: 0, wisdom: 0 })
-  const [errors, setErrors] = useState<Partial<Record<keyof NewCharacterForm, string>>>({})
+  const [attributeError, setAttributeError] = useState<string>()
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     const target = (e.target as unknown) as { elements: NewCharacterForm }
     e.preventDefault()
+
+    if (Object.values(attributes).some(value => value < 1)) {
+      setAttributeError("Attributes should have a value above 0")
+      return
+    } else {
+      setAttributeError(undefined)
+    }
+
     dispatch(newCharacter(target.elements))
   }
 
@@ -54,10 +66,10 @@ function CharacterCreator({ }: Props) {
       <form className={classes.form} onSubmit={handleSubmit}>
         <Attributes attributes={attributes} onChange={(key, value) => setAttributes({ ...attributes, [key]: value })} />
         <Button onClick={handleRandomize}>Randomize</Button>
-        <TextField className={classes.field} id="name" label="Name" />
-        <TextField className={classes.field} id="gender" label="Gender" />
-        <TextField className={classes.field} id="race" label="Race" />
-        <FormControl className={classes.field}>
+        <TextField className={classes.field} id="name" label="Name" required />
+        <TextField className={classes.field} id="gender" label="Gender" required />
+        <TextField className={classes.field} id="race" label="Race" required />
+        <FormControl required className={classes.field}>
           <InputLabel htmlFor="alignment">Alignment</InputLabel>
           <Select inputProps={{ id: 'alignment' }}>
             <option value="chaotic">Chaotic</option>
@@ -65,7 +77,7 @@ function CharacterCreator({ }: Props) {
             <option value="lawful">Lawful</option>
           </Select>
         </FormControl>
-        <FormControl className={classes.field}>
+        <FormControl required className={classes.field}>
           <InputLabel htmlFor="class">Class</InputLabel>
           <Select inputProps={{ id: 'class' }}>
             <option value="fighter">Fighter</option>
@@ -75,6 +87,9 @@ function CharacterCreator({ }: Props) {
           </Select>
         </FormControl>
         <Button className={classes.field} variant="outlined" type="submit">Create</Button>
+        {
+          <p className={classes.error}>{attributeError}</p>
+        }
       </form>
     </div>
   )
