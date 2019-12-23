@@ -3,14 +3,29 @@ import { createUseStyles } from 'react-jss'
 import { useDispatch } from 'react-redux'
 import { newCharacter } from '../../Redux/thunks/newCharacter'
 import Attributes from '../CharacterSheet/Attributes'
+import TextField from '@material-ui/core/TextField'
+import Select from '@material-ui/core/NativeSelect'
+import InputLabel from '@material-ui/core/InputLabel'
+import FormControl from '@material-ui/core/FormControl'
+import Button from '@material-ui/core/Button'
+
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterCreator: {
     backgroundColor: theme.colorGreyLightest,
-    display: 'flex'
+    padding: theme.padding
+  },
+  form: {
+    columnCount: 2,
+    '& > *': {
+      breakInside: 'avoid-column'
+    },
+    '& > div': {
+      marginBottom: '1rem'
+    }
   },
   field: {
-    
+    width: '100%',
   }
 }))
 
@@ -30,38 +45,29 @@ function CharacterCreator({ }: Props) {
 
   return (
     <div className={classes.characterCreator}>
-      <form onSubmit={handleSubmit}>
-        <div className={classes.field}>
-          <label htmlFor="name">Name</label>
-          <input id="name"></input>
-        </div>
-        <div>
-          <label htmlFor="gender">Gender</label>
-          <input id="gender"></input>
-        </div>
-        <div>
-          <label htmlFor="race">Race</label>
-          <input id="race"></input>
-        </div>
-        <div>
-          <label htmlFor="alignment">Alignment</label>
-          <select id="alignment">
+      <form className={classes.form} onSubmit={handleSubmit}>
+        <TextField className={classes.field} id="name" label="Name" />
+        <TextField className={classes.field} id="gender" label="Gender" />
+        <TextField className={classes.field} id="race" label="Race" />
+        <FormControl className={classes.field}>
+          <InputLabel htmlFor="alignment">Alignment</InputLabel>
+          <Select inputProps={{ id: 'alignment' }}>
             <option value="chaotic">Chaotic</option>
             <option value="neutral">Neutral</option>
             <option value="lawful">Lawful</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="class">Class</label>
-          <select id="class">
+          </Select>
+        </FormControl>
+        <FormControl className={classes.field}>
+          <InputLabel htmlFor="class">Class</InputLabel>
+          <Select inputProps={{ id: 'class' }}>
             <option value="fighter">Fighter</option>
             <option value="cleric">Cleric</option>
             <option value="magic-user">Magic User</option>
             <option value="specialist">Specialist</option>
-          </select>
-        </div>
+          </Select>
+        </FormControl>
+        <Button className={classes.field} variant="outlined" type="submit">Create</Button>
         <Attributes attributes={{ charisma: 0, constitution: 0, dexterity: 0, intelligence: 0, strength: 0, wisdom: 0 }} />
-        <button type="submit">Create</button>
       </form>
     </div>
   )
