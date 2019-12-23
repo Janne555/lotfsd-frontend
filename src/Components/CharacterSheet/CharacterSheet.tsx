@@ -11,10 +11,8 @@ import { createUseStyles } from 'react-jss'
 import Languages from './Languages'
 import InfoBar from './InfoBar'
 import { useSelector } from '../../hooks'
-import { selectCharacterId, selectAttributes, selectAttributeModifiers } from '../../Redux/selectors'
-import { Redirect, useRouteMatch } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { attributes } from '../../testData/initialState'
+import { selectAttributes, selectAttributeModifiers } from '../../Redux/selectors'
+import { Redirect } from 'react-router-dom'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
