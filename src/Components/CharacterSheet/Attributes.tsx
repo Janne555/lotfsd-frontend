@@ -31,8 +31,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 type Props = {
   attributes: Attributes
-  modifiers: AttributeModifiers
-  onChange: (key: keyof Attributes, value: string) => void
+  modifiers?: AttributeModifiers
+  onChange?: (key: keyof Attributes, value: string) => void
 }
 
 function Attributes({ attributes, modifiers, onChange }: Props) {
@@ -44,7 +44,7 @@ function Attributes({ attributes, modifiers, onChange }: Props) {
       <span className={classes.topTitle}>Modifiers</span>
       {
         Object.entries(attributes).map(([name, value], index) => (
-          hasKey(attributes, name) && <Attribute key={name} title={name} score={value} index={index} modifier={modifiers[name]} onChange={onChange} />
+          hasKey(attributes, name) && <Attribute key={name} title={name} score={value} index={index} modifier={modifiers?.[name]} onChange={onChange} />
         ))
       }
     </div>

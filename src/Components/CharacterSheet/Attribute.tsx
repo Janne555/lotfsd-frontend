@@ -3,7 +3,7 @@ import React from 'react'
 import { createUseStyles } from 'react-jss'
 import { ATTRIBUTE_DETAILS, ATTRIBUTE_TITLES } from '../../constants'
 import Input from '../_shared/Input'
-import { Validator } from '../../services'
+import { Validator, calculateModifier } from '../../services'
 
 const useAttributeStyles = createUseStyles((theme: Theme) => ({
   title: {
@@ -47,8 +47,8 @@ type AttributeProps = {
   title: keyof Attributes
   score: number
   index: number
-  modifier: number
-  onChange: (key: keyof Attributes, value: string) => void
+  modifier?: number
+  onChange?: (key: keyof Attributes, value: string) => void
 }
 const validator = new Validator().isLengthy.isNumber
 
@@ -57,17 +57,17 @@ function Attribute({ title, score, index, modifier, onChange }: AttributeProps) 
 
   return (
     <>
-      <label htmlFor={`attribute-${title}`} className={classes.title}>{ATTRIBUTE_TITLES[title]}</label>
+      <label htmlFor={title} className={classes.title}>{ATTRIBUTE_TITLES[title]}</label>
       <div className={classes.scoreRoot}>
         <Input
           isValid={validator.validate}
-          onChange={value => onChange(title, value)}
+          onChange={value => onChange?.(title, value)}
           value={`${score}`}
-          inputProps={{ id: `attribute-${title}` }}
+          inputProps={{ id: title }}
         />
       </div>
       <div className={classes.modifierRoot}>
-        <span className={classes.modifier}>{modifier}</span>
+        <span className={classes.modifier}>{modifier != null ? modifier : calculateModifier(score)}</span>
       </div>
       <span className={classes.details}>{ATTRIBUTE_DETAILS[title]}</span>
     </>

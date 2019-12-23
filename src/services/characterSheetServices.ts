@@ -300,5 +300,6 @@ export {
   mapInventoryToEffects,
   calculateEncumbrance,
   calculateEncumbranceDetails,
-  mapEquipmentList
+  mapEquipmentList,
+  calculateModifier
 }

@@ -2,11 +2,15 @@ import React from 'react'
 import { createUseStyles } from 'react-jss'
 import { useDispatch } from 'react-redux'
 import { newCharacter } from '../../Redux/thunks/newCharacter'
+import Attributes from '../CharacterSheet/Attributes'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterCreator: {
     backgroundColor: theme.colorGreyLightest,
     display: 'flex'
+  },
+  field: {
+    
   }
 }))
 
@@ -27,7 +31,7 @@ function CharacterCreator({ }: Props) {
   return (
     <div className={classes.characterCreator}>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className={classes.field}>
           <label htmlFor="name">Name</label>
           <input id="name"></input>
         </div>
@@ -56,30 +60,7 @@ function CharacterCreator({ }: Props) {
             <option value="specialist">Specialist</option>
           </select>
         </div>
-        <div>
-          <label htmlFor="charisma">Charisma</label>
-          <input type="number" id="charisma"></input>
-        </div>
-        <div>
-          <label htmlFor="constitution">Constitution</label>
-          <input required type="number" id="constitution"></input>
-        </div>
-        <div>
-          <label htmlFor="dexterity">Dexterity</label>
-          <input type="number" id="dexterity"></input>
-        </div>
-        <div>
-          <label htmlFor="intelligence">Intelligence</label>
-          <input type="number" id="intelligence"></input>
-        </div>
-        <div>
-          <label htmlFor="strength">Strength</label>
-          <input type="number" id="strength"></input>
-        </div>
-        <div>
-          <label htmlFor="wisdom">Wisdom</label>
-          <input type="number" id="wisdom"></input>
-        </div>
+        <Attributes attributes={{ charisma: 0, constitution: 0, dexterity: 0, intelligence: 0, strength: 0, wisdom: 0 }} />
         <button type="submit">Create</button>
       </form>
     </div>
