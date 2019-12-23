@@ -12,7 +12,7 @@ import Languages from './Languages'
 import InfoBar from './InfoBar'
 import { useSelector } from '../../hooks'
 import { selectCharacterId } from '../../Redux/selectors'
-import { Redirect } from 'react-router-dom'
+import { Redirect, useRouteMatch } from 'react-router-dom'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
@@ -31,15 +31,13 @@ const context = React.createContext({
   characterId: 'default'
 })
 
-type Props = {
-  characterName: string
-}
-
-function CharacterSheet({ characterName }: Props) {
+function CharacterSheet() {
+  const match = useRouteMatch<{ character: string }>('/characters/:character')
+  const characterName = match?.params.character
   const classes = useStyles()
   const characterId = useSelector(selectCharacterId(characterName))
 
-  if (!characterId) {
+  if (!characterId || !characterName) {
     return <Redirect to={{ pathname: '/' }} />
   }
 

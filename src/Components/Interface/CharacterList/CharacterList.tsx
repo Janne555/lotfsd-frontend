@@ -4,7 +4,6 @@ import { useSelector } from '../../../hooks'
 import { selectCharacters } from '../../../Redux/selectors'
 import Character from './Character'
 import Button from '../../_shared/Button'
-import { Link } from 'react-router-dom'
 import CharacterListWrapper from './CharacterListWrapper'
 
 const useStyles = createUseStyles((theme: Theme) => ({
@@ -16,6 +15,9 @@ const useStyles = createUseStyles((theme: Theme) => ({
     width: 'fit-content',
     display: 'flex',
     alignItems: 'center',
+  },
+  link: {
+    margin: '1rem'
   }
 }))
 
@@ -29,20 +31,16 @@ export default function CharacterList() {
       <div className={classes.list}>
         {
           characters.map(name => (
-            <Link to={`/characters/${name}`}>
-              <CharacterListWrapper>
-                <Character name={name} />
-              </CharacterListWrapper>
-            </Link>
+            <CharacterListWrapper to={`/characters/${name}`}>
+              <Character name={name} />
+            </CharacterListWrapper>
           ))
         }
-        <Link to="/characters/new">
-          <CharacterListWrapper>
-            <Button>
-              <h2>Create new</h2>
-            </Button>
-          </CharacterListWrapper>
-        </Link>
+        <CharacterListWrapper to="/newcharacter">
+          <Button>
+            <h2>Create new</h2>
+          </Button>
+        </CharacterListWrapper>
       </div>
     </div>
   )

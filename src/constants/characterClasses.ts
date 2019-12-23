@@ -12,3 +12,5 @@ const characterClasses = {
     ]
   }
 }
+
+export { characterClasses }

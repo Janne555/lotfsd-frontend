@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
 import { createUseStyles } from 'react-jss'
 import { useNavMenuContext } from '../NavMenu/NavBar'
+import { Link } from 'react-router-dom'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   character: {
@@ -26,13 +27,15 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 
 
-function CharacterListWrapper({ children }: { children: ReactNode }) {
+function CharacterListWrapper({ children, to }: { children: ReactNode, to: string }) {
   const classes = useStyles()
   const { onHide } = useNavMenuContext()
 
   return (
     <div className={classes.character} onClick={onHide}>
-      {children}
+      <Link to={to}>
+        {children}
+      </Link>
     </div>
   )
 }

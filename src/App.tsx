@@ -6,7 +6,7 @@ import Login from './Components/Interface/Login'
 import NavItem from './Components/Interface/NavMenu/NavItem'
 import { useSelector } from './hooks'
 import { selectIsLoggedIn } from './Redux/selectors'
-import { useRouteMatch, Route } from 'react-router-dom'
+import { useRouteMatch, Switch, Route } from 'react-router-dom'
 import CharacterList from './Components/Interface/CharacterList/CharacterList'
 
 const useStyles = createUseStyles((theme: Theme) => ({
@@ -35,7 +35,6 @@ const useStyles = createUseStyles((theme: Theme) => ({
 const App: React.FC = () => {
   const classes = useStyles()
   const isLoggedIn = useSelector(selectIsLoggedIn)
-  const match = useRouteMatch<{ character: string }>('/characters/:character')
   if (!isLoggedIn) {
     return <Login />
   }
@@ -51,12 +50,15 @@ const App: React.FC = () => {
           </NavItem>
         <NavItem name="Login" end />
       </NavBar>
-      {match
-        ? match.params.character === 'new'
-          ? <div>new</div>
-          : <CharacterSheet characterName={match.params.character} />
-        : <div>select a character</div>
-      }
+
+      <Switch>
+        <Route path="/characters">
+          <CharacterSheet />
+        </Route>
+        <Route path="/newcharacter">
+
+        </Route>
+      </Switch>
       <footer className={classes.footer}></footer>
     </div>
   );
