@@ -2,9 +2,6 @@ import React from 'react'
 import { useSelector, useCharacterContext } from '../../hooks'
 import { selectEquipment } from '../../Redux/selectors'
 import { createUseStyles } from 'react-jss'
-import EquipmentListChunk from './EquipmentListChunk'
-import chunk from 'lodash/chunk'
-import EquipmentListItem from './EquipmentListItem'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   equipment: {
@@ -22,6 +19,12 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
+
+function stackText(stackSize: number, amount: number) {
+  return stackSize > 1 ? `${amount}/${stackSize}` : ''
+}
+
+
 export default function EquipmentList() {
   const classes = useStyles()
   const { characterId } = useCharacterContext()
@@ -29,12 +32,36 @@ export default function EquipmentList() {
   return (
     <div className={classes.equipment}>
       <h2 className={classes.header}>Equipment</h2>
-      <ul className={classes.list}>
-        <EquipmentListItem key="default" />
-        {
-          equipment.map((item, index) => <EquipmentListItem key={item.listItemId} item={item} position={index + 1} />)
-        }
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Stack size
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            equipment.map(({ name, listItemId, amount, stackSize }) => (
+              <tr key={listItemId}>
+                <td>{name}</td>
+                <td>{stackText(stackSize, amount)}</td>
+              </tr>
+            ))
+          }
+          {
+            oversized.map(({ name, listItemId }) => (
+              <tr key={listItemId}>
+                <td>{name}</td>
+                <td>Oversized</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
     </div>
   )
 }
