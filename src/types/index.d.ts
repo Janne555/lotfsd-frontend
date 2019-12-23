@@ -238,7 +238,7 @@ type System = {
   }
 }
 
-interface NewCharacterForm extends HTMLFormControlsCollection {
+interface NewCharacterForm {
   name: HTMLInputElement
   gender: HTMLInputElement
   race: HTMLInputElement
@@ -251,3 +251,5 @@ interface NewCharacterForm extends HTMLFormControlsCollection {
   strength: HTMLInputElement
   wisdom: HTMLInputElement
 }
+
+type NewCharacterPayload = Record<keyof NewCharacterForm, string> & { id: string }

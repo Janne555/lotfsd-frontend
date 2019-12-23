@@ -1,5 +1,7 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
+import { useDispatch } from 'react-redux'
+import { newCharacter } from '../../Redux/thunks/newCharacter'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterCreator: {
@@ -13,9 +15,12 @@ type Props = {
 
 function CharacterCreator({ }: Props) {
   const classes = useStyles()
+  const dispatch = useDispatch()
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     const target = (e.target as unknown) as { elements: NewCharacterForm }
+    e.preventDefault()
+    dispatch(newCharacter(target.elements))
   }
 
   return (

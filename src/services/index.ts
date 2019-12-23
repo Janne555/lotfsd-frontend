@@ -1,12 +1,4 @@
 import {
-  hasKey,
-  isArmor,
-  isAttributeModifierEffect,
-  isArmorClassEffect,
-  isCommonActivityEffect
-} from './typeGuards'
-
-import {
   calculateAttributeModifiers,
   calculateMeleeAttackBonus,
   calculateRangedAttackBonus,
@@ -25,19 +17,15 @@ import {
 } from './api'
 
 export * from './validators'
+export * from './typeGuards'
 
 export {
-  hasKey,
   calculateSavingThrows,
   calculateMeleeAttackBonus,
   calculateRangedAttackBonus,
-  isArmor,
-  isAttributeModifierEffect,
   calculateAttributeModifiers,
-  isArmorClassEffect,
   calculateArmorClass,
   calculateCommonActivities,
-  isCommonActivityEffect,
   mapInventoryToEffects,
   calculateEncumbrance,
   calculateEncumbranceDetails,
