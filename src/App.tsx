@@ -6,7 +6,7 @@ import Login from './Components/Interface/Login'
 import NavItem from './Components/Interface/NavMenu/NavItem'
 import { useSelector } from './hooks'
 import { selectIsLoggedIn } from './Redux/selectors'
-import { useRouteMatch, Switch, Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import CharacterList from './Components/Interface/CharacterList/CharacterList'
 
 const useStyles = createUseStyles((theme: Theme) => ({
