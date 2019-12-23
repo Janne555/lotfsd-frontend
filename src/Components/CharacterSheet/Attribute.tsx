@@ -2,32 +2,19 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import { ATTRIBUTE_DETAILS, ATTRIBUTE_TITLES } from '../../constants'
-import { useDispatch, useCharacterContext } from '../../hooks'
-import { setAttribute } from '../../Redux/reducers/characterSheet/attributes'
 import Input from '../_shared/Input'
 import { Validator } from '../../services'
-
-type AttributeProps = {
-  title: keyof Attributes
-  score: number
-  index: number
-  modifier: number
-}
-
-type StyleProps = {
-  index: number
-}
 
 const useAttributeStyles = createUseStyles((theme: Theme) => ({
   title: {
     gridColumnStart: 2,
-    gridRowStart: ({ index }: StyleProps) => (index + 1) * 2 - 1,
+    gridRowStart: (index: number) => (index + 1) * 2 - 1,
     justifySelf: 'center',
     alignSelf: 'end'
   },
   scoreRoot: {
     border: theme.border,
-    gridRowStart: ({ index }: StyleProps) => (index + 1) * 2,
+    gridRowStart: (index: number) => (index + 1) * 2,
     gridColumnStart: 2,
     justifySelf: 'center',
     width: 40,
@@ -36,7 +23,7 @@ const useAttributeStyles = createUseStyles((theme: Theme) => ({
     justifyContent: 'center'
   },
   modifierRoot: {
-    gridRowStart: ({ index }: StyleProps) => (index + 1) * 2,
+    gridRowStart: (index: number) => (index + 1) * 2,
     gridColumnStart: 3,
     border: theme.border,
     borderRadius: '100%',
@@ -50,17 +37,23 @@ const useAttributeStyles = createUseStyles((theme: Theme) => ({
     alignSelf: 'center'
   },
   details: {
-    gridRowStart: ({ index }: StyleProps) => (index + 1) * 2,
+    gridRowStart: (index: number) => (index + 1) * 2,
     gridColumnStart: 4
   }
 }))
 
+
+type AttributeProps = {
+  title: keyof Attributes
+  score: number
+  index: number
+  modifier: number
+  onChange: (key: keyof Attributes, value: string) => void
+}
 const validator = new Validator().isLengthy.isNumber
 
-function Attribute({ title, score, index, modifier }: AttributeProps) {
-  const classes = useAttributeStyles({ index })
-  const dispatch = useDispatch()
-  const { characterId } = useCharacterContext()
+function Attribute({ title, score, index, modifier, onChange }: AttributeProps) {
+  const classes = useAttributeStyles(index)
 
   return (
     <>
@@ -68,7 +61,7 @@ function Attribute({ title, score, index, modifier }: AttributeProps) {
       <div className={classes.scoreRoot}>
         <Input
           isValid={validator.validate}
-          onChange={value => dispatch(setAttribute({ attributeName: title, value: Number(value), id: characterId }))}
+          onChange={value => onChange(title, value)}
           value={`${score}`}
           inputProps={{ id: `attribute-${title}` }}
         />

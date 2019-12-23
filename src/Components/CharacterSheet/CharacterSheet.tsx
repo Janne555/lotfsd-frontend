@@ -11,8 +11,10 @@ import { createUseStyles } from 'react-jss'
 import Languages from './Languages'
 import InfoBar from './InfoBar'
 import { useSelector } from '../../hooks'
-import { selectCharacterId } from '../../Redux/selectors'
+import { selectCharacterId, selectAttributes, selectAttributeModifiers } from '../../Redux/selectors'
 import { Redirect, useRouteMatch } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { attributes } from '../../testData/initialState'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
@@ -31,13 +33,21 @@ const context = React.createContext({
   characterId: 'default'
 })
 
-function CharacterSheet() {
-  const match = useRouteMatch<{ character: string }>('/characters/:character')
-  const characterName = match?.params.character
-  const classes = useStyles()
-  const characterId = useSelector(selectCharacterId(characterName))
+type Props = {
+  characterId: string
+  characterName: string
+}
 
-  if (!characterId || !characterName) {
+function CharacterSheet({ characterId, characterName }: Props) {
+  const classes = useStyles()
+  const modifiers = useSelector(selectAttributeModifiers(characterId))
+  const { id, ...attributes } = useSelector(selectAttributes(characterId))
+
+  function handleAttributeChange(key: keyof Attributes, value: string) {
+
+  }
+
+  if (!characterId) {
     return <Redirect to={{ pathname: '/' }} />
   }
 
@@ -45,7 +55,7 @@ function CharacterSheet() {
     <context.Provider value={{ characterName, characterId }}>
       <div className={classes.characterSheet}>
         <InfoBar />
-        <Attributes />
+        <Attributes attributes={attributes} modifiers={modifiers} onChange={handleAttributeChange} />
         <CommonActivities />
         <EquipmentList />
         <Retainers />

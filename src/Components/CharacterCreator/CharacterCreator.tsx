@@ -6,6 +6,7 @@ import { newCharacter } from '../../Redux/thunks/newCharacter'
 const useStyles = createUseStyles((theme: Theme) => ({
   characterCreator: {
     backgroundColor: theme.colorGreyLightest,
+    display: 'flex'
   }
 }))
 
@@ -61,7 +62,7 @@ function CharacterCreator({ }: Props) {
         </div>
         <div>
           <label htmlFor="constitution">Constitution</label>
-          <input type="number" id="constitution"></input>
+          <input required type="number" id="constitution"></input>
         </div>
         <div>
           <label htmlFor="dexterity">Dexterity</label>

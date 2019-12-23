@@ -5,8 +5,8 @@ import NavBar from './Components/Interface/NavMenu/NavBar'
 import Login from './Components/Interface/Login'
 import NavItem from './Components/Interface/NavMenu/NavItem'
 import { useSelector } from './hooks'
-import { selectIsLoggedIn } from './Redux/selectors'
-import { Switch, Route } from 'react-router-dom'
+import { selectIsLoggedIn, selectCharacterId } from './Redux/selectors'
+import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import CharacterList from './Components/Interface/CharacterList/CharacterList'
 import CharacterCreator from './Components/CharacterCreator/CharacterCreator'
 
@@ -32,6 +32,9 @@ const useStyles = createUseStyles((theme: Theme) => ({
 const App: React.FC = () => {
   const classes = useStyles()
   const isLoggedIn = useSelector(selectIsLoggedIn)
+  const match = useRouteMatch<{ character: string }>('/characters/:character')
+  const characterId = useSelector(selectCharacterId(match?.params.character))
+
   if (!isLoggedIn) {
     return <Login />
   }
@@ -50,7 +53,10 @@ const App: React.FC = () => {
       <div className={classes.body}>
         <Switch>
           <Route path="/characters">
-            <CharacterSheet />
+            {characterId && match?.params.character
+              ? < CharacterSheet characterId={characterId} characterName={match?.params.character} />
+              : <div>no character</div>
+            }
           </Route>
           <Route path="/newcharacter">
             <CharacterCreator />
