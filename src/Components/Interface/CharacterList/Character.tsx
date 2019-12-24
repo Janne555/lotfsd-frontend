@@ -18,6 +18,8 @@ export default function Character({ name }: Props) {
         return '/images/fighter.svg'
       case 'magic-user':
         return '/images/magic_user.svg'
+      case 'specialist':
+        return '/images/specialist.svg'
       default:
         return undefined
     }
