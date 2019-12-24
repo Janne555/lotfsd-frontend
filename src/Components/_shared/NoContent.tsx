@@ -13,7 +13,7 @@ type Props = {
 
 }
 
-function NoContent({}: Props) {
+function NoContent(/* {}: Props */) {
   const classes = useStyles()
   return (
     <div className={classes.noContent}>

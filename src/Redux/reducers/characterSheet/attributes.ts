@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { attributes } from '../../../testData/initialState'
 import { createCharacter } from '../../newCharacterAction'
-import { areOnlyAttributes } from '../../../services'
 import pick from 'lodash/pick'
 
 const attributesSlice = createSlice({
