@@ -9,7 +9,8 @@ const theme = {
   colorGreyLightest: '#f3f3f3',
   colorLight: '#dedede',
   componentBackgroundColor: 'white',
-  minHeight: 250
+  minHeight: 250,
+  transition: '0.1s cubic-bezier(0.68, -0.55, 0.27, 1.55)'
 }
 
 export { theme } 

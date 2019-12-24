@@ -4,11 +4,10 @@ import { selectRetainers } from '../../Redux/selectors'
 import { createUseStyles } from 'react-jss'
 import { RETAINER_KEYS } from '../../constants'
 import NoContent from '../_shared/NoContent'
+import ModuleContainer from '../_shared/ModuleContainer'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   retainers: {
-    border: theme.border,
-    paddingTop: theme.padding,
     overflow: 'scroll',
     '& h2': {
       textAlign: 'center'
@@ -22,9 +21,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
     },
     '& td': {
       borderTop: '1px solid black'
-    },
-    backgroundColor: theme.componentBackgroundColor,
-    minHeight: theme.minHeight
+    }
   },
   level: {
     textAlign: 'center'
@@ -51,32 +48,38 @@ export default function Retainers() {
   const { characterId } = useCharacterContext()
   const retainers = useSelector(selectRetainers(characterId))
 
+  function handleAddClick() {
+
+  }
+
   return (
-    <div className={classes.retainers}>
-      <h2>Retainers</h2>
-      {retainers.length === 0
-        ? <NoContent />
-        : <table className="">
-          <thead>
-            <tr>
+    <ModuleContainer onAddClick={handleAddClick}>
+      <div className={classes.retainers}>
+        <h2>Retainers</h2>
+        {retainers.length === 0
+          ? <NoContent />
+          : <table className="">
+            <thead>
+              <tr>
+                {
+                  RETAINER_KEYS.map(key => <th key={key}>{key}</th>)
+                }
+              </tr>
+            </thead>
+            <tbody>
               {
-                RETAINER_KEYS.map(key => <th key={key}>{key}</th>)
+                retainers.map(retainer => (
+                  <tr key={retainer.uuid}>
+                    {
+                      RETAINER_KEYS.map(key => <td className={classes[key]} key={key}>{retainer[key]}</td>)
+                    }
+                  </tr>
+                ))
               }
-            </tr>
-          </thead>
-          <tbody>
-            {
-              retainers.map(retainer => (
-                <tr key={retainer.uuid}>
-                  {
-                    RETAINER_KEYS.map(key => <td className={classes[key]} key={key}>{retainer[key]}</td>)
-                  }
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      }
-    </div>
+            </tbody>
+          </table>
+        }
+      </div>
+    </ModuleContainer>
   )
 }
