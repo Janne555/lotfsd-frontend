@@ -3,6 +3,7 @@ import { useSelector, useCharacterContext } from '../../hooks'
 import { selectRetainers } from '../../Redux/selectors'
 import { createUseStyles } from 'react-jss'
 import { RETAINER_KEYS } from '../../constants'
+import NoContent from '../_shared/NoContent'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   retainers: {
@@ -22,7 +23,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
     '& td': {
       borderTop: '1px solid black'
     },
-    backgroundColor: theme.componentBackgroundColor
+    backgroundColor: theme.componentBackgroundColor,
+    minHeight: theme.minHeight
   },
   level: {
     textAlign: 'center'
@@ -52,26 +54,29 @@ export default function Retainers() {
   return (
     <div className={classes.retainers}>
       <h2>Retainers</h2>
-      <table className="">
-        <thead>
-          <tr>
+      {retainers.length === 0
+        ? <NoContent />
+        : <table className="">
+          <thead>
+            <tr>
+              {
+                RETAINER_KEYS.map(key => <th key={key}>{key}</th>)
+              }
+            </tr>
+          </thead>
+          <tbody>
             {
-              RETAINER_KEYS.map(key => <th key={key}>{key}</th>)
+              retainers.map(retainer => (
+                <tr key={retainer.uuid}>
+                  {
+                    RETAINER_KEYS.map(key => <td className={classes[key]} key={key}>{retainer[key]}</td>)
+                  }
+                </tr>
+              ))
             }
-          </tr>
-        </thead>
-        <tbody>
-          {
-            retainers.map(retainer => (
-              <tr key={retainer.uuid}>
-                {
-                  RETAINER_KEYS.map(key => <td className={classes[key]} key={key}>{retainer[key]}</td>)
-                }
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      }
     </div>
   )
 }

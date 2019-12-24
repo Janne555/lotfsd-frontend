@@ -7,14 +7,18 @@ import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   savingThrowsRoot: {
+    backgroundColor: theme.componentBackgroundColor,
+    padding: theme.padding,
+    border: theme.border,
+    '& h2': {
+      textAlign: 'center'
+    }
+  },
+  list: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     textAlign: 'center',
-    border: theme.border,
-    padding: theme.padding,
-    height: 'fit-content',
-    backgroundColor: theme.componentBackgroundColor
   }
 }))
 
@@ -25,11 +29,14 @@ export default function SavingThrows() {
 
   return (
     <div className={classes.savingThrowsRoot}>
-      {
-        Object.entries(savingThrows).map(([name, value]) => (
-          hasKey(savingThrows, name) && <SavingThrow key={name} name={name} value={value} />
-        ))
-      }
+      <h2>Saving Throws</h2>
+      <div className={classes.list}>
+        {
+          Object.entries(savingThrows).map(([name, value]) => (
+            hasKey(savingThrows, name) && <SavingThrow key={name} name={name} value={value} />
+          ))
+        }
+      </div>
     </div>
   )
 }

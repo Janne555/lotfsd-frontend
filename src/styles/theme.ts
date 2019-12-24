@@ -8,7 +8,8 @@ const theme = {
   colorDark: '#3B1650',
   colorGreyLightest: '#f3f3f3',
   colorLight: '#dedede',
-  componentBackgroundColor: 'white'
+  componentBackgroundColor: 'white',
+  minHeight: 250
 }
 
 export { theme } 

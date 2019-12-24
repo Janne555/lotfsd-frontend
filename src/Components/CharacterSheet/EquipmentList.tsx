@@ -7,7 +7,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
   equipment: {
     padding: theme.padding,
     border: theme.border,
-    backgroundColor: theme.componentBackgroundColor
+    backgroundColor: theme.componentBackgroundColor,
+    minHeight: theme.minHeight
   },
   header: {
     textAlign: 'center'
