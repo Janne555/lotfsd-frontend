@@ -14,25 +14,11 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-const content = {
-  addRetainer: AddRetainer
-}
-
-type ContentProps = {
-  option: ModalContent
-  onClose: () => void
-  characterId: string
-}
-
-function Content({ option, onClose, characterId }: ContentProps) {
-  return content[option]({ onClose, characterId })
-}
-
 type Props = {
   characterId?: string
 }
 
-const AppModal = React.forwardRef<any, Props>(({ characterId }) => {
+const AppModal = React.forwardRef<any, Props>(({ characterId }, ref) => {
   const classes = useStyles()
   const visible = useSelector(selectModalVisible)
   const content = useSelector(selectModalContent)
@@ -48,17 +34,19 @@ const AppModal = React.forwardRef<any, Props>(({ characterId }) => {
       onClose={handleClose}
     >
       <div className={classes.modal}>
-        {content && characterId
-          ? <Content option={content} onClose={handleClose} characterId={characterId} />
-          : <NoContent />
+        {characterId &&
+          (() => {
+            switch (content) {
+              case "addRetainer":
+                return <AddRetainer ref={ref} characterId={characterId} onClose={handleClose} />
+              default:
+                return <NoContent />
+            }
+          })()
         }
       </div>
     </Modal>
   )
 })
-
-export {
-  content as T_content
-}
 
 export default AppModal

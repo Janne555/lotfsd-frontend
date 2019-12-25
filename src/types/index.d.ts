@@ -8,7 +8,7 @@ type AppThunk = import('redux-thunk').ThunkAction<void, RootState, null, Action<
 
 type AppAction<T> = import('@reduxjs/toolkit').PayloadAction<T> & { payload: { id: string } }
 
-type ModalContent = keyof typeof import('../Components/Interface/Modal/AppModal').T_content
+type ModalContent = "addRetainer"
 
 type Normalized<T extends Id> = {
   byId: Record<string, T>

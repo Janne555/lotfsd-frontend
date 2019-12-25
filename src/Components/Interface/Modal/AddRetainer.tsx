@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { useDispatch } from '../../../hooks'
 import { addRetainer } from '../../../Redux/thunks'
+import FormContainer from '../../_shared/FormContainer'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   addRetainer: {
@@ -29,7 +30,7 @@ type Props = {
   characterId: string
 }
 
-function AddRetainer({ onClose, characterId }: Props) {
+const AddRetainer = React.forwardRef<HTMLFormElement, Props>(({ onClose, characterId }, ref) => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
@@ -43,21 +44,17 @@ function AddRetainer({ onClose, characterId }: Props) {
   return (
     <div className={classes.addRetainer}>
       <h2>Add Retainer</h2>
-      <form onSubmit={handleSubmit}>
+      <FormContainer ref={ref} onClose={onClose} onSubmit={handleSubmit}>
         <TextField className={classes.field} id="name" label="Name" required />
         <TextField className={classes.field} id="position" label="Position" />
         <TextField className={classes.field} id="class" label="Class" />
         <TextField className={classes.field} id="level" label="Level" type="number" />
         <TextField className={classes.field} id="hitpoints" label="Hitpoints" type="number" />
         <TextField className={classes.field} id="wage" label="Wage" type="number" />
-        <TextField className={classes.field} id="share" label="Share" type="number" inputProps={{ min: 0, max: 100 }} />
-        <div className={classes.buttons}>
-          <Button onClick={onClose}>Cancel</Button>
-          <Button variant="outlined" type="submit">Save</Button>
-        </div>
-      </form>
+        <TextField className={classes.field} id="share" label="Share" type="number" />
+      </FormContainer>
     </div>
   )
-}
+})
 
 export default AddRetainer
