@@ -68,6 +68,7 @@ function CharacterCreator(/* { }: Props */) {
       <form className={classes.form} onSubmit={handleSubmit}>
         <Attributes attributes={attributes} onChange={(key, value) => setAttributes({ ...attributes, [key]: value })} />
         <Button onClick={handleRandomize}>Randomize</Button>
+        {/* TODO disallow url unsafe characters */}
         <TextField className={classes.field} id="name" label="Name" required />
         <TextField className={classes.field} id="gender" label="Gender" required />
         <TextField className={classes.field} id="race" label="Race" required />
