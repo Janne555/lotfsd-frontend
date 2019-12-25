@@ -23,7 +23,7 @@ export default function CombatOptions() {
     <div className={classes.combatOptions}>
       <h2>Combat Options</h2>
       {standard && <p>Standard attack AB +0, AC +0</p>}
-      {parry && <p>Parry AC {improvedParry ? 4 : 2}</p>}
+      {(parry || improvedParry) && <p>Parry AC {improvedParry ? 4 : 2}</p>}
       {press && <p>Press AB +2, AC -4</p>}
       {defensive && <p>Defensive AB -4, AC +2</p>}
     </div>
