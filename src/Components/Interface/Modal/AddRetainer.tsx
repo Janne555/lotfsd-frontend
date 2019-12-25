@@ -26,16 +26,17 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 type Props = {
   onClose: () => void
+  characterId: string
 }
 
-function AddRetainer({ onClose }: Props) {
+function AddRetainer({ onClose, characterId }: Props) {
   const classes = useStyles()
   const dispatch = useDispatch()
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     const target = (e.target as unknown) as { elements: AddRetainerForm }
     e.preventDefault()
-    dispatch(addRetainer(target.elements, "TODO"))
+    dispatch(addRetainer(target.elements, characterId))
     onClose()
   }
 

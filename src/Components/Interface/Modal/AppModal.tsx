@@ -21,17 +21,18 @@ const content = {
 type ContentProps = {
   option: ModalContent
   onClose: () => void
+  characterId: string
 }
 
-function Content({ option, onClose }: ContentProps) {
-  return content[option]({ onClose })
+function Content({ option, onClose, characterId }: ContentProps) {
+  return content[option]({ onClose, characterId })
 }
 
 type Props = {
-
+  characterId?: string
 }
 
-const AppModal = React.forwardRef(({ }, ref) => {
+const AppModal = React.forwardRef<any, Props>(({ characterId }, ref) => {
   const classes = useStyles()
   const visible = useSelector(selectModalVisible)
   const content = useSelector(selectModalContent)
@@ -47,8 +48,8 @@ const AppModal = React.forwardRef(({ }, ref) => {
       onClose={handleClose}
     >
       <div className={classes.modal}>
-        {content
-          ? <Content option={content} onClose={handleClose} />
+        {content && characterId
+          ? <Content option={content} onClose={handleClose} characterId={characterId} />
           : <NoContent />
         }
       </div>

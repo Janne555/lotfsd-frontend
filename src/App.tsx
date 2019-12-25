@@ -70,7 +70,7 @@ const App: React.FC = () => {
           </Route>
         </Switch>
       </div>
-      <AppModal />
+      <AppModal characterId={characterId} />
       <footer className={classes.footer}></footer>
     </div>
   );
