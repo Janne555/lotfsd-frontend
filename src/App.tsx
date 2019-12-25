@@ -9,6 +9,7 @@ import { selectIsLoggedIn, selectCharacterId } from './Redux/selectors'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import CharacterList from './Components/Interface/CharacterList/CharacterList'
 import CharacterCreator from './Components/CharacterCreator/CharacterCreator'
+import AppModal from './Components/Interface/Modal/AppModal'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   app: {
@@ -63,6 +64,7 @@ const App: React.FC = () => {
           </Route>
         </Switch>
       </div>
+      <AppModal />
       <footer className={classes.footer}></footer>
     </div>
   );

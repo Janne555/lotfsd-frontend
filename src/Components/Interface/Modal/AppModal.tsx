@@ -1,10 +1,12 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import MaterialModal from '@material-ui/core/Modal'
+import Modal from '@material-ui/core/Modal'
 import AddRetainer from './AddRetainer'
 import { useSelector, useDispatch } from '../../../hooks'
 import { selectModalVisible, selectModalContent } from '../../../Redux/selectors/userInterface'
 import NoContent from '../../_shared/NoContent'
+import DialogContent from '@material-ui/core/DialogContent'
+import { closeModal } from '../../../Redux/actions'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   modal: {
@@ -29,31 +31,33 @@ type Props = {
 
 }
 
-function Modal({ }: Props) {
+const AppModal = React.forwardRef(({ }, ref) => {
   const classes = useStyles()
   const visible = useSelector(selectModalVisible)
   const content = useSelector(selectModalContent)
   const dispatch = useDispatch()
 
   function handleClose() {
-
+    dispatch(closeModal())
   }
 
   return (
-    <MaterialModal
+    <Modal
       open={visible}
       onClose={handleClose}
     >
-      {content
-        ? <Content option={content} onClose={handleClose} />
-        : <NoContent />
-      }
-    </MaterialModal>
+      <DialogContent>
+        {content
+          ? <Content option={content} onClose={handleClose} />
+          : <NoContent />
+        }
+      </DialogContent>
+    </Modal>
   )
-}
+})
 
 export {
   content as T_content
 }
 
-export default Modal
+export default AppModal
