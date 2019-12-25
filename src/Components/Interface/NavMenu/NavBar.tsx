@@ -53,12 +53,12 @@ function NavBar({ children }: Props) {
   React.Children.forEach(children, child => (
     navContent[child.props.name] = child.props.children
   ))
-
+  
   return (
     <navMenuContext.Provider value={{ onSetVisible: handleFocusOrHover, onHide: handleMouseLeaveOrBlur }}>
       <header className={classes.navBar} onMouseLeave={handleMouseLeaveOrBlur} onBlur={handleMouseLeaveOrBlur}>
         {children}
-        {visible &&
+        {visible && navContent[visible] && 
           <NavContent>
             {navContent[visible]}
           </NavContent>
