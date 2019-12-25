@@ -1,15 +1,11 @@
 import React from 'react'
-import { useSelector, useCharacterContext } from '../../hooks'
+import { useSelector, useCharacterContext, useDispatch } from '../../hooks'
 import { selectEquipment } from '../../Redux/selectors'
 import { createUseStyles } from 'react-jss'
+import ModuleContainer from '../_shared/ModuleContainer'
+import { openModalWith } from '../../Redux/actions'
 
 const useStyles = createUseStyles((theme: Theme) => ({
-  equipment: {
-    padding: theme.padding,
-    border: theme.border,
-    backgroundColor: theme.componentBackgroundColor,
-    minHeight: theme.minHeight
-  },
   header: {
     textAlign: 'center'
   },
@@ -30,8 +26,14 @@ export default function EquipmentList() {
   const classes = useStyles()
   const { characterId } = useCharacterContext()
   const { equipment, oversized } = useSelector(selectEquipment(characterId))
+  const dispatch = useDispatch()
+
+  function handleAddClick() {
+    dispatch(openModalWith("addItem"))
+  }
+
   return (
-    <div className={classes.equipment}>
+    <ModuleContainer onAddClick={handleAddClick}>
       <h2 className={classes.header}>Equipment</h2>
       <table>
         <thead>
@@ -63,6 +65,6 @@ export default function EquipmentList() {
           }
         </tbody>
       </table>
-    </div>
+    </ModuleContainer>
   )
 }

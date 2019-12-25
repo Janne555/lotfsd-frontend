@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from '../../../hooks'
 import { selectModalVisible, selectModalContent } from '../../../Redux/selectors/userInterface'
 import NoContent from '../../_shared/NoContent'
 import { closeModal } from '../../../Redux/actions'
+import AddItem from './AddItem'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   modal: {
@@ -42,6 +43,8 @@ const AppModal = React.forwardRef<any, Props>(({ characterId }, ref) => {
                 return <AddRetainer ref={ref} characterId={characterId} onClose={handleClose} />
               case "addLanguage":
                 return <AddLanguage ref={ref} characterId={characterId} onClose={handleClose} />
+              case "addItem":
+                return <AddItem ref={ref} characterId={characterId} onClose={handleClose} />
               default:
                 return <NoContent />
             }
