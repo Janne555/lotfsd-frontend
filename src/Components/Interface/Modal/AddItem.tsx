@@ -40,7 +40,7 @@ const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ char
         id="combo-box-demo"
         options={itemIndex}
         getOptionLabel={(option: Item) => option.name}
-        style={{ width: 300 }}
+        style={{ width: 500 }}
         disablePortal
         onChange={(e, item) => setSelected(item)}
         renderInput={params => (
