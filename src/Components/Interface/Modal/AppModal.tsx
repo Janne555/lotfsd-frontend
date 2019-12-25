@@ -5,12 +5,12 @@ import AddRetainer from './AddRetainer'
 import { useSelector, useDispatch } from '../../../hooks'
 import { selectModalVisible, selectModalContent } from '../../../Redux/selectors/userInterface'
 import NoContent from '../../_shared/NoContent'
-import DialogContent from '@material-ui/core/DialogContent'
 import { closeModal } from '../../../Redux/actions'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   modal: {
-
+    outline: 'none',
+    width: 'fit-content'
   }
 }))
 
@@ -46,12 +46,12 @@ const AppModal = React.forwardRef(({ }, ref) => {
       open={visible}
       onClose={handleClose}
     >
-      <DialogContent>
+      <div className={classes.modal}>
         {content
           ? <Content option={content} onClose={handleClose} />
           : <NoContent />
         }
-      </DialogContent>
+      </div>
     </Modal>
   )
 })
