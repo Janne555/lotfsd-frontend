@@ -17,15 +17,15 @@ const useStyles = createUseStyles((theme: Theme) => ({
 export default function CombatOptions() {
   const classes = useStyles()
   const { characterId } = useCharacterContext()
-  const { defensive, parry, press, standard } = useSelector(selectCombatOptions(characterId))
+  const { defensive, parry, press, standard, improvedParry } = useSelector(selectCombatOptions(characterId))
 
   return (
     <div className={classes.combatOptions}>
       <h2>Combat Options</h2>
-      <p>{defensive}</p>
-      <p>{parry}</p>
-      <p>{press}</p>
-      <p>{standard}</p>
+      {standard && <p>Standard attack AB +0, AC +0</p>}
+      {parry && <p>Parry AC {improvedParry ? 4 : 2}</p>}
+      {press && <p>Press AB +2, AC -4</p>}
+      {defensive && <p>Defensive AB -4, AC +2</p>}
     </div>
   )
 }

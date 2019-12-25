@@ -25,7 +25,7 @@ const CHARACTER_CLASSES: CharacterClasses = {
     ],
     combatOptions: {
       defensive: true,
-      parry: true,
+      improvedParry: true,
       press: true,
       standard: true
     },
@@ -45,9 +45,7 @@ const CHARACTER_CLASSES: CharacterClasses = {
       0, 2000, 4000, 8000, 16000, 32000, 64000
     ],
     combatOptions: {
-      defensive: true,
       parry: true,
-      press: true,
       standard: true
     },
     commonActivities,
@@ -66,9 +64,7 @@ const CHARACTER_CLASSES: CharacterClasses = {
       0, 2000, 4000, 8000, 16000, 32000, 64000
     ],
     combatOptions: {
-      defensive: true,
       parry: true,
-      press: true,
       standard: true
     },
     commonActivities,
@@ -87,9 +83,7 @@ const CHARACTER_CLASSES: CharacterClasses = {
       0, 2000, 4000, 8000, 16000, 32000, 64000
     ],
     combatOptions: {
-      defensive: true,
       parry: true,
-      press: true,
       standard: true
     },
     commonActivities,

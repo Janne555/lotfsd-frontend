@@ -184,6 +184,7 @@ type Retainer = {
 type CombatOptions = {
   standard?: boolean
   parry?: boolean
+  improvedParry?: boolean
   press?: boolean
   defensive?: boolean
 }
