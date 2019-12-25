@@ -30,13 +30,6 @@ const singleSavingThrows: Id & SavingThrows = {
 
 const savingThrows = normalize(singleSavingThrows)
 
-const shieldEffect: ArmorEffect = {
-  method: "modify",
-  target: "baseAC",
-  type: "armorItemEffect",
-  value: 1
-}
-
 const itemIndex: Normalized<Item> = {
   byId: {
     armor1: {
