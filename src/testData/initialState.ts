@@ -231,10 +231,15 @@ const system: System = {
   }
 }
 
+const userInterface = {
+  modalOpen: false
+}
+
 const initialState: RootState = {
   characterSheet,
   itemIndex,
-  system
+  system,
+  userInterface
 }
 
 export {
