@@ -38,18 +38,15 @@ const AddRetainer = React.forwardRef<HTMLFormElement, Props>(({ onClose, charact
   }
 
   return (
-    <div className={classes.addRetainer}>
-      <h2>Add Retainer</h2>
-      <FormContainer ref={ref} onClose={onClose} onSubmit={handleSubmit}>
-        <TextField id="name" label="Name" required />
-        <TextField id="position" label="Position" />
-        <TextField id="class" label="Class" />
-        <TextField id="level" label="Level" type="number" />
-        <TextField id="hitpoints" label="Hitpoints" type="number" />
-        <TextField id="wage" label="Wage" type="number" />
-        <TextField id="share" label="Share" type="number" />
-      </FormContainer>
-    </div>
+    <FormContainer ref={ref} onClose={onClose} onSubmit={handleSubmit} label="Add Retainer">
+      <TextField id="name" label="Name" required autoFocus />
+      <TextField id="position" label="Position" />
+      <TextField id="class" label="Class" />
+      <TextField id="level" label="Level" type="number" />
+      <TextField id="hitpoints" label="Hitpoints" type="number" />
+      <TextField id="wage" label="Wage" type="number" />
+      <TextField id="share" label="Share" type="number" />
+    </FormContainer>
   )
 })
 

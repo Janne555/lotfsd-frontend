@@ -7,6 +7,11 @@ const languagesSlice = createSlice({
   name: "languages",
   initialState: languages,
   reducers: {
+    addLanguage(state, { payload: { id, ...language } }: AppAction<Language>) {
+      if (!state.byId[id].languages.some(l => l.name === language.name)) {
+        state.byId[id].languages.push(language)
+      }
+    }
   },
   extraReducers: acmBuilder => {
     acmBuilder.addCase(createCharacter, (state, action) => {
@@ -17,6 +22,6 @@ const languagesSlice = createSlice({
   }
 })
 
-// export const { } = languagesSlice.actions
+export const { addLanguage } = languagesSlice.actions
 
 export default languagesSlice.reducer

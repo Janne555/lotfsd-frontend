@@ -2,6 +2,7 @@ import React from 'react'
 import { createUseStyles } from 'react-jss'
 import Modal from '@material-ui/core/Modal'
 import AddRetainer from './AddRetainer'
+import AddLanguage from './AddLanguage'
 import { useSelector, useDispatch } from '../../../hooks'
 import { selectModalVisible, selectModalContent } from '../../../Redux/selectors/userInterface'
 import NoContent from '../../_shared/NoContent'
@@ -39,6 +40,8 @@ const AppModal = React.forwardRef<any, Props>(({ characterId }, ref) => {
             switch (content) {
               case "addRetainer":
                 return <AddRetainer ref={ref} characterId={characterId} onClose={handleClose} />
+              case "addLanguage":
+                return <AddLanguage ref={ref} characterId={characterId} onClose={handleClose} />
               default:
                 return <NoContent />
             }

@@ -3,6 +3,14 @@ import { createUseStyles } from 'react-jss'
 import Button from '@material-ui/core/Button'
 
 const useStyles = createUseStyles((theme: Theme) => ({
+  root: {
+    backgroundColor: 'white',
+    padding: '2rem',
+    maxWidth: 500,
+    '& h2': {
+      margin: 0
+    }
+  },
   form: {
     '& > div': {
       width: '100%'
@@ -19,19 +27,23 @@ type Props = {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   onClose: () => void
   children: ReactNode
+  label: string
 }
 
-const FormContainer = React.forwardRef<HTMLFormElement, Props>(({ onSubmit, onClose, children }, ref) => {
+const FormContainer = React.forwardRef<HTMLFormElement, Props>(({ onSubmit, onClose, children, label }, ref) => {
   const classes = useStyles()
 
   return (
-    <form ref={ref} onSubmit={onSubmit} className={classes.form}>
-      {children}
-      <div className={classes.buttons}>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button variant="outlined" type="submit">Save</Button>
-      </div>
-    </form>
+    <div className={classes.root}>
+      <h2>{label}</h2>
+      <form ref={ref} onSubmit={onSubmit} className={classes.form}>
+        {children}
+        <div className={classes.buttons}>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button variant="outlined" type="submit">Save</Button>
+        </div>
+      </form>
+    </div>
   )
 })
 
