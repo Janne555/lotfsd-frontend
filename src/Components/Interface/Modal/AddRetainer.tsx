@@ -1,25 +1,8 @@
 import React from 'react'
-import { createUseStyles } from 'react-jss'
 import TextField from '@material-ui/core/TextField'
 import { useDispatch } from '../../../hooks'
 import { addRetainer } from '../../../Redux/thunks'
 import FormContainer from '../../_shared/FormContainer'
-
-const useStyles = createUseStyles((theme: Theme) => ({
-  addRetainer: {
-    backgroundColor: 'white',
-    padding: '2rem',
-    maxWidth: 500,
-    '& h2': {
-      margin: 0
-    }
-  },
-  buttons: {
-    display: 'flex',
-    marginTop: '1rem',
-    justifyContent: 'space-between'
-  }
-}))
 
 type Props = {
   onClose: () => void
@@ -27,7 +10,6 @@ type Props = {
 }
 
 const AddRetainer = React.forwardRef<HTMLFormElement, Props>(({ onClose, characterId }, ref) => {
-  const classes = useStyles()
   const dispatch = useDispatch()
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
