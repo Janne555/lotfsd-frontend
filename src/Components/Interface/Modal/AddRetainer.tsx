@@ -14,9 +14,6 @@ const useStyles = createUseStyles((theme: Theme) => ({
       margin: 0
     }
   },
-  field: {
-    width: '100%'
-  },
   buttons: {
     display: 'flex',
     marginTop: '1rem',
@@ -44,13 +41,13 @@ const AddRetainer = React.forwardRef<HTMLFormElement, Props>(({ onClose, charact
     <div className={classes.addRetainer}>
       <h2>Add Retainer</h2>
       <FormContainer ref={ref} onClose={onClose} onSubmit={handleSubmit}>
-        <TextField className={classes.field} id="name" label="Name" required />
-        <TextField className={classes.field} id="position" label="Position" />
-        <TextField className={classes.field} id="class" label="Class" />
-        <TextField className={classes.field} id="level" label="Level" type="number" />
-        <TextField className={classes.field} id="hitpoints" label="Hitpoints" type="number" />
-        <TextField className={classes.field} id="wage" label="Wage" type="number" />
-        <TextField className={classes.field} id="share" label="Share" type="number" />
+        <TextField id="name" label="Name" required />
+        <TextField id="position" label="Position" />
+        <TextField id="class" label="Class" />
+        <TextField id="level" label="Level" type="number" />
+        <TextField id="hitpoints" label="Hitpoints" type="number" />
+        <TextField id="wage" label="Wage" type="number" />
+        <TextField id="share" label="Share" type="number" />
       </FormContainer>
     </div>
   )
