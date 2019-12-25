@@ -20,11 +20,38 @@ type Props = {
   characterId: string
 }
 
+function pickDisplayProps(item: Item): [string, string][] {
+  const { description, stackSize, type } = item
+  return [
+    ['Description', description],
+    ['Stack Size', `${stackSize}`],
+    ['Type', type]
+  ]
+}
+
+function displayEffect(effect: ItemEffect) {
+  const { method, type } = effect
+  // switch (effect.type) {
+  //   case "armorItemEffect":
+  //     return
+  //   case "weaponItemEffect":
+  //     break
+  //   case
+  // }
+
+  function displayArmorEffect(acEffect: ArmorEffect) {
+    const { method, type, value, target } = acEffect
+    let msg = "Increases armor class by 5"
+    let msg2 = "Replaces armor class with 5"
+  }
+}
+
 const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ characterId, onClose }, ref) {
   const classes = useStyles()
   const dispatch = useDispatch()
   const itemIndex = useSelector(selectItemIndex)
   const [selected, setSelected] = useState<Item>()
+
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -45,6 +72,30 @@ const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ char
           <TextField {...params} label="Combo box" variant="outlined" fullWidth />
         )}
       />
+      {selected &&
+        <ul>
+          {
+            pickDisplayProps(selected).map(([key, value]) => (
+              <li key={key}>
+                <span>{key}: </span>
+                <span>{value as any}</span>
+              </li>
+            ))
+          }
+          {selected.encumbrance != null &&
+            <li>
+              Oversized
+            </li>
+          }
+          {
+            selected.effects.map((effect, i) => (
+              <li key={i}>
+                <span>{effect.}</span>
+              </li>
+            ))
+          }
+        </ul>
+      }
     </FormContainer>
   )
 })

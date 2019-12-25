@@ -89,11 +89,11 @@ type ArmorClassEffectTarget = "base" | "ranged" | "surprised" | "withoutShield"
 
 type ItemEffect = WeaponEffect | ArmorEffect
 
-type ItemEffect = {
+type BaseItemEffect = {
   method: "override" | "modify"
 }
 
-type WeaponEffect = ItemEffect & {
+type WeaponEffect = BaseItemEffect & {
   type: 'weaponItemEffect'
 }
 
@@ -107,9 +107,10 @@ type WeaponItemEffectString = WeaponEffect & {
   value: string
 }
 
-type ArmorEffect = ItemEffect & {
+type ArmorEffect = BaseItemEffect & {
   type: 'armorItemEffect'
   target: 'armorClass'
+  value: number
 }
 
 type InventoryItem = Item & ItemInstance
