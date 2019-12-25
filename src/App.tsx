@@ -27,6 +27,12 @@ const useStyles = createUseStyles((theme: Theme) => ({
   body: {
     minHeight: 'calc(100vh - 8rem)',
     backgroundColor: theme.colorGreyLightest,
+  },
+  '@media (max-width: 1100px)': {
+    app: {
+      display: 'flex',
+      flexDirection: 'column'
+    }
   }
 }))
 

@@ -23,6 +23,14 @@ const useStyles = createUseStyles((theme: Theme) => ({
       breakInside: 'avoid-column',
       marginBottom: '1rem'
     }
+  },
+  '@media (max-width: 1100px)': {
+    characterSheet: {
+      display: 'flex',
+      flexDirection: 'column',
+      columnCount: 'unset',
+      padding: 1
+    }
   }
 }))
 

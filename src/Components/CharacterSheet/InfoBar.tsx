@@ -27,6 +27,13 @@ const useStyles = createUseStyles((theme: Theme) => ({
   right: {
     textAlign: 'left',
     marginLeft: '0.5em'
+  },
+  '@media (max-width: 1100px)': {
+    infoBarRoot: {
+      display: 'flex',
+      flexDirection: 'column',
+      height: 'fit-content'
+    }
   }
 }))
 

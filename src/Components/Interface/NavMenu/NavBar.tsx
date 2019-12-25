@@ -21,6 +21,11 @@ const useStyles = createUseStyles((theme: Theme) => ({
     backgroundColor: theme.colorDark,
     position: 'relative',
     display: 'flex'
+  },
+  '@media (max-width: 1100px)': {
+    navBar: {
+      height: 50
+    }
   }
 }))
 

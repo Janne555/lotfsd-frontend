@@ -31,6 +31,7 @@ function AddRetainer({ onClose }: Props) {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    onClose()
   }
 
   return (
