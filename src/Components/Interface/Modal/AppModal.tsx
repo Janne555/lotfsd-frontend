@@ -20,7 +20,7 @@ type Props = {
   characterId?: string
 }
 
-const AppModal = React.forwardRef<any, Props>(({ characterId }, ref) => {
+const AppModal = React.forwardRef<any, Props>(function AppModal({ characterId }, ref) {
   const classes = useStyles()
   const visible = useSelector(selectModalVisible)
   const content = useSelector(selectModalContent)

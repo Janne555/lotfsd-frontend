@@ -20,7 +20,7 @@ type Props = {
   characterId: string
 }
 
-const AddItem = React.forwardRef<HTMLFormElement, Props>(({ characterId, onClose }, ref) => {
+const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ characterId, onClose }, ref) {
   const classes = useStyles()
   const dispatch = useDispatch()
   const itemIndex = useSelector(selectItemIndex)

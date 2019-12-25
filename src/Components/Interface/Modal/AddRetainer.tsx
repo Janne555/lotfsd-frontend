@@ -9,7 +9,7 @@ type Props = {
   characterId: string
 }
 
-const AddRetainer = React.forwardRef<HTMLFormElement, Props>(({ onClose, characterId }, ref) => {
+const AddRetainer = React.forwardRef<HTMLFormElement, Props>(function AddRetainer({ onClose, characterId }, ref) {
   const dispatch = useDispatch()
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {

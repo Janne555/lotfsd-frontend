@@ -30,7 +30,7 @@ type Props = {
   label: string
 }
 
-const FormContainer = React.forwardRef<HTMLFormElement, Props>(({ onSubmit, onClose, children, label }, ref) => {
+const FormContainer = React.forwardRef<HTMLFormElement, Props>(function FormContainer({ onSubmit, onClose, children, label }, ref) {
   const classes = useStyles()
 
   return (

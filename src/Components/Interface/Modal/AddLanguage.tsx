@@ -11,7 +11,7 @@ type Props = {
   characterId: string
 }
 
-const AddLanguage = React.forwardRef<HTMLFormElement, Props>(({ onClose, characterId }, ref) => {
+const AddLanguage = React.forwardRef<HTMLFormElement, Props>(function AddLanguage({ onClose, characterId }, ref) {
   const dispatch = useDispatch()
 
   function handleSubmit(e: any) {
