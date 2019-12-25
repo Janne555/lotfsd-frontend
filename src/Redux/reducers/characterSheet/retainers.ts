@@ -2,11 +2,14 @@ import { createSlice } from '@reduxjs/toolkit'
 import { retainers } from '../../../testData/initialState'
 import { createCharacter } from '../../newCharacterAction'
 
-
 const retainersSlice = createSlice({
   name: "retainers",
   initialState: retainers,
   reducers: {
+    addRetainer(state, action: AppAction<Retainer>) {
+      const { id, ...retainer } = action.payload
+      state.byId[id].retainers.push(retainer)
+    }
   },
   extraReducers: acmBuilder => {
     acmBuilder.addCase(createCharacter, (state, action) => {
@@ -17,6 +20,6 @@ const retainersSlice = createSlice({
   }
 })
 
-// export const { } = retainersSlice.actions
+export const { addRetainer } = retainersSlice.actions
 
 export default retainersSlice.reducer

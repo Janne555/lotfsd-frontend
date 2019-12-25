@@ -2,6 +2,8 @@ import React from 'react'
 import { createUseStyles } from 'react-jss'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import { useDispatch } from '../../../hooks'
+import { addRetainer } from '../../../Redux/thunks'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   addRetainer: {
@@ -28,9 +30,12 @@ type Props = {
 
 function AddRetainer({ onClose }: Props) {
   const classes = useStyles()
+  const dispatch = useDispatch()
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    const target = (e.target as unknown) as { elements: AddRetainerForm }
     e.preventDefault()
+    dispatch(addRetainer(target.elements, "TODO"))
     onClose()
   }
 

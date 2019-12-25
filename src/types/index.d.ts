@@ -256,6 +256,8 @@ type NewCharacterPayload = Attributes & {
   [P in keyof NewCharacterForm]: P extends ("age" | "money" | "maxHp" | keyof Attributes) ? number : P extends ("class") ? Classes : string
 } & { id: string, player: string }
 
+type AddRetainerForm = Record<keyof Omit<Retainer, 'uuid'>, HTMLInputElement>
+
 type CharacterClass = {
   savingThrows: SavingThrows
   combatOptions: CombatOptions
