@@ -20,6 +20,6 @@ const retainersSlice = createSlice({
   }
 })
 
-export const { addRetainer } = retainersSlice.actions
+export const { addRetainer: _addRetainer } = retainersSlice.actions
 
 export default retainersSlice.reducer

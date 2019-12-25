@@ -1,5 +1,5 @@
 import { generate } from 'shortid'
-import { addRetainer as _addRetainer } from '../reducers/characterSheet/retainers'
+import { _addRetainer } from '../reducers/characterSheet/retainers'
 
 const addRetainer = (
   elements: AddRetainerForm,
