@@ -30,6 +30,13 @@ const singleSavingThrows: Id & SavingThrows = {
 
 const savingThrows = normalize(singleSavingThrows)
 
+const shieldEffect: ArmorEffect = {
+  method: "modify",
+  target: "baseAC",
+  type: "armorItemEffect",
+  value: 1
+}
+
 const itemIndex: Normalized<Item> = {
   byId: {
     armor1: {
@@ -61,9 +68,33 @@ const itemIndex: Normalized<Item> = {
       stackSize: 1,
       id: 'pavillion',
       description: 'tent'
+    },
+    shield: {
+      type: "armor",
+      encumbrancePoints: 1,
+      encumbrance: 1,
+      name: "Shield",
+      effects: [
+        {
+          method: "modify",
+          target: "baseAC",
+          type: "armorItemEffect",
+          value: 1
+        },
+        {
+          method: "modify",
+          target: "rangedAC",
+          type: "armorItemEffect",
+          value: 2
+        },
+      ],
+      stackSize: 1,
+      id: 'shield',
+      description: 'Shield of the Ten Spears',
+      baseArmorClass: 1
     }
   },
-  allIds: ['armor1', 'torch', 'pavillion']
+  allIds: ['armor1', 'torch', 'pavillion', 'shield']
 }
 
 const singleInventory: Inventory = {

@@ -8,6 +8,7 @@ import Select from '@material-ui/core/NativeSelect'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Autocomplete from '@material-ui/lab/Autocomplete'
+import { normalizeCamelCase } from '../../../services'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   AddItem: {
@@ -30,19 +31,27 @@ function pickDisplayProps(item: Item): [string, string][] {
 }
 
 function displayEffect(effect: ItemEffect) {
-  const { method, type } = effect
-  // switch (effect.type) {
-  //   case "armorItemEffect":
-  //     return
-  //   case "weaponItemEffect":
-  //     break
-  //   case
-  // }
+  switch (effect.type) {
+    case "armorItemEffect":
+      return displayArmorEffect(effect)
+    case "weaponItemEffect":
+      return undefined
+    default:
+      return undefined
+  }
 
   function displayArmorEffect(acEffect: ArmorEffect) {
-    const { method, type, value, target } = acEffect
-    let msg = "Increases armor class by 5"
-    let msg2 = "Replaces armor class with 5"
+    const { method, value, target } = acEffect
+    let foo = normalizeCamelCase(target.replace('AC', 'ArmorClass'))
+
+    if (method === "modify") {
+      if (value === 0) {
+        return undefined
+      }
+      return `${value > 0 ? 'Increases' : 'Decreases'} ${foo} by ${value}`
+    } else {
+      return `Replaces ${foo} with ${value}`
+    }
   }
 }
 
@@ -90,7 +99,7 @@ const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ char
           {
             selected.effects.map((effect, i) => (
               <li key={i}>
-                <span>{effect.}</span>
+                {displayEffect(effect)}
               </li>
             ))
           }

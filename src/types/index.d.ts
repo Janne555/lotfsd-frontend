@@ -8,7 +8,7 @@ type AppThunk = import('redux-thunk').ThunkAction<void, RootState, null, Action<
 
 type AppAction<T> = import('@reduxjs/toolkit').PayloadAction<T> & { payload: { id: string } }
 
-type ModalContent = "addRetainer" | "addLanguage" | "addItem"
+type ModalContent = "addRetainer" | "addLanguage" | "addItem"
 
 type Normalized<T extends Id> = {
   byId: Record<string, T>
@@ -109,7 +109,7 @@ type WeaponItemEffectString = WeaponEffect & {
 
 type ArmorEffect = BaseItemEffect & {
   type: 'armorItemEffect'
-  target: 'armorClass'
+  target: 'baseAC' | 'rangedAC' | 'withoutShieldAC' | 'surprisedAC'
   value: number
 }
 
