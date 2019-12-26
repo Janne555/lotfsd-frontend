@@ -7,7 +7,8 @@ import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
 import { isItemType } from '../../services'
 import EffectsList from '../_shared/EffectsList'
-import { generate } from 'shortid'
+import { generate } from 'shortid'
+import NoContent from '../_shared/NoContent'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   itemCreator: {
@@ -40,11 +41,12 @@ type Props = {
 
 }
 
-function ItemCreator({ }: Props) {
+function ItemCreator(/* { }: Props */) {
   const classes = useStyles()
   const [type, setType] = useState<Item['type']>()
   const [showEffectAdder, setShowEffectAdder] = useState(true)
   const [effects, setEffects] = useState<ItemEffect[]>([])
+  // const [error, setError] = useState<string>()
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -77,6 +79,11 @@ function ItemCreator({ }: Props) {
     }
 
     setEffects(prev => prev.concat(effect))
+    setShowEffectAdder(false)
+  }
+
+  function handleWeaponEffectSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
   }
 
   return (
@@ -112,8 +119,13 @@ function ItemCreator({ }: Props) {
         }
         {type &&
           <>
-            {showEffectAdder &&
-              <ItemEffectEditor type={type} />
+            {showEffectAdder && type !== 'armor'
+              ? type !== 'weapon'
+                ? type !== 'item'
+                  ? <NoContent /> // TODO
+                  : <NoContent /> // TODO
+                : <WeaponEffectEditor />
+              : <ArmorEffectEditor />
             }
             <Button onClick={() => setShowEffectAdder(prev => !prev)}>{showEffectAdder ? 'Cancel' : 'New Effect'}</Button>
           </>
@@ -126,16 +138,11 @@ function ItemCreator({ }: Props) {
         <Button type="submit">Submit</Button>
       </form>
       <form id='armorEffectForm' onSubmit={handleArmorEffectSubmit}></form>
-      <form id='weaponEffectForm' onSubmit={handleArmorEffectSubmit}></form>
+      <form id='weaponEffectForm' onSubmit={handleWeaponEffectSubmit}></form>
     </div>
   )
 }
-
-type SubProps = {
-  type: Item['type']
-}
-
-const useSubStyles = createUseStyles((theme: Theme) => ({
+const useArmorEffectStyles = createUseStyles((theme: Theme) => ({
   effects: {
     marginTop: '1rem',
     display: 'grid',
@@ -147,8 +154,8 @@ const useSubStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-function ItemEffectEditor({ type }: SubProps) {
-  const classes = useSubStyles()
+function ArmorEffectEditor() {
+  const classes = useArmorEffectStyles()
 
   return (
     <div className={classes.effects} >
@@ -170,6 +177,41 @@ function ItemEffectEditor({ type }: SubProps) {
       </FormControl>
       <TextField id='value' label='Value' type='number' required inputProps={{ form: 'armorEffectForm' }} />
       <Button type="submit" form='armorEffectForm' variant="outlined">Add</Button>
+    </div>
+  )
+}
+
+const useWeaponEffectStyles = createUseStyles((theme: Theme) => ({
+  effects: {
+    marginTop: '1rem',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(5, auto)',
+    gridColumnGap: '1rem'
+  },
+  radio: {
+    flexDirection: 'row'
+  }
+}))
+
+function WeaponEffectEditor() {
+  const classes = useWeaponEffectStyles()
+
+  return (
+    <div className={classes.effects} >
+      <FormControl required>
+        <InputLabel htmlFor='method'>Method</InputLabel>
+        <Select inputProps={{ id: 'method', form: 'weaponEffectForm' }}>
+          <option value='override'>Override</option>
+          <option value='modify'>Modify</option>
+        </Select>
+      </FormControl>
+      <FormControl required>
+        <InputLabel htmlFor='effectTarget'>Effect Target</InputLabel>
+        <Select inputProps={{ id: 'effectTarget', form: 'weaponEffectForm' }}>
+        </Select>
+      </FormControl>
+      <TextField id='value' label='Value' type='number' required inputProps={{ form: 'weaponEffectForm' }} />
+      <Button type="submit" form='weaponEffectForm' variant="outlined">Add</Button>
     </div>
   )
 }
