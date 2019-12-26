@@ -6,11 +6,12 @@ import Login from './Components/Interface/Login'
 import NavItem from './Components/Interface/NavMenu/NavItem'
 import { useSelector } from './hooks'
 import { selectIsLoggedIn, selectCharacterId } from './Redux/selectors'
-import { Switch, Route, useRouteMatch, Link } from 'react-router-dom'
+import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import CharacterList from './Components/Interface/CharacterList/CharacterList'
 import CharacterCreator from './Components/CharacterCreator/CharacterCreator'
 import AppModal from './Components/Interface/Modal/AppModal'
 import ItemIndex from './Components/ItemIndex/ItemIndex'
+import ItemCreator from './Components/ItemIndex/ItemCreator'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   app: {
@@ -56,7 +57,7 @@ const App: React.FC = () => {
         <NavItem name="Campaigns" to="/campaigns">
           moi
           </NavItem>
-        <NavItem name="Item Index" to="/itemindex"/>
+        <NavItem name="Item Index" to="/itemindex" />
         <NavItem name="Login" end />
       </NavBar>
       <div className={classes.body}>
@@ -72,8 +73,11 @@ const App: React.FC = () => {
           </Route>
         </Switch>
         <Route path="/itemindex">
-            <ItemIndex />
-          </Route>
+          <ItemIndex />
+        </Route>
+        <Route path="/newitem">
+          <ItemCreator />
+        </Route>
       </div>
       <AppModal characterId={characterId} />
       <footer className={classes.footer}></footer>

@@ -45,7 +45,7 @@ const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ char
         disablePortal
         onChange={(e, item) => setSelected(item)}
         renderInput={params => (
-          <TextField {...params} label="Item" fullWidth />
+          <TextField {...params} label="Item" fullWidth placeholder="Filter by typing" />
         )}
       />
       {selected &&
