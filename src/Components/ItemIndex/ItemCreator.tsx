@@ -27,6 +27,10 @@ const useStyles = createUseStyles((theme: Theme) => ({
   },
   rangeLabel: {
     marginTop: '1rem'
+  },
+  effectListItem: {
+    display: 'grid',
+    gridTemplateColumns: ''
   }
 }))
 
@@ -38,6 +42,7 @@ function ItemCreator({ }: Props) {
   const classes = useStyles()
   const [type, setType] = useState<Item['type']>()
   const [showEffectAdder, setShowEffectAdder] = useState(true)
+  const [effects, setEffects] = useState<ItemEffect[]>([])
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -52,6 +57,23 @@ function ItemCreator({ }: Props) {
     if (isItemType(value)) {
       setType(value)
     }
+  }
+
+  function handleArmorEffectSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const target = (e.target as any)
+    const method = target.elements.method.value as ItemEffect['method']
+    const effectTarget = target.elements.effectTarget?.value as ArmorEffect['target']
+    const value = Number(target.elements.value.value)
+
+    const effect: ArmorEffect = {
+      method,
+      target: effectTarget,
+      type: 'armorItemEffect',
+      value
+    }
+
+    setEffects(prev => prev.concat(effect))
   }
 
   return (
@@ -85,13 +107,27 @@ function ItemCreator({ }: Props) {
             </div>
           </>
         }
-        {showEffectAdder &&
-          <ItemEffectEditor type="armor" />
+        {type &&
+          <>
+            {showEffectAdder &&
+              <ItemEffectEditor type={type} />
+            }
+            <Button onClick={() => setShowEffectAdder(prev => !prev)}>{showEffectAdder ? 'Cancel' : 'New Effect'}</Button>
+          </>
         }
-        <Button onClick={() => setShowEffectAdder(prev => !prev)}>{showEffectAdder ? 'Cancel' : 'New Effect'}</Button>
+        <ul>
+          {
+            effects.map(({ method, type }, i) => (
+              <li key={i} className={classes.effectListItem}>
+                <span>{method}</span>
+              </li>
+            ))
+          }
+        </ul>
         <Button type="submit">Submit</Button>
       </form>
-      <form id='effectForm'></form>
+      <form id='armorEffectForm' onSubmit={handleArmorEffectSubmit}></form>
+      <form id='effectForm' onSubmit={handleArmorEffectSubmit}></form>
     </div>
   )
 }
@@ -117,44 +153,26 @@ function ItemEffectEditor({ type }: SubProps) {
 
   return (
     <div className={classes.effects} >
-      {/* <h3>Effects</h3> */}
       <FormControl required>
         <InputLabel htmlFor='method'>Method</InputLabel>
-        <Select inputProps={{ id: 'method', form: 'effectForm' }}>
+        <Select inputProps={{ id: 'method', form: 'armorEffectForm' }}>
           <option value='override'>Override</option>
           <option value='modify'>Modify</option>
         </Select>
       </FormControl>
       <FormControl required>
         <InputLabel htmlFor='effectTarget'>Effect Target</InputLabel>
-        <Select inputProps={{ id: 'effectTarget', form: 'effectForm' }}>
+        <Select inputProps={{ id: 'effectTarget', form: 'armorEffectForm' }}>
           <option value='baseAC'>Base AC</option>
           <option value='rangedAC'>Ranged AC</option>
           <option value='withoutShieldAC'>Without Shield AC</option>
           <option value='surprisedAC'>Surprised AC</option>
         </Select>
       </FormControl>
-      <TextField id='value' label='Value' type='number' required inputProps={{ form: 'effectForm' }} />
-      <Button type="submit" form='effectForm' variant="outlined">Add</Button>
+      <TextField id='value' label='Value' type='number' required inputProps={{ form: 'armorEffectForm' }} />
+      <Button type="submit" form='armorEffectForm' variant="outlined">Add</Button>
     </div>
   )
 }
-
-const foo: ItemBase = {
-  description: '',
-  effects: [],
-  encumbrancePoints: 3,
-  id: "qwe",
-  name: "1123",
-  stackSize: 5,
-  encumbrance: 1
-}
-
-// const bar: ArmorEffect = {
-//   method: "modify",
-//   type: "weaponItemEffect",
-
-// }
-
 
 export default ItemCreator
