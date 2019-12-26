@@ -50,10 +50,10 @@ const App: React.FC = () => {
   return (
     <div className={classes.app}>
       <NavBar>
-        <NavItem name="Characters">
+        <NavItem name="Characters" to="/characters">
           <CharacterList />
         </NavItem>
-        <NavItem name="Campaigns">
+        <NavItem name="Campaigns" to="/campaigns">
           moi
           </NavItem>
         <NavItem name="Item Index" to="/itemindex"/>

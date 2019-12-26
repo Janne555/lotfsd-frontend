@@ -29,7 +29,6 @@ const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ char
   const itemIndex = useSelector(selectItemIndex)
   const [selected, setSelected] = useState<Item>()
 
-
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     e.persist()

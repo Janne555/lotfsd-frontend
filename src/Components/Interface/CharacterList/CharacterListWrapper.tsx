@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import { createUseStyles } from 'react-jss'
 import { useNavMenuContext } from '../NavMenu/NavBar'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   character: {
@@ -14,6 +14,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
     alignItems: 'center',
     margin: '1rem',
     border: '7px solid black',
+    cursor: 'pointer',
     '& img': {
       height: 100,
       width: 100,
@@ -30,13 +31,17 @@ const useStyles = createUseStyles((theme: Theme) => ({
 function CharacterListWrapper({ children, to }: { children: ReactNode, to: string }) {
   const classes = useStyles()
   const { onHide } = useNavMenuContext()
+  const history = useHistory()
+
+  function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
+    history.push(to)
+    onHide(e)
+  }
 
   return (
-    <div className={classes.character} onClick={onHide}>
-      <Link to={to}>
-        {children}
-      </Link>
-    </div>
+    <button className={classes.character} onClick={handleClick}>
+      {children}
+    </button>
   )
 }
 
