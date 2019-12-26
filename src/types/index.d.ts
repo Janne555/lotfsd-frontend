@@ -91,6 +91,7 @@ type ItemEffect = WeaponEffect | ArmorEffect
 
 type BaseItemEffect = {
   method: "override" | "modify"
+  id: string
 }
 
 type WeaponEffect = BaseItemEffect & {

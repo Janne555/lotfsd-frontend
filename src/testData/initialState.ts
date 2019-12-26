@@ -72,13 +72,15 @@ const itemIndex: Normalized<Item> = {
           method: "modify",
           target: "baseAC",
           type: "armorItemEffect",
-          value: 1
+          value: 1,
+          id: 'effect1'
         },
         {
           method: "modify",
           target: "rangedAC",
           type: "armorItemEffect",
-          value: 2
+          value: 2,
+          id: 'effect2'
         },
       ],
       stackSize: 1,

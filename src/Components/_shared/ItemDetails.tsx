@@ -1,6 +1,6 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { normalizeCamelCase } from '../../services'
+import EffectsList from './EffectsList'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   itemDetails: {
@@ -36,11 +36,7 @@ function ItemDetails({ item }: Props) {
             </li>
         }
         {
-          item.effects.map((effect, i) => (
-            <li key={i}>
-              {displayEffect(effect)}
-            </li>
-          ))
+          <EffectsList effects={item.effects} />
         }
       </ul>
     </div>
@@ -53,31 +49,6 @@ function pickDisplayProps(item: Item): [string, string][] {
     ['Stack Size', `${stackSize}`],
     ['Type', type]
   ]
-}
-
-function displayEffect(effect: ItemEffect) {
-  switch (effect.type) {
-    case "armorItemEffect":
-      return displayArmorEffect(effect)
-    case "weaponItemEffect":
-      return undefined
-    default:
-      return undefined
-  }
-
-  function displayArmorEffect(acEffect: ArmorEffect) {
-    const { method, value, target } = acEffect
-    let foo = normalizeCamelCase(target.replace('AC', 'ArmorClass'))
-
-    if (method === "modify") {
-      if (value === 0) {
-        return undefined
-      }
-      return `${value > 0 ? 'Increases' : 'Decreases'} ${foo} by ${value}`
-    } else {
-      return `Replaces ${foo} with ${value}`
-    }
-  }
 }
 
 export default ItemDetails

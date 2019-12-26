@@ -6,6 +6,8 @@ import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
 import { isItemType } from '../../services'
+import EffectsList from '../_shared/EffectsList'
+import { generate } from 'shortid'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   itemCreator: {
@@ -70,7 +72,8 @@ function ItemCreator({ }: Props) {
       method,
       target: effectTarget,
       type: 'armorItemEffect',
-      value
+      value,
+      id: generate()
     }
 
     setEffects(prev => prev.concat(effect))
@@ -117,17 +120,13 @@ function ItemCreator({ }: Props) {
         }
         <ul>
           {
-            effects.map(({ method, type }, i) => (
-              <li key={i} className={classes.effectListItem}>
-                <span>{method}</span>
-              </li>
-            ))
+            <EffectsList effects={effects} />
           }
         </ul>
         <Button type="submit">Submit</Button>
       </form>
       <form id='armorEffectForm' onSubmit={handleArmorEffectSubmit}></form>
-      <form id='effectForm' onSubmit={handleArmorEffectSubmit}></form>
+      <form id='weaponEffectForm' onSubmit={handleArmorEffectSubmit}></form>
     </div>
   )
 }
