@@ -37,9 +37,7 @@ export default function CharacterList() {
           ))
         }
         <CharacterListWrapper to="/newcharacter">
-          <Button>
-            <h2>Create new</h2>
-          </Button>
+          <h2>Create new</h2>
         </CharacterListWrapper>
       </div>
     </div>
