@@ -119,13 +119,15 @@ function ItemCreator(/* { }: Props */) {
         }
         {type &&
           <>
-            {showEffectAdder && type !== 'armor'
-              ? type !== 'weapon'
-                ? type !== 'item'
-                  ? <NoContent /> // TODO
-                  : <NoContent /> // TODO
-                : <WeaponEffectEditor />
-              : <ArmorEffectEditor />
+            {showEffectAdder
+              ? type !== 'armor'
+                ? type !== 'weapon'
+                  ? type !== 'item'
+                    ? <NoContent /> // TODO
+                    : <NoContent /> // TODO
+                  : <WeaponEffectEditor />
+                : <ArmorEffectEditor />
+              : null
             }
             <Button onClick={() => setShowEffectAdder(prev => !prev)}>{showEffectAdder ? 'Cancel' : 'New Effect'}</Button>
           </>
