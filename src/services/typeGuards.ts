@@ -26,7 +26,7 @@ function areOnlyAttributes(obj: any): obj is Attributes {
   return ['charisma', 'constitution', 'dexterity', 'intelligence', 'strength', 'wisdom'].every(key => key in obj)
 }
 
-function isItemType(s: any): s is (Pick<Item, 'type'>) {
+function isItemType(s: any): s is Item['type'] {
   return ['item', 'armor', 'weapon'].includes(s)
 }
 

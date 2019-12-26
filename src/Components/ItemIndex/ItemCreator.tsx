@@ -15,6 +15,19 @@ const useStyles = createUseStyles((theme: Theme) => ({
     '& > form > *': {
       width: '100%'
     }
+  },
+  range: {
+    display: 'grid',
+    gridTemplateColumns: '33% 33% 33%',
+    '& > div:first-child': {
+      marginRight: '1rem'
+    },
+    '& > div:last-child': {
+      marginLeft: '1rem'
+    }
+  },
+  rangeLabel: {
+    marginTop: '1rem'
   }
 }))
 
@@ -24,7 +37,7 @@ type Props = {
 
 function ItemCreator({ }: Props) {
   const classes = useStyles()
-  const [type, setType] = useState<Pick<Item, 'type'>>()
+  const [type, setType] = useState<Item['type']>()
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -59,8 +72,17 @@ function ItemCreator({ }: Props) {
         <TextField id='stackSize' type='number' label='Stack Size' />
         <TextField id='encumbrance' type='number' label='Encumbrance' />
         {type === 'armor' &&
+          <TextField id='armorClass' type='number' label='Armor Class' />
+        }
+        {true &&
           <>
-
+            <TextField id='damage' type='number' label='Damage' />
+            <InputLabel className={classes.rangeLabel}>Range</InputLabel>
+            <div className={classes.range}>
+              <TextField id='rangeShort' type='number' label='Short' />
+              <TextField id='rangeMedium' type='number' label='Medium' />
+              <TextField id='rangeLong' type='number' label='Long' />
+            </div>
           </>
         }
         <Button type="submit">submit</Button>
