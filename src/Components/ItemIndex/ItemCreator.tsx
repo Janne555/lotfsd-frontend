@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
 import { isItemType } from '../../services'
 
+
 const useStyles = createUseStyles((theme: Theme) => ({
   itemCreator: {
     maxWidth: 500,
@@ -53,11 +54,30 @@ function ItemCreator({ }: Props) {
             <option value='weapon'>Weapon</option>
           </Select>
         </FormControl>
-        {/* <TextField id={} /> */}
+        <TextField id='name' required label='Name' />
+        <TextField id='description' multiline required label='Description' />
+        <TextField id='stackSize' type='number' label='Stack Size' />
+        <TextField id='encumbrance' type='number' label='Encumbrance' />
+        {type === 'armor' &&
+          <>
+
+          </>
+        }
         <Button type="submit">submit</Button>
       </form>
     </div>
   )
 }
+
+const foo: ItemBase = {
+  description: '',
+  effects: [],
+  encumbrancePoints: 3,
+  id: "qwe",
+  name: "1123",
+  stackSize: 5,
+  encumbrance: 1
+}
+
 
 export default ItemCreator
