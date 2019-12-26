@@ -3,27 +3,31 @@ import { createUseStyles } from 'react-jss'
 import { useSelector } from '../../../hooks'
 import { selectCharacters } from '../../../Redux/selectors'
 import Character from './Character'
-import Button from '../../_shared/Button'
 import CharacterListWrapper from './CharacterListWrapper'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterList: {
     width: '100%',
-    overflow: 'scroll'
+    overflow: (page: boolean) => page ? '' : 'scroll'
   },
   list: {
     width: 'fit-content',
     display: 'flex',
     alignItems: 'center',
+    justifyContent: (page: boolean) => page ? 'center' : '',
+    flexWrap: (page: boolean) => page ? 'wrap' : ''
   },
   link: {
     margin: '1rem'
   }
 }))
 
+type Props = {
+  fullScreen?: boolean
+}
 
-export default function CharacterList() {
-  const classes = useStyles()
+export default function CharacterList({ fullScreen }: Props) {
+  const classes = useStyles(fullScreen)
   const characters = useSelector(selectCharacters)
 
   return (
