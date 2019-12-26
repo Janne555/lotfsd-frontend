@@ -10,6 +10,7 @@ import { Switch, Route, useRouteMatch, Link } from 'react-router-dom'
 import CharacterList from './Components/Interface/CharacterList/CharacterList'
 import CharacterCreator from './Components/CharacterCreator/CharacterCreator'
 import AppModal from './Components/Interface/Modal/AppModal'
+import ItemIndex from './Components/ItemIndex/ItemIndex'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   app: {
@@ -55,7 +56,7 @@ const App: React.FC = () => {
         <NavItem name="Campaigns">
           moi
           </NavItem>
-        <NavItem name="Item Index" render={className => <Link className={className} to="/itemindex">Item Index</Link>} />
+        <NavItem name="Item Index" to="/itemindex"/>
         <NavItem name="Login" end />
       </NavBar>
       <div className={classes.body}>
@@ -70,6 +71,9 @@ const App: React.FC = () => {
             <CharacterCreator />
           </Route>
         </Switch>
+        <Route path="/itemindex">
+            <ItemIndex />
+          </Route>
       </div>
       <AppModal characterId={characterId} />
       <footer className={classes.footer}></footer>

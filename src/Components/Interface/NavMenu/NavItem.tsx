@@ -1,6 +1,7 @@
 import React, { ReactNode, ReactNodeArray } from 'react'
 import { createUseStyles } from 'react-jss'
 import { useNavMenuContext } from './NavBar'
+import { useHistory, Link } from 'react-router-dom'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   navItem: {
@@ -31,12 +32,19 @@ type Props = {
   end?: boolean
   children?: ReactNode | ReactNodeArray
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
-  render?: (className: string) => JSX.Element
+  to?: string
 }
 
-export default function NavItem({ name, label, end, onClick, render }: Props) {
+export default function NavItem({ name, label, end, onClick, to }: Props) {
   const classes = useStyles(end)
   const { onSetVisible } = useNavMenuContext()
+  const history = useHistory()
+
+  function handleClick() {
+    if (to) {
+      history.push(to)
+    }
+  }
 
   function handleFocusOrHover() {
     if (!end) {
@@ -45,11 +53,8 @@ export default function NavItem({ name, label, end, onClick, render }: Props) {
   }
 
   return (
-    <button className={classes.navItem} onMouseEnter={handleFocusOrHover} onFocus={handleFocusOrHover} onClick={onClick} >
-      {render
-        ? render(classes.navItem)
-        : <span>{label || name}</span>
-      }
+    <button className={classes.navItem} onMouseEnter={handleFocusOrHover} onFocus={handleFocusOrHover} onClick={onClick || handleClick} >
+      <span>{label || name}</span>
     </button>
   )
 }
