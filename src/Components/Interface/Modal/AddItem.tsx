@@ -8,7 +8,7 @@ import { selectItemIndex } from '../../../Redux/selectors'
 // import InputLabel from '@material-ui/core/InputLabel'
 // import FormControl from '@material-ui/core/FormControl'
 import Autocomplete from '@material-ui/lab/Autocomplete'
-import { normalizeCamelCase } from '../../../services'
+import ItemDetails from '../../_shared/ItemDetails'
 
 // const useStyles = createUseStyles((theme: Theme) => ({
 //   AddItem: {
@@ -48,71 +48,10 @@ const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ char
         )}
       />
       {selected &&
-        <Details item={selected} />
+        <ItemDetails item={selected} />
       }
     </FormContainer>
   )
 })
-
-function Details({ item }: { item: Item }) {
-  return (
-    <ul>
-      {
-        pickDisplayProps(item).map(([key, value]) => (
-          <li key={key}>
-            <span>{key}: </span>
-            <span>{value as any}</span>
-          </li>
-        ))
-      }
-      {item.encumbrance != null &&
-        <li>
-          Oversized
-            </li>
-      }
-      {
-        item.effects.map((effect, i) => (
-          <li key={i}>
-            {displayEffect(effect)}
-          </li>
-        ))
-      }
-    </ul>
-  )
-}
-
-function pickDisplayProps(item: Item): [string, string][] {
-  const { description, stackSize, type } = item
-  return [
-    ['Description', description],
-    ['Stack Size', `${stackSize}`],
-    ['Type', type]
-  ]
-}
-
-function displayEffect(effect: ItemEffect) {
-  switch (effect.type) {
-    case "armorItemEffect":
-      return displayArmorEffect(effect)
-    case "weaponItemEffect":
-      return undefined
-    default:
-      return undefined
-  }
-
-  function displayArmorEffect(acEffect: ArmorEffect) {
-    const { method, value, target } = acEffect
-    let foo = normalizeCamelCase(target.replace('AC', 'ArmorClass'))
-
-    if (method === "modify") {
-      if (value === 0) {
-        return undefined
-      }
-      return `${value > 0 ? 'Increases' : 'Decreases'} ${foo} by ${value}`
-    } else {
-      return `Replaces ${foo} with ${value}`
-    }
-  }
-}
 
 export default AddItem
