@@ -13,37 +13,43 @@ type Props = {
 }
 
 function ItemDetails({ item }: Props) {
+  const { description } = item
   const classes = useStyles()
   return (
-    <ul className={classes.itemDetails}>
-      {
-        pickDisplayProps(item).map(([key, value]) => (
-          <li key={key}>
-            <span>{key}: </span>
-            <span>{value as any}</span>
-          </li>
-        ))
-      }
-      {item.encumbrance != null &&
-        <li>
-          Oversized
+    <div>
+      <h3>Description</h3>
+      <p>{description}</p>
+      <h4>Details</h4>
+      <ul className={classes.itemDetails}>
+
+        {
+          pickDisplayProps(item).map(([key, value]) => (
+            <li key={key}>
+              <span>{key}: </span>
+              <span>{value as any}</span>
             </li>
-      }
-      {
-        item.effects.map((effect, i) => (
-          <li key={i}>
-            {displayEffect(effect)}
-          </li>
-        ))
-      }
-    </ul>
+          ))
+        }
+        {item.encumbrance != null &&
+          <li>
+            Oversized
+            </li>
+        }
+        {
+          item.effects.map((effect, i) => (
+            <li key={i}>
+              {displayEffect(effect)}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   )
 }
 
 function pickDisplayProps(item: Item): [string, string][] {
-  const { description, stackSize, type } = item
+  const { stackSize, type } = item
   return [
-    ['Description', description],
     ['Stack Size', `${stackSize}`],
     ['Type', type]
   ]

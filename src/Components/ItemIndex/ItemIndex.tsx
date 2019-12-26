@@ -24,6 +24,9 @@ const useStyles = createUseStyles((theme: Theme) => ({
   },
   searchBox: {
     width: '100%'
+  },
+  details: {
+    margin: '1rem 0 0 2rem'
   }
 }))
 
@@ -66,7 +69,10 @@ function ItemIndex({ }: Props) {
       </div>
       <Route path="/itemindex/:item">
         {selected &&
-          <ItemDetails item={selected} />
+          <div className={classes.details}>
+            <h2>{selected.name}</h2>
+            <ItemDetails item={selected} />
+          </div>
         }
       </Route>
     </div>

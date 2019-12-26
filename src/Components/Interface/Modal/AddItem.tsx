@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-// import { createUseStyles } from 'react-jss'
+import { createUseStyles } from 'react-jss'
 import FormContainer from '../../_shared/FormContainer'
 import TextField from '@material-ui/core/TextField'
 import { /* useDispatch,  */useSelector } from '../../../hooks'
@@ -10,11 +10,13 @@ import { selectItemIndex } from '../../../Redux/selectors'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import ItemDetails from '../../_shared/ItemDetails'
 
-// const useStyles = createUseStyles((theme: Theme) => ({
-//   AddItem: {
-
-//   }
-// }))
+const useStyles = createUseStyles((theme: Theme) => ({
+  addItem: {
+    '& > form > div:nth-child(2) > h3': { // TODO find a better way to do this
+      marginTop: '1rem'
+    }
+  }
+}))
 
 type Props = {
   onClose: () => void
@@ -22,7 +24,7 @@ type Props = {
 }
 
 const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ characterId, onClose }, ref) {
-  // const classes = useStyles()
+  const classes = useStyles()
   // const dispatch = useDispatch()
   const itemIndex = useSelector(selectItemIndex)
   const [selected, setSelected] = useState<Item>()
@@ -35,7 +37,7 @@ const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ char
   }
 
   return (
-    <FormContainer ref={ref} onClose={onClose} onSubmit={handleSubmit} label="Add Language">
+    <FormContainer className={classes.addItem} ref={ref} onClose={onClose} onSubmit={handleSubmit} label="Add Item">
       <Autocomplete
         id="combo-box-demo"
         options={itemIndex}

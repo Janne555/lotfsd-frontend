@@ -28,13 +28,14 @@ type Props = {
   onClose: () => void
   children: ReactNode
   label: string
+  className?: string
 }
 
-const FormContainer = React.forwardRef<HTMLFormElement, Props>(function FormContainer({ onSubmit, onClose, children, label }, ref) {
+const FormContainer = React.forwardRef<HTMLFormElement, Props>(function FormContainer({ onSubmit, onClose, children, label, className }, ref) {
   const classes = useStyles()
 
   return (
-    <div className={classes.root}>
+    <div className={`${classes.root} ${className}`}>
       <h2>{label}</h2>
       <form ref={ref} onSubmit={onSubmit} className={classes.form}>
         {children}
