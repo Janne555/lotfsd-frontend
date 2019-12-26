@@ -7,7 +7,6 @@ import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
 import { isItemType } from '../../services'
 
-
 const useStyles = createUseStyles((theme: Theme) => ({
   itemCreator: {
     maxWidth: 500,
@@ -38,6 +37,7 @@ type Props = {
 function ItemCreator({ }: Props) {
   const classes = useStyles()
   const [type, setType] = useState<Item['type']>()
+  const [showEffectAdder, setShowEffectAdder] = useState(true)
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -85,8 +85,57 @@ function ItemCreator({ }: Props) {
             </div>
           </>
         }
-        <Button type="submit">submit</Button>
+        {showEffectAdder &&
+          <ItemEffectEditor type="armor" />
+        }
+        <Button onClick={() => setShowEffectAdder(prev => !prev)}>{showEffectAdder ? 'Cancel' : 'New Effect'}</Button>
+        <Button type="submit">Submit</Button>
       </form>
+      <form id='effectForm'></form>
+    </div>
+  )
+}
+
+type SubProps = {
+  type: Item['type']
+}
+
+const useSubStyles = createUseStyles((theme: Theme) => ({
+  effects: {
+    marginTop: '1rem',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(5, auto)',
+    gridColumnGap: '1rem'
+  },
+  radio: {
+    flexDirection: 'row'
+  }
+}))
+
+function ItemEffectEditor({ type }: SubProps) {
+  const classes = useSubStyles()
+
+  return (
+    <div className={classes.effects} >
+      {/* <h3>Effects</h3> */}
+      <FormControl required>
+        <InputLabel htmlFor='method'>Method</InputLabel>
+        <Select inputProps={{ id: 'method', form: 'effectForm' }}>
+          <option value='override'>Override</option>
+          <option value='modify'>Modify</option>
+        </Select>
+      </FormControl>
+      <FormControl required>
+        <InputLabel htmlFor='effectTarget'>Effect Target</InputLabel>
+        <Select inputProps={{ id: 'effectTarget', form: 'effectForm' }}>
+          <option value='baseAC'>Base AC</option>
+          <option value='rangedAC'>Ranged AC</option>
+          <option value='withoutShieldAC'>Without Shield AC</option>
+          <option value='surprisedAC'>Surprised AC</option>
+        </Select>
+      </FormControl>
+      <TextField id='value' label='Value' type='number' required inputProps={{ form: 'effectForm' }} />
+      <Button type="submit" form='effectForm' variant="outlined">Add</Button>
     </div>
   )
 }
@@ -100,6 +149,12 @@ const foo: ItemBase = {
   stackSize: 5,
   encumbrance: 1
 }
+
+// const bar: ArmorEffect = {
+//   method: "modify",
+//   type: "weaponItemEffect",
+
+// }
 
 
 export default ItemCreator
