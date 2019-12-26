@@ -1,7 +1,7 @@
 import React, { ReactNode, ReactNodeArray } from 'react'
 import { createUseStyles } from 'react-jss'
 import { useNavMenuContext } from './NavBar'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   navItem: {

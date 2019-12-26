@@ -34,7 +34,7 @@ type Props = {
 
 }
 
-function ItemIndex({ }: Props) {
+function ItemIndex(/* { }: Props */) {
   const classes = useStyles()
   const [searchTerm, setSearchTerm] = useState("")
   const items = useSelector(selectItemIndex)
