@@ -45,7 +45,6 @@ const App: React.FC = () => {
   const actionMatch = useRouteMatch<{ action: string }>('/characters/:character/:action')
   const characterId = useSelector(selectCharacterId(characterNameMatch?.params.character))
 
-  console.log(characterNameMatch)
   if (!isLoggedIn) {
     return <Login />
   }
@@ -65,10 +64,12 @@ const App: React.FC = () => {
       <div className={classes.body}>
         <Switch>
           <Route path="/characters/:character">
-            {characterId && characterNameMatch?.params.character
-              ? <CharacterSheet characterId={characterId} characterName={characterNameMatch?.params.character} />
-              : <CharacterList fullScreen />
+            {characterId && characterNameMatch?.params.character &&
+              <CharacterSheet characterId={characterId} characterName={characterNameMatch?.params.character} />
             }
+          </Route>
+          <Route exact path="/characters">
+            <CharacterList fullScreen />
           </Route>
           <Route path="/newcharacter">
             <CharacterCreator />
