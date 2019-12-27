@@ -11,6 +11,13 @@ const useStyles = createUseStyles((theme: Theme) => ({
   modal: {
     outline: 'none',
     width: 'fit-content'
+  },
+  '@media (max-width: 1100px)': {
+    modal: {
+      width: '100vw',
+      height: '100vh',
+      backgroundColor: 'white'
+    }
   }
 }))
 
@@ -25,11 +32,16 @@ const AppModal = React.forwardRef<any, Props>(function AppModal({ characterId, c
   const history = useHistory()
 
   function handleClose() {
-    history.goBack() // TODO find a nicer way to do this
+    history.push(`/characters/${characterName}`)
   }
 
   return (
     <Modal
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
       open={Boolean(content)}
       onClose={handleClose}
     >

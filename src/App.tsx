@@ -74,7 +74,7 @@ const App: React.FC = () => {
       </NavBar>
       <div className={classes.body}>
         <Switch>
-          <Route exact={isMobile} path="/characters/:character">
+          <Route path="/characters/:character">
             {characterId && characterNameMatch?.params.character
               ? < CharacterSheet characterId={characterId} characterName={characterNameMatch?.params.character} />
               : <CharacterList fullScreen />
@@ -83,19 +83,6 @@ const App: React.FC = () => {
           <Route path="/newcharacter">
             <CharacterCreator />
           </Route>
-          {isMobile && characterId &&
-            <>
-              <Route path={`/characters/${characterNameMatch?.params.character}/addItem`}>
-                <AddItem characterId={characterId} onClose={handleClose} />
-              </Route>
-              <Route path={`/characters/${characterNameMatch?.params.character}/addRetainer`}>
-                <AddRetainer characterId={characterId} onClose={handleClose} />
-              </Route>
-              <Route path={`/characters/${characterNameMatch?.params.character}/addLanguage`}>
-                <AddLanguage characterId={characterId} onClose={handleClose} />
-              </Route>
-            </>
-          }
         </Switch>
         <Route path="/itemindex">
           <ItemIndex />
@@ -105,7 +92,7 @@ const App: React.FC = () => {
         </Route>
       </div>
 
-      {!isMobile && <AppModal characterId={characterId} content={actionMatch?.params.action} />}
+      <AppModal characterId={characterId} content={actionMatch?.params.action} characterName={characterNameMatch?.params.character} />
 
       <footer className={classes.footer}></footer>
     </div>

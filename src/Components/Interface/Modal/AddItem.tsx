@@ -12,8 +12,14 @@ import ItemDetails from '../../_shared/ItemDetails'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   addItem: {
+    width: 500,
     '& > form > div:nth-child(2) > h3': { // TODO find a better way to do this
       marginTop: '1rem'
+    }
+  },
+  '@media (max-width: 1100px)': {
+    addItem: {
+      width: 'initial'
     }
   }
 }))
@@ -41,7 +47,6 @@ const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ char
         id="combo-box-demo"
         options={itemIndex}
         getOptionLabel={(option: Item) => option.name}
-        style={{ width: 500 }}
         disablePortal
         onChange={(e, item) => setSelected(item)}
         renderInput={params => (
