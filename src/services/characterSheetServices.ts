@@ -237,7 +237,7 @@ function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet, itemIndex:
         type: 'item',
         effects: [],
         id: 'money',
-        description: 'money',
+        description: 'A stack of money',
         encumbrancePoints: 0
       })
       coins -= 100

@@ -58,6 +58,7 @@ const newItem = (
           description,
           damage,
           range,
+          attackBonus: 1
         }))
       }
       break

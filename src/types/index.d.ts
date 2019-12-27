@@ -146,6 +146,7 @@ type Armor = ItemBase & {
 type Weapon = ItemBase & {
   type: 'weapon'
   damage: string
+  attackBonus: number
   range: Record<'short' | 'medium' | 'long', number | undefined>
 }
 
