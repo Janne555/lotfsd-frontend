@@ -3,7 +3,7 @@ import { createUseStyles } from 'react-jss'
 import MSpeedDial from '@material-ui/lab/SpeedDial'
 import Add from '@material-ui/icons/Add'
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction'
-import { useCharacterContext } from '../../hooks'
+import { useCharacterContext, useScreenResizeEvent } from '../../hooks'
 import { useHistory } from 'react-router-dom'
 
 const useStyles = createUseStyles((theme: Theme) => ({
@@ -44,9 +44,14 @@ function SpeedDial() {
   const [open, setOpen] = useState(false)
   const history = useHistory()
   const { characterName } = useCharacterContext()
+  const isMobile = useScreenResizeEvent(width => width < 1100)
 
   function handleClick(action: string) {
     history.push(`/characters/${characterName}/${action}`)
+  }
+
+  if (!isMobile) {
+    return null
   }
 
   return (

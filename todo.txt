@@ -1,0 +1,1 @@
+find a nicer way to handle mobile detection

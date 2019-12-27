@@ -4,18 +4,14 @@ import { createUseStyles } from 'react-jss'
 import NavBar from './Components/Interface/NavMenu/NavBar'
 import Login from './Components/Interface/Login'
 import NavItem from './Components/Interface/NavMenu/NavItem'
-import { useSelector, useScreenResizeEvent } from './hooks'
+import { useSelector } from './hooks'
 import { selectIsLoggedIn, selectCharacterId } from './Redux/selectors'
-import { Switch, Route, useRouteMatch, useHistory } from 'react-router-dom'
+import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import CharacterList from './Components/Interface/CharacterList/CharacterList'
 import CharacterCreator from './Components/CharacterCreator/CharacterCreator'
 import AppModal from './Components/Interface/Modal/AppModal'
 import ItemIndex from './Components/ItemIndex/ItemIndex'
 import ItemCreator from './Components/ItemIndex/ItemCreator'
-import NoContent from './Components/_shared/NoContent'
-import AddItem from './Components/Interface/Modal/AddItem'
-import AddRetainer from './Components/Interface/Modal/AddRetainer'
-import AddLanguage from './Components/Interface/Modal/AddLanguage'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   app: {
@@ -48,12 +44,6 @@ const App: React.FC = () => {
   const characterNameMatch = useRouteMatch<{ character: string }>('/characters/:character')
   const actionMatch = useRouteMatch<{ action: string }>('/characters/:character/:action')
   const characterId = useSelector(selectCharacterId(characterNameMatch?.params.character))
-  const isMobile = useScreenResizeEvent(width => width < 1100)
-  const history = useHistory()
-
-  function handleClose() {
-    history.goBack() // TODO handle this nicely
-  }
 
   console.log(characterNameMatch)
   if (!isLoggedIn) {
