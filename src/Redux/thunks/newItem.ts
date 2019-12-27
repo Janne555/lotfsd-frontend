@@ -32,7 +32,7 @@ const newItem = (
   const encumbrancePoints = stackSize === 1 ? 1 : 1 / stackSize
 
   switch (type) {
-    case 'weapon':
+    case 'armor':
       if (baseArmorClass != null) {
         dispatch(addNewItem({
           type: 'armor',
@@ -46,7 +46,7 @@ const newItem = (
         }))
       }
       break
-    case 'armor':
+    case 'weapon':
       if (damage != null) {
         dispatch(addNewItem({
           type: 'weapon',

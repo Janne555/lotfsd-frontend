@@ -46,7 +46,7 @@ type Props = {
 function ItemCreator(/* { }: Props */) {
   const classes = useStyles()
   const [type, setType] = useState<Item['type']>()
-  const [showEffectAdder, setShowEffectAdder] = useState(true)
+  const [showEffectAdder, setShowEffectAdder] = useState(false)
   const [effects, setEffects] = useState<ItemEffect[]>([])
   const dispatch = useDispatch()
   // const [error, setError] = useState<string>()
@@ -111,7 +111,7 @@ function ItemCreator(/* { }: Props */) {
         {type === 'armor' &&
           <TextField id='armorClass' type='number' label='Armor Class' />
         }
-        {true &&
+        {type === 'weapon' &&
           <>
             <TextField id='damage' label='Damage' />
             <InputLabel className={classes.rangeLabel}>Range</InputLabel>
