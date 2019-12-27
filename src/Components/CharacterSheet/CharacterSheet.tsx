@@ -13,6 +13,7 @@ import InfoBar from './InfoBar'
 import { useSelector } from '../../hooks'
 import { selectAttributes, selectAttributeModifiers } from '../../Redux/selectors'
 import { Redirect } from 'react-router-dom'
+import SpeedDial from '../Interface/SpeedDial'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
@@ -71,6 +72,7 @@ function CharacterSheet({ characterId, characterName }: Props) {
         <Encumbrance />
         <Languages />
       </div>
+      <SpeedDial />
     </context.Provider>
   )
 }

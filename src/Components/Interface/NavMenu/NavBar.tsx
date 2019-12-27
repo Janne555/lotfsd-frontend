@@ -87,13 +87,13 @@ function NavBar({ children }: Props) {
               <h2>{match?.params.path.replace(/^./, str => str.toUpperCase())}</h2>
               <Button onClick={() => setShowMenu(prev => !prev)}><Menu htmlColor="white" /></Button>
             </div>
-            <Drawer anchor="right" open={showMenu} onClose={() => setShowMenu(false)}>
-              <div className={classes.drawer} >
-                {children}
-              </div>
-            </Drawer>
           </header>
         </HideOnScroll>
+        <Drawer anchor="right" open={showMenu} onClose={() => setShowMenu(false)}>
+          <div className={classes.drawer} >
+            {children}
+          </div>
+        </Drawer>
       </navMenuContext.Provider>
     )
   }
@@ -119,8 +119,9 @@ type HideProps = {
 function HideOnScroll({ children }: HideProps) {
   const trigger = useScrollTrigger()
 
+  console.log(trigger)
   return (
-    <Slide appear={false} direction="down" in={!trigger}>
+    <Slide appear direction="down" in={!trigger}>
       {children}
     </Slide>
   )

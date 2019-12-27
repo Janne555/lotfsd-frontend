@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
 import { createUseStyles } from 'react-jss'
 import AddIcon from '@material-ui/icons/Add';
+import { useScreenResizeEvent } from '../../hooks';
 
 const useStyles = createUseStyles((theme: Theme) => ({
   ModuleContainer: {
@@ -20,18 +21,18 @@ const useStyles = createUseStyles((theme: Theme) => ({
     justifyContent: 'center',
     alignContent: 'center',
     padding: 0,
-    backgroundColor: '#a958d7',
+    backgroundColor: theme.colorPurpleButton,
     color: 'white',
     boxShadow: '2px 2px 5px grey',
     border: 'none',
     transition: theme.transition,
     cursor: 'pointer',
     '&:hover': {
-      backgroundColor: '#9237c5'
+      backgroundColor: theme.colorPurpleButtonFocus
     },
     '&:focus': {
       outline: 'none',
-      backgroundColor: '#9237c5',
+      backgroundColor: theme.colorPurpleButtonFocus,
       boxShadow: '0 0 5px blue'
     }
   }
@@ -43,11 +44,13 @@ type Props = {
 }
 
 function ModuleContainer({ children, onAddClick }: Props) {
+  const isMobile = useScreenResizeEvent(width => width < 1100)
   const classes = useStyles()
+
   return (
     <div className={classes.ModuleContainer}>
       {children}
-      {onAddClick &&
+      {onAddClick && !isMobile &&
         <button className={classes.button} onClick={onAddClick}>
           <AddIcon fontSize="large" />
         </button>
