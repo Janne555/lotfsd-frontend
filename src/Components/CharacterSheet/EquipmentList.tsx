@@ -4,6 +4,7 @@ import { selectEquipment } from '../../Redux/selectors'
 import { createUseStyles } from 'react-jss'
 import ModuleContainer from '../_shared/ModuleContainer'
 import { useHistory } from 'react-router-dom'
+import partition from 'lodash/partition'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   header: {
@@ -17,15 +18,19 @@ const useStyles = createUseStyles((theme: Theme) => ({
 }))
 
 
-function stackText(stackSize: number, amount: number) {
+function stackText(stackSize?: number, amount?: number) {
+  if (!stackSize) {
+    return ""
+  }
   return stackSize > 1 ? `${amount}/${stackSize}` : ''
 }
 
 
-export default function EquipmentList() {
+function EquipmentList() {
   const classes = useStyles()
   const { characterId, characterName } = useCharacterContext()
-  const { equipment, oversized } = useSelector(selectEquipment(characterId))
+  const [weapons, equipment] = partition(useSelector(selectEquipment(characterId)), item => item.type === 'weapon')
+
   const history = useHistory()
 
   function handleAddClick() {
@@ -55,11 +60,26 @@ export default function EquipmentList() {
               </tr>
             ))
           }
+        </tbody>
+      </table>
+      <h3>Weapons</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Damage
+            </th>
+          </tr>
+        </thead>
+        <tbody>
           {
-            oversized.map(({ name, listItemId }) => (
+            weapons.map(({ name, listItemId, amount, stackSize, damage }: any) => (
               <tr key={listItemId}>
                 <td>{name}</td>
-                <td>Oversized</td>
+                <td>{damage}</td>
               </tr>
             ))
           }
@@ -68,3 +88,5 @@ export default function EquipmentList() {
     </ModuleContainer>
   )
 }
+
+export default EquipmentList

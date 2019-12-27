@@ -216,11 +216,12 @@ function calculateEncumbranceDetails(encumbrance: number) {
   }
 }
 
-function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet): { equipment: EquipmentListItem[], oversized: EquipmentListItemOversized[] } {
+function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet, itemIndex: Record<string, Item>): EquipmentListItem[] {
+  const mappedItems = inventory.map(item => ({ ...item, ...itemIndex[item.id] }))
   let equipment: EquipmentListItem[] = createCoinListItems()
     .concat(inventoryListItems())
 
-  return { equipment, oversized: oversized() }
+  return equipment.concat(oversized())
 
   function createCoinListItems(): EquipmentListItem[] {
     let coinListItems: EquipmentListItem[] = []
@@ -232,7 +233,12 @@ function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet): { equipme
         name: MONEY,
         stackSize: 100,
         amount,
-        listItemId: generate()
+        listItemId: generate(),
+        type: 'item',
+        effects: [],
+        id: 'money',
+        description: 'money',
+        encumbrancePoints: 0
       })
       coins -= 100
     } while (coins > 0)
@@ -246,7 +252,7 @@ function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet): { equipme
    */
   function bucketizeInventory() {
     let buckets: { [name: string]: InventoryItem[] } = {}
-    for (const item of inventory) {
+    for (const item of mappedItems) {
       if (item.equipped || item.encumbrance != null)
         continue
       if (!(item.itemId in buckets))
@@ -268,7 +274,8 @@ function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet): { equipme
           name,
           stackSize,
           itemId,
-          listItemId: generate()
+          listItemId: generate(), // TODO should be a stable id
+          ...bucket[0]
         })
         totalAmount -= stackSize
       } while (totalAmount > 0)
@@ -278,16 +285,17 @@ function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet): { equipme
   }
 
   function oversized() {
-    return inventory.reduce((items, item) => {
+    return mappedItems.reduce((items, item) => {
       if (!item.equipped && item.encumbrance != null)
         items.push({
           encumbrance: item.encumbrance,
           itemId: item.itemId,
           listItemId: generate(),
-          name: item.name
+          name: item.name,
+          ...item
         })
       return items
-    }, [] as EquipmentListItemOversized[])
+    }, [] as EquipmentListItem[])
   }
 }
 

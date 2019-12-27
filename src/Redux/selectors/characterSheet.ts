@@ -12,6 +12,7 @@ import {
   calculateEncumbranceDetails,
   mapEquipmentList
 } from "../../services"
+import { selectItemIndexById } from "."
 
 const attributes = (characterId: string) =>
   (state: RootState): Id & Attributes =>
@@ -108,7 +109,7 @@ const encumbranceDetails = (characterId: string) =>
 
 const equipment = (characterId: string) =>
   (state: RootState) =>
-    mapEquipmentList(inventory(characterId)(state), wallet(characterId)(state))
+    mapEquipmentList(inventory(characterId)(state), wallet(characterId)(state), selectItemIndexById(state))
 
 const languages = (characterId: string) =>
   (state: RootState): Language[] =>
