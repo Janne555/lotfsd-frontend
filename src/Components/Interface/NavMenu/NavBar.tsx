@@ -4,6 +4,10 @@ import NavContent from './NavContent'
 import NavItem from './NavItem'
 import { useScreenResizeEvent } from '../../../hooks'
 import Button from '@material-ui/core/Button'
+import { useRouteMatch } from 'react-router-dom'
+import Slide from '@material-ui/core/Slide'
+import useScrollTrigger from '@material-ui/core/useScrollTrigger'
+import Menu from '@material-ui/icons/Menu'
 
 const navMenuContext = React.createContext({
   onSetVisible(name: string) {
@@ -22,7 +26,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
   navBar: {
     backgroundColor: theme.colorDark,
     position: 'relative',
-    display: 'flex'
+    display: 'flex',
+    color: 'white'
   },
   '@media (max-width: 1100px)': {
     navBar: {
@@ -45,6 +50,7 @@ function NavBar({ children }: Props) {
   const [visible, setVisible] = useState<string>()
   const [showMenu, setShowMenu] = useState(false)
   const isMobile = useScreenResizeEvent(width => width < 1100)
+  const match = useRouteMatch<{ path: string }>('/:path')
 
   function handleFocusOrHover(name: string) {
     if (visible !== name) {
@@ -66,14 +72,19 @@ function NavBar({ children }: Props) {
   if (isMobile) {
     return (
       <navMenuContext.Provider value={{ onSetVisible: handleFocusOrHover, onHide: handleMouseLeaveOrBlur }}>
-        <header className={classes.navBar}>
-          <Button onClick={() => setShowMenu(prev => !prev)}>Menu</Button>
-          {showMenu &&
-            <div className={classes.mobileMenu}>
-              {children}
+        <HideOnScroll>
+          <header className={classes.navBar} onBlur={() => setShowMenu(false)}>
+            <div>
+              <span>{match?.params.path}</span>
+              <Button onClick={() => setShowMenu(prev => !prev)}><Menu htmlColor="white" /></Button>
             </div>
-          }
-        </header>
+            {showMenu &&
+              <div className={classes.mobileMenu}>
+                {children}
+              </div>
+            }
+          </header>
+        </HideOnScroll>
       </navMenuContext.Provider>
     )
   }
@@ -89,6 +100,20 @@ function NavBar({ children }: Props) {
         }
       </header>
     </navMenuContext.Provider>
+  )
+}
+
+type HideProps = {
+  children: ReactNode
+}
+
+function HideOnScroll({ children }: HideProps) {
+  const trigger = useScrollTrigger()
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
   )
 }
 

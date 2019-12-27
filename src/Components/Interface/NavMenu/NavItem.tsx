@@ -23,6 +23,29 @@ const useStyles = createUseStyles((theme: Theme) => ({
       cursor: 'pointer'
     },
     marginLeft: (end: boolean | undefined) => end ? 'auto' : ''
+  },
+  '@media (max-width: 1100px)': {
+    navItem: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '0 1em',
+      height: '100%',
+      backgroundColor: theme.colorDark,
+      color: 'white',
+      border: 'none',
+      font: 'initial',
+      outline: 'none',
+      '&:hover': {
+        backgroundColor: theme.colorPurpleDark,
+        cursor: 'pointer'
+      },
+      '&:focus': {
+        backgroundColor: theme.colorPurpleDark,
+        cursor: 'pointer'
+      },
+      marginLeft: (end: boolean | undefined) => end ? 0 : 0
+    }
   }
 }))
 
@@ -36,7 +59,7 @@ type Props = {
 }
 
 export default function NavItem({ name, label, end, onClick, to }: Props) {
-  const classes = useStyles(end)
+  const classes = useStyles()
   const { onSetVisible } = useNavMenuContext()
   const history = useHistory()
 
