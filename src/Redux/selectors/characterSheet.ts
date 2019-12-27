@@ -133,6 +133,10 @@ const className = (characterId?: string) =>
   (state: RootState): string | undefined =>
     characterId ? state.characterSheet.info.byId[characterId].class : undefined
 
+const properties = (characterId: string) =>
+  (state: RootState): Property[] =>
+    state.characterSheet.properties.byId[characterId].properties
+
 export {
   attributes as selectAttributes,
   savingThrows as selectSavingThrows,
@@ -159,5 +163,6 @@ export {
   retainers as selectRetainers,
   combatOptions as selectCombatOptions,
   info as selectInfo,
-  className as selectClass
+  className as selectClass,
+  properties as selectProperties
 }

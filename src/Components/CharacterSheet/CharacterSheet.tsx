@@ -14,6 +14,7 @@ import { useSelector } from '../../hooks'
 import { selectAttributes, selectAttributeModifiers } from '../../Redux/selectors'
 import { Redirect } from 'react-router-dom'
 import SpeedDial from '../Interface/SpeedDial'
+import Properties from './Properties'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
@@ -71,6 +72,7 @@ function CharacterSheet({ characterId, characterName }: Props) {
         <ArmorClassAndCombatOptions />
         <Encumbrance />
         <Languages />
+        <Properties />
       </div>
       <SpeedDial />
     </context.Provider>
