@@ -6,13 +6,16 @@ import Login from './Components/Interface/Login'
 import NavItem from './Components/Interface/NavMenu/NavItem'
 import { useSelector, useScreenResizeEvent } from './hooks'
 import { selectIsLoggedIn, selectCharacterId } from './Redux/selectors'
-import { Switch, Route, useRouteMatch } from 'react-router-dom'
+import { Switch, Route, useRouteMatch, useHistory } from 'react-router-dom'
 import CharacterList from './Components/Interface/CharacterList/CharacterList'
 import CharacterCreator from './Components/CharacterCreator/CharacterCreator'
 import AppModal from './Components/Interface/Modal/AppModal'
 import ItemIndex from './Components/ItemIndex/ItemIndex'
 import ItemCreator from './Components/ItemIndex/ItemCreator'
 import NoContent from './Components/_shared/NoContent'
+import AddItem from './Components/Interface/Modal/AddItem'
+import AddRetainer from './Components/Interface/Modal/AddRetainer'
+import AddLanguage from './Components/Interface/Modal/AddLanguage'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   app: {
@@ -46,6 +49,11 @@ const App: React.FC = () => {
   const actionMatch = useRouteMatch<{ action: string }>('/characters/:character/:action')
   const characterId = useSelector(selectCharacterId(characterNameMatch?.params.character))
   const isMobile = useScreenResizeEvent(width => width < 1100)
+  const history = useHistory()
+
+  function handleClose() {
+    history.goBack() // TODO handle this nicely
+  }
 
   console.log(characterNameMatch)
   if (!isLoggedIn) {
@@ -66,7 +74,7 @@ const App: React.FC = () => {
       </NavBar>
       <div className={classes.body}>
         <Switch>
-          <Route path="/characters">
+          <Route exact={isMobile} path="/characters/:character">
             {characterId && characterNameMatch?.params.character
               ? < CharacterSheet characterId={characterId} characterName={characterNameMatch?.params.character} />
               : <CharacterList fullScreen />
@@ -75,6 +83,19 @@ const App: React.FC = () => {
           <Route path="/newcharacter">
             <CharacterCreator />
           </Route>
+          {isMobile && characterId &&
+            <>
+              <Route path={`/characters/${characterNameMatch?.params.character}/addItem`}>
+                <AddItem characterId={characterId} onClose={handleClose} />
+              </Route>
+              <Route path={`/characters/${characterNameMatch?.params.character}/addRetainer`}>
+                <AddRetainer characterId={characterId} onClose={handleClose} />
+              </Route>
+              <Route path={`/characters/${characterNameMatch?.params.character}/addLanguage`}>
+                <AddLanguage characterId={characterId} onClose={handleClose} />
+              </Route>
+            </>
+          }
         </Switch>
         <Route path="/itemindex">
           <ItemIndex />
@@ -84,7 +105,7 @@ const App: React.FC = () => {
         </Route>
       </div>
 
-      <AppModal characterId={characterId} content={actionMatch?.params.action} />
+      {!isMobile && <AppModal characterId={characterId} content={actionMatch?.params.action} />}
 
       <footer className={classes.footer}></footer>
     </div>

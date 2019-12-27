@@ -3,8 +3,8 @@ import { createUseStyles } from 'react-jss'
 import MSpeedDial from '@material-ui/lab/SpeedDial'
 import Add from '@material-ui/icons/Add'
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction'
-import { openModalWith } from '../../Redux/actions'
-import { useDispatch } from '../../hooks'
+import { useCharacterContext } from '../../hooks'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   speedDial: {
@@ -30,7 +30,7 @@ type Props = {
 }
 
 const actions: {
-  name: ModalContent
+  name: string
   icon: ReactNode | undefined,
   tooltip: string
 }[] = [
@@ -42,10 +42,11 @@ const actions: {
 function SpeedDial() {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
-  const dispatch = useDispatch()
+  const history = useHistory()
+  const { characterName } = useCharacterContext()
 
-  function handleClick(action: ModalContent) {
-    dispatch(openModalWith(action))
+  function handleClick(action: string) {
+    history.push(`/characters/${characterName}/${action}`)
   }
 
   return (
