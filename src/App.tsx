@@ -4,7 +4,7 @@ import { createUseStyles } from 'react-jss'
 import NavBar from './Components/Interface/NavMenu/NavBar'
 import Login from './Components/Interface/Login'
 import NavItem from './Components/Interface/NavMenu/NavItem'
-import { useSelector } from './hooks'
+import { useSelector, useScreenResizeEvent } from './hooks'
 import { selectIsLoggedIn, selectCharacterId } from './Redux/selectors'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import CharacterList from './Components/Interface/CharacterList/CharacterList'
@@ -12,6 +12,7 @@ import CharacterCreator from './Components/CharacterCreator/CharacterCreator'
 import AppModal from './Components/Interface/Modal/AppModal'
 import ItemIndex from './Components/ItemIndex/ItemIndex'
 import ItemCreator from './Components/ItemIndex/ItemCreator'
+import NoContent from './Components/_shared/NoContent'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   app: {
@@ -41,9 +42,12 @@ const useStyles = createUseStyles((theme: Theme) => ({
 const App: React.FC = () => {
   const classes = useStyles()
   const isLoggedIn = useSelector(selectIsLoggedIn)
-  const match = useRouteMatch<{ character: string }>('/characters/:character')
-  const characterId = useSelector(selectCharacterId(match?.params.character))
+  const characterNameMatch = useRouteMatch<{ character: string }>('/characters/:character')
+  const actionMatch = useRouteMatch<{ action: string }>('/characters/:character/:action')
+  const characterId = useSelector(selectCharacterId(characterNameMatch?.params.character))
+  const isMobile = useScreenResizeEvent(width => width < 1100)
 
+  console.log(characterNameMatch)
   if (!isLoggedIn) {
     return <Login />
   }
@@ -63,8 +67,8 @@ const App: React.FC = () => {
       <div className={classes.body}>
         <Switch>
           <Route path="/characters">
-            {characterId && match?.params.character
-              ? < CharacterSheet characterId={characterId} characterName={match?.params.character} />
+            {characterId && characterNameMatch?.params.character
+              ? < CharacterSheet characterId={characterId} characterName={characterNameMatch?.params.character} />
               : <CharacterList fullScreen />
             }
           </Route>
@@ -79,7 +83,9 @@ const App: React.FC = () => {
           <ItemCreator />
         </Route>
       </div>
-      <AppModal characterId={characterId} />
+
+      <AppModal characterId={characterId} content={actionMatch?.params.action} />
+
       <footer className={classes.footer}></footer>
     </div>
   );

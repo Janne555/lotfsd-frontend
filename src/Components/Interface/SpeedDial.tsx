@@ -1,9 +1,7 @@
 import React, { useState, ReactNode } from 'react'
 import { createUseStyles } from 'react-jss'
 import MSpeedDial from '@material-ui/lab/SpeedDial'
-import { useRouteMatch } from 'react-router-dom'
 import Add from '@material-ui/icons/Add'
-import { theme } from '../../styles/theme'
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction'
 import { openModalWith } from '../../Redux/actions'
 import { useDispatch } from '../../hooks'
@@ -41,7 +39,7 @@ const actions: {
     { name: 'addLanguage', icon: undefined, tooltip: 'Add\xa0Language' },
   ]
 
-function SpeedDial({ }: Props) {
+function SpeedDial() {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const dispatch = useDispatch()

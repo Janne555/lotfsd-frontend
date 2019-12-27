@@ -1,11 +1,11 @@
 import React from 'react'
-import { useSelector, useCharacterContext, useDispatch } from '../../hooks'
+import { useSelector, useCharacterContext } from '../../hooks'
 import { selectRetainers } from '../../Redux/selectors'
 import { createUseStyles } from 'react-jss'
 import { RETAINER_KEYS } from '../../constants'
 import NoContent from '../_shared/NoContent'
 import ModuleContainer from '../_shared/ModuleContainer'
-import { openModalWith } from '../../Redux/actions'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   retainers: {
@@ -46,12 +46,12 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 export default function Retainers() {
   const classes = useStyles()
-  const { characterId } = useCharacterContext()
+  const { characterId, characterName } = useCharacterContext()
   const retainers = useSelector(selectRetainers(characterId))
-  const dispatch = useDispatch()
+  const history = useHistory()
 
   function handleAddClick() {
-    dispatch(openModalWith("addRetainer"))
+    history.push(`/characters/${characterName}/addRetainer`)
   }
 
   return (

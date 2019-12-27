@@ -3,11 +3,9 @@ import { createUseStyles } from 'react-jss'
 import Modal from '@material-ui/core/Modal'
 import AddRetainer from './AddRetainer'
 import AddLanguage from './AddLanguage'
-import { useSelector, useDispatch } from '../../../hooks'
-import { selectModalVisible, selectModalContent } from '../../../Redux/selectors/userInterface'
 import NoContent from '../../_shared/NoContent'
-import { closeModal } from '../../../Redux/actions'
 import AddItem from './AddItem'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   modal: {
@@ -18,21 +16,21 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 type Props = {
   characterId?: string
+  content?: string
+  characterName?: string
 }
 
-const AppModal = React.forwardRef<any, Props>(function AppModal({ characterId }, ref) {
+const AppModal = React.forwardRef<any, Props>(function AppModal({ characterId, content, characterName }, ref) {
   const classes = useStyles()
-  const visible = useSelector(selectModalVisible)
-  const content = useSelector(selectModalContent)
-  const dispatch = useDispatch()
+  const history = useHistory()
 
   function handleClose() {
-    dispatch(closeModal())
+    history.goBack() // TODO find a nicer way to do this
   }
 
   return (
     <Modal
-      open={visible}
+      open={Boolean(content)}
       onClose={handleClose}
     >
       <div className={classes.modal}>

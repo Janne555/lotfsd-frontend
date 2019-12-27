@@ -1,9 +1,9 @@
 import React from 'react'
-import { useSelector, useCharacterContext, useDispatch } from '../../hooks'
+import { useSelector, useCharacterContext } from '../../hooks'
 import { selectEquipment } from '../../Redux/selectors'
 import { createUseStyles } from 'react-jss'
 import ModuleContainer from '../_shared/ModuleContainer'
-import { openModalWith } from '../../Redux/actions'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   header: {
@@ -24,12 +24,12 @@ function stackText(stackSize: number, amount: number) {
 
 export default function EquipmentList() {
   const classes = useStyles()
-  const { characterId } = useCharacterContext()
+  const { characterId, characterName } = useCharacterContext()
   const { equipment, oversized } = useSelector(selectEquipment(characterId))
-  const dispatch = useDispatch()
+  const history = useHistory()
 
   function handleAddClick() {
-    dispatch(openModalWith("addItem"))
+    history.push(`/characters/${characterName}/addItem`)
   }
 
   return (

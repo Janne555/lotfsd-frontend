@@ -1,12 +1,12 @@
 import React from 'react'
-import { useSelector, useCharacterContext, useDispatch } from '../../hooks'
+import { useSelector, useCharacterContext } from '../../hooks'
 import { selectLanguages } from '../../Redux/selectors'
 import { createUseStyles } from 'react-jss'
 import partition from 'lodash/partition'
 import range from 'lodash/range'
 import NoContent from '../_shared/NoContent'
 import ModuleContainer from '../_shared/ModuleContainer'
-import { openModalWith } from '../../Redux/actions'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   languages: {
@@ -29,14 +29,14 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 export default function Languages() {
   const classes = useStyles()
-  const dispatch = useDispatch()
-  const { characterId } = useCharacterContext()
+  const history = useHistory()
+  const { characterId, characterName } = useCharacterContext()
   const languages = useSelector(selectLanguages(characterId))
   const [known, unknown] = partition(languages, language => language.known)
   const size = Math.max(known.length, unknown.length, 7)
 
   function handleAddClick() {
-    dispatch(openModalWith("addLanguage"))
+    history.push(`/characters/${characterName}/addLanguage`)
   }
 
   return (
