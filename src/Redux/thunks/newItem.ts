@@ -8,7 +8,7 @@ const newItem = (
   console.log(Object.values(elements).map(e => e?.value))
 
   const type = elements.type?.value as Item['type'] | undefined
-  const name = elements.name?.value
+  const name = elements.name?.value.trim()
   const stackSize = Number(elements.stackSize?.value)
   const description = elements.description?.value
   const baseArmorClass = elements.armorClass ? Number(elements.armorClass.value) : undefined
