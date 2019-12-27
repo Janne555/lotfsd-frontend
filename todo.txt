@@ -1,1 +1,2 @@
 find a nicer way to handle mobile detection
+optimize item creator for mobile

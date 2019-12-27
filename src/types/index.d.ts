@@ -116,7 +116,7 @@ type ArmorEffect = BaseItemEffect & {
 
 type InventoryItem = Item & ItemInstance
 
-type Item = Armor | Weapon | (ItemBase & { type: 'item' })
+type Item = Armor | Weapon | PlainItem
 
 type ItemInstance = {
   itemId: string
@@ -134,6 +134,10 @@ type ItemBase = {
   description: string
 }
 
+type PlainItem = ItemBase & {
+  type: 'item'
+}
+
 type Armor = ItemBase & {
   type: 'armor'
   baseArmorClass: number
@@ -142,7 +146,7 @@ type Armor = ItemBase & {
 type Weapon = ItemBase & {
   type: 'weapon'
   damage: string
-  range: string
+  range: Record<'short' | 'medium' | 'long', number | undefined>
 }
 
 type Wallet = {
@@ -273,3 +277,7 @@ type CharacterClass = {
 type Classes = "fighter" | "cleric" | "specialist" | "magic-user"
 
 type CharacterClasses = Record<Classes, CharacterClass>
+
+type ItemCreatorFormKeys = 'type' | 'name' | 'description' | 'stackSize' | 'encumbrance' | 'armorClass' | 'damage' | 'rangeShort' | 'rangeMedium' | 'rangeLong'
+
+type ItemCreatorForm = Partial<Record<ItemCreatorFormKeys, HTMLInputElement>>

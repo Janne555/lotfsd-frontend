@@ -66,7 +66,7 @@ const App: React.FC = () => {
         <Switch>
           <Route path="/characters/:character">
             {characterId && characterNameMatch?.params.character
-              ? < CharacterSheet characterId={characterId} characterName={characterNameMatch?.params.character} />
+              ? <CharacterSheet characterId={characterId} characterName={characterNameMatch?.params.character} />
               : <CharacterList fullScreen />
             }
           </Route>

@@ -9,6 +9,8 @@ import { isItemType } from '../../services'
 import EffectsList from '../_shared/EffectsList'
 import { generate } from 'shortid'
 import NoContent from '../_shared/NoContent'
+import { newItem } from '../../Redux/thunks'
+import { useDispatch } from '../../hooks'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   itemCreator: {
@@ -46,10 +48,13 @@ function ItemCreator(/* { }: Props */) {
   const [type, setType] = useState<Item['type']>()
   const [showEffectAdder, setShowEffectAdder] = useState(true)
   const [effects, setEffects] = useState<ItemEffect[]>([])
+  const dispatch = useDispatch()
   // const [error, setError] = useState<string>()
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    const target = (e.target as unknown) as { elements: ItemCreatorForm }
+    dispatch(newItem(target.elements, effects))
   }
 
   function handleSelect(e: React.ChangeEvent<HTMLSelectElement>) {
@@ -108,7 +113,7 @@ function ItemCreator(/* { }: Props */) {
         }
         {true &&
           <>
-            <TextField id='damage' type='number' label='Damage' />
+            <TextField id='damage' label='Damage' />
             <InputLabel className={classes.rangeLabel}>Range</InputLabel>
             <div className={classes.range}>
               <TextField id='rangeShort' type='number' label='Short' />
