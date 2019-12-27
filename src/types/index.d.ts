@@ -217,6 +217,8 @@ type Languages = Id & { languages: Language[] }
 
 type Retainers = Id & { retainers: Retainer[] }
 
+type Properties = Id & { properties: Property[] }
+
 type CharacterSheet = {
   attributes: Normalized<Id & Attributes>
   savingThrows: Normalized<Id & SavingThrows>
@@ -228,6 +230,7 @@ type CharacterSheet = {
   retainers: Normalized<Retainers>
   combatOptions: Normalized<Id & CombatOptions>
   info: Normalized<Info>
+  properties: Normalized<Properties>
 }
 
 type UserData = {
@@ -276,3 +279,13 @@ type CharacterClasses = Record<Classes, CharacterClass>
 type ItemCreatorFormKeys = 'type' | 'name' | 'description' | 'stackSize' | 'encumbrance' | 'armorClass' | 'damage' | 'rangeShort' | 'rangeMedium' | 'rangeLong'
 
 type ItemCreatorForm = Partial<Record<ItemCreatorFormKeys, HTMLInputElement>>
+
+type Property = {
+  id: string
+  name: string
+  value?: number
+  rent?: number
+  location: string
+  notes: string[]
+  inventory: ItemInstance[]
+}

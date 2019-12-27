@@ -231,6 +231,39 @@ const singleInfo: Info = {
 
 const info = normalize(singleInfo)
 
+const baseProperties: { id: string, properties: Property[] } = {
+  id: 'a',
+  properties: [{
+    id: 'prop1',
+    inventory: [
+      {
+        instanceId: 'propitem1',
+        itemId: 'torch'
+      }
+    ],
+    location: 'Crabstown',
+    name: 'Shack',
+    notes: ["A bad place"],
+    rent: 100
+  },
+  {
+    id: 'prop2',
+    inventory: [
+      {
+        instanceId: 'propitem2',
+        itemId: 'armor1'
+      }
+    ],
+    location: 'New York',
+    name: 'Empire state building',
+    notes: ["Big tower"],
+    rent: 300
+  }
+  ]
+}
+
+const properties = normalize(baseProperties)
+
 const characterSheet: CharacterSheet = {
   attributes,
   savingThrows,
@@ -241,7 +274,8 @@ const characterSheet: CharacterSheet = {
   languages,
   retainers,
   combatOptions,
-  info
+  info,
+  properties
 }
 
 const system: System = {
@@ -282,5 +316,6 @@ export {
   characterSheet,
   combatOptions,
   info,
-  system
+  system,
+  properties
 }

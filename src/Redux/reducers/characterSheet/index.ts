@@ -9,6 +9,7 @@ import languages from './languages'
 import retainers from './retainers'
 import combatOptions from './combatOptions'
 import info from './info'
+import properties from './properties'
 
 export default combineReducers({
   attributes,
@@ -20,5 +21,6 @@ export default combineReducers({
   wallet,
   languages,
   retainers,
-  info
+  info,
+  properties
 })
