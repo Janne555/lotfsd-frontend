@@ -8,6 +8,7 @@ import { useRouteMatch } from 'react-router-dom'
 import Slide from '@material-ui/core/Slide'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import Menu from '@material-ui/icons/Menu'
+import Drawer from '@material-ui/core/Drawer'
 
 const navMenuContext = React.createContext({
   onSetVisible(name: string) {
@@ -31,13 +32,21 @@ const useStyles = createUseStyles((theme: Theme) => ({
   },
   '@media (max-width: 1100px)': {
     navBar: {
-      flexDirection: 'column'
+      flexDirection: 'column',
+      padding: '10px 0 10px 10px'
     }
   },
-  mobileMenu: {
+  mobileNavBar: {
     display: 'flex',
-    flexDirection: 'column',
-    width: '100%'
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    '& h2': {
+      margin: 0
+    }
+  },
+  drawer: {
+    backgroundColor: theme.colorDark,
+    height: '100%'
   }
 }))
 
@@ -73,16 +82,16 @@ function NavBar({ children }: Props) {
     return (
       <navMenuContext.Provider value={{ onSetVisible: handleFocusOrHover, onHide: handleMouseLeaveOrBlur }}>
         <HideOnScroll>
-          <header className={classes.navBar} onBlur={() => setShowMenu(false)}>
-            <div>
-              <span>{match?.params.path}</span>
+          <header className={classes.navBar}>
+            <div className={classes.mobileNavBar}>
+              <h2>{match?.params.path.replace(/^./, str => str.toUpperCase())}</h2>
               <Button onClick={() => setShowMenu(prev => !prev)}><Menu htmlColor="white" /></Button>
             </div>
-            {showMenu &&
-              <div className={classes.mobileMenu}>
+            <Drawer anchor="right" open={showMenu} onClose={() => setShowMenu(false)}>
+              <div className={classes.drawer} >
                 {children}
               </div>
-            }
+            </Drawer>
           </header>
         </HideOnScroll>
       </navMenuContext.Provider>

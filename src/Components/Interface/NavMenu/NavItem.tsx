@@ -26,25 +26,12 @@ const useStyles = createUseStyles((theme: Theme) => ({
   },
   '@media (max-width: 1100px)': {
     navItem: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '0 1em',
-      height: '100%',
+      height: 'initial',
       backgroundColor: theme.colorDark,
-      color: 'white',
-      border: 'none',
-      font: 'initial',
-      outline: 'none',
-      '&:hover': {
-        backgroundColor: theme.colorPurpleDark,
-        cursor: 'pointer'
-      },
-      '&:focus': {
-        backgroundColor: theme.colorPurpleDark,
-        cursor: 'pointer'
-      },
-      marginLeft: (end: boolean | undefined) => end ? 0 : 0
+      padding: '1rem',
+      borderBottom: theme.border,
+      width: '100%',
+      fontSize: '1.3rem'
     }
   }
 }))
