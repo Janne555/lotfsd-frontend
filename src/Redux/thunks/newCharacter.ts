@@ -1,5 +1,5 @@
 import { generate } from 'shortid'
-import { createCharacter } from '../newCharacterAction'
+import { createCharacter } from '../specialActions'
 import { useHistory } from 'react-router-dom'
 import { selectUsername } from '../selectors'
 

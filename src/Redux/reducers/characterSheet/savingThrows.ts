@@ -1,6 +1,6 @@
 import { savingThrows } from '../../../testData/initialState'
 import { createSlice } from '@reduxjs/toolkit'
-import { createCharacter } from '../../newCharacterAction'
+import { createCharacter } from '../../specialActions'
 import { CHARACTER_CLASSES } from '../../../constants/characterClasses'
 
 const savingThrowsSlice = createSlice({

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { system } from '../../testData/initialState'
-import { createCharacter } from '../newCharacterAction'
+import { createCharacter } from '../specialActions'
 
 const { reducer } = createSlice({
   name: 'system',

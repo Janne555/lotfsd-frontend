@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { languages } from '../../../testData/initialState'
-import { createCharacter } from '../../newCharacterAction'
+import { createCharacter } from '../../specialActions'
 
 
 const languagesSlice = createSlice({

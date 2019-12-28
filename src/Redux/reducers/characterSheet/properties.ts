@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { properties } from '../../../testData/initialState'
-import { createCharacter } from '../../newCharacterAction'
+import { createCharacter } from '../../specialActions'
 
 const propertiesSlice = createSlice({
   name: 'properties',

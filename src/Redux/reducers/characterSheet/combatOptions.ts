@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { combatOptions } from '../../../testData/initialState'
-import { createCharacter } from '../../newCharacterAction'
+import { createCharacter } from '../../specialActions'
 import { CHARACTER_CLASSES } from '../../../constants/characterClasses'
 
 const combatOptionsSlice = createSlice({

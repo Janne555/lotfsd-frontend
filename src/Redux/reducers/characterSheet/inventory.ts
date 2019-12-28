@@ -1,6 +1,6 @@
 import { inventory } from '../../../testData/initialState'
 import { createSlice } from '@reduxjs/toolkit'
-import { createCharacter } from '../../newCharacterAction'
+import { createCharacter } from '../../specialActions'
 
 
 const inventorySlice = createSlice({

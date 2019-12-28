@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { characterSheet } from '../../../testData/initialState'
-import { createCharacter } from '../../newCharacterAction'
+import { createCharacter } from '../../specialActions'
 import pick from 'lodash/pick'
 import { CHARACTER_CLASSES } from '../../../constants/characterClasses'
 
