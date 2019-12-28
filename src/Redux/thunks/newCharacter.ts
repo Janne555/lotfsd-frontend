@@ -7,7 +7,7 @@ const newCharacter = (
   formElements: NewCharacterForm,
   history: ReturnType<typeof useHistory>
 ): AppThunk => (dispatch, getState) => {
-  const id = generate()
+  const characterId = generate()
   const username = selectUsername(getState())
 
   dispatch(createCharacter({
@@ -25,7 +25,7 @@ const newCharacter = (
     age: Number(formElements.age.value),
     money: Number(formElements.money.value),
     maxHp: Number(formElements.maxHp.value),
-    id,
+    characterId,
     player: username
   }))
 

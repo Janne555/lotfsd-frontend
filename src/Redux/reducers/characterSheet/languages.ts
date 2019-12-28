@@ -7,17 +7,17 @@ const languagesSlice = createSlice({
   name: "languages",
   initialState: languages,
   reducers: {
-    addLanguage(state, { payload: { id, ...language } }: AppAction<Language>) {
-      if (!state.byId[id].languages.some(l => l.name === language.name)) {
-        state.byId[id].languages.push(language)
+    addLanguage(state, { payload: { characterId, ...language } }: AppAction<Language>) {
+      if (!state.byId[characterId].languages.some(l => l.name === language.name)) {
+        state.byId[characterId].languages.push(language)
       }
     }
   },
   extraReducers: acmBuilder => {
     acmBuilder.addCase(createCharacter, (state, action) => {
-      const { id } = action.payload
-      state.byId[id] = { id, languages: [] }
-      state.allIds.push(id)
+      const { characterId } = action.payload
+      state.byId[characterId] = { characterId, languages: [] }
+      state.allIds.push(characterId)
     })
   }
 })

@@ -10,9 +10,9 @@ const { reducer } = createSlice({
   },
   extraReducers: acmBuilder => {
     acmBuilder.addCase(createCharacter, (state, action) => {
-      const { id, name } = action.payload
-      state.characters.byId[id] = name
-      state.characters.byName[name] = id
+      const { characterId, name } = action.payload
+      state.characters.byId[characterId] = name
+      state.characters.byName[name] = characterId
     })
   }
 })

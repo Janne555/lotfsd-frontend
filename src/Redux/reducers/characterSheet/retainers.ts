@@ -7,15 +7,15 @@ const retainersSlice = createSlice({
   initialState: retainers,
   reducers: {
     addRetainer(state, action: AppAction<Retainer>) {
-      const { id, ...retainer } = action.payload
-      state.byId[id].retainers.push(retainer)
+      const { characterId, ...retainer } = action.payload
+      state.byId[characterId].retainers.push(retainer)
     }
   },
   extraReducers: acmBuilder => {
     acmBuilder.addCase(createCharacter, (state, action) => {
-      const { id } = action.payload
-      state.byId[id] = { id, retainers: [] }
-      state.allIds.push(id)
+      const { characterId } = action.payload
+      state.byId[characterId] = { characterId, retainers: [] }
+      state.allIds.push(characterId)
     })
   }
 })

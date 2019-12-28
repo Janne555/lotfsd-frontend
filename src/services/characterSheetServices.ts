@@ -80,8 +80,8 @@ function calculateModifier(value: number) {
   return 3
 }
 
-function calculateCommonActivities(commonActivities: Id & CommonActivities, strengthModifier: number, intelligenceModifier: number, effects: CommonActivityEffect[]): Record<keyof CommonActivities, { base: number, modified: number }> {
-  const { id, ...sansId } = commonActivities
+function calculateCommonActivities(commonActivities: CharacterId & CommonActivities, strengthModifier: number, intelligenceModifier: number, effects: CommonActivityEffect[]): Record<keyof CommonActivities, { base: number, modified: number }> {
+  const { characterId, ...sansId } = commonActivities
   return Object.keys(sansId).reduce((modifiedActivities, key) => {
     if (hasKey(sansId, key)) {
       modifiedActivities[key] = { base: commonActivities[key], modified: commonActivities[key] + sumOfEffectsForTarget(effects, key) + addModifier(key) }
@@ -163,7 +163,7 @@ function calculateEncumbrance(inventory: InventoryItem[], wallet: Wallet): numbe
 }
 
 function totalCoins(wallet: Wallet): number {
-  const { id, ...sansId } = wallet
+  const { characterId, ...sansId } = wallet
   return Object.values(sansId).reduce((coins, value) => coins + value, 0)
 }
 

@@ -8,17 +8,15 @@ const attributesSlice = createSlice({
   initialState: attributes,
   reducers: {
     setAttribute(state, action: AppAction<{ attributeName: keyof Attributes, value: number }>) {
-      const { id, attributeName, value } = action.payload
-      if (id) {
-        state.byId[id][attributeName] = value
-      }
+      const { characterId, attributeName, value } = action.payload
+      state.byId[characterId][attributeName] = value
     }
   },
   extraReducers: acmBuilder => {
     acmBuilder.addCase(createCharacter, (state, action) => {
-      const { id } = action.payload
-      state.byId[id] = { id, ...pick(action.payload, ['charisma', 'constitution', 'dexterity', 'intelligence', 'strength', 'wisdom']) }
-      state.allIds.push(id)
+      const { characterId } = action.payload
+      state.byId[characterId] = { characterId, ...pick(action.payload, ['charisma', 'constitution', 'dexterity', 'intelligence', 'strength', 'wisdom']) }
+      state.allIds.push(characterId)
     })
   }
 })

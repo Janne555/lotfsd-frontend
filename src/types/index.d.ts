@@ -6,17 +6,17 @@ type EndpointType = keyof typeof import('../constants').ENDPOINTS
 
 type AppThunk = import('redux-thunk').ThunkAction<void, RootState, null, Action<string>>
 
-type AppAction<T> = import('@reduxjs/toolkit').PayloadAction<T> & { payload: { id: string } }
+type AppAction<T> = import('@reduxjs/toolkit').PayloadAction<T> & { payload: CharacterId }
 
 type ModalContent = "addRetainer" | "addLanguage" | "addItem"
 
-type Normalized<T extends Id> = {
+type Normalized<T extends (CharacterId | { id: string })> = {
   byId: Record<string, T>
   allIds: string[]
 }
 
-type Id = {
-  id: string
+type CharacterId = {
+  characterId: string
 }
 
 type Attributes = {
@@ -151,7 +151,7 @@ type Weapon = ItemBase & {
 }
 
 type Wallet = {
-  id: string
+  characterId: string
   copper: number
   silver: number
   gold: number
@@ -191,7 +191,7 @@ type CombatOptions = {
 }
 
 type Info = {
-  id: string
+  characterId: string
   name: string
   experience: number
   class: string
@@ -209,26 +209,26 @@ type Info = {
 
 type InfoBarData = Omit<Info, 'attackBonus' | 'currentHp' | 'maxHp' | 'surpriseChance'>
 
-type Inventory = Id & { inventory: ItemInstance[] }
+type Inventory = CharacterId & { inventory: ItemInstance[] }
 
-type Effects = Id & { effects: Effect[] }
+type Effects = CharacterId & { effects: Effect[] }
 
-type Languages = Id & { languages: Language[] }
+type Languages = CharacterId & { languages: Language[] }
 
-type Retainers = Id & { retainers: Retainer[] }
+type Retainers = CharacterId & { retainers: Retainer[] }
 
-type Properties = Id & { properties: Property[] }
+type Properties = CharacterId & { properties: Property[] }
 
 type CharacterSheet = {
-  attributes: Normalized<Id & Attributes>
-  savingThrows: Normalized<Id & SavingThrows>
+  attributes: Normalized<CharacterId & Attributes>
+  savingThrows: Normalized<CharacterId & SavingThrows>
   inventory: Normalized<Inventory>
   effects: Normalized<Effects>
-  commonActivities: Normalized<Id & CommonActivities>
+  commonActivities: Normalized<CharacterId & CommonActivities>
   wallet: Normalized<Wallet>
   languages: Normalized<Languages>
   retainers: Normalized<Retainers>
-  combatOptions: Normalized<Id & CombatOptions>
+  combatOptions: Normalized<CharacterId & CombatOptions>
   info: Normalized<Info>
   properties: Normalized<Properties>
 }
@@ -259,7 +259,7 @@ type NewCharacterForm = Record<keyof Attributes, HTMLInputElement> & {
 
 type NewCharacterPayload = Attributes & {
   [P in keyof NewCharacterForm]: P extends ("age" | "money" | "maxHp" | keyof Attributes) ? number : P extends ("class") ? Classes : string
-} & { id: string, player: string }
+} & { player: string } & CharacterId
 
 type AddRetainerForm = Record<keyof Omit<Retainer, 'uuid'>, HTMLInputElement>
 
@@ -280,12 +280,16 @@ type ItemCreatorFormKeys = 'type' | 'name' | 'description' | 'stackSize' | 'encu
 
 type ItemCreatorForm = Partial<Record<ItemCreatorFormKeys, HTMLInputElement>>
 
+type AddPropertyFormKeys = 'name' | 'value' | 'rent' | 'location' | 'descripton'
+
+type AddPropertyForm = Record<AddPropertyFormKeys, HTMLInputElement>
+
 type Property = {
   id: string
   name: string
   value?: number
   rent?: number
   location: string
-  notes: string[]
+  description: string
   inventory: ItemInstance[]
 }

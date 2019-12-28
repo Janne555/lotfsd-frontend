@@ -8,17 +8,15 @@ const commonActivitiesSlice = createSlice({
   initialState: commonActivities,
   reducers: {
     setCommonActivityValue(state, action: AppAction<{ activity: keyof CommonActivities, value: number }>) {
-      const { id, activity, value } = action.payload
-      if (id) {
-        state.byId[id][activity] = value
-      }
+      const { characterId, activity, value } = action.payload
+      state.byId[characterId][activity] = value
     }
   },
   extraReducers: acmBuilder => {
     acmBuilder.addCase(createCharacter, (state, action) => {
-      const { id, class: className } = action.payload
-      state.byId[id] = { id, ...CHARACTER_CLASSES[className].commonActivities }
-      state.allIds.push(id)
+      const { characterId, class: className } = action.payload
+      state.byId[characterId] = { characterId, ...CHARACTER_CLASSES[className].commonActivities }
+      state.allIds.push(characterId)
     })
   }
 })

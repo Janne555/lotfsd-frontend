@@ -8,15 +8,15 @@ const savingThrowsSlice = createSlice({
   initialState: savingThrows,
   reducers: {
     setSavingThrow(state, action: AppAction<{ savingThrow: keyof SavingThrows, value: number }>) {
-      const { id, savingThrow, value } = action.payload
-      state.byId[id][savingThrow] = value
+      const { characterId, savingThrow, value } = action.payload
+      state.byId[characterId][savingThrow] = value
     }
   },
   extraReducers: acmBuilder => {
     acmBuilder.addCase(createCharacter, (state, action) => {
-      const { id, class: className } = action.payload
-      state.byId[id] = { id, ...CHARACTER_CLASSES[className].savingThrows }
-      state.allIds.push(id)
+      const { characterId, class: className } = action.payload
+      state.byId[characterId] = { characterId, ...CHARACTER_CLASSES[className].savingThrows }
+      state.allIds.push(characterId)
     })
   }
 })

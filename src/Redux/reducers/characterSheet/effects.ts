@@ -10,9 +10,9 @@ const effectSlice = createSlice({
   },
   extraReducers: acmBuilder => {
     acmBuilder.addCase(createCharacter, (state, action) => {
-      const { id } = action.payload
-      state.byId[id] = { id, effects: [] }
-      state.allIds.push(id)
+      const { characterId } = action.payload
+      state.byId[characterId] = { characterId, effects: [] }
+      state.allIds.push(characterId)
     })
   }
 })

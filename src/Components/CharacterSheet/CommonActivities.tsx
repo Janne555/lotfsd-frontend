@@ -62,7 +62,7 @@ function Activity({ name, base, modified }: SubProps) {
   const { characterId } = useCharacterContext()
 
   function handleChange(value: number) {
-    dispatch(setCommonActivityValue({ activity: name, id: characterId, value: value - (modified - base) }))
+    dispatch(setCommonActivityValue({ activity: name, characterId, value: value - (modified - base) }))
   }
 
   return (

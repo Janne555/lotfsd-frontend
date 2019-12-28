@@ -1,14 +1,14 @@
-function normalize<T extends { id: string }>(obj: T): Normalized<T> {
+function normalize<T extends CharacterId>(obj: T): Normalized<T> {
   return {
     byId: {
-      [obj.id]: obj
+      [obj.characterId]: obj
     },
-    allIds: [obj.id]
+    allIds: [obj.characterId]
   }
 }
 
-const singleAttributes: Id & Attributes = {
-  id: 'a',
+const singleAttributes: CharacterId & Attributes = {
+  characterId: 'a',
   charisma: 18,
   constitution: 17,
   dexterity: 16,
@@ -19,8 +19,8 @@ const singleAttributes: Id & Attributes = {
 
 const attributes = normalize(singleAttributes)
 
-const singleSavingThrows: Id & SavingThrows = {
-  id: 'a',
+const singleSavingThrows: CharacterId & SavingThrows = {
+  characterId: 'a',
   breathWeapon: 10,
   magic: 11,
   magicalDevice: 12,
@@ -93,7 +93,7 @@ const itemIndex: Normalized<Item> = {
 }
 
 const singleInventory: Inventory = {
-  id: 'a',
+  characterId: 'a',
   inventory: [
     {
       equipped: true,
@@ -130,14 +130,14 @@ const singleInventory: Inventory = {
 const inventory = normalize(singleInventory)
 
 const singleEffects: Effects = {
-  id: 'a',
+  characterId: 'a',
   effects: []
 }
 
 const effects = normalize(singleEffects)
 
-const singleCommonActivities: Id & CommonActivities = {
-  id: 'a',
+const singleCommonActivities: CharacterId & CommonActivities = {
+  characterId: 'a',
   architecture: 1,
   bushcraft: 1,
   climbing: 1,
@@ -153,7 +153,7 @@ const singleCommonActivities: Id & CommonActivities = {
 const commonActivities = normalize(singleCommonActivities)
 
 const singleWallet: Wallet = {
-  id: 'a',
+  characterId: 'a',
   copper: 50,
   silver: 50,
   gold: 50
@@ -162,7 +162,7 @@ const singleWallet: Wallet = {
 const wallet = normalize(singleWallet)
 
 const singleLanguages: Languages = {
-  id: 'a',
+  characterId: 'a',
   languages: [
     {
       name: "common",
@@ -186,7 +186,7 @@ const singleLanguages: Languages = {
 const languages = normalize(singleLanguages)
 
 const singleRetainers: Retainers = {
-  id: 'a',
+  characterId: 'a',
   retainers: [
     {
       level: 1,
@@ -206,15 +206,15 @@ const singleRetainers: Retainers = {
 
 const retainers = normalize(singleRetainers)
 
-const singleCombatOptions: Id & CombatOptions = {
-  id: 'a',
+const singleCombatOptions: CharacterId & CombatOptions = {
+  characterId: 'a',
   standard: true
 }
 
 const combatOptions = normalize(singleCombatOptions)
 
 const singleInfo: Info = {
-  id: 'a',
+  characterId: 'a',
   age: 28,
   alignment: 'chaotic',
   class: 'fighter',
@@ -231,8 +231,8 @@ const singleInfo: Info = {
 
 const info = normalize(singleInfo)
 
-const baseProperties: { id: string, properties: Property[] } = {
-  id: 'a',
+const baseProperties: Properties = {
+  characterId: 'a',
   properties: [{
     id: 'prop1',
     inventory: [
@@ -243,7 +243,7 @@ const baseProperties: { id: string, properties: Property[] } = {
     ],
     location: 'Crabstown',
     name: 'Shack',
-    notes: ["A bad place"],
+    description: "A bad place",
     rent: 100
   },
   {
@@ -256,7 +256,7 @@ const baseProperties: { id: string, properties: Property[] } = {
     ],
     location: 'New York',
     name: 'Empire state building',
-    notes: ["Big tower"],
+    description: "Big tower",
     rent: 300
   }
   ]

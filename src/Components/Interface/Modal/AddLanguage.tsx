@@ -17,7 +17,7 @@ const AddLanguage = React.forwardRef<HTMLFormElement, Props>(function AddLanguag
   function handleSubmit(e: any) {
     e.preventDefault()
     dispatch(addLanguage({
-      id: characterId,
+      characterId,
       known: e.target.elements.known.checked,
       name: e.target.elements.name.value
     }))

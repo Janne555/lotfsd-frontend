@@ -15,7 +15,7 @@ import {
 import { selectItemIndexById } from "."
 
 const attributes = (characterId: string) =>
-  (state: RootState): Id & Attributes =>
+  (state: RootState): CharacterId & Attributes =>
     state.characterSheet.attributes.byId[characterId]
 
 const attributeModifierEffects = (characterId: string) =>
@@ -120,7 +120,7 @@ const retainers = (characterId: string) =>
     state.characterSheet.retainers.byId[characterId].retainers
 
 const combatOptions = (characterId: string) =>
-  (state: RootState): Id & CombatOptions =>
+  (state: RootState): CharacterId & CombatOptions =>
     state.characterSheet.combatOptions.byId[characterId]
 
 const info = (characterId: string) =>

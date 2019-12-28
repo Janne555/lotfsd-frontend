@@ -8,17 +8,15 @@ const combatOptionsSlice = createSlice({
   initialState: combatOptions,
   reducers: {
     setValue(state, action: AppAction<CombatOptions>) {
-      const { id, ...combatOptions } = action.payload
-      if (id) {
-        state.byId[id] = { id, ...combatOptions }
-      }
+      const { characterId, ...combatOptions } = action.payload
+      state.byId[characterId] = { characterId, ...combatOptions }
     }
   },
   extraReducers: acmBuilder => {
     acmBuilder.addCase(createCharacter, (state, action) => {
-      const { id, class: className } = action.payload
-      state.byId[id] = { id, ...CHARACTER_CLASSES[className].combatOptions }
-      state.allIds.push(id)
+      const { characterId, class: className } = action.payload
+      state.byId[characterId] = { characterId, ...CHARACTER_CLASSES[className].combatOptions }
+      state.allIds.push(characterId)
     })
   }
 })

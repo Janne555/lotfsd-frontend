@@ -44,7 +44,7 @@ const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ char
     }
 
     dispatch(addItemToInventory({
-      id: characterId,
+      characterId,
       instanceId: generate(),
       itemId: selected.id
     }))

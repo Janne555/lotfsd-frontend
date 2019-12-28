@@ -6,12 +6,16 @@ const propertiesSlice = createSlice({
   name: 'properties',
   initialState: properties,
   reducers: {
+    addProperty(state, action: AppAction<Property>) {
+      const { characterId } = action.payload
+      state.byId[characterId].properties.push(action.payload)
+    }
   },
   extraReducers: acmBuilder => {
     acmBuilder.addCase(createCharacter, (state, action) => {
-      const { id } = action.payload
-      state.byId[id] = { id, properties: [] }
-      state.allIds.push(id)
+      const { characterId } = action.payload
+      state.byId[characterId] = { characterId, properties: [] }
+      state.allIds.push(characterId)
     })
   }
 })

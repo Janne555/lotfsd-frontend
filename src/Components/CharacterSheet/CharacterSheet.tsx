@@ -49,7 +49,7 @@ type Props = {
 function CharacterSheet({ characterId, characterName }: Props) {
   const classes = useStyles()
   const modifiers = useSelector(selectAttributeModifiers(characterId))
-  const { id, ...attributes } = useSelector(selectAttributes(characterId))
+  const { characterId: ignore, ...attributes } = useSelector(selectAttributes(characterId))
 
   function handleAttributeChange(key: keyof Attributes, value: string) {
 

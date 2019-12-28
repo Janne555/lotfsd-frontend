@@ -8,15 +8,15 @@ const inventorySlice = createSlice({
   initialState: inventory,
   reducers: {
     addItemToInventory(state, action: AppAction<ItemInstance>) {
-      const { id, ...instance } = action.payload
-      state.byId[id].inventory.push(instance)
+      const { characterId, ...instance } = action.payload
+      state.byId[characterId].inventory.push(instance)
     }
   },
   extraReducers: acmBuilder => {
     acmBuilder.addCase(createCharacter, (state, action) => {
-      const { id } = action.payload
-      state.byId[id] = { id, inventory: [] }
-      state.allIds.push(id)
+      const { characterId } = action.payload
+      state.byId[characterId] = { characterId, inventory: [] }
+      state.allIds.push(characterId)
     })
   }
 })

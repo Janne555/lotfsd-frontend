@@ -10,14 +10,14 @@ const walletSlice = createSlice({
   },
   extraReducers: acmBuilder => {
     acmBuilder.addCase(createCharacter, (state, action) => {
-      const { id, money } = action.payload
-      state.byId[id] = {
-        id,
+      const { characterId, money } = action.payload
+      state.byId[characterId] = {
+        characterId,
         copper: 0,
         silver: Number(money),
         gold: 0
       }
-      state.allIds.push(id)
+      state.allIds.push(characterId)
     })
   }
 })

@@ -34,7 +34,7 @@ export default function SavingThrow({ name, value: [base, modified] }: Props) {
   const { characterId } = useCharacterContext()
 
   function handleChange(value: string) {
-    dispatch(setSavingThrow({ savingThrow: name, value: Number(value), id: characterId }))
+    dispatch(setSavingThrow({ savingThrow: name, value: Number(value), characterId }))
   }
 
   function handleFocus() {

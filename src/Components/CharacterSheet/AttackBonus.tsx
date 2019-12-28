@@ -67,7 +67,7 @@ function SingleBonus({ index, value, title, base }: SubProps) {
   const { characterId } = useCharacterContext()
 
   function handleChange(value: string) {
-    dispatch(setAttackBonus({ value: Number(value), id: characterId }))
+    dispatch(setAttackBonus({ value: Number(value), characterId }))
   }
 
 

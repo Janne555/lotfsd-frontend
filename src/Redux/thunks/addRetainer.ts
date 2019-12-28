@@ -16,7 +16,7 @@ const addRetainer = (
   const uuid = generate()
   dispatch(_addRetainer({
     uuid,
-    id: characterId,
+    characterId,
     name,
     class: className,
     hitpoints: hitpoints.length !== 0 ? Number(hitpoints) : undefined,
