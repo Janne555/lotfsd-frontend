@@ -1,11 +1,11 @@
 import React from 'react'
-import { useDispatch, useSelector } from '../../hooks'
-import login from '../../Redux/thunks/login';
+import { /* useDispatch,  */useSelector } from '../../hooks'
+// import { loginThunk } from '../../Redux/thunks';
 import { selectIsLoggedIn } from '../../Redux/selectors';
 import { Redirect } from 'react-router-dom';
 
 export default function Login() {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const isLoggedIn = useSelector(selectIsLoggedIn)
 
   if (isLoggedIn) {
@@ -16,7 +16,7 @@ export default function Login() {
 
   function handleSubmit(e: any) {
     e.preventDefault();
-    dispatch(login(e.target[0], e.target[1]))
+    // dispatch(login(e.target[0], e.target[1]))
   }
 
   return (

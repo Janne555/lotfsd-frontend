@@ -1,6 +1,6 @@
 // import { post } from '../../services'
 
-const login = (
+const loginThunk = (
   username: string,
   password: string
 ): AppThunk => async dispatch => {
@@ -10,4 +10,4 @@ const login = (
   }
 }
 
-export default login
+export { loginThunk }

@@ -231,7 +231,7 @@ type NormalizedCharacterSheet = {
   properties: Normalized<Properties>
 }
 
-type CharacterSheet = {
+type CharacterSheet = CharacterId & {
   attributes: Attributes
   savingThrows: SavingThrows
   inventory: ItemInstance[]
@@ -309,5 +309,7 @@ type Property = {
 
 type LoginPayload = {
   token: string
-  username: string
+  username: string,
+  characters: CharacterSheet[]
+  itemIndex: Item[]
 }
