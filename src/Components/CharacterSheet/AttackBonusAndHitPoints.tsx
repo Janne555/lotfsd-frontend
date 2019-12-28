@@ -1,10 +1,11 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import AttackBonus from './AttackBonus'
-import { useSelector, useCharacterContext } from '../../hooks'
+import { useSelector, useCharacterContext, useDispatch } from '../../hooks'
 import { selecCurrentHp, selectMaxHp, selectSurpriseChance } from '../../Redux/selectors'
 import DieFace from '../_shared/DieFace'
 import Cube from '../_shared/Cube'
+import { setSurpriseChance } from '../../Redux/actions'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   attackBonusAndHitPointsRoot: {
@@ -41,6 +42,11 @@ function AttackBonusAndHitPoints() {
   const currentHP = useSelector(selecCurrentHp(characterId))
   const maxHP = useSelector(selectMaxHp(characterId))
   const supriseChance = useSelector(selectSurpriseChance(characterId))
+  const dispatch = useDispatch()
+
+  function handleSurpriseChange(value: number) {
+    dispatch(setSurpriseChance({ characterId, value }))
+  }
 
   return (
     <div className={classes.attackBonusAndHitPointsRoot}>
@@ -48,7 +54,7 @@ function AttackBonusAndHitPoints() {
       <div className={classes.surpriseChance}>
         <h3>Surprise Chance</h3>
         <div className={classes.surpriseValue}>
-          <DieFace value={supriseChance} />
+          <DieFace value={supriseChance} onValueChange={handleSurpriseChange} />
         </div>
       </div>
       <div className={classes.hitpoints}>

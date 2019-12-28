@@ -15,17 +15,14 @@ const { actions, reducer } = createSlice({
     setCurrentHp(state, action: AppAction<{ value: number }>) {
       const { characterId, value } = action.payload
       state.byId[characterId].currentHp = value
-
     },
     setMaxHp(state, action: AppAction<{ value: number }>) {
       const { characterId, value } = action.payload
       state.byId[characterId].maxHp = value
-
     },
     setSurpriseChance(state, action: AppAction<{ value: number }>) {
       const { characterId, value } = action.payload
       state.byId[characterId].surpriseChance = value
-
     }
   },
   extraReducers: acmBuilder => {
