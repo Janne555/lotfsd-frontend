@@ -219,7 +219,7 @@ type Retainers = CharacterId & { retainers: Retainer[] }
 
 type Properties = CharacterId & { properties: Property[] }
 
-type CharacterSheet = {
+type NormalizedCharacterSheet = {
   attributes: Normalized<CharacterId & Attributes>
   savingThrows: Normalized<CharacterId & SavingThrows>
   inventory: Normalized<Inventory>

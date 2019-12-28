@@ -264,7 +264,7 @@ const baseProperties: Properties = {
 
 const properties = normalize(baseProperties)
 
-const characterSheet: CharacterSheet = {
+const characterSheet: NormalizedCharacterSheet = {
   attributes,
   savingThrows,
   inventory,
