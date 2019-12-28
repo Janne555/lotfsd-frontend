@@ -9,6 +9,9 @@ const newCharacter = (
 ): AppThunk => (dispatch, getState) => {
   const characterId = generate()
   const username = selectUsername(getState())
+  if (!username) {
+    return history.replace('/login')
+  }
 
   dispatch(createCharacter({
     alignment: formElements.alignment.value,

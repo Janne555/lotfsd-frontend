@@ -280,6 +280,7 @@ const characterSheet: CharacterSheet = {
 
 const system: System = {
   username: 'Janne',
+  token: 'asdasd',
   characters: {
     byId: {
       a: 'Zoidberg',

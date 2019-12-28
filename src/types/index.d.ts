@@ -243,7 +243,8 @@ type System = {
     byName: Record<string, string>
     byId: Record<string, string>
   },
-  username: string
+  username?: string
+  token?: string
 }
 
 type NewCharacterForm = Record<keyof Attributes, HTMLInputElement> & {
