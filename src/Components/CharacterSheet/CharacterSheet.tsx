@@ -37,16 +37,16 @@ const useStyles = createUseStyles((theme: Theme) => ({
 }))
 
 const MODULE_INDEX = {
-  attributes: (props: AttributeProps) => <Attributes {...props} />,
-  commonActivities: () => <CommonActivities />,
-  equipmentList: () => <EquipmentList />,
-  retainers: () => <Retainers />,
-  properties: () => <Properties />,
-  savingThrows: () => <SavingThrows />,
-  attacBonusAndHitpoints: () => <AttackBonusAndHitPoints />,
-  armorClassAndCombatOptions: () => <ArmorClassAndCombatOptions />,
-  encumbrance: () => <Encumbrance />,
-  languages: () => <Languages />,
+  attributes: (props: AttributeProps) => <Attributes {...props} key='attributes' />,
+  commonActivities: () => <CommonActivities key='commonActivities' />,
+  equipmentList: () => <EquipmentList key='equipmentList' />,
+  retainers: () => <Retainers key='retainers' />,
+  properties: () => <Properties key='properties' />,
+  savingThrows: () => <SavingThrows key='savingThrows' />,
+  attacBonusAndHitpoints: () => <AttackBonusAndHitPoints key='attacBonusAndHitpoints' />,
+  armorClassAndCombatOptions: () => <ArmorClassAndCombatOptions key='armorClassAndCombatOptions' />,
+  encumbrance: () => <Encumbrance key='encumbrance' />,
+  languages: () => <Languages key='languages' />,
 }
 
 const BASE_ORDER: (keyof typeof MODULE_INDEX)[] = [
