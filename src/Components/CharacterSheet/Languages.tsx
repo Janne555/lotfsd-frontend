@@ -15,10 +15,11 @@ const useStyles = createUseStyles((theme: Theme) => ({
   table: {
     width: '100%',
     borderCollapse: 'collapse',
+    '& tr > td:first-child': {
+      borderRight: '1px solid black'
+    },
     '& td': {
-      border: '1px solid black',
-      height: '1em',
-      borderLeft: 'none'
+      height: '1em'
     }
   },
   known: {

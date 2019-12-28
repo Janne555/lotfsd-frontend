@@ -16,12 +16,6 @@ const useStyles = createUseStyles((theme: Theme) => ({
     '& table': {
       borderCollapse: 'collapse',
       width: '100%'
-    },
-    '& th': {
-      // textAlign: 'center',
-    },
-    '& td': {
-      borderTop: '1px solid black'
     }
   },
   level: {

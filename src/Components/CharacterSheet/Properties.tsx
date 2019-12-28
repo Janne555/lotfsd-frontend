@@ -14,9 +14,6 @@ const useStyles = createUseStyles((theme: Theme) => ({
   table: {
     width: '100%',
     borderCollapse: 'collapse',
-    '& td': {
-      borderBottom: '1px solid black',
-    },
     '& th': {
       textAlign: 'left'
     }
