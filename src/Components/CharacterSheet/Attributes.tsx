@@ -29,7 +29,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-type Props = {
+export type Props = {
   attributes: Attributes
   modifiers?: AttributeModifiers
   onChange?: (key: keyof Attributes, value: string) => void

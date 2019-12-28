@@ -1,5 +1,5 @@
 import React from 'react'
-import Attributes from './Attributes'
+import Attributes, { Props as AttributeProps } from './Attributes'
 import SavingThrows from './SavingThrows'
 import AttackBonusAndHitPoints from './AttackBonusAndHitPoints'
 import ArmorClassAndCombatOptions from './ArmorClassAndCombatOptions'
@@ -10,7 +10,7 @@ import Retainers from './Retainers'
 import { createUseStyles } from 'react-jss'
 import Languages from './Languages'
 import InfoBar from './InfoBar'
-import { useSelector } from '../../hooks'
+import { useSelector, useScreenResizeEvent } from '../../hooks'
 import { selectAttributes, selectAttributeModifiers } from '../../Redux/selectors'
 import { Redirect } from 'react-router-dom'
 import SpeedDial from '../Interface/SpeedDial'
@@ -36,6 +36,45 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
+const MODULE_INDEX = {
+  attributes: (props: AttributeProps) => <Attributes {...props} />,
+  commonActivities: () => <CommonActivities />,
+  equipmentList: () => <EquipmentList />,
+  retainers: () => <Retainers />,
+  properties: () => <Properties />,
+  savingThrows: () => <SavingThrows />,
+  attacBonusAndHitpoints: () => <AttackBonusAndHitPoints />,
+  armorClassAndCombatOptions: () => <ArmorClassAndCombatOptions />,
+  encumbrance: () => <Encumbrance />,
+  languages: () => <Languages />,
+}
+
+const BASE_ORDER: (keyof typeof MODULE_INDEX)[] = [
+  "attributes",
+  "commonActivities",
+  "equipmentList",
+  "retainers",
+  "properties",
+  "savingThrows",
+  "attacBonusAndHitpoints",
+  "armorClassAndCombatOptions",
+  "encumbrance",
+  "languages",
+]
+
+const MOBILE_ORDER: (keyof typeof MODULE_INDEX)[] = [
+  "attributes",
+  "savingThrows",
+  "attacBonusAndHitpoints",
+  "armorClassAndCombatOptions",
+  "commonActivities",
+  "equipmentList",
+  "retainers",
+  "properties",
+  "encumbrance",
+  "languages",
+]
+
 const context = React.createContext({
   characterName: "default",
   characterId: 'default'
@@ -50,6 +89,7 @@ function CharacterSheet({ characterId, characterName }: Props) {
   const classes = useStyles()
   const modifiers = useSelector(selectAttributeModifiers(characterId))
   const { characterId: ignore, ...attributes } = useSelector(selectAttributes(characterId))
+  const isMobile = useScreenResizeEvent(width => width < 1100)
 
   function handleAttributeChange(key: keyof Attributes, value: string) {
 
@@ -63,16 +103,10 @@ function CharacterSheet({ characterId, characterName }: Props) {
     <context.Provider value={{ characterName, characterId }}>
       <div className={classes.characterSheet}>
         <InfoBar />
-        <Attributes attributes={attributes} modifiers={modifiers} onChange={handleAttributeChange} />
-        <CommonActivities />
-        <EquipmentList />
-        <Retainers />
-        <Properties />
-        <SavingThrows />
-        <AttackBonusAndHitPoints />
-        <ArmorClassAndCombatOptions />
-        <Encumbrance />
-        <Languages />
+        {isMobile
+          ? MOBILE_ORDER.map(key => MODULE_INDEX[key]({ attributes, modifiers, onChange: handleAttributeChange }))
+          : BASE_ORDER.map(key => MODULE_INDEX[key]({ attributes, modifiers, onChange: handleAttributeChange }))
+        }
       </div>
       <SpeedDial />
     </context.Provider>
