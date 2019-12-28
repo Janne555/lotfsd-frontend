@@ -233,6 +233,20 @@ type NormalizedCharacterSheet = {
   properties: Normalized<Properties>
 }
 
+type CharacterSheet = {
+  attributes: Attributes
+  savingThrows: SavingThrows
+  inventory: ItemInstance[]
+  effects: Effect[]
+  commonActivities: CommonActivities
+  wallet: Wallet
+  languages: Language[]
+  retainers: Retainer[]
+  combatOptions: CombatOptions
+  info: Info
+  properties: Property[]
+}
+
 type UserData = {
   username: string
   token: string
@@ -293,4 +307,9 @@ type Property = {
   location: string
   description: string
   inventory: ItemInstance[]
+}
+
+type LoginPayload = {
+  token: string
+  username: string
 }
