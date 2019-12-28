@@ -6,7 +6,7 @@ import { useScreenResizeEvent } from '../../hooks';
 const useStyles = createUseStyles((theme: Theme) => ({
   ModuleContainer: {
     border: theme.border,
-    paddingTop: theme.padding,
+    padding: theme.padding,
     backgroundColor: theme.componentBackgroundColor,
     minHeight: theme.minHeight,
     position: 'relative'
