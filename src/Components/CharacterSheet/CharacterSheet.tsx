@@ -67,12 +67,12 @@ function CharacterSheet({ characterId, characterName }: Props) {
         <CommonActivities />
         <EquipmentList />
         <Retainers />
+        <Properties />
         <SavingThrows />
         <AttackBonusAndHitPoints />
         <ArmorClassAndCombatOptions />
         <Encumbrance />
         <Languages />
-        <Properties />
       </div>
       <SpeedDial />
     </context.Provider>
