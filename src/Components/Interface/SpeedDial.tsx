@@ -5,6 +5,7 @@ import Add from '@material-ui/icons/Add'
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction'
 import { useCharacterContext, useScreenResizeEvent } from '../../hooks'
 import { useHistory } from 'react-router-dom'
+import Icon from '@material-ui/icons/AcUnit'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   speedDial: {
@@ -34,9 +35,9 @@ const actions: {
   icon: ReactNode | undefined,
   tooltip: string
 }[] = [
-    { name: 'addItem', icon: undefined, tooltip: 'Add\xa0Item' },
-    { name: 'addRetainer', icon: undefined, tooltip: 'Add\xa0Retainer' },
-    { name: 'addLanguage', icon: undefined, tooltip: 'Add\xa0Language' },
+    { name: 'addItem', icon: <Icon />, tooltip: 'Add\xa0Item' },
+    { name: 'addRetainer', icon: <Icon />, tooltip: 'Add\xa0Retainer' },
+    { name: 'addLanguage', icon: <Icon />, tooltip: 'Add\xa0Language' },
   ]
 
 function SpeedDial() {
@@ -70,6 +71,7 @@ function SpeedDial() {
             key={action.name}
             tooltipTitle={action.tooltip}
             tooltipOpen
+            icon={action.icon}
             onClick={() => handleClick(action.name)}
           />
         ))
