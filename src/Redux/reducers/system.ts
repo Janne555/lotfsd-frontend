@@ -6,7 +6,6 @@ const { reducer } = createSlice({
   name: 'system',
   initialState: system,
   reducers: {
-
   },
   extraReducers: acmBuilder => {
     acmBuilder.addCase(createCharacter, (state, action) => {
