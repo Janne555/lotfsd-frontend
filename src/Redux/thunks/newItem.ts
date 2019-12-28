@@ -5,7 +5,6 @@ const newItem = (
   elements: ItemCreatorForm,
   effects: ItemEffect[]
 ): AppThunk => dispatch => {
-  console.log(Object.values(elements).map(e => e?.value))
 
   const type = elements.type?.value as Item['type'] | undefined
   const name = elements.name?.value.trim()

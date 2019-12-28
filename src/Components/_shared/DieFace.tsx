@@ -56,8 +56,6 @@ export default function DieFace({ value, onValueChange }: Props) {
     setIsEditing(false)
   }
 
-  console.log(isEditing)
-
   return (
     <div className={classes.dieFaceRoot} onClick={handleDieClick} >
       {

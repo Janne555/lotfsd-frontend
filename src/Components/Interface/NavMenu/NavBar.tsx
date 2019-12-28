@@ -119,7 +119,6 @@ type HideProps = {
 function HideOnScroll({ children }: HideProps) {
   const trigger = useScrollTrigger()
 
-  console.log(trigger)
   return (
     <Slide appear direction="down" in={!trigger}>
       {children}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
-import { useSelector } from '../../hooks'
+import { useSelector, useScreenResizeEvent } from '../../hooks'
 import { selectItemIndex } from '../../Redux/selectors'
 import { Route, useRouteMatch, useHistory } from 'react-router-dom'
 import ItemDetails from '../_shared/ItemDetails'
@@ -8,6 +8,7 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import TextField from '@material-ui/core/TextField'
+import Autocomplete from '@material-ui/lab/Autocomplete'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   itemIndex: {
@@ -27,6 +28,12 @@ const useStyles = createUseStyles((theme: Theme) => ({
   },
   details: {
     margin: '1rem 0 0 2rem'
+  },
+  '@media (max-width: 1100px)': {
+    itemIndex: {
+      display: 'flex',
+      flexDirection: 'column'
+    }
   }
 }))
 
@@ -35,38 +42,24 @@ type Props = {
 }
 
 function ItemIndex(/* { }: Props */) {
+  const isMobile = useScreenResizeEvent(width => width < 1100)
   const classes = useStyles()
-  const [searchTerm, setSearchTerm] = useState("")
   const items = useSelector(selectItemIndex)
-    .filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
   const match = useRouteMatch<{ item: string }>("/itemindex/:item")
   const history = useHistory()
   const selected = items.find(item => item.name === match?.params.item)
 
-  function handleItemClick(item: string) {
+
+  function handleItemClick(item?: string) {
     history.push(`/itemindex/${item}`)
   }
 
   return (
     <div className={classes.itemIndex}>
-      <div>
-        <TextField className={classes.searchBox} label="Search" onChange={e => setSearchTerm(e.target.value)} />
-        <List>
-          {
-            items.map((item: Item) => (
-              <ListItem
-                button
-                key={item.id}
-                id={item.name}
-                onClick={() => handleItemClick(item.name)}
-                selected={item.name === selected?.name}
-              >
-                <ListItemText primary={item.name} />
-              </ListItem>
-            ))
-          }
-        </List>
-      </div>
+      {isMobile
+        ? <ComboBoxMode items={items} onSelect={handleItemClick} selected={selected} />
+        : <ListMode items={items} onSelect={handleItemClick} selected={selected} />
+      }
       <Route path="/itemindex/:item">
         {selected &&
           <div className={classes.details}>
@@ -76,6 +69,56 @@ function ItemIndex(/* { }: Props */) {
         }
       </Route>
     </div>
+  )
+}
+
+const useListModeStyles = createUseStyles((theme: Theme) => ({
+  searchBox: {
+    width: '100%'
+  }
+}))
+
+type SubProps = {
+  onSelect: (name?: string) => void
+  items: Item[]
+  selected?: Item
+}
+
+function ListMode({ items, onSelect, selected }: SubProps) {
+  const classes = useListModeStyles()
+  const [searchTerm, setSearchTerm] = useState("")
+  return (
+    <div>
+      <TextField className={classes.searchBox} label="Search" onChange={e => setSearchTerm(e.target.value)} />
+      <List>
+        {
+          items.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase())).map((item: Item) => (
+            <ListItem
+              button
+              key={item.id}
+              id={item.name}
+              onClick={() => onSelect(item.name)}
+              selected={item.name === selected?.name}
+            >
+              <ListItemText primary={item.name} />
+            </ListItem>
+          ))
+        }
+      </List>
+    </div>
+  )
+}
+
+function ComboBoxMode({ items, onSelect }: SubProps) {
+  return (
+    <Autocomplete
+      options={items}
+      getOptionLabel={(option: Item) => option.name}
+      onChange={(e, item) => onSelect(item?.name)}
+      renderInput={params => (
+        <TextField {...params} label="Item Index" fullWidth placeholder="Filter by typing" />
+      )}
+    />
   )
 }
 

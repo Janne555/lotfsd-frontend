@@ -6,7 +6,6 @@ const login = (
 ): AppThunk => async dispatch => {
   try {
     const foo = await post('LOGIN', { username, password })
-    console.log(foo)
   } catch (error) {
   }
 }
