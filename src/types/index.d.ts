@@ -280,7 +280,7 @@ type ItemCreatorFormKeys = 'type' | 'name' | 'description' | 'stackSize' | 'encu
 
 type ItemCreatorForm = Partial<Record<ItemCreatorFormKeys, HTMLInputElement>>
 
-type AddPropertyFormKeys = 'name' | 'value' | 'rent' | 'location' | 'descripton'
+type AddPropertyFormKeys = 'name' | 'value' | 'rent' | 'location' | 'description'
 
 type AddPropertyForm = Record<AddPropertyFormKeys, HTMLInputElement>
 

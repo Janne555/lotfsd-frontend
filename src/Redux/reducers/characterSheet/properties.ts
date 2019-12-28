@@ -20,6 +20,6 @@ const propertiesSlice = createSlice({
   }
 })
 
-// export const { } = propertiesSlice.actions
+export const { addProperty } = propertiesSlice.actions
 
 export default propertiesSlice.reducer

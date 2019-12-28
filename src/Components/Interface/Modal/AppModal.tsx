@@ -6,6 +6,7 @@ import AddLanguage from './AddLanguage'
 import NoContent from '../../_shared/NoContent'
 import AddItem from './AddItem'
 import { useHistory } from 'react-router-dom'
+import AddProperty from './AddProperty'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   modal: {
@@ -48,13 +49,15 @@ const AppModal = React.forwardRef<any, Props>(function AppModal({ characterId, c
       <div className={classes.modal}>
         {characterId &&
           (() => {
-            switch (content) {
-              case "addRetainer":
+            switch (content?.toLowerCase()) {
+              case "addretainer":
                 return <AddRetainer ref={ref} characterId={characterId} onClose={handleClose} />
-              case "addLanguage":
+              case "addlanguage":
                 return <AddLanguage ref={ref} characterId={characterId} onClose={handleClose} />
-              case "addItem":
+              case "additem":
                 return <AddItem ref={ref} characterId={characterId} onClose={handleClose} />
+              case "addproperty":
+                return <AddProperty ref={ref} characterId={characterId} onClose={handleClose} />
               default:
                 return <NoContent />
             }
