@@ -14,6 +14,8 @@ import {
 } from "../../services"
 import { selectItemIndexById } from "."
 
+import omit from 'lodash/omit'
+
 const attributes = (characterId: string) =>
   (state: RootState): CharacterId & Attributes =>
     state.characterSheet.attributes.byId[characterId]
@@ -90,7 +92,7 @@ const commonActivities = (characterId: string) =>
 
 const wallet = (characterId: string) =>
   (state: RootState): Wallet =>
-    state.characterSheet.wallet.byId[characterId]
+    omit(state.characterSheet.wallet.byId[characterId], 'characterId')
 
 const inventory = (characterId: string) =>
   (state: RootState): InventoryItem[] => {
@@ -125,8 +127,7 @@ const combatOptions = (characterId: string) =>
 
 const info = (characterId: string) =>
   (state: RootState): InfoBarData => {
-    const { maxHp, currentHp, attackBonus, surpriseChance, ...rest } = state.characterSheet.info.byId[characterId]
-    return rest
+    return omit(state.characterSheet.info.byId[characterId], ['maxHp', 'currentHp', 'attackBonus', 'surpriseChance', 'characterId'])
   }
 
 const className = (characterId?: string) =>

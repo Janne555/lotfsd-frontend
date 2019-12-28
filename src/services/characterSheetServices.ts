@@ -163,8 +163,7 @@ function calculateEncumbrance(inventory: InventoryItem[], wallet: Wallet): numbe
 }
 
 function totalCoins(wallet: Wallet): number {
-  const { characterId, ...sansId } = wallet
-  return Object.values(sansId).reduce((coins, value) => coins + value, 0)
+  return Object.values(wallet).reduce((coins, value) => coins + value, 0)
 }
 
 function calculateEncumbranceDetails(encumbrance: number) {

@@ -152,7 +152,7 @@ const singleCommonActivities: CharacterId & CommonActivities = {
 
 const commonActivities = normalize(singleCommonActivities)
 
-const singleWallet: Wallet = {
+const singleWallet: CharacterId &  Wallet = {
   characterId: 'a',
   copper: 50,
   silver: 50,
@@ -213,7 +213,7 @@ const singleCombatOptions: CharacterId & CombatOptions = {
 
 const combatOptions = normalize(singleCombatOptions)
 
-const singleInfo: Info = {
+const singleInfo: CharacterId & Info = {
   characterId: 'a',
   age: 28,
   alignment: 'chaotic',

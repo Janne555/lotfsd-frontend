@@ -151,7 +151,6 @@ type Weapon = ItemBase & {
 }
 
 type Wallet = {
-  characterId: string
   copper: number
   silver: number
   gold: number
@@ -191,7 +190,6 @@ type CombatOptions = {
 }
 
 type Info = {
-  characterId: string
   name: string
   experience: number
   class: string
@@ -225,11 +223,11 @@ type NormalizedCharacterSheet = {
   inventory: Normalized<Inventory>
   effects: Normalized<Effects>
   commonActivities: Normalized<CharacterId & CommonActivities>
-  wallet: Normalized<Wallet>
+  wallet: Normalized<CharacterId & Wallet>
   languages: Normalized<Languages>
   retainers: Normalized<Retainers>
   combatOptions: Normalized<CharacterId & CombatOptions>
-  info: Normalized<Info>
+  info: Normalized<CharacterId & Info>
   properties: Normalized<Properties>
 }
 

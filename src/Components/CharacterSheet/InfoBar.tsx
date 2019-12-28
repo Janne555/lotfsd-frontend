@@ -40,7 +40,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
 function InfoBar() {
   const classes = useStyles()
   const { characterId } = useCharacterContext()
-  const { characterId: ignore, ...info } = useSelector(selectInfo(characterId))
+  const info = useSelector(selectInfo(characterId))
 
   return (
     <div className={classes.infoBarRoot}>
@@ -69,7 +69,7 @@ const useSubStyles = createUseStyles((theme: Theme) => ({
 
 type SubProps = {
   name: string
-  value: string
+  value: string | number
 }
 
 function KeyVal({ name, value }: SubProps) {
