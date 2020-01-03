@@ -6,6 +6,12 @@ const { reducer, actions } = createSlice({
   name: 'system',
   initialState: system,
   reducers: {
+    beginLogin(state, action: PayloadAction<string>) {
+      return {
+        state: 'loggingIn',
+        username: action.payload
+      }
+    },
     completeLogin(state, action: PayloadAction<string>) {
       if (state.state === 'loggingIn') {
         return {
@@ -13,12 +19,6 @@ const { reducer, actions } = createSlice({
           state: 'fetching',
           token: action.payload
         }
-      }
-    },
-    beginLogin(state, action: PayloadAction<string>) {
-      return {
-        state: 'loggingIn',
-        username: action.payload
       }
     },
     completeDataFetch(state, action: PayloadAction<LoggedIn['characters']>) {

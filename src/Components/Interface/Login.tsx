@@ -1,11 +1,13 @@
 import React from 'react'
-import { /* useDispatch,  */useSelector } from '../../hooks'
-// import { loginThunk } from '../../Redux/thunks';
-import { selectIsLoggedIn } from '../../Redux/selectors';
-import { Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from '../../hooks'
+import { loginThunk } from '../../Redux/thunks'
+import { selectIsLoggedIn } from '../../Redux/selectors'
+import { Redirect } from 'react-router-dom'
 
-export default function Login() {
-  // const dispatch = useDispatch()
+
+
+function Login() {
+  const dispatch = useDispatch()
   const isLoggedIn = useSelector(selectIsLoggedIn)
 
   if (isLoggedIn) {
@@ -16,18 +18,20 @@ export default function Login() {
 
   function handleSubmit(e: any) {
     e.preventDefault();
-    // dispatch(login(e.target[0], e.target[1]))
+    dispatch(loginThunk(e.target.elements.username.value, e.target.elements.password.value))
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username</label>
-        <input name="username" />
+        <input id="username" />
         <label htmlFor="password">Password</label>
-        <input name="password" type="password" />
+        <input id="password" type="password" />
         <button type="submit">Login</button>
       </form>
     </div>
   )
 }
+
+export default Login

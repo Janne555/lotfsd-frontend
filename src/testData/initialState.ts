@@ -152,7 +152,7 @@ const singleCommonActivities: CharacterId & CommonActivities = {
 
 const commonActivities = normalize(singleCommonActivities)
 
-const singleWallet: CharacterId &  Wallet = {
+const singleWallet: CharacterId & Wallet = {
   characterId: 'a',
   copper: 50,
   silver: 50,
@@ -279,18 +279,7 @@ const characterSheet: NormalizedCharacterSheet = {
 }
 
 const system: System = {
-  state: 'loggedIn',
-  username: 'Janne',
-  token: 'asdasd',
-  characters: {
-    byId: {
-      a: 'Zoidberg',
-    },
-    byName: {
-      Zoidberg: 'a',
-      Mardrick: 'a'
-    }
-  }
+  state: 'loggedOut'
 }
 
 const userInterface = {

@@ -10,7 +10,7 @@ function setBearer(headers: Headers) {
   }
 }
 
-const api = ky.extend({
+const api = ky.create({
   prefixUrl: APIROOT,
   hooks: {
     beforeRequest: [
@@ -22,7 +22,7 @@ const api = ky.extend({
 })
 
 async function get<T>(endpoint: { url: string, type: T }): Promise<T> {
-  const result = await api.get(endpoint.url, { prefixUrl: '/api' })
+  const result = await api.get(endpoint.url)
   try {
     return await result.clone().json()
   } catch {
@@ -33,7 +33,6 @@ async function get<T>(endpoint: { url: string, type: T }): Promise<T> {
 
 async function post<T>(endpoint: { url: string, type: T }, payload: any): Promise<T> {
   const result = await api.post(endpoint.url, {
-    prefixUrl: '/api',
     json: payload
   })
 

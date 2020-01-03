@@ -1,5 +1,3 @@
-import { getURL, ENDPOINTS } from './endpoints'
-
 const ATTRIBUTE_DETAILS = {
   charisma: "Retainer Recruitment, Loyalty",
   constitution: "Hit Points, Daily Travel Distance",
@@ -76,7 +74,7 @@ export {
   BASE_ARMOR_CLASS,
   COMMON_ACTIVITY_TITLES,
   MONEY,
-  RETAINER_KEYS,
-  getURL,
-  ENDPOINTS
+  RETAINER_KEYS
 }
+
+export * from './endpoints'
