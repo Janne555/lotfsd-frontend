@@ -1,14 +1,11 @@
-const APIROOT = process.env.NODE_ENV === 'production' ? "dunno lol" : "http://localhost:5000/api"
+const APIROOT = process.env.NODE_ENV === 'production' ? "dunno lol" : "http://localhost:5000"
 
 const ENDPOINTS = {
-  LOGIN: 'user/login'
-}
-
-function getURL(endpoint: EndpointType, endpointOptions?: { [name: string]: any }) {
-  return `${APIROOT}/${ENDPOINTS[endpoint]}`
+  LOGIN: { url: 'user/login', type: { value: "" } },
+  ASD: { url: 'user/ASD', type: {} as CharacterSheet }
 }
 
 export {
-  getURL,
+  APIROOT,
   ENDPOINTS
 }

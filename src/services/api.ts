@@ -1,12 +1,47 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { getURL } from '../constants'
+import ky from 'ky'
+import { APIROOT } from '../constants/endpoints'
+import store from '../Redux/store'
+import { selectToken } from '../Redux/selectors'
 
-async function get<T = any>(endpoint: EndpointType, options: { endpointOptions?: { [name: string]: any }, fetchOptions?: AxiosRequestConfig } = {}): Promise<AxiosResponse<T>> {
-  return axios.get<T>(getURL(endpoint, options.endpointOptions), options.fetchOptions)
+function setBearer(headers: Headers) {
+  const token = selectToken(store.getState())
+  if (token) {
+    headers.set('Authorization', token)
+  }
 }
 
-async function post<T = any>(endpoint: EndpointType, data: any, options: { endpointOptions?: { [name: string]: any }, fetchOptions?: AxiosRequestConfig } = {}): Promise<AxiosResponse<T>> {
-  return axios.post<T>(getURL(endpoint, options.endpointOptions), data, options.fetchOptions)
+const api = ky.extend({
+  prefixUrl: APIROOT,
+  hooks: {
+    beforeRequest: [
+      (request) => {
+        setBearer(request.headers)
+      }
+    ]
+  }
+})
+
+async function get<T>(endpoint: { url: string, type: T }): Promise<T> {
+  const result = await api.get(endpoint.url, { prefixUrl: '/api' })
+  try {
+    return await result.clone().json()
+  } catch {
+    const text = await result.text()
+    return { value: text } as any
+  }
+}
+
+async function post<T>(endpoint: { url: string, type: T }, payload: any): Promise<T> {
+  const result = await api.post(endpoint.url, {
+    prefixUrl: '/api',
+    json: payload
+  })
+
+  try {
+    return await result.clone().json()
+  } catch {
+    return { value: await result.text() } as any
+  }
 }
 
 export {

@@ -2,8 +2,6 @@ type Theme = typeof import('../styles/theme').theme
 
 type RootState = ReturnType<typeof import('../Redux/reducers/rootReducer').default>
 
-type EndpointType = keyof typeof import('../constants').ENDPOINTS
-
 type AppThunk = import('redux-thunk').ThunkAction<void, RootState, null, Action<string>>
 
 type AppAction<T> = import('@reduxjs/toolkit').PayloadAction<T> & { payload: CharacterId }

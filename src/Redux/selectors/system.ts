@@ -8,9 +8,16 @@ const characters = (state: RootState): string[] => state.system.state === 'logge
 
 const username = (state: RootState): string | undefined => state.system.state !== 'loggedOut' ? state.system.username : undefined
 
+const token = ({ system }: RootState): string | undefined => {
+  if (system.state === 'loggedIn' || system.state === 'fetching') {
+    return system.token
+  }
+}
+
 export {
   isLoggedIn as selectIsLoggedIn,
   characterId as selectCharacterId,
   characters as selectCharacters,
-  username as selectUsername
+  username as selectUsername,
+  token as selectToken
 }
