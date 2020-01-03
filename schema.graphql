@@ -1,0 +1,248 @@
+type AttributeModifiers {
+  charisma: Int!
+  constitution: Int!
+  dexterity: Int!
+  intelligence: Int!
+  strength: Int!
+  wisdom: Int!
+}
+
+input AttributeModifiersInput {
+  charisma: Int!
+  constitution: Int!
+  dexterity: Int!
+  intelligence: Int!
+  strength: Int!
+  wisdom: Int!
+}
+
+type Attributes {
+  charisma: Int!
+  constitution: Int!
+  dexterity: Int!
+  intelligence: Int!
+  strength: Int!
+  wisdom: Int!
+}
+
+input AttributesInput {
+  charisma: Int!
+  constitution: Int!
+  dexterity: Int!
+  intelligence: Int!
+  strength: Int!
+  wisdom: Int!
+}
+
+scalar BigInt
+
+scalar Byte
+
+type CharacterSheet {
+  age: Int!
+  alignment: String!
+  attackBonus: Int!
+  attributeModifiers: AttributeModifiers
+  attributes: Attributes
+  class: String!
+  commonActivities: CommonActivities
+  currentHp: Int!
+  effect: [Effect]
+  experience: Int!
+  gender: String!
+  id: ID
+  inventory: [ItemInstance]
+  maxHp: Int!
+  name: String!
+  player: String!
+  properties: [Property]
+  race: String!
+  savingThrows: SavingThrows
+  surpriseChance: Int!
+  wallet: Wallet
+}
+
+input CharacterSheetInput {
+  id: ID = null
+  name: String!
+  experience: Int!
+  class: String!
+  race: String!
+  age: Int!
+  gender: String!
+  alignment: String!
+  attackBonus: Int!
+  currentHp: Int!
+  maxHp: Int!
+  surpriseChance: Int!
+  attributes: AttributesInput = null
+  attributeModifiers: AttributeModifiersInput = null
+  savingThrows: SavingThrowsInput = null
+  commonActivities: CommonActivitiesInput = null
+  wallet: WalletInput = null
+  effect: [EffectInput] = null
+  properties: [PropertyInput] = null
+  inventory: [ItemInstanceInput] = null
+}
+
+type CommonActivities {
+  architecture: Int!
+  bushcraft: Int!
+  climbing: Int!
+  languages: Int!
+  openDoors: Int!
+  search: Int!
+  sleightOfHand: Int!
+  sneakAttack: Int!
+  stealth: Int!
+  tinkering: Int!
+}
+
+input CommonActivitiesInput {
+  architecture: Int!
+  bushcraft: Int!
+  climbing: Int!
+  languages: Int!
+  openDoors: Int!
+  search: Int!
+  sleightOfHand: Int!
+  sneakAttack: Int!
+  stealth: Int!
+  tinkering: Int!
+}
+
+"""
+The `Date` scalar type represents a year, month and day in accordance with the
+[ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) standard.
+"""
+scalar Date
+
+"""
+The `DateTime` scalar type represents a date and time. `DateTime` expects
+timestamps to be formatted in accordance with the
+[ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) standard.
+"""
+scalar DateTime
+
+"""
+The `DateTimeOffset` scalar type represents a date, time and offset from UTC.
+`DateTimeOffset` expects timestamps to be formatted in accordance with the
+[ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) standard.
+"""
+scalar DateTimeOffset
+
+scalar Decimal
+
+type Effect {
+  method: String!
+  target: String!
+  type: String!
+  value: Int!
+}
+
+input EffectInput {
+  type: String!
+  target: String!
+  method: String!
+  value: Int!
+}
+
+scalar Guid
+
+type ItemInstance {
+  equipped: Boolean!
+  id: String!
+  itemId: String!
+}
+
+input ItemInstanceInput {
+  itemId: String!
+  id: String!
+  equipped: Boolean!
+}
+
+scalar Long
+
+"""
+The `Milliseconds` scalar type represents a period of time represented as the total number of milliseconds.
+"""
+scalar Milliseconds
+
+type Mutation {
+  createCharacterSheet(characterSheet: CharacterSheetInput!): CharacterSheet
+  replaceCharacterSheet(characterSheet: CharacterSheetInput!, id: ID!): CharacterSheet
+}
+
+type Property {
+  description: String!
+  id: String!
+  inventory: [ItemInstance]
+  location: String!
+  name: String!
+  owner: String!
+  rent: Int!
+  value: Int!
+}
+
+input PropertyInput {
+  id: String!
+  owner: String!
+  name: String!
+  value: Int!
+  rent: Int!
+  location: String!
+  description: String!
+  inventory: [ItemInstanceInput] = null
+}
+
+type Query {
+  characterSheet(id: String = null): CharacterSheet
+  characterSheets: [CharacterSheet]
+  foo: CharacterSheet
+}
+
+type SavingThrows {
+  breathWeapon: Int!
+  magic: Int!
+  magicalDevice: Int!
+  paralyze: Int!
+  poison: Int!
+}
+
+input SavingThrowsInput {
+  paralyze: Int!
+  poison: Int!
+  breathWeapon: Int!
+  magicalDevice: Int!
+  magic: Int!
+}
+
+scalar SByte
+
+"""
+The `Seconds` scalar type represents a period of time represented as the total number of seconds.
+"""
+scalar Seconds
+
+scalar Short
+
+scalar UInt
+
+scalar ULong
+
+scalar Uri
+
+scalar UShort
+
+type Wallet {
+  copper: Int!
+  gold: Int!
+  silver: Int!
+}
+
+input WalletInput {
+  copper: Int!
+  silver: Int!
+  gold: Int!
+}
+

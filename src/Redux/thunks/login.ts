@@ -4,8 +4,8 @@ import { beginLogin, completeLogin, completeDataFetch } from '../reducers/system
 import graphql from 'babel-plugin-relay/macro'
 
 
-const query = graphql`
-  query Query {
+const loginQuery = graphql`
+  query loginQuery {
     characterSheets {
       id
       attributeModifiers {
@@ -25,8 +25,7 @@ const loginThunk = (
     const { token } = await post(ENDPOINTS.LOGIN, { username, password })
     dispatch(completeLogin(token))
 
-    const res = await queryGraphql({ taggedNode: query, type: {} as CharacterSheet }, {})
-    console.log(res)
+    console.log(queryGraphql({ taggedNode: loginQuery, type: {} as CharacterSheet }, {}))
 
     dispatch(completeDataFetch({
       byId: {

@@ -22,7 +22,7 @@ function setBearer(headers: Headers) {
 }
 
 const api = ky.create({
-  prefixUrl: `${APIROOT}/api`,
+  prefixUrl: `${APIROOT}api`,
   hooks: {
     beforeRequest: [
       (request) => {
@@ -55,12 +55,12 @@ async function post<T>(endpoint: { url: string, type: T }, payload: any): Promis
 }
 
 async function graphqlPost(operation: RequestParameters, variables: Record<string, any>): Promise<GraphQLResponse> {
-  return api.post('/graphql', {
+  return api.post('graphql', {
     prefixUrl: APIROOT,
     json: {
       query: operation.text,
       variables
-    }
+    },
   }).json()
 }
 
