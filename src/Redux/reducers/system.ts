@@ -1,31 +1,53 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { system } from '../../testData/initialState'
-import { createCharacter, login } from '../specialActions'
+import { createCharacter } from '../specialActions'
 
-const { reducer } = createSlice({
+const { reducer, actions } = createSlice({
   name: 'system',
   initialState: system,
   reducers: {
+    completeLogin(state, action: PayloadAction<string>) {
+      if (state.state === 'loggingIn') {
+        return {
+          ...state,
+          state: 'fetching',
+          token: action.payload
+        }
+      }
+    },
+    beginLogin(state, action: PayloadAction<string>) {
+      return {
+        state: 'loggingIn',
+        username: action.payload
+      }
+    },
+    completeDataFetch(state, action: PayloadAction<LoggedIn['characters']>) {
+      if (state.state === 'fetching') {
+        return {
+          ...state,
+          state: 'loggedIn',
+          characters: action.payload
+        }
+      }
+    },
+    logout() {
+      return {
+        state: 'loggedOut'
+      }
+    },
   },
   extraReducers: acmBuilder => {
     acmBuilder
       .addCase(createCharacter, (state, action) => {
         const { characterId, name } = action.payload
-        state.characters.byId[characterId] = name
-        state.characters.byName[name] = characterId
-      })
-      .addCase(login, (state, { payload: { username, token, characters } }) => {
-        state.token = token
-        state.username = username
-        state.characters = characters.reduce<{ byId: Record<string, string>, byName: Record<string, string> }>((result, character) => {
-          result.byId[character.characterId] = character.info.name
-          result.byName[character.info.name] = character.characterId
-          return result
-        }, { byId: {}, byName: {} })
+        if (state.state === 'loggedIn') {
+          state.characters.byId[characterId] = name
+          state.characters.byName[name] = characterId
+        }
       })
   }
 })
 
-// export const { } = savingThrowsSlice.actions
+export const { beginLogin, completeDataFetch, completeLogin, logout } = actions
 
 export default reducer

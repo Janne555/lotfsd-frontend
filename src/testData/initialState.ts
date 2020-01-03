@@ -279,6 +279,7 @@ const characterSheet: NormalizedCharacterSheet = {
 }
 
 const system: System = {
+  state: 'loggedIn',
   username: 'Janne',
   token: 'asdasd',
   characters: {

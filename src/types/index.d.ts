@@ -250,14 +250,34 @@ type UserData = {
   token: string
 }
 
-type System = {
+type System = LoggedOut | LoggingIn | FetchingData | LoggedIn
+
+type LoggedOut = {
+  state: 'loggedOut'
+}
+
+type LoggingIn = {
+  state: 'loggingIn'
+  username: string
+}
+
+type FetchingData = {
+  state: 'fetching'
+  username: string
+  token: string
+}
+
+type LoggedIn = {
+  state: 'loggedIn'
   characters: {
     byName: Record<string, string>
     byId: Record<string, string>
   },
-  username?: string
-  token?: string
+  username: string
+  token: string
 }
+
+
 
 type NewCharacterForm = Record<keyof Attributes, HTMLInputElement> & {
   name: HTMLInputElement
@@ -305,11 +325,4 @@ type Property = {
   location: string
   description: string
   inventory: ItemInstance[]
-}
-
-type LoginPayload = {
-  token: string
-  username: string,
-  characters: CharacterSheet[]
-  itemIndex: Item[]
 }
