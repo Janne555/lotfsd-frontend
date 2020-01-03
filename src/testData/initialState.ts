@@ -278,25 +278,9 @@ const characterSheet: NormalizedCharacterSheet = {
   properties
 }
 
-const system: System = {
-  state: 'loggedOut'
-}
-
-const userInterface = {
-  modalOpen: false
-}
-
-const initialState: RootState = {
-  characterSheet,
-  itemIndex,
-  system,
-  userInterface
-}
-
 export {
   attributes,
   savingThrows,
-  initialState,
   inventory,
   effects,
   commonActivities,
@@ -307,6 +291,5 @@ export {
   characterSheet,
   combatOptions,
   info,
-  system,
   properties
 }

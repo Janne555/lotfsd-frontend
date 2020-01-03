@@ -1,8 +1,7 @@
-const APIROOT = process.env.NODE_ENV === 'production' ? "dunno lol" : "http://localhost:5000/api"
+const APIROOT = process.env.NODE_ENV === 'production' ? "dunno lol" : "https://localhost:5001/"
 
 const ENDPOINTS = {
-  LOGIN: { url: 'user/login', type: { token: "" } },
-  ASD: { url: 'user/ASD', type: {} as CharacterSheet }
+  LOGIN: { url: 'user/login', type: { token: "" } }
 }
 
 export {

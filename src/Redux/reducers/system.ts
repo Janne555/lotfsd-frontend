@@ -1,10 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { system } from '../../testData/initialState'
 import { createCharacter } from '../specialActions'
 
 const { reducer, actions } = createSlice({
   name: 'system',
-  initialState: system,
+  initialState: { state: 'loggedOut' } as System,
   reducers: {
     beginLogin(state, action: PayloadAction<string>) {
       return {
