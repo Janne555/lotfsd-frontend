@@ -11,13 +11,14 @@ import {
   GraphQLResponse,
   RequestParameters,
   fetchQuery,
-  GraphQLTaggedNode
+  GraphQLTaggedNode,
+  PayloadData
 } from 'relay-runtime'
 
 function setBearer(headers: Headers) {
   const token = selectToken(store.getState())
   if (token) {
-    headers.set('Authorization', token)
+    headers.set('Authorization', `Bearer ${token}`)
   }
 }
 
@@ -50,7 +51,7 @@ async function post<T>(endpoint: { url: string, type: T }, payload: any): Promis
   try {
     return await result.clone().json()
   } catch {
-    return { value: await result.text() } as any
+    return result.text() as any
   }
 }
 
@@ -81,7 +82,7 @@ type OperationType<T> = {
   response: GraphQLResponse<T>
 }
 
-function queryGraphql<T>(query: { taggedNode: GraphQLTaggedNode, type: T }, variables: Record<string, any>): Promise<GraphQLResponse<T>> {
+async function queryGraphql<T>(query: { taggedNode: GraphQLTaggedNode, type: T }, variables: Record<string, any> = {}): Promise<GraphQLResponse<T>> {
   return fetchQuery<OperationType<T>>(environment, query.taggedNode, variables)
 }
 

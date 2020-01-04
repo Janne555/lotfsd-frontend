@@ -1,7 +1,7 @@
 import { post, queryGraphql } from '../../services'
 import { ENDPOINTS } from '../../constants'
 import { beginLogin, completeLogin, completeDataFetch } from '../reducers/system'
-import { characterSheets } from '../../constants/graphql/queries'
+import { QUERY } from '../../constants/graphql/queries'
 
 const loginThunk = (
   username: string,
@@ -10,10 +10,11 @@ const loginThunk = (
   dispatch(beginLogin(username))
 
   try {
-    const { token } = await post(ENDPOINTS.LOGIN, { username, password })
+    const token = await post(ENDPOINTS.LOGIN, { username, password })
     dispatch(completeLogin(token))
 
-    console.log(queryGraphql({ taggedNode: characterSheets, type: {} as CharacterSheet }, {}).then(console.log))
+    const { data } = await queryGraphql(QUERY.CHARACTERSHEETS)
+
 
     dispatch(completeDataFetch({
       byId: {
