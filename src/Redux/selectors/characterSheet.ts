@@ -138,6 +138,19 @@ const properties = (characterId: string) =>
   (state: RootState): Property[] =>
     state.characterSheet.properties.byId[characterId].properties
 
+const characterSheet = (characterId: string) =>
+  (state: RootState): CharacterSheet => {
+    const characterSheet: CharacterSheet = {
+      characterId,
+      attributes: attributes(characterId)(state),
+      combatOptions: combatOptions(characterId)(state),
+      commonActivities: state.characterSheet.commonActivities.byId[characterId],
+      
+
+    }
+  }
+
+
 export {
   attributes as selectAttributes,
   savingThrows as selectSavingThrows,

@@ -10,9 +10,6 @@ import {
   FetchFunction,
   GraphQLResponse,
   RequestParameters,
-  fetchQuery,
-  GraphQLTaggedNode,
-  PayloadData
 } from 'relay-runtime'
 
 function setBearer(headers: Headers) {
@@ -77,17 +74,8 @@ const environment = new Environment({
   store: new Store(new RecordSource()),
 })
 
-type OperationType<T> = {
-  variables: Record<string, any>,
-  response: GraphQLResponse<T>
-}
-
-async function queryGraphql<T>(query: { taggedNode: GraphQLTaggedNode, type: T }, variables: Record<string, any> = {}): Promise<GraphQLResponse<T>> {
-  return fetchQuery<OperationType<T>>(environment, query.taggedNode, variables)
-}
-
 export {
   get,
   post,
-  queryGraphql
+  environment
 }

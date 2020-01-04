@@ -1,7 +1,8 @@
-import { post, queryGraphql } from '../../services'
+import { post } from '../../services'
 import { ENDPOINTS } from '../../constants'
 import { beginLogin, completeLogin, completeDataFetch } from '../reducers/system'
-import { QUERY } from '../../constants/graphql/queries'
+import { fetchCharacterSheets, createCharacterSheet } from '../../services/graphql'
+import { characterSheet } from '../../testData/initialState'
 
 const loginThunk = (
   username: string,
@@ -11,10 +12,11 @@ const loginThunk = (
 
   try {
     const token = await post(ENDPOINTS.LOGIN, { username, password })
+
+    console.log(fetchCharacterSheets().then(console.log))
+    console.log(createCharacterSheet(characterSheet))
+
     dispatch(completeLogin(token))
-
-    const { data } = await queryGraphql(QUERY.CHARACTERSHEETS)
-
 
     dispatch(completeDataFetch({
       byId: {

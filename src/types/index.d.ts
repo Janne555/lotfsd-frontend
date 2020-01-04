@@ -324,3 +324,8 @@ type Property = {
   description: string
   inventory: ItemInstance[]
 }
+
+type OperationType<T> = {
+  variables: Record<string, any>,
+  response: T
+}
