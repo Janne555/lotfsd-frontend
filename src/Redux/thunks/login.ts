@@ -1,19 +1,7 @@
 import { post, queryGraphql } from '../../services'
 import { ENDPOINTS } from '../../constants'
 import { beginLogin, completeLogin, completeDataFetch } from '../reducers/system'
-import graphql from 'babel-plugin-relay/macro'
-
-
-const loginQuery = graphql`
-  query loginQuery {
-    characterSheets {
-      id
-      attributeModifiers {
-        charisma
-      }
-    }
-  }
-`
+import { characterSheets } from '../../constants/graphql/queries'
 
 const loginThunk = (
   username: string,
@@ -25,7 +13,7 @@ const loginThunk = (
     const { token } = await post(ENDPOINTS.LOGIN, { username, password })
     dispatch(completeLogin(token))
 
-    console.log(queryGraphql({ taggedNode: loginQuery, type: {} as CharacterSheet }, {}))
+    console.log(queryGraphql({ taggedNode: characterSheets, type: {} as CharacterSheet }, {}).then(console.log))
 
     dispatch(completeDataFetch({
       byId: {
