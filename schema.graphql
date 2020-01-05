@@ -191,11 +191,11 @@ type Mutation {
   addWallet(wallet: WalletInput!): Wallet
   replaceAttributeModifiers(attributeModifiers: AttributeModifiersInput!): AttributeModifiers
   replaceAttributes(attributes: AttributesInput!): Attributes
-  replaceCombatOptions(combatOptions: CombatOptionsInput!): Info
+  replaceCombatOptions(combatOptions: CombatOptionsInput!): CombatOptions
   replaceCommonActivities(commonActivities: CommonActivitiesInput!): CommonActivities
-  replaceEffect(effect: EffectInput!): Info
+  replaceEffect(effect: EffectInput!): Effect
   replaceInfo(info: InfoInput!): Info
-  replaceRetainer(retainer: RetainerInput!): Info
+  replaceRetainer(retainer: RetainerInput!): Retainer
   replaceSavingThrows(savingThrows: SavingThrowsInput!): SavingThrows
   replaceWallet(wallet: WalletInput!): Wallet
 }
@@ -203,19 +203,19 @@ type Mutation {
 type Query {
   allAttributeModifiers: [AttributeModifiers]
   allAttributes: [Attributes]
-  allCombatOptions: [Info]
+  allCombatOptions: [CombatOptions]
   allCommonActivities: [CommonActivities]
   allSavingThrows: [SavingThrows]
   attributeModifiers(id: String = null): AttributeModifiers
   attributes(id: String = null): Attributes
   combatOptions(id: String = null): CombatOptions
-  commonActivities(id: String = null): [CommonActivities]
+  commonActivities(id: String = null): CommonActivities
   effect(id: String = null): Effect
-  effects: [Info]
+  effects: [Effect]
   info(id: String = null): Info
   infos: [Info]
   retainer(id: String = null): Retainer
-  retainers: [Info]
+  retainers: [Retainer]
   savingThrows(id: String = null): SavingThrows
   wallet(id: String = null): Wallet
   wallets: [Wallet]
