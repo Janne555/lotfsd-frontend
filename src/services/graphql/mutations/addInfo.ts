@@ -4,17 +4,14 @@ import { GraphQLTaggedNode, commitMutation } from 'relay-runtime'
 import { environment } from '../../api'
 
 const mutation: GraphQLTaggedNode = graphql`
-  mutation createCharacterSheetMutation($characterSheet: CharacterSheetInput!) {
-    createCharacterSheet(characterSheet: $characterSheet) {
-      id
-      attributeModifiers {
-        charisma
-      }
+  mutation addInfoMutation($info: InfoInput!) {
+    addInfo(info: $info) {
+      ...foo
     }
   }
 `
 
-function createCharacterSheet(characterSheet: CharacterSheet) {
+function addInfo(characterSheet: Info) {
   commitMutation(
     environment,
     {
@@ -29,4 +26,4 @@ function createCharacterSheet(characterSheet: CharacterSheet) {
   )
 }
 
-export default createCharacterSheet
+export default addInfo

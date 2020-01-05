@@ -140,15 +140,28 @@ const properties = (characterId: string) =>
 
 const characterSheet = (characterId: string) =>
   (state: RootState): CharacterSheet => {
-    const characterSheet: CharacterSheet = {
-      characterId,
-      attributes: attributes(characterId)(state),
-      combatOptions: combatOptions(characterId)(state),
-      commonActivities: state.characterSheet.commonActivities.byId[characterId],
-      
+    return {
+      id: characterId,
+      attributes: sansId(state.characterSheet.attributes.byId[characterId]),
+      combatOptions: sansId(state.characterSheet.combatOptions.byId[characterId]),
+      commonActivities: sansId(state.characterSheet.commonActivities.byId[characterId]),
+      // effects: state.characterSheet.effects.byId[characterId].effects,
+      inventory: state.characterSheet.inventory.byId[characterId].inventory,
+      // languages: state.characterSheet.languages.byId[characterId].languages,
+      properties: state.characterSheet.properties.byId[characterId].properties,
+      // retainers: state.characterSheet.retainers.byId[characterId].retainers,
+      savingThrows: sansId(state.characterSheet.savingThrows.byId[characterId]),
+      wallet: sansId(state.characterSheet.wallet.byId[characterId]),
+      ...sansId(state.characterSheet.info.byId[characterId]),
+    }
 
+    function sansId<T>(object: T & { characterId: string }) {
+      const { characterId, ...rest } = object
+      return rest
     }
   }
+
+
 
 
 export {
@@ -178,5 +191,6 @@ export {
   combatOptions as selectCombatOptions,
   info as selectInfo,
   className as selectClass,
-  properties as selectProperties
+  properties as selectProperties,
+  characterSheet as selectCharacterSheet
 }

@@ -180,11 +180,11 @@ type Retainer = {
 }
 
 type CombatOptions = {
-  standard?: boolean
-  parry?: boolean
-  improvedParry?: boolean
-  press?: boolean
-  defensive?: boolean
+  standard: boolean
+  parry: boolean
+  improvedParry: boolean
+  press: boolean
+  defensive: boolean
 }
 
 type Info = {
@@ -229,17 +229,18 @@ type NormalizedCharacterSheet = {
   properties: Normalized<Properties>
 }
 
-type CharacterSheet = CharacterId & {
+type CharacterSheet = Info & {
+  name: string
+  id: string
   attributes: Attributes
   savingThrows: SavingThrows
   inventory: ItemInstance[]
-  effects: Effect[]
+  // effects: Effect[]
   commonActivities: CommonActivities
   wallet: Wallet
-  languages: Language[]
-  retainers: Retainer[]
+  // languages: Language[]
+  // retainers: Retainer[]
   combatOptions: CombatOptions
-  info: Info
   properties: Property[]
 }
 

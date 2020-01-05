@@ -27,7 +27,8 @@ const CHARACTER_CLASSES: CharacterClasses = {
       defensive: true,
       improvedParry: true,
       press: true,
-      standard: true
+      standard: true,
+      parry: false
     },
     commonActivities,
     attackBonus: 1,
@@ -46,7 +47,10 @@ const CHARACTER_CLASSES: CharacterClasses = {
     ],
     combatOptions: {
       parry: true,
-      standard: true
+      standard: true,
+      defensive: false,
+      improvedParry: false,
+      press: false
     },
     commonActivities,
     attackBonus: 1,
@@ -65,7 +69,10 @@ const CHARACTER_CLASSES: CharacterClasses = {
     ],
     combatOptions: {
       parry: true,
-      standard: true
+      standard: true,
+      defensive: false,
+      improvedParry: false,
+      press: false
     },
     commonActivities,
     attackBonus: 1,
@@ -84,7 +91,10 @@ const CHARACTER_CLASSES: CharacterClasses = {
     ],
     combatOptions: {
       parry: true,
-      standard: true
+      standard: true,
+      defensive: false,
+      improvedParry: false,
+      press: false
     },
     commonActivities,
     attackBonus: 1,

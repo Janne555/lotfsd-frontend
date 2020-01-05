@@ -208,7 +208,11 @@ const retainers = normalize(singleRetainers)
 
 const singleCombatOptions: CharacterId & CombatOptions = {
   characterId: 'a',
-  standard: true
+  standard: true,
+  defensive: false,
+  improvedParry: false,
+  press: false,
+  parry: false
 }
 
 const combatOptions = normalize(singleCombatOptions)

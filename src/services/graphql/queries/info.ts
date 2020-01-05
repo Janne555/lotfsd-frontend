@@ -1,18 +1,21 @@
 
 import graphql from 'babel-plugin-relay/macro'
 import { GraphQLTaggedNode } from 'relay-runtime'
-import {
-  fetchQuery
-} from 'relay-runtime'
+import { fetchQuery } from 'relay-runtime'
 import { environment } from '../../api'
 
 const query: GraphQLTaggedNode = graphql`
-  query characterSheetsQuery {
-     characterSheets {
-      id
-      attributeModifiers {
-        charisma
-      }
+  query infoQuery {
+     infos {
+      ...foo @relay(mask: false)
+    }
+  }
+`
+
+const query2: GraphQLTaggedNode = graphql`
+  query info2Query($id: String!) {
+     info(id: $id) {
+      ...foo @relay(mask: false)
     }
   }
 `
