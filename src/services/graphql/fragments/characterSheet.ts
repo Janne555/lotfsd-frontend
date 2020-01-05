@@ -124,5 +124,11 @@ const wallet = graphql`
 export {
   info,
   attributeModifiers,
-  attributes
+  attributes,
+  combatOptions,
+  commonActivities,
+  savingThrows,
+  effect,
+  retainer,
+  wallet
 }
