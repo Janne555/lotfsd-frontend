@@ -1,8 +1,8 @@
 
 import graphql from 'babel-plugin-relay/macro'
 
-const frag = graphql`
-  fragment foo on Info {
+const info = graphql`
+  fragment characterSheetInfo on Info {
     age
     name
     alignment

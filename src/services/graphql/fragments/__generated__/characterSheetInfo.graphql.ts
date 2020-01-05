@@ -2,23 +2,23 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type foo = {
+export type characterSheetInfo = {
     readonly age: number;
     readonly name: string;
     readonly alignment: string;
-    readonly " $refType": "foo";
+    readonly " $refType": "characterSheetInfo";
 };
-export type foo$data = foo;
-export type foo$key = {
-    readonly " $data"?: foo$data;
-    readonly " $fragmentRefs": FragmentRefs<"foo">;
+export type characterSheetInfo$data = characterSheetInfo;
+export type characterSheetInfo$key = {
+    readonly " $data"?: characterSheetInfo$data;
+    readonly " $fragmentRefs": FragmentRefs<"characterSheetInfo">;
 };
 
 
 
 const node: ReaderFragment = {
   "kind": "Fragment",
-  "name": "foo",
+  "name": "characterSheetInfo",
   "type": "Info",
   "metadata": null,
   "argumentDefinitions": [],
@@ -46,5 +46,5 @@ const node: ReaderFragment = {
     }
   ]
 };
-(node as any).hash = '664b77fc690a5ff06590fc4045f538a9';
+(node as any).hash = '9a41730a7f56b9c18ef1944c923f2652';
 export default node;

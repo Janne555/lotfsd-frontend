@@ -1,29 +1,25 @@
 /* tslint:disable */
-/* @relayHash f2dbfa608d9e85886455cb12aaaaae68 */
+/* @relayHash 3d45fb199b6d880a99cbb022eea336db */
 
 import { ConcreteRequest } from "relay-runtime";
-export type info2QueryVariables = {
-    id: string;
-};
-export type info2QueryResponse = {
-    readonly info: {
+export type characterSheetInfoQueryVariables = {};
+export type characterSheetInfoQueryResponse = {
+    readonly infos: ReadonlyArray<{
         readonly age: number;
         readonly name: string;
         readonly alignment: string;
-    } | null;
+    } | null> | null;
 };
-export type info2Query = {
-    readonly response: info2QueryResponse;
-    readonly variables: info2QueryVariables;
+export type characterSheetInfoQuery = {
+    readonly response: characterSheetInfoQueryResponse;
+    readonly variables: characterSheetInfoQueryVariables;
 };
 
 
 
 /*
-query info2Query(
-  $id: String!
-) {
-  info(id: $id) {
+query characterSheetInfoQuery {
+  infos {
     age
     name
     alignment
@@ -34,27 +30,13 @@ query info2Query(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "kind": "LocalArgument",
-    "name": "id",
-    "type": "String!",
-    "defaultValue": null
-  }
-],
-v1 = [
-  {
     "kind": "LinkedField",
     "alias": null,
-    "name": "info",
+    "name": "infos",
     "storageKey": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "id",
-        "variableName": "id"
-      }
-    ],
+    "args": null,
     "concreteType": "Info",
-    "plural": false,
+    "plural": true,
     "selections": [
       {
         "kind": "ScalarField",
@@ -84,26 +66,26 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "info2Query",
+    "name": "characterSheetInfoQuery",
     "type": "Query",
     "metadata": null,
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "argumentDefinitions": [],
+    "selections": (v0/*: any*/)
   },
   "operation": {
     "kind": "Operation",
-    "name": "info2Query",
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "name": "characterSheetInfoQuery",
+    "argumentDefinitions": [],
+    "selections": (v0/*: any*/)
   },
   "params": {
     "operationKind": "query",
-    "name": "info2Query",
+    "name": "characterSheetInfoQuery",
     "id": null,
-    "text": "query info2Query(\n  $id: String!\n) {\n  info(id: $id) {\n    age\n    name\n    alignment\n  }\n}\n",
+    "text": "query characterSheetInfoQuery {\n  infos {\n    age\n    name\n    alignment\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = '6c757ca3240be2ece889475cada1ce39';
+(node as any).hash = '9df2bbb591a91303cdea3606b3cf93bc';
 export default node;

@@ -1,7 +1,7 @@
-import fetchCharacterSheets from './queries/info'
-import addInfo from './mutations/addInfo'
+import QUERIES from './queries/characterSheet'
+import MUTATIONS from './mutations/characterSheet'
 
 export {
-  fetchCharacterSheets,
-  addInfo
+  QUERIES,
+  MUTATIONS
 }

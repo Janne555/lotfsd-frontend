@@ -1,9 +1,6 @@
 import { post } from '../../services'
 import { ENDPOINTS } from '../../constants'
 import { beginLogin, completeLogin, completeDataFetch } from '../reducers/system'
-import { fetchCharacterSheets, addInfo } from '../../services/graphql'
-import { characterSheet } from '../../testData/initialState'
-import { selectCharacterSheet } from '../selectors'
 
 const loginThunk = (
   username: string,
@@ -13,9 +10,6 @@ const loginThunk = (
 
   try {
     const token = await post(ENDPOINTS.LOGIN, { username, password })
-
-    console.log(fetchCharacterSheets().then(console.log))
-    // console.log(addInfo(selectCharacterSheet('a')(getState())))
 
     dispatch(completeLogin(token))
 
