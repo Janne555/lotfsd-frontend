@@ -108,8 +108,8 @@ const savingThrows = graphql`
 
 const effect = graphql`
   query characterSheetEffectQuery($id: String!) {
-    combatOptions(id: $id) {
-      ...characterSheetCombatOptions @relay(mask: false)
+    effect(id: $id) {
+      ...characterSheetEffect @relay(mask: false)
     }
   }
 `
@@ -131,7 +131,22 @@ const wallet = graphql`
 `
 
 const QUERIES = {
-  infos
+  infos,
+  allAttributes,
+  allCombatOptions,
+  allCommonActivities,
+  allSavingThrows,
+  effects,
+  retainers,
+  wallets,
+  info,
+  attributes,
+  combatOptions,
+  commonActivities,
+  savingThrows,
+  effect,
+  retainer,
+  wallet
 }
 
 export default QUERIES

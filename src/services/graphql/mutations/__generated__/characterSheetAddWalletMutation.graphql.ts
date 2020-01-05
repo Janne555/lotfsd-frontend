@@ -1,38 +1,43 @@
 /* tslint:disable */
-/* @relayHash b48b55c9298d188b5d0c413158484c57 */
+/* @relayHash 194a9c1f661538b615dd631bacdbe3b9 */
 
 import { ConcreteRequest } from "relay-runtime";
-export type characterSheetEffectQueryVariables = {
-    id: string;
+export type WalletInput = {
+    readonly id: string;
+    readonly characterId: string;
+    readonly copper: number;
+    readonly silver: number;
+    readonly gold: number;
 };
-export type characterSheetEffectQueryResponse = {
-    readonly effect: {
+export type characterSheetAddWalletMutationVariables = {
+    wallet: WalletInput;
+};
+export type characterSheetAddWalletMutationResponse = {
+    readonly addWallet: {
         readonly id: string;
         readonly characterId: string;
-        readonly method: string;
-        readonly target: string;
-        readonly type: string;
-        readonly value: number;
+        readonly copper: number;
+        readonly gold: number;
+        readonly silver: number;
     } | null;
 };
-export type characterSheetEffectQuery = {
-    readonly response: characterSheetEffectQueryResponse;
-    readonly variables: characterSheetEffectQueryVariables;
+export type characterSheetAddWalletMutation = {
+    readonly response: characterSheetAddWalletMutationResponse;
+    readonly variables: characterSheetAddWalletMutationVariables;
 };
 
 
 
 /*
-query characterSheetEffectQuery(
-  $id: String!
+mutation characterSheetAddWalletMutation(
+  $wallet: WalletInput!
 ) {
-  effect(id: $id) {
+  addWallet(wallet: $wallet) {
     id
     characterId
-    method
-    target
-    type
-    value
+    copper
+    gold
+    silver
   }
 }
 */
@@ -41,8 +46,8 @@ const node: ConcreteRequest = (function(){
 var v0 = [
   {
     "kind": "LocalArgument",
-    "name": "id",
-    "type": "String!",
+    "name": "wallet",
+    "type": "WalletInput!",
     "defaultValue": null
   }
 ],
@@ -50,16 +55,16 @@ v1 = [
   {
     "kind": "LinkedField",
     "alias": null,
-    "name": "effect",
+    "name": "addWallet",
     "storageKey": null,
     "args": [
       {
         "kind": "Variable",
-        "name": "id",
-        "variableName": "id"
+        "name": "wallet",
+        "variableName": "wallet"
       }
     ],
-    "concreteType": "Effect",
+    "concreteType": "Wallet",
     "plural": false,
     "selections": [
       {
@@ -79,28 +84,21 @@ v1 = [
       {
         "kind": "ScalarField",
         "alias": null,
-        "name": "method",
+        "name": "copper",
         "args": null,
         "storageKey": null
       },
       {
         "kind": "ScalarField",
         "alias": null,
-        "name": "target",
+        "name": "gold",
         "args": null,
         "storageKey": null
       },
       {
         "kind": "ScalarField",
         "alias": null,
-        "name": "type",
-        "args": null,
-        "storageKey": null
-      },
-      {
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "value",
+        "name": "silver",
         "args": null,
         "storageKey": null
       }
@@ -111,26 +109,26 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "characterSheetEffectQuery",
-    "type": "Query",
+    "name": "characterSheetAddWalletMutation",
+    "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "operation": {
     "kind": "Operation",
-    "name": "characterSheetEffectQuery",
+    "name": "characterSheetAddWalletMutation",
     "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "query",
-    "name": "characterSheetEffectQuery",
+    "operationKind": "mutation",
+    "name": "characterSheetAddWalletMutation",
     "id": null,
-    "text": "query characterSheetEffectQuery(\n  $id: String!\n) {\n  effect(id: $id) {\n    id\n    characterId\n    method\n    target\n    type\n    value\n  }\n}\n",
+    "text": "mutation characterSheetAddWalletMutation(\n  $wallet: WalletInput!\n) {\n  addWallet(wallet: $wallet) {\n    id\n    characterId\n    copper\n    gold\n    silver\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = '6b5ab28b0886aa9119a21e0c3a3c0254';
+(node as any).hash = '2179cf266f717f4fa8c5b0bf94645aa8';
 export default node;

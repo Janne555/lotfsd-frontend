@@ -1,12 +1,20 @@
 /* tslint:disable */
-/* @relayHash b48b55c9298d188b5d0c413158484c57 */
+/* @relayHash 5d0191a2906b6058bf178469c2b6401f */
 
 import { ConcreteRequest } from "relay-runtime";
-export type characterSheetEffectQueryVariables = {
-    id: string;
+export type EffectInput = {
+    readonly id: string;
+    readonly characterId: string;
+    readonly type: string;
+    readonly target: string;
+    readonly method: string;
+    readonly value: number;
 };
-export type characterSheetEffectQueryResponse = {
-    readonly effect: {
+export type characterSheetAddEffectMutationVariables = {
+    effect: EffectInput;
+};
+export type characterSheetAddEffectMutationResponse = {
+    readonly addEffect: {
         readonly id: string;
         readonly characterId: string;
         readonly method: string;
@@ -15,18 +23,18 @@ export type characterSheetEffectQueryResponse = {
         readonly value: number;
     } | null;
 };
-export type characterSheetEffectQuery = {
-    readonly response: characterSheetEffectQueryResponse;
-    readonly variables: characterSheetEffectQueryVariables;
+export type characterSheetAddEffectMutation = {
+    readonly response: characterSheetAddEffectMutationResponse;
+    readonly variables: characterSheetAddEffectMutationVariables;
 };
 
 
 
 /*
-query characterSheetEffectQuery(
-  $id: String!
+mutation characterSheetAddEffectMutation(
+  $effect: EffectInput!
 ) {
-  effect(id: $id) {
+  addEffect(effect: $effect) {
     id
     characterId
     method
@@ -41,8 +49,8 @@ const node: ConcreteRequest = (function(){
 var v0 = [
   {
     "kind": "LocalArgument",
-    "name": "id",
-    "type": "String!",
+    "name": "effect",
+    "type": "EffectInput!",
     "defaultValue": null
   }
 ],
@@ -50,13 +58,13 @@ v1 = [
   {
     "kind": "LinkedField",
     "alias": null,
-    "name": "effect",
+    "name": "addEffect",
     "storageKey": null,
     "args": [
       {
         "kind": "Variable",
-        "name": "id",
-        "variableName": "id"
+        "name": "effect",
+        "variableName": "effect"
       }
     ],
     "concreteType": "Effect",
@@ -111,26 +119,26 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "characterSheetEffectQuery",
-    "type": "Query",
+    "name": "characterSheetAddEffectMutation",
+    "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "operation": {
     "kind": "Operation",
-    "name": "characterSheetEffectQuery",
+    "name": "characterSheetAddEffectMutation",
     "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "query",
-    "name": "characterSheetEffectQuery",
+    "operationKind": "mutation",
+    "name": "characterSheetAddEffectMutation",
     "id": null,
-    "text": "query characterSheetEffectQuery(\n  $id: String!\n) {\n  effect(id: $id) {\n    id\n    characterId\n    method\n    target\n    type\n    value\n  }\n}\n",
+    "text": "mutation characterSheetAddEffectMutation(\n  $effect: EffectInput!\n) {\n  addEffect(effect: $effect) {\n    id\n    characterId\n    method\n    target\n    type\n    value\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = '6b5ab28b0886aa9119a21e0c3a3c0254';
+(node as any).hash = '0b3378a555f0611a4f67d6c6901fe614';
 export default node;
