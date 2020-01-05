@@ -66,10 +66,7 @@ const addWallet = graphql`
   }
 `
 
-
-
-
-
+//replacers
 
 const replaceInfo: GraphQLTaggedNode = graphql`
   mutation characterSheetReplaceInfoMutation($info: InfoInput!) {
@@ -136,7 +133,22 @@ const replaceWallet = graphql`
 `
 
 const MUTATIONS = {
-  addInfo
+  addInfo,
+  addAttributes,
+  addCombatOptions,
+  addCommonActivities,
+  addEffect,
+  addRetainer,
+  addSavingThrows,
+  addWallet,
+  replaceAttributes,
+  replaceCombatOptions,
+  replaceCommonActivities,
+  replaceEffect,
+  replaceInfo,
+  replaceRetainer,
+  replaceSavingThrows,
+  replaceWallet
 }
 
 export default MUTATIONS
