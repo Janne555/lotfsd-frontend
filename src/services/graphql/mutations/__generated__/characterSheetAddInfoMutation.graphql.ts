@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* @relayHash b890904d08f337541fdbfeec6dd18783 */
+/* @relayHash d286361bc7bd7e34f6faf2cd9638248d */
 
 import { ConcreteRequest } from "relay-runtime";
 export type InfoInput = {
@@ -23,9 +23,20 @@ export type characterSheetAddInfoMutationVariables = {
 };
 export type characterSheetAddInfoMutationResponse = {
     readonly addInfo: {
-        readonly age: number;
+        readonly id: string;
+        readonly characterId: string;
         readonly name: string;
+        readonly experience: number;
+        readonly class: string;
+        readonly race: string;
+        readonly age: number;
+        readonly gender: string;
         readonly alignment: string;
+        readonly player: string;
+        readonly attackBonus: number;
+        readonly currentHp: number;
+        readonly maxHp: number;
+        readonly surpriseChance: number;
     } | null;
 };
 export type characterSheetAddInfoMutation = {
@@ -40,9 +51,20 @@ mutation characterSheetAddInfoMutation(
   $info: InfoInput!
 ) {
   addInfo(info: $info) {
-    age
+    id
+    characterId
     name
+    experience
+    class
+    race
+    age
+    gender
     alignment
+    player
+    attackBonus
+    currentHp
+    maxHp
+    surpriseChance
   }
 }
 */
@@ -75,7 +97,14 @@ v1 = [
       {
         "kind": "ScalarField",
         "alias": null,
-        "name": "age",
+        "name": "id",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "characterId",
         "args": null,
         "storageKey": null
       },
@@ -89,7 +118,77 @@ v1 = [
       {
         "kind": "ScalarField",
         "alias": null,
+        "name": "experience",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "class",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "race",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "age",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "gender",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
         "name": "alignment",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "player",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "attackBonus",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "currentHp",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "maxHp",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "surpriseChance",
         "args": null,
         "storageKey": null
       }
@@ -116,7 +215,7 @@ return {
     "operationKind": "mutation",
     "name": "characterSheetAddInfoMutation",
     "id": null,
-    "text": "mutation characterSheetAddInfoMutation(\n  $info: InfoInput!\n) {\n  addInfo(info: $info) {\n    age\n    name\n    alignment\n  }\n}\n",
+    "text": "mutation characterSheetAddInfoMutation(\n  $info: InfoInput!\n) {\n  addInfo(info: $info) {\n    id\n    characterId\n    name\n    experience\n    class\n    race\n    age\n    gender\n    alignment\n    player\n    attackBonus\n    currentHp\n    maxHp\n    surpriseChance\n  }\n}\n",
     "metadata": {}
   }
 };

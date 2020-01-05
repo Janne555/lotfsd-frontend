@@ -1,13 +1,24 @@
 /* tslint:disable */
-/* @relayHash 3d45fb199b6d880a99cbb022eea336db */
+/* @relayHash 64547a3227fe8a0a489daf5d0b4503a6 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type characterSheetInfoQueryVariables = {};
 export type characterSheetInfoQueryResponse = {
     readonly infos: ReadonlyArray<{
-        readonly age: number;
+        readonly id: string;
+        readonly characterId: string;
         readonly name: string;
+        readonly experience: number;
+        readonly class: string;
+        readonly race: string;
+        readonly age: number;
+        readonly gender: string;
         readonly alignment: string;
+        readonly player: string;
+        readonly attackBonus: number;
+        readonly currentHp: number;
+        readonly maxHp: number;
+        readonly surpriseChance: number;
     } | null> | null;
 };
 export type characterSheetInfoQuery = {
@@ -20,9 +31,20 @@ export type characterSheetInfoQuery = {
 /*
 query characterSheetInfoQuery {
   infos {
-    age
+    id
+    characterId
     name
+    experience
+    class
+    race
+    age
+    gender
     alignment
+    player
+    attackBonus
+    currentHp
+    maxHp
+    surpriseChance
   }
 }
 */
@@ -41,7 +63,14 @@ var v0 = [
       {
         "kind": "ScalarField",
         "alias": null,
-        "name": "age",
+        "name": "id",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "characterId",
         "args": null,
         "storageKey": null
       },
@@ -55,7 +84,77 @@ var v0 = [
       {
         "kind": "ScalarField",
         "alias": null,
+        "name": "experience",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "class",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "race",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "age",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "gender",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
         "name": "alignment",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "player",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "attackBonus",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "currentHp",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "maxHp",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "surpriseChance",
         "args": null,
         "storageKey": null
       }
@@ -82,7 +181,7 @@ return {
     "operationKind": "query",
     "name": "characterSheetInfoQuery",
     "id": null,
-    "text": "query characterSheetInfoQuery {\n  infos {\n    age\n    name\n    alignment\n  }\n}\n",
+    "text": "query characterSheetInfoQuery {\n  infos {\n    id\n    characterId\n    name\n    experience\n    class\n    race\n    age\n    gender\n    alignment\n    player\n    attackBonus\n    currentHp\n    maxHp\n    surpriseChance\n  }\n}\n",
     "metadata": {}
   }
 };

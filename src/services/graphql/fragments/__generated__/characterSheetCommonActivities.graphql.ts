@@ -2,35 +2,32 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type characterSheetInfo = {
+export type characterSheetCommonActivities = {
     readonly id: string;
-    readonly characterId: string;
-    readonly name: string;
-    readonly experience: number;
-    readonly class: string;
-    readonly race: string;
-    readonly age: number;
-    readonly gender: string;
-    readonly alignment: string;
-    readonly player: string;
-    readonly attackBonus: number;
-    readonly currentHp: number;
-    readonly maxHp: number;
-    readonly surpriseChance: number;
-    readonly " $refType": "characterSheetInfo";
+    readonly architecture: number;
+    readonly bushcraft: number;
+    readonly climbing: number;
+    readonly languages: number;
+    readonly openDoors: number;
+    readonly search: number;
+    readonly sleightOfHand: number;
+    readonly sneakAttack: number;
+    readonly stealth: number;
+    readonly tinkering: number;
+    readonly " $refType": "characterSheetCommonActivities";
 };
-export type characterSheetInfo$data = characterSheetInfo;
-export type characterSheetInfo$key = {
-    readonly " $data"?: characterSheetInfo$data;
-    readonly " $fragmentRefs": FragmentRefs<"characterSheetInfo">;
+export type characterSheetCommonActivities$data = characterSheetCommonActivities;
+export type characterSheetCommonActivities$key = {
+    readonly " $data"?: characterSheetCommonActivities$data;
+    readonly " $fragmentRefs": FragmentRefs<"characterSheetCommonActivities">;
 };
 
 
 
 const node: ReaderFragment = {
   "kind": "Fragment",
-  "name": "characterSheetInfo",
-  "type": "Info",
+  "name": "characterSheetCommonActivities",
+  "type": "CommonActivities",
   "metadata": null,
   "argumentDefinitions": [],
   "selections": [
@@ -44,95 +41,74 @@ const node: ReaderFragment = {
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "characterId",
+      "name": "architecture",
       "args": null,
       "storageKey": null
     },
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "name",
+      "name": "bushcraft",
       "args": null,
       "storageKey": null
     },
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "experience",
+      "name": "climbing",
       "args": null,
       "storageKey": null
     },
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "class",
+      "name": "languages",
       "args": null,
       "storageKey": null
     },
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "race",
+      "name": "openDoors",
       "args": null,
       "storageKey": null
     },
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "age",
+      "name": "search",
       "args": null,
       "storageKey": null
     },
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "gender",
+      "name": "sleightOfHand",
       "args": null,
       "storageKey": null
     },
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "alignment",
+      "name": "sneakAttack",
       "args": null,
       "storageKey": null
     },
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "player",
+      "name": "stealth",
       "args": null,
       "storageKey": null
     },
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "attackBonus",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "currentHp",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "maxHp",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "surpriseChance",
+      "name": "tinkering",
       "args": null,
       "storageKey": null
     }
   ]
 };
-(node as any).hash = 'bd03f3620f9316de68d9c8171a69ee18';
+(node as any).hash = '5c682c1f245250a8e06c69f2d763510d';
 export default node;

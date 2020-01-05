@@ -44,15 +44,15 @@ type SavingThrows = {
 }
 
 type CommonActivities = {
-  architecture: number,
-  bushcraft: number,
-  climbing: number,
-  languages: number,
-  openDoors: number,
-  search: number,
-  sleightOfHand: number,
-  sneakAttack: number,
-  stealth: number,
+  architecture: number
+  bushcraft: number
+  climbing: number
+  languages: number
+  openDoors: number
+  search: number
+  sleightOfHand: number
+  sneakAttack: number
+  stealth: number
   tinkering: number
 }
 
