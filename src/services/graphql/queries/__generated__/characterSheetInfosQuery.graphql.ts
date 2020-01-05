@@ -1,12 +1,10 @@
 /* tslint:disable */
-/* @relayHash 89a5514193ac755fbe36626c8c668faf */
+/* @relayHash 6208ba6a041d7e034410966383419b56 */
 
 import { ConcreteRequest } from "relay-runtime";
-export type characterSheetInfoQueryVariables = {
-    id: string;
-};
-export type characterSheetInfoQueryResponse = {
-    readonly info: {
+export type characterSheetInfosQueryVariables = {};
+export type characterSheetInfosQueryResponse = {
+    readonly infos: ReadonlyArray<{
         readonly id: string;
         readonly characterId: string;
         readonly name: string;
@@ -21,20 +19,18 @@ export type characterSheetInfoQueryResponse = {
         readonly currentHp: number;
         readonly maxHp: number;
         readonly surpriseChance: number;
-    } | null;
+    } | null> | null;
 };
-export type characterSheetInfoQuery = {
-    readonly response: characterSheetInfoQueryResponse;
-    readonly variables: characterSheetInfoQueryVariables;
+export type characterSheetInfosQuery = {
+    readonly response: characterSheetInfosQueryResponse;
+    readonly variables: characterSheetInfosQueryVariables;
 };
 
 
 
 /*
-query characterSheetInfoQuery(
-  $id: String!
-) {
-  info(id: $id) {
+query characterSheetInfosQuery {
+  infos {
     id
     characterId
     name
@@ -56,27 +52,13 @@ query characterSheetInfoQuery(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "kind": "LocalArgument",
-    "name": "id",
-    "type": "String!",
-    "defaultValue": null
-  }
-],
-v1 = [
-  {
     "kind": "LinkedField",
     "alias": null,
-    "name": "info",
+    "name": "infos",
     "storageKey": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "id",
-        "variableName": "id"
-      }
-    ],
+    "args": null,
     "concreteType": "Info",
-    "plural": false,
+    "plural": true,
     "selections": [
       {
         "kind": "ScalarField",
@@ -183,26 +165,26 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "characterSheetInfoQuery",
+    "name": "characterSheetInfosQuery",
     "type": "Query",
     "metadata": null,
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "argumentDefinitions": [],
+    "selections": (v0/*: any*/)
   },
   "operation": {
     "kind": "Operation",
-    "name": "characterSheetInfoQuery",
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "name": "characterSheetInfosQuery",
+    "argumentDefinitions": [],
+    "selections": (v0/*: any*/)
   },
   "params": {
     "operationKind": "query",
-    "name": "characterSheetInfoQuery",
+    "name": "characterSheetInfosQuery",
     "id": null,
-    "text": "query characterSheetInfoQuery(\n  $id: String!\n) {\n  info(id: $id) {\n    id\n    characterId\n    name\n    experience\n    class\n    race\n    age\n    gender\n    alignment\n    player\n    attackBonus\n    currentHp\n    maxHp\n    surpriseChance\n  }\n}\n",
+    "text": "query characterSheetInfosQuery {\n  infos {\n    id\n    characterId\n    name\n    experience\n    class\n    race\n    age\n    gender\n    alignment\n    player\n    attackBonus\n    currentHp\n    maxHp\n    surpriseChance\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = 'e9f9a3a13ed9030c5e7898a318c7c9c5';
+(node as any).hash = 'a070853511aeab4342ea56c6137015bb';
 export default node;

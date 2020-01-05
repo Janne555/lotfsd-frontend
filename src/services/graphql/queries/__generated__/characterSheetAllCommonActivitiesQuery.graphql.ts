@@ -1,12 +1,10 @@
 /* tslint:disable */
-/* @relayHash 8d2cf7b54a8500ff2ca3f2431f04223e */
+/* @relayHash 76c63e410fd0e3c10a2302968e22dc07 */
 
 import { ConcreteRequest } from "relay-runtime";
-export type characterSheetCommonActivitiesQueryVariables = {
-    id: string;
-};
-export type characterSheetCommonActivitiesQueryResponse = {
-    readonly commonActivities: {
+export type characterSheetAllCommonActivitiesQueryVariables = {};
+export type characterSheetAllCommonActivitiesQueryResponse = {
+    readonly allCommonActivities: ReadonlyArray<{
         readonly id: string;
         readonly architecture: number;
         readonly bushcraft: number;
@@ -18,20 +16,18 @@ export type characterSheetCommonActivitiesQueryResponse = {
         readonly sneakAttack: number;
         readonly stealth: number;
         readonly tinkering: number;
-    } | null;
+    } | null> | null;
 };
-export type characterSheetCommonActivitiesQuery = {
-    readonly response: characterSheetCommonActivitiesQueryResponse;
-    readonly variables: characterSheetCommonActivitiesQueryVariables;
+export type characterSheetAllCommonActivitiesQuery = {
+    readonly response: characterSheetAllCommonActivitiesQueryResponse;
+    readonly variables: characterSheetAllCommonActivitiesQueryVariables;
 };
 
 
 
 /*
-query characterSheetCommonActivitiesQuery(
-  $id: String!
-) {
-  commonActivities(id: $id) {
+query characterSheetAllCommonActivitiesQuery {
+  allCommonActivities {
     id
     architecture
     bushcraft
@@ -50,27 +46,13 @@ query characterSheetCommonActivitiesQuery(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "kind": "LocalArgument",
-    "name": "id",
-    "type": "String!",
-    "defaultValue": null
-  }
-],
-v1 = [
-  {
     "kind": "LinkedField",
     "alias": null,
-    "name": "commonActivities",
+    "name": "allCommonActivities",
     "storageKey": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "id",
-        "variableName": "id"
-      }
-    ],
+    "args": null,
     "concreteType": "CommonActivities",
-    "plural": false,
+    "plural": true,
     "selections": [
       {
         "kind": "ScalarField",
@@ -156,26 +138,26 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "characterSheetCommonActivitiesQuery",
+    "name": "characterSheetAllCommonActivitiesQuery",
     "type": "Query",
     "metadata": null,
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "argumentDefinitions": [],
+    "selections": (v0/*: any*/)
   },
   "operation": {
     "kind": "Operation",
-    "name": "characterSheetCommonActivitiesQuery",
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "name": "characterSheetAllCommonActivitiesQuery",
+    "argumentDefinitions": [],
+    "selections": (v0/*: any*/)
   },
   "params": {
     "operationKind": "query",
-    "name": "characterSheetCommonActivitiesQuery",
+    "name": "characterSheetAllCommonActivitiesQuery",
     "id": null,
-    "text": "query characterSheetCommonActivitiesQuery(\n  $id: String!\n) {\n  commonActivities(id: $id) {\n    id\n    architecture\n    bushcraft\n    climbing\n    languages\n    openDoors\n    search\n    sleightOfHand\n    sneakAttack\n    stealth\n    tinkering\n  }\n}\n",
+    "text": "query characterSheetAllCommonActivitiesQuery {\n  allCommonActivities {\n    id\n    architecture\n    bushcraft\n    climbing\n    languages\n    openDoors\n    search\n    sleightOfHand\n    sneakAttack\n    stealth\n    tinkering\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = '7e1251960483da08ef5135fd4342dc26';
+(node as any).hash = '86d256a724e4b1424271e0ce58f1b7d1';
 export default node;

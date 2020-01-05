@@ -1,10 +1,12 @@
 /* tslint:disable */
-/* @relayHash 679c79d1f20932595d6cabfa9a9526b7 */
+/* @relayHash 318098705ffc833b809f78d4e6f3cede */
 
 import { ConcreteRequest } from "relay-runtime";
-export type characterSheetCombatOptionsQueryVariables = {};
+export type characterSheetCombatOptionsQueryVariables = {
+    id: string;
+};
 export type characterSheetCombatOptionsQueryResponse = {
-    readonly allCombatOptions: ReadonlyArray<{
+    readonly combatOptions: {
         readonly id: string;
         readonly characterId: string;
         readonly standard: boolean;
@@ -12,7 +14,7 @@ export type characterSheetCombatOptionsQueryResponse = {
         readonly improvedParry: boolean;
         readonly press: boolean;
         readonly defensive: boolean;
-    } | null> | null;
+    } | null;
 };
 export type characterSheetCombatOptionsQuery = {
     readonly response: characterSheetCombatOptionsQueryResponse;
@@ -22,8 +24,10 @@ export type characterSheetCombatOptionsQuery = {
 
 
 /*
-query characterSheetCombatOptionsQuery {
-  allCombatOptions {
+query characterSheetCombatOptionsQuery(
+  $id: String!
+) {
+  combatOptions(id: $id) {
     id
     characterId
     standard
@@ -38,13 +42,27 @@ query characterSheetCombatOptionsQuery {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "kind": "LocalArgument",
+    "name": "id",
+    "type": "String!",
+    "defaultValue": null
+  }
+],
+v1 = [
+  {
     "kind": "LinkedField",
     "alias": null,
-    "name": "allCombatOptions",
+    "name": "combatOptions",
     "storageKey": null,
-    "args": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "id",
+        "variableName": "id"
+      }
+    ],
     "concreteType": "CombatOptions",
-    "plural": true,
+    "plural": false,
     "selections": [
       {
         "kind": "ScalarField",
@@ -105,23 +123,23 @@ return {
     "name": "characterSheetCombatOptionsQuery",
     "type": "Query",
     "metadata": null,
-    "argumentDefinitions": [],
-    "selections": (v0/*: any*/)
+    "argumentDefinitions": (v0/*: any*/),
+    "selections": (v1/*: any*/)
   },
   "operation": {
     "kind": "Operation",
     "name": "characterSheetCombatOptionsQuery",
-    "argumentDefinitions": [],
-    "selections": (v0/*: any*/)
+    "argumentDefinitions": (v0/*: any*/),
+    "selections": (v1/*: any*/)
   },
   "params": {
     "operationKind": "query",
     "name": "characterSheetCombatOptionsQuery",
     "id": null,
-    "text": "query characterSheetCombatOptionsQuery {\n  allCombatOptions {\n    id\n    characterId\n    standard\n    parry\n    improvedParry\n    press\n    defensive\n  }\n}\n",
+    "text": "query characterSheetCombatOptionsQuery(\n  $id: String!\n) {\n  combatOptions(id: $id) {\n    id\n    characterId\n    standard\n    parry\n    improvedParry\n    press\n    defensive\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = '475292df0b7f6135af1d240dd6f9796e';
+(node as any).hash = 'd507ce2d8e8323c01b908c1d829740c2';
 export default node;

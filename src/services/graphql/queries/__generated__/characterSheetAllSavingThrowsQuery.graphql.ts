@@ -1,12 +1,10 @@
 /* tslint:disable */
-/* @relayHash 71ee6e85daf5776c39faeca55f4d87f7 */
+/* @relayHash 4d8a2a7762def3d1e831d16d861724c7 */
 
 import { ConcreteRequest } from "relay-runtime";
-export type characterSheetSavingThrowsQueryVariables = {
-    id: string;
-};
-export type characterSheetSavingThrowsQueryResponse = {
-    readonly savingThrows: {
+export type characterSheetAllSavingThrowsQueryVariables = {};
+export type characterSheetAllSavingThrowsQueryResponse = {
+    readonly allSavingThrows: ReadonlyArray<{
         readonly id: string;
         readonly characterId: string;
         readonly paralyze: number;
@@ -14,20 +12,18 @@ export type characterSheetSavingThrowsQueryResponse = {
         readonly breathWeapon: number;
         readonly magicalDevice: number;
         readonly magic: number;
-    } | null;
+    } | null> | null;
 };
-export type characterSheetSavingThrowsQuery = {
-    readonly response: characterSheetSavingThrowsQueryResponse;
-    readonly variables: characterSheetSavingThrowsQueryVariables;
+export type characterSheetAllSavingThrowsQuery = {
+    readonly response: characterSheetAllSavingThrowsQueryResponse;
+    readonly variables: characterSheetAllSavingThrowsQueryVariables;
 };
 
 
 
 /*
-query characterSheetSavingThrowsQuery(
-  $id: String!
-) {
-  savingThrows(id: $id) {
+query characterSheetAllSavingThrowsQuery {
+  allSavingThrows {
     id
     characterId
     paralyze
@@ -42,27 +38,13 @@ query characterSheetSavingThrowsQuery(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "kind": "LocalArgument",
-    "name": "id",
-    "type": "String!",
-    "defaultValue": null
-  }
-],
-v1 = [
-  {
     "kind": "LinkedField",
     "alias": null,
-    "name": "savingThrows",
+    "name": "allSavingThrows",
     "storageKey": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "id",
-        "variableName": "id"
-      }
-    ],
+    "args": null,
     "concreteType": "SavingThrows",
-    "plural": false,
+    "plural": true,
     "selections": [
       {
         "kind": "ScalarField",
@@ -120,26 +102,26 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "characterSheetSavingThrowsQuery",
+    "name": "characterSheetAllSavingThrowsQuery",
     "type": "Query",
     "metadata": null,
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "argumentDefinitions": [],
+    "selections": (v0/*: any*/)
   },
   "operation": {
     "kind": "Operation",
-    "name": "characterSheetSavingThrowsQuery",
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "name": "characterSheetAllSavingThrowsQuery",
+    "argumentDefinitions": [],
+    "selections": (v0/*: any*/)
   },
   "params": {
     "operationKind": "query",
-    "name": "characterSheetSavingThrowsQuery",
+    "name": "characterSheetAllSavingThrowsQuery",
     "id": null,
-    "text": "query characterSheetSavingThrowsQuery(\n  $id: String!\n) {\n  savingThrows(id: $id) {\n    id\n    characterId\n    paralyze\n    poison\n    breathWeapon\n    magicalDevice\n    magic\n  }\n}\n",
+    "text": "query characterSheetAllSavingThrowsQuery {\n  allSavingThrows {\n    id\n    characterId\n    paralyze\n    poison\n    breathWeapon\n    magicalDevice\n    magic\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = 'ccd4a970bd27e86bc22069e06a1638a6';
+(node as any).hash = '2c9c15d36831237e08b65d0c25b3fb4f';
 export default node;

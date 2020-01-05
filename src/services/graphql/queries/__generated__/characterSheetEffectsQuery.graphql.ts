@@ -1,12 +1,10 @@
 /* tslint:disable */
-/* @relayHash a48833eb1653f731208e15f1af6e0da9 */
+/* @relayHash cdb17b4fa3d48b00c3c80001a426c548 */
 
 import { ConcreteRequest } from "relay-runtime";
-export type characterSheetEffectQueryVariables = {
-    id: string;
-};
-export type characterSheetEffectQueryResponse = {
-    readonly combatOptions: {
+export type characterSheetEffectsQueryVariables = {};
+export type characterSheetEffectsQueryResponse = {
+    readonly allCombatOptions: ReadonlyArray<{
         readonly id: string;
         readonly characterId: string;
         readonly standard: boolean;
@@ -14,20 +12,18 @@ export type characterSheetEffectQueryResponse = {
         readonly improvedParry: boolean;
         readonly press: boolean;
         readonly defensive: boolean;
-    } | null;
+    } | null> | null;
 };
-export type characterSheetEffectQuery = {
-    readonly response: characterSheetEffectQueryResponse;
-    readonly variables: characterSheetEffectQueryVariables;
+export type characterSheetEffectsQuery = {
+    readonly response: characterSheetEffectsQueryResponse;
+    readonly variables: characterSheetEffectsQueryVariables;
 };
 
 
 
 /*
-query characterSheetEffectQuery(
-  $id: String!
-) {
-  combatOptions(id: $id) {
+query characterSheetEffectsQuery {
+  allCombatOptions {
     id
     characterId
     standard
@@ -42,27 +38,13 @@ query characterSheetEffectQuery(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "kind": "LocalArgument",
-    "name": "id",
-    "type": "String!",
-    "defaultValue": null
-  }
-],
-v1 = [
-  {
     "kind": "LinkedField",
     "alias": null,
-    "name": "combatOptions",
+    "name": "allCombatOptions",
     "storageKey": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "id",
-        "variableName": "id"
-      }
-    ],
+    "args": null,
     "concreteType": "CombatOptions",
-    "plural": false,
+    "plural": true,
     "selections": [
       {
         "kind": "ScalarField",
@@ -120,26 +102,26 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "characterSheetEffectQuery",
+    "name": "characterSheetEffectsQuery",
     "type": "Query",
     "metadata": null,
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "argumentDefinitions": [],
+    "selections": (v0/*: any*/)
   },
   "operation": {
     "kind": "Operation",
-    "name": "characterSheetEffectQuery",
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "name": "characterSheetEffectsQuery",
+    "argumentDefinitions": [],
+    "selections": (v0/*: any*/)
   },
   "params": {
     "operationKind": "query",
-    "name": "characterSheetEffectQuery",
+    "name": "characterSheetEffectsQuery",
     "id": null,
-    "text": "query characterSheetEffectQuery(\n  $id: String!\n) {\n  combatOptions(id: $id) {\n    id\n    characterId\n    standard\n    parry\n    improvedParry\n    press\n    defensive\n  }\n}\n",
+    "text": "query characterSheetEffectsQuery {\n  allCombatOptions {\n    id\n    characterId\n    standard\n    parry\n    improvedParry\n    press\n    defensive\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = 'bc67a195341bfdeffa6cb7104546acca';
+(node as any).hash = '551f92c306d019e764226c6a4d5b0e36';
 export default node;

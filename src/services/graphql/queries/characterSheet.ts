@@ -2,8 +2,8 @@
 import graphql from 'babel-plugin-relay/macro'
 import { GraphQLTaggedNode } from 'relay-runtime'
 
-const info: GraphQLTaggedNode = graphql`
-  query characterSheetInfoQuery {
+const infos: GraphQLTaggedNode = graphql`
+  query characterSheetInfosQuery {
      infos {
       ...characterSheetInfo @relay(mask: false)
     }
@@ -11,7 +11,7 @@ const info: GraphQLTaggedNode = graphql`
 `
 
 const allAttributes = graphql`
-  query characterSheetAttributesQuery {
+  query characterSheetAllAttributesQuery {
     allAttributes {
       ...characterSheetAttributes @relay(mask: false)
     }
@@ -19,7 +19,7 @@ const allAttributes = graphql`
 `
 
 const allCombatOptions = graphql`
-  query characterSheetCombatOptionsQuery {
+  query characterSheetAllCombatOptionsQuery {
     allCombatOptions {
       ...characterSheetCombatOptions @relay(mask: false)
     }
@@ -27,7 +27,7 @@ const allCombatOptions = graphql`
 `
 
 const allCommonActivities = graphql`
-  query characterSheetCommonActivitiesQuery {
+  query characterSheetAllCommonActivitiesQuery {
     allCommonActivities {
       ...characterSheetCommonActivities @relay(mask: false)
     }
@@ -35,7 +35,7 @@ const allCommonActivities = graphql`
 `
 
 const allSavingThrows = graphql`
-  query characterSheetSavingThrowsQuery {
+  query characterSheetAllSavingThrowsQuery {
     allSavingThrows {
       ...characterSheetSavingThrows @relay(mask: false)
     }
@@ -43,7 +43,7 @@ const allSavingThrows = graphql`
 `
 
 const effects = graphql`
-  query characterSheetEffectQuery {
+  query characterSheetEffectsQuery {
     allCombatOptions {
       ...characterSheetCombatOptions @relay(mask: false)
     }
@@ -51,7 +51,7 @@ const effects = graphql`
 `
 
 const retainers = graphql`
-  query characterSheetRetainerQuery {
+  query characterSheetRetainersQuery {
     retainers {
       ...characterSheetRetainer @relay(mask: false)
     }
@@ -59,15 +59,79 @@ const retainers = graphql`
 `
 
 const wallets = graphql`
-  query characterSheetWalletQuery {
+  query characterSheetWalletsQuery {
     wallets {
       ...characterSheetWallet @relay(mask: false)
     }
   }
 `
 
+const info: GraphQLTaggedNode = graphql`
+  query characterSheetInfoQuery($id: String!) {
+     info(id: $id) {
+      ...characterSheetInfo @relay(mask: false)
+    }
+  }
+`
+
+const attributes = graphql`
+  query characterSheetAttributesQuery($id: String!) {
+    attributes(id: $id) {
+      ...characterSheetAttributes @relay(mask: false)
+    }
+  }
+`
+
+const combatOptions = graphql`
+  query characterSheetCombatOptionsQuery($id: String!) {
+    combatOptions(id: $id) {
+      ...characterSheetCombatOptions @relay(mask: false)
+    }
+  }
+`
+
+const commonActivities = graphql`
+  query characterSheetCommonActivitiesQuery($id: String!) {
+    commonActivities(id: $id) {
+      ...characterSheetCommonActivities @relay(mask: false)
+    }
+  }
+`
+
+const savingThrows = graphql`
+  query characterSheetSavingThrowsQuery($id: String!) {
+    savingThrows(id: $id) {
+      ...characterSheetSavingThrows @relay(mask: false)
+    }
+  }
+`
+
+const effect = graphql`
+  query characterSheetEffectQuery($id: String!) {
+    combatOptions(id: $id) {
+      ...characterSheetCombatOptions @relay(mask: false)
+    }
+  }
+`
+
+const retainer = graphql`
+  query characterSheetRetainerQuery($id: String!) {
+    retainer(id: $id) {
+      ...characterSheetRetainer @relay(mask: false)
+    }
+  }
+`
+
+const wallet = graphql`
+  query characterSheetWalletQuery($id: String!) {
+    wallet(id: $id) {
+      ...characterSheetWallet @relay(mask: false)
+    }
+  }
+`
+
 const QUERIES = {
-  info
+  infos
 }
 
 export default QUERIES

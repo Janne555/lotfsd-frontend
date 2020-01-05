@@ -1,12 +1,10 @@
 /* tslint:disable */
-/* @relayHash 3f1ec368d8fe54447079f94031d5c4cf */
+/* @relayHash cb72e43bcf7be07bdd6538a77b49b86b */
 
 import { ConcreteRequest } from "relay-runtime";
-export type characterSheetAttributesQueryVariables = {
-    id: string;
-};
-export type characterSheetAttributesQueryResponse = {
-    readonly attributes: {
+export type characterSheetAllAttributesQueryVariables = {};
+export type characterSheetAllAttributesQueryResponse = {
+    readonly allAttributes: ReadonlyArray<{
         readonly id: string;
         readonly characterId: string;
         readonly charisma: number;
@@ -15,20 +13,18 @@ export type characterSheetAttributesQueryResponse = {
         readonly intelligence: number;
         readonly strength: number;
         readonly wisdom: number;
-    } | null;
+    } | null> | null;
 };
-export type characterSheetAttributesQuery = {
-    readonly response: characterSheetAttributesQueryResponse;
-    readonly variables: characterSheetAttributesQueryVariables;
+export type characterSheetAllAttributesQuery = {
+    readonly response: characterSheetAllAttributesQueryResponse;
+    readonly variables: characterSheetAllAttributesQueryVariables;
 };
 
 
 
 /*
-query characterSheetAttributesQuery(
-  $id: String!
-) {
-  attributes(id: $id) {
+query characterSheetAllAttributesQuery {
+  allAttributes {
     id
     characterId
     charisma
@@ -44,27 +40,13 @@ query characterSheetAttributesQuery(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "kind": "LocalArgument",
-    "name": "id",
-    "type": "String!",
-    "defaultValue": null
-  }
-],
-v1 = [
-  {
     "kind": "LinkedField",
     "alias": null,
-    "name": "attributes",
+    "name": "allAttributes",
     "storageKey": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "id",
-        "variableName": "id"
-      }
-    ],
+    "args": null,
     "concreteType": "Attributes",
-    "plural": false,
+    "plural": true,
     "selections": [
       {
         "kind": "ScalarField",
@@ -129,26 +111,26 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "characterSheetAttributesQuery",
+    "name": "characterSheetAllAttributesQuery",
     "type": "Query",
     "metadata": null,
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "argumentDefinitions": [],
+    "selections": (v0/*: any*/)
   },
   "operation": {
     "kind": "Operation",
-    "name": "characterSheetAttributesQuery",
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "name": "characterSheetAllAttributesQuery",
+    "argumentDefinitions": [],
+    "selections": (v0/*: any*/)
   },
   "params": {
     "operationKind": "query",
-    "name": "characterSheetAttributesQuery",
+    "name": "characterSheetAllAttributesQuery",
     "id": null,
-    "text": "query characterSheetAttributesQuery(\n  $id: String!\n) {\n  attributes(id: $id) {\n    id\n    characterId\n    charisma\n    constitution\n    dexterity\n    intelligence\n    strength\n    wisdom\n  }\n}\n",
+    "text": "query characterSheetAllAttributesQuery {\n  allAttributes {\n    id\n    characterId\n    charisma\n    constitution\n    dexterity\n    intelligence\n    strength\n    wisdom\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = '2c9992ff553ada4bf783e0fcc067ce1c';
+(node as any).hash = '541bbf6239e088a510599e345d6f6502';
 export default node;

@@ -1,12 +1,10 @@
 /* tslint:disable */
-/* @relayHash 14f86eb34900dd2e7ba58c3c0e5fe909 */
+/* @relayHash b3ff7a99d8b0373ca6513dcfb6ea3275 */
 
 import { ConcreteRequest } from "relay-runtime";
-export type characterSheetRetainerQueryVariables = {
-    id: string;
-};
-export type characterSheetRetainerQueryResponse = {
-    readonly retainer: {
+export type characterSheetRetainersQueryVariables = {};
+export type characterSheetRetainersQueryResponse = {
+    readonly retainers: ReadonlyArray<{
         readonly id: string;
         readonly characterId: string;
         readonly name: string;
@@ -16,20 +14,18 @@ export type characterSheetRetainerQueryResponse = {
         readonly hitpoints: number;
         readonly wage: number;
         readonly share: number;
-    } | null;
+    } | null> | null;
 };
-export type characterSheetRetainerQuery = {
-    readonly response: characterSheetRetainerQueryResponse;
-    readonly variables: characterSheetRetainerQueryVariables;
+export type characterSheetRetainersQuery = {
+    readonly response: characterSheetRetainersQueryResponse;
+    readonly variables: characterSheetRetainersQueryVariables;
 };
 
 
 
 /*
-query characterSheetRetainerQuery(
-  $id: String!
-) {
-  retainer(id: $id) {
+query characterSheetRetainersQuery {
+  retainers {
     id
     characterId
     name
@@ -46,27 +42,13 @@ query characterSheetRetainerQuery(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "kind": "LocalArgument",
-    "name": "id",
-    "type": "String!",
-    "defaultValue": null
-  }
-],
-v1 = [
-  {
     "kind": "LinkedField",
     "alias": null,
-    "name": "retainer",
+    "name": "retainers",
     "storageKey": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "id",
-        "variableName": "id"
-      }
-    ],
+    "args": null,
     "concreteType": "Retainer",
-    "plural": false,
+    "plural": true,
     "selections": [
       {
         "kind": "ScalarField",
@@ -138,26 +120,26 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "characterSheetRetainerQuery",
+    "name": "characterSheetRetainersQuery",
     "type": "Query",
     "metadata": null,
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "argumentDefinitions": [],
+    "selections": (v0/*: any*/)
   },
   "operation": {
     "kind": "Operation",
-    "name": "characterSheetRetainerQuery",
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "name": "characterSheetRetainersQuery",
+    "argumentDefinitions": [],
+    "selections": (v0/*: any*/)
   },
   "params": {
     "operationKind": "query",
-    "name": "characterSheetRetainerQuery",
+    "name": "characterSheetRetainersQuery",
     "id": null,
-    "text": "query characterSheetRetainerQuery(\n  $id: String!\n) {\n  retainer(id: $id) {\n    id\n    characterId\n    name\n    position\n    class\n    level\n    hitpoints\n    wage\n    share\n  }\n}\n",
+    "text": "query characterSheetRetainersQuery {\n  retainers {\n    id\n    characterId\n    name\n    position\n    class\n    level\n    hitpoints\n    wage\n    share\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = '7e4a6701c958a5ee26fd543ea729c14a';
+(node as any).hash = 'a9031dcb806f70851ae522fb1c3956e3';
 export default node;

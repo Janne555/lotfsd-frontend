@@ -1,31 +1,27 @@
 /* tslint:disable */
-/* @relayHash 0a773de4de1d4633fbc0a83cd3d865b2 */
+/* @relayHash 44c0fb5f21a126eff99e92d25c2dc3e6 */
 
 import { ConcreteRequest } from "relay-runtime";
-export type characterSheetWalletQueryVariables = {
-    id: string;
-};
-export type characterSheetWalletQueryResponse = {
-    readonly wallet: {
+export type characterSheetWalletsQueryVariables = {};
+export type characterSheetWalletsQueryResponse = {
+    readonly wallets: ReadonlyArray<{
         readonly id: string;
         readonly characterId: string;
         readonly copper: number;
         readonly gold: number;
         readonly silver: number;
-    } | null;
+    } | null> | null;
 };
-export type characterSheetWalletQuery = {
-    readonly response: characterSheetWalletQueryResponse;
-    readonly variables: characterSheetWalletQueryVariables;
+export type characterSheetWalletsQuery = {
+    readonly response: characterSheetWalletsQueryResponse;
+    readonly variables: characterSheetWalletsQueryVariables;
 };
 
 
 
 /*
-query characterSheetWalletQuery(
-  $id: String!
-) {
-  wallet(id: $id) {
+query characterSheetWalletsQuery {
+  wallets {
     id
     characterId
     copper
@@ -38,27 +34,13 @@ query characterSheetWalletQuery(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "kind": "LocalArgument",
-    "name": "id",
-    "type": "String!",
-    "defaultValue": null
-  }
-],
-v1 = [
-  {
     "kind": "LinkedField",
     "alias": null,
-    "name": "wallet",
+    "name": "wallets",
     "storageKey": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "id",
-        "variableName": "id"
-      }
-    ],
+    "args": null,
     "concreteType": "Wallet",
-    "plural": false,
+    "plural": true,
     "selections": [
       {
         "kind": "ScalarField",
@@ -102,26 +84,26 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "characterSheetWalletQuery",
+    "name": "characterSheetWalletsQuery",
     "type": "Query",
     "metadata": null,
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "argumentDefinitions": [],
+    "selections": (v0/*: any*/)
   },
   "operation": {
     "kind": "Operation",
-    "name": "characterSheetWalletQuery",
-    "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "name": "characterSheetWalletsQuery",
+    "argumentDefinitions": [],
+    "selections": (v0/*: any*/)
   },
   "params": {
     "operationKind": "query",
-    "name": "characterSheetWalletQuery",
+    "name": "characterSheetWalletsQuery",
     "id": null,
-    "text": "query characterSheetWalletQuery(\n  $id: String!\n) {\n  wallet(id: $id) {\n    id\n    characterId\n    copper\n    gold\n    silver\n  }\n}\n",
+    "text": "query characterSheetWalletsQuery {\n  wallets {\n    id\n    characterId\n    copper\n    gold\n    silver\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = 'dbe10c0cdaa0471fbd7c804310723b87';
+(node as any).hash = '438cc9e131733d7d7e6fa7be8d8fbdf4';
 export default node;
