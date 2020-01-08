@@ -1,9 +1,8 @@
 /* tslint:disable */
-/* @relayHash c8171b43bdeaf7b2bbbcf5e6a6f96d8e */
+/* @relayHash 6e58d8b77eca63a65dbaeb87b85882ac */
 
 import { ConcreteRequest } from "relay-runtime";
 export type WalletInput = {
-    readonly id: string;
     readonly characterId: string;
     readonly copper: number;
     readonly silver: number;

@@ -1,9 +1,8 @@
 /* tslint:disable */
-/* @relayHash aa7d75d9cf823f7bb7dd10159ec1b5e0 */
+/* @relayHash 589cb3554086db5570d36817ab479fd7 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type AttributesInput = {
-    readonly id: string;
     readonly characterId: string;
     readonly charisma: number;
     readonly constitution: number;

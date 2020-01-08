@@ -1,4 +1,3 @@
-
 import graphql from 'babel-plugin-relay/macro'
 import { GraphQLTaggedNode } from 'relay-runtime'
 
@@ -130,7 +129,7 @@ const wallet = graphql`
   }
 `
 
-const QUERIES = {
+export {
   infos,
   allAttributes,
   allCombatOptions,
@@ -148,5 +147,3 @@ const QUERIES = {
   retainer,
   wallet
 }
-
-export default QUERIES

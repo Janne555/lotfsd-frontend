@@ -10,7 +10,6 @@ type AttributeModifiers {
 }
 
 input AttributeModifiersInput {
-  id: String!
   characterId: String!
   charisma: Int!
   constitution: Int!
@@ -32,7 +31,6 @@ type Attributes {
 }
 
 input AttributesInput {
-  id: String!
   characterId: String!
   charisma: Int!
   constitution: Int!
@@ -57,7 +55,6 @@ type CombatOptions {
 }
 
 input CombatOptionsInput {
-  id: String!
   characterId: String!
   standard: Boolean!
   parry: Boolean!
@@ -82,7 +79,6 @@ type CommonActivities {
 }
 
 input CommonActivitiesInput {
-  id: String!
   characterId: String!
   architecture: Int!
   bushcraft: Int!
@@ -128,7 +124,6 @@ type Effect {
 }
 
 input EffectInput {
-  id: String!
   characterId: String!
   type: String!
   target: String!
@@ -156,7 +151,6 @@ type Info {
 }
 
 input InfoInput {
-  id: String!
   characterId: String!
   name: String!
   experience: Int!
@@ -234,7 +228,6 @@ type Retainer {
 }
 
 input RetainerInput {
-  id: String!
   characterId: String!
   name: String!
   position: String!
@@ -256,7 +249,6 @@ type SavingThrows {
 }
 
 input SavingThrowsInput {
-  id: String!
   characterId: String!
   paralyze: Int!
   poison: Int!
@@ -291,7 +283,6 @@ type Wallet {
 }
 
 input WalletInput {
-  id: String!
   characterId: String!
   copper: Int!
   silver: Int!

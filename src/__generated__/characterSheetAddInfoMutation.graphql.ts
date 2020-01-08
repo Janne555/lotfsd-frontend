@@ -1,9 +1,8 @@
 /* tslint:disable */
-/* @relayHash d286361bc7bd7e34f6faf2cd9638248d */
+/* @relayHash 14e206cf931aa1740277318c42221976 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type InfoInput = {
-    readonly id: string;
     readonly characterId: string;
     readonly name: string;
     readonly experience: number;

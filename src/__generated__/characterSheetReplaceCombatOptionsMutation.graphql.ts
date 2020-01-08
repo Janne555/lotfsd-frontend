@@ -1,9 +1,8 @@
 /* tslint:disable */
-/* @relayHash 03858cc802bcc9e7149c924d63580d9e */
+/* @relayHash e02b2933ed19873d4dcb5967637b80f3 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type CombatOptionsInput = {
-    readonly id: string;
     readonly characterId: string;
     readonly standard: boolean;
     readonly parry: boolean;

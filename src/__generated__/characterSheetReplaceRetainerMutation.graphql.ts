@@ -1,9 +1,8 @@
 /* tslint:disable */
-/* @relayHash 78b0fab749b376caf906908a1cef718c */
+/* @relayHash a2825259d1f11d7b8fa490ea0c960e5d */
 
 import { ConcreteRequest } from "relay-runtime";
 export type RetainerInput = {
-    readonly id: string;
     readonly characterId: string;
     readonly name: string;
     readonly position: string;

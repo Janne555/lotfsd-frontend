@@ -1,9 +1,8 @@
 /* tslint:disable */
-/* @relayHash c4f2da81fc58bc05c5cda9857c4ab132 */
+/* @relayHash 9312cfaf6d53761fef7e2fb6506d91d8 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type CommonActivitiesInput = {
-    readonly id: string;
     readonly characterId: string;
     readonly architecture: number;
     readonly bushcraft: number;

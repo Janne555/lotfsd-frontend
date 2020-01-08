@@ -1,9 +1,8 @@
 /* tslint:disable */
-/* @relayHash 63c8338c54be16e409d03d81c489135e */
+/* @relayHash e79cfd281927929a68d5082e4544e539 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type SavingThrowsInput = {
-    readonly id: string;
     readonly characterId: string;
     readonly paralyze: number;
     readonly poison: number;

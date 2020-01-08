@@ -1,9 +1,8 @@
 /* tslint:disable */
-/* @relayHash 8a7afc5ae9b93aae263275812594b944 */
+/* @relayHash 29df61d2b8feb5a04e8d3ea2cab927e6 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type EffectInput = {
-    readonly id: string;
     readonly characterId: string;
     readonly type: string;
     readonly target: string;
