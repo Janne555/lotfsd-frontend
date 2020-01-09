@@ -9,18 +9,16 @@ const loginThunk = (
   dispatch(beginLogin(username))
 
   try {
-    const { Token } = await post(ENDPOINTS.LOGIN, { username, password })
+    const { Token, Characters } = await post(ENDPOINTS.LOGIN, { username, password })
 
     dispatch(completeLogin(Token))
 
     dispatch(completeDataFetch({
-      byId: {
-        a: 'Zoidberg',
-      },
-      byName: {
-        Zoidberg: 'a',
-        Mardrick: 'a'
-      }
+      byName: Object.entries(Characters).reduce<Record<string, string>>((acc, [id, name]) => {
+        acc[name] = id
+        return acc
+      }, {}),
+      byId: Characters
     }))
   } catch (error) {
     return
