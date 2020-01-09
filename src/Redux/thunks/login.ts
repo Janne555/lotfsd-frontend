@@ -9,9 +9,9 @@ const loginThunk = (
   dispatch(beginLogin(username))
 
   try {
-    const token = await post(ENDPOINTS.LOGIN, { username, password })
+    const { Token } = await post(ENDPOINTS.LOGIN, { username, password })
 
-    dispatch(completeLogin(token))
+    dispatch(completeLogin(Token))
 
     dispatch(completeDataFetch({
       byId: {
