@@ -1,7 +1,5 @@
 import ky, { Input, Options } from 'ky'
 import { APIROOT } from '../constants/endpoints'
-import store from '../Redux/store'
-import { selectToken } from '../Redux/selectors'
 import {
   Environment,
   Network,
@@ -11,9 +9,10 @@ import {
   GraphQLResponse,
   RequestParameters,
 } from 'relay-runtime'
+import RelayQueryResponseCache from 'relay-runtime/lib/network/RelayQueryResponseCache'
 
 function setBearer(headers: Headers) {
-  const token = selectToken(store.getState())
+  const token = window.localStorage.getItem("token")
   if (token) {
     headers.set('Authorization', `Bearer ${token}`)
   }
@@ -59,11 +58,23 @@ async function graphqlPost(operation: RequestParameters, variables: Record<strin
   }).json()
 }
 
+const cache = new RelayQueryResponseCache({ size: 250, ttl: 60 * 5 * 1000 });
+
 const fetchFunction: FetchFunction = async function fetchQuery(
   operation,
   variables
 ) {
-  return graphqlPost(operation, variables)
+  const queryID = operation.name;
+  const cachedData = cache.get(queryID, variables);
+
+  if (cachedData !== null) return cachedData;
+
+  const response = await graphqlPost(operation, variables)
+  if (operation.operationKind !== 'mutation') {
+    cache.set(queryID, variables, response)
+  }
+
+  return response
 }
 
 const environment = new Environment({
