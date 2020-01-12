@@ -1,4 +1,4 @@
-import ky from 'ky'
+import ky, { Input, Options } from 'ky'
 import { APIROOT } from '../constants/endpoints'
 import store from '../Redux/store'
 import { selectToken } from '../Redux/selectors'
@@ -30,27 +30,24 @@ const api = ky.create({
   }
 })
 
-async function get<T>(endpoint: { url: string, type: T }): Promise<T> {
-  const result = await api.get(endpoint.url)
-  try {
-    return await result.clone().json()
-  } catch {
-    const text = await result.text()
-    return { value: text } as any
+type KyFunction = (input: Input, options?: Options) => Promise<Response>
+type TypedResponse<T> = Omit<Response, 'json'> & { json: () => Promise<T> }
+type WithType = <T>(input: TypedEndpoint<T>, options?: Options) => Promise<TypedResponse<T>>
+
+function withType(func: KyFunction): WithType {
+  return async function <T>({ url }: TypedEndpoint<T>, options?: Options): Promise<TypedResponse<T>> {
+    const response = await func(url, options)
+
+    return Object.assign(response, {
+      json(): Promise<T> {
+        return response.json()
+      }
+    })
   }
 }
 
-async function post<T>(endpoint: { url: string, type: T }, payload: any): Promise<T> {
-  const result = await api.post(endpoint.url, {
-    json: payload
-  })
-
-  try {
-    return await result.clone().json()
-  } catch {
-    return result.text() as any
-  }
-}
+const get = withType(api.get)
+const post = withType(api.post)
 
 async function graphqlPost(operation: RequestParameters, variables: Record<string, any>): Promise<GraphQLResponse> {
   return api.post('graphql', {
