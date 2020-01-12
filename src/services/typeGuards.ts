@@ -30,6 +30,14 @@ function isItemType(s: any): s is Item['type'] {
   return ['item', 'armor', 'weapon'].includes(s)
 }
 
+function isKeyOfSavingThrows(obj: unknown): obj is keyof SavingThrows {
+  if (typeof obj !== "string") {
+    return false
+  }
+
+  return ["paralyze", "poison", "breathWeapon", "magicalDevice", "magic"].some(key => key === obj);
+}
+
 export {
   hasKey,
   isArmor,
@@ -37,5 +45,6 @@ export {
   isArmorClassEffect,
   isCommonActivityEffect,
   areOnlyAttributes,
-  isItemType
+  isItemType,
+  isKeyOfSavingThrows
 }
