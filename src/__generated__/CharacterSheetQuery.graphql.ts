@@ -1,11 +1,11 @@
 /* tslint:disable */
-/* @relayHash 33de3a632fb4bbeba7917d8f4dcc54ae */
+/* @relayHash a0fbc2095027aa0c7bbea3f74a6e7859 */
 
 import { ConcreteRequest } from "relay-runtime";
-export type AttributesQueryVariables = {
+export type CharacterSheetQueryVariables = {
     id: string;
 };
-export type AttributesQueryResponse = {
+export type CharacterSheetQueryResponse = {
     readonly characterSheet: {
         readonly charisma: number;
         readonly constitution: number;
@@ -15,15 +15,15 @@ export type AttributesQueryResponse = {
         readonly wisdom: number;
     } | null;
 };
-export type AttributesQuery = {
-    readonly response: AttributesQueryResponse;
-    readonly variables: AttributesQueryVariables;
+export type CharacterSheetQuery = {
+    readonly response: CharacterSheetQueryResponse;
+    readonly variables: CharacterSheetQueryVariables;
 };
 
 
 
 /*
-query AttributesQuery(
+query CharacterSheetQuery(
   $id: String!
 ) {
   characterSheet(id: $id) {
@@ -111,7 +111,7 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "AttributesQuery",
+    "name": "CharacterSheetQuery",
     "type": "Query",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
@@ -119,18 +119,18 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "AttributesQuery",
+    "name": "CharacterSheetQuery",
     "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
     "operationKind": "query",
-    "name": "AttributesQuery",
+    "name": "CharacterSheetQuery",
     "id": null,
-    "text": "query AttributesQuery(\n  $id: String!\n) {\n  characterSheet(id: $id) {\n    charisma\n    constitution\n    dexterity\n    intelligence\n    strength\n    wisdom\n  }\n}\n",
+    "text": "query CharacterSheetQuery(\n  $id: String!\n) {\n  characterSheet(id: $id) {\n    charisma\n    constitution\n    dexterity\n    intelligence\n    strength\n    wisdom\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = '6c81d0bcc7908c5b546d138cbf833b10';
+(node as any).hash = 'f19b46ec275a97015d43721ca3d489d4';
 export default node;
