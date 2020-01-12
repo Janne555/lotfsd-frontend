@@ -1,17 +1,14 @@
 import React from 'react'
-import { useSelector } from '../../../hooks'
-import { selectCharacterId, selectClass } from '../../../Redux/selectors'
 
 type Props = {
   name: string
+  characterClass: string
 }
 
-export default function Character({ name }: Props) {
-  const characterId = useSelector(selectCharacterId(name))
-  const className = useSelector(selectClass(characterId))
+function Character({ name, characterClass }: Props) {
 
   function getImageUrl() {
-    switch (className?.toLowerCase()) {
+    switch (characterClass?.toLowerCase()) {
       case 'cleric':
         return '/images/cleric.svg'
       case 'fighter':
@@ -32,3 +29,5 @@ export default function Character({ name }: Props) {
     </>
   )
 }
+
+export default Character
