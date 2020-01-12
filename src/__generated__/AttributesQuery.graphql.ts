@@ -1,20 +1,12 @@
 /* tslint:disable */
-/* @relayHash 75fcea2efe28d26da0b5f9378e698819 */
+/* @relayHash 33de3a632fb4bbeba7917d8f4dcc54ae */
 
 import { ConcreteRequest } from "relay-runtime";
 export type AttributesQueryVariables = {
     id: string;
 };
 export type AttributesQueryResponse = {
-    readonly attributes: {
-        readonly charisma: number;
-        readonly constitution: number;
-        readonly dexterity: number;
-        readonly intelligence: number;
-        readonly strength: number;
-        readonly wisdom: number;
-    } | null;
-    readonly attributeModifiers: {
+    readonly characterSheet: {
         readonly charisma: number;
         readonly constitution: number;
         readonly dexterity: number;
@@ -34,15 +26,7 @@ export type AttributesQuery = {
 query AttributesQuery(
   $id: String!
 ) {
-  attributes(id: $id) {
-    charisma
-    constitution
-    dexterity
-    intelligence
-    strength
-    wisdom
-  }
-  attributeModifiers(id: $id) {
+  characterSheet(id: $id) {
     charisma
     constitution
     dexterity
@@ -64,75 +48,63 @@ var v0 = [
 ],
 v1 = [
   {
-    "kind": "Variable",
-    "name": "id",
-    "variableName": "id"
-  }
-],
-v2 = [
-  {
-    "kind": "ScalarField",
-    "alias": null,
-    "name": "charisma",
-    "args": null,
-    "storageKey": null
-  },
-  {
-    "kind": "ScalarField",
-    "alias": null,
-    "name": "constitution",
-    "args": null,
-    "storageKey": null
-  },
-  {
-    "kind": "ScalarField",
-    "alias": null,
-    "name": "dexterity",
-    "args": null,
-    "storageKey": null
-  },
-  {
-    "kind": "ScalarField",
-    "alias": null,
-    "name": "intelligence",
-    "args": null,
-    "storageKey": null
-  },
-  {
-    "kind": "ScalarField",
-    "alias": null,
-    "name": "strength",
-    "args": null,
-    "storageKey": null
-  },
-  {
-    "kind": "ScalarField",
-    "alias": null,
-    "name": "wisdom",
-    "args": null,
-    "storageKey": null
-  }
-],
-v3 = [
-  {
     "kind": "LinkedField",
     "alias": null,
-    "name": "attributes",
+    "name": "characterSheet",
     "storageKey": null,
-    "args": (v1/*: any*/),
-    "concreteType": "Attributes",
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "id",
+        "variableName": "id"
+      }
+    ],
+    "concreteType": "CharacterSheet",
     "plural": false,
-    "selections": (v2/*: any*/)
-  },
-  {
-    "kind": "LinkedField",
-    "alias": null,
-    "name": "attributeModifiers",
-    "storageKey": null,
-    "args": (v1/*: any*/),
-    "concreteType": "AttributeModifiers",
-    "plural": false,
-    "selections": (v2/*: any*/)
+    "selections": [
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "charisma",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "constitution",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "dexterity",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "intelligence",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "strength",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "wisdom",
+        "args": null,
+        "storageKey": null
+      }
+    ]
   }
 ];
 return {
@@ -143,22 +115,22 @@ return {
     "type": "Query",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v3/*: any*/)
+    "selections": (v1/*: any*/)
   },
   "operation": {
     "kind": "Operation",
     "name": "AttributesQuery",
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v3/*: any*/)
+    "selections": (v1/*: any*/)
   },
   "params": {
     "operationKind": "query",
     "name": "AttributesQuery",
     "id": null,
-    "text": "query AttributesQuery(\n  $id: String!\n) {\n  attributes(id: $id) {\n    charisma\n    constitution\n    dexterity\n    intelligence\n    strength\n    wisdom\n  }\n  attributeModifiers(id: $id) {\n    charisma\n    constitution\n    dexterity\n    intelligence\n    strength\n    wisdom\n  }\n}\n",
+    "text": "query AttributesQuery(\n  $id: String!\n) {\n  characterSheet(id: $id) {\n    charisma\n    constitution\n    dexterity\n    intelligence\n    strength\n    wisdom\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = '974120ad4b2027e49c37db38ce6c0218';
+(node as any).hash = '6c81d0bcc7908c5b546d138cbf833b10';
 export default node;
