@@ -335,3 +335,9 @@ type TypedEndpoint<T> = {
   url: string,
   type: T
 }
+
+type RenderProps<T> = {
+  error: Error | null
+  props: T | null
+  retry: (() => void) | null
+}
