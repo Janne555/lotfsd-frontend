@@ -338,6 +338,14 @@ type TypedEndpoint<T> = {
 
 type RenderProps<T> = {
   error: Error | null
-  props: T | null
+  props: T | null
   retry: (() => void) | null
+}
+
+type LoginStatus = 'logged-in' | 'logged-out' | 'logging-in'
+
+type Character = {
+  name: string
+  class: string
+  id: string
 }
