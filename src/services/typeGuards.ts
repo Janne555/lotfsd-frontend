@@ -38,6 +38,24 @@ function isKeyOfSavingThrows(obj: unknown): obj is keyof SavingThrows {
   return ["paralyze", "poison", "breathWeapon", "magicalDevice", "magic"].some(key => key === obj);
 }
 
+function isCharacter(obj: unknown): obj is Character {
+  if (typeof obj !== "object") {
+    return false
+  }
+
+  if (!obj) {
+    return false
+  }
+
+  const foo = obj as Character
+
+  if (!foo.name || !foo.class || !foo.id) {
+    return false
+  }
+
+  return true
+}
+
 export {
   hasKey,
   isArmor,
@@ -46,5 +64,6 @@ export {
   isCommonActivityEffect,
   areOnlyAttributes,
   isItemType,
-  isKeyOfSavingThrows
+  isKeyOfSavingThrows,
+  isCharacter
 }
