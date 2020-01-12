@@ -1,19 +1,17 @@
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
-import { useDispatch } from 'react-redux'
-import { newCharacter } from '../../Redux/thunks/newCharacter'
 import Attributes from '../CharacterSheet/Attributes'
 import TextField from '@material-ui/core/TextField'
 import Select from '@material-ui/core/NativeSelect'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
-import { randomAttributes, environment } from '../../services'
+import { randomAttributes, mongoObjectId } from '../../services'
 import { useHistory } from 'react-router-dom'
 import graphql from 'babel-plugin-relay/macro'
-import { Environment, commitMutation } from 'react-relay'
-import { AttributesInput, CombatOptionsInput, CommonActivitiesInput, InfoInput, SavingThrowsInput, WalletInput } from '../../__generated__/CharacterCreatorMutation.graphql'
+import { CharacterSheetInput, CharacterCreatorMutationVariables, CharacterCreatorMutation } from '../../__generated__/CharacterCreatorMutation.graphql'
 import { CHARACTER_CLASSES } from '../../constants/characterClasses'
+import { useMutation } from 'relay-hooks'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterCreator: {
@@ -39,69 +37,26 @@ const useStyles = createUseStyles((theme: Theme) => ({
 }))
 
 const mutation = graphql`
-  mutation CharacterCreatorMutation(
-    $attributes: AttributesInput!
-    $combatOptions: CombatOptionsInput!
-    $commonActivities: CommonActivitiesInput!
-    $savingThrows: SavingThrowsInput!
-    $wallet: WalletInput!
-    $info: InfoInput!) {
-      addAttributes(attributes: $attributes) {
-        id
-      }
-      addCombatOptions(combatOptions: $combatOptions) {
-        id
-      }
-      addCommonActivities(commonActivities: $commonActivities) {
-        id
-      }
-      addSavingThrows(savingThrows: $savingThrows) {
-        id
-      }
-      addWallet(wallet: $wallet) {
-        id
-      }
-      addInfo(info: $info) {
-        id
-      }
+  mutation CharacterCreatorMutation($characterSheet: CharacterSheetInput!) {
+    createCharacterSheet(characterSheet: $characterSheet) {
+      id
     }
+  }
 `
 
-function createCharacter(environment: Environment, formElements: NewCharacterForm, characterId: string) {
-  const attributes: AttributesInput = {
-    characterId,
+function generateVariables(formElements: NewCharacterForm, characterId: string): CharacterCreatorMutationVariables {
+  const className = formElements.class.value as Classes
+
+  const characterSheet: CharacterSheetInput = {
     charisma: Number(formElements.charisma.value),
     dexterity: Number(formElements.dexterity.value),
     intelligence: Number(formElements.intelligence.value),
     strength: Number(formElements.strength.value),
     wisdom: Number(formElements.wisdom.value),
     constitution: Number(formElements.constitution.value),
-  }
-
-  const combatOptions: CombatOptionsInput = {
-    characterId,
-    ...CHARACTER_CLASSES.fighter.combatOptions
-  }
-
-  const commonActivities: CommonActivitiesInput = {
-    characterId,
-    ...CHARACTER_CLASSES.fighter.commonActivities
-  }
-
-  const savingThrows: SavingThrowsInput = {
-    characterId,
-    ...CHARACTER_CLASSES.fighter.savingThrows
-  }
-
-  const wallet: WalletInput = {
-    characterId,
     copper: 1,
     gold: 1,
-    silver: 1
-  }
-
-  const info: InfoInput = {
-    characterId,
+    silver: 1,
     alignment: formElements.alignment.value,
     class: formElements.class.value as Classes,
     gender: formElements.gender.value,
@@ -109,46 +64,29 @@ function createCharacter(environment: Environment, formElements: NewCharacterFor
     race: formElements.race.value,
     age: Number(formElements.age.value),
     maxHp: Number(formElements.maxHp.value),
-    player: "joujou",
     attackBonus: 1,
-    currentHp: 10,
-    experience: 10,
-    surpriseChance: 4
+    currentHp: Number(formElements.maxHp.value),
+    experience: 0,
+    surpriseChance: CHARACTER_CLASSES[className].surpriseChance,
+    ...CHARACTER_CLASSES[className].combatOptions,
+    ...CHARACTER_CLASSES[className].commonActivities,
+    ...CHARACTER_CLASSES[className].savingThrows,
   }
 
-  commitMutation(
-    environment,
-    {
-      mutation,
-      variables: {
-        attributes,
-        combatOptions,
-        commonActivities,
-        savingThrows,
-        wallet,
-        info
-      },
-      onError: console.error
-    }
-  )
+  return {
+    characterSheet
+  }
 }
 
-type Props = {
-
-}
-
-function CharacterCreator(/* { }: Props */) {
+function CharacterCreator() {
   const classes = useStyles()
-  const dispatch = useDispatch()
   const [attributes, setAttributes] = useState<Attributes>({ charisma: 0, constitution: 0, dexterity: 0, intelligence: 0, strength: 0, wisdom: 0 })
   const [attributeError, setAttributeError] = useState<string>()
-  const history = useHistory()
+  const [mutate] = useMutation<CharacterCreatorMutation>(mutation)
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     const target = (e.target as unknown) as { elements: NewCharacterForm }
     e.preventDefault()
-
-    createCharacter(environment, target.elements, "5e15f8cc6e25f03b8db4d737")
 
     if (Object.values(attributes).some(value => value < 1)) {
       setAttributeError("Attributes should have a value above 0")
@@ -157,7 +95,9 @@ function CharacterCreator(/* { }: Props */) {
       setAttributeError(undefined)
     }
 
-    dispatch(newCharacter(target.elements, history))
+    mutate({
+      variables: generateVariables(target.elements, mongoObjectId())
+    })
   }
 
   function handleRandomize() {
