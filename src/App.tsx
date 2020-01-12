@@ -4,14 +4,17 @@ import { createUseStyles } from 'react-jss'
 import NavBar from './Components/Interface/NavMenu/NavBar'
 import Login from './Components/Interface/Login'
 import NavItem from './Components/Interface/NavMenu/NavItem'
-import { useSelector } from './hooks'
-import { selectIsLoggedIn, selectCharacterId } from './Redux/selectors'
 import { Switch, Route, useRouteMatch, Redirect, useLocation } from 'react-router-dom'
 import CharacterList from './Components/Interface/CharacterList/CharacterList'
 import CharacterCreator from './Components/CharacterCreator/CharacterCreator'
 import AppModal from './Components/Interface/Modal/AppModal'
 import ItemIndex from './Components/ItemIndex/ItemIndex'
 import ItemCreator from './Components/ItemIndex/ItemCreator'
+import { useRelayEnvironment } from 'relay-hooks'
+import { QueryRenderer } from 'react-relay'
+import graphql from 'babel-plugin-relay/macro'
+import { AppQuery } from './__generated__/AppQuery.graphql'
+import { isCharacter } from './services'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   app: {
@@ -38,17 +41,19 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-const App: React.FC = () => {
+type Props = {
+  characters: {
+    name: string
+    class: string
+    id: string
+  }[]
+}
+
+function App({ characters }: Props) {
   const classes = useStyles()
-  const isLoggedIn = useSelector(selectIsLoggedIn)
   const characterNameMatch = useRouteMatch<{ character: string }>('/characters/:character')
   const actionMatch = useRouteMatch<{ action: string }>('/characters/:character/:action')
-  const characterId = useSelector(selectCharacterId(characterNameMatch?.params.character))
-  const location = useLocation()
-
-  if (!isLoggedIn && location.pathname !== '/login') {
-    return <Redirect to="/login" />
-  }
+  const characterId = characters.find(ch => ch.name === characterNameMatch?.params.character)?.id
 
   return (
     <div className={classes.app}>
@@ -82,9 +87,6 @@ const App: React.FC = () => {
         <Route path="/newitem">
           <ItemCreator />
         </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
         <Route exact path="/">
           <Redirect to="/characters" />
         </Route>
@@ -97,4 +99,31 @@ const App: React.FC = () => {
   );
 }
 
-export default App
+
+function Query(props: any) {
+  const environment = useRelayEnvironment()
+
+  return (
+    <QueryRenderer<AppQuery>
+      environment={environment}
+      query={graphql`
+        query AppQuery {
+          characterSheets {
+            name
+            class
+            id
+          }
+        }
+      `}
+      variables={{}}
+      render={({ props }) => {
+        if (props?.characterSheets) {
+          const characters: Character[] = props?.characterSheets?.filter(isCharacter) ?? []
+          return <App characters={characters} />
+        }
+      }}
+    />
+  )
+}
+
+export default Query

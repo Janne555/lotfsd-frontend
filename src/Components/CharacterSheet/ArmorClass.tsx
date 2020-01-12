@@ -31,6 +31,13 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
+type Props = {
+  baseAC: number
+  rangedAC: number
+  withoutShieldAC: number
+  surprisedAC: number
+}
+
 
 function ArmorClass() {
   const classes = useStyles()

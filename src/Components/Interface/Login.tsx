@@ -1,16 +1,12 @@
 import React from 'react'
-import { useDispatch, useSelector } from '../../hooks'
-import { loginThunk } from '../../Redux/thunks'
-import { selectIsLoggedIn } from '../../Redux/selectors'
 import { Redirect } from 'react-router-dom'
-
-
+import { useLogin, useLoginStatus } from '../../hooks'
 
 function Login() {
-  const dispatch = useDispatch()
-  const isLoggedIn = useSelector(selectIsLoggedIn)
+  const loginStatus = useLoginStatus()
+  const { login } = useLogin()
 
-  if (isLoggedIn) {
+  if (loginStatus === "logged-in") {
     return (
       <Redirect to="/characters" />
     )
@@ -18,7 +14,7 @@ function Login() {
 
   function handleSubmit(e: any) {
     e.preventDefault();
-    dispatch(loginThunk(e.target.elements.username.value, e.target.elements.password.value))
+    login(e.target.elements.username.value, e.target.elements.password.value)
   }
 
   return (

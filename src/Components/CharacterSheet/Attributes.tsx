@@ -24,7 +24,6 @@ const useStyles = createUseStyles((theme: Theme) => ({
   },
   topTitle: {
     gridColumnStart: 4,
-    fontSize: '1.5em',
     marginBottom: 5
   }
 }))

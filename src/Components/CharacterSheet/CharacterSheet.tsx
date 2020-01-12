@@ -1,6 +1,5 @@
 import React from 'react'
 import Attributes, { Props as AttributeProps } from './Attributes'
-import SavingThrows from './SavingThrows'
 import AttackBonusAndHitPoints from './AttackBonusAndHitPoints'
 import ArmorClassAndCombatOptions from './ArmorClassAndCombatOptions'
 import CommonActivities from './CommonActivities'
@@ -10,11 +9,14 @@ import Retainers from './Retainers'
 import { createUseStyles } from 'react-jss'
 import Languages from './Languages'
 import InfoBar from './InfoBar'
-import { useSelector, useScreenResizeEvent } from '../../hooks'
-import { selectAttributes, selectAttributeModifiers } from '../../Redux/selectors'
+import { useScreenResizeEvent } from '../../hooks'
 import { Redirect } from 'react-router-dom'
 import SpeedDial from '../Interface/SpeedDial'
 import Properties from './Properties'
+import { QueryRenderer } from 'react-relay'
+import { useRelayEnvironment } from 'relay-hooks'
+import graphql from 'babel-plugin-relay/macro'
+import { CharacterSheetQuery, CharacterSheetQueryResponse } from '../../__generated__/CharacterSheetQuery.graphql'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
@@ -42,7 +44,7 @@ const MODULE_INDEX = {
   equipmentList: () => <EquipmentList key='equipmentList' />,
   retainers: () => <Retainers key='retainers' />,
   properties: () => <Properties key='properties' />,
-  savingThrows: () => <SavingThrows key='savingThrows' />,
+  savingThrows: () => /*<SavingThrows key='savingThrows' />*/ <div></div>,
   attacBonusAndHitpoints: () => <AttackBonusAndHitPoints key='attacBonusAndHitpoints' />,
   armorClassAndCombatOptions: () => <ArmorClassAndCombatOptions key='armorClassAndCombatOptions' />,
   encumbrance: () => <Encumbrance key='encumbrance' />,
@@ -80,36 +82,85 @@ const context = React.createContext({
   characterId: 'default'
 })
 
-type Props = {
+function selectAttributes(
+  {
+    charisma,
+    constitution,
+    dexterity,
+    intelligence,
+    strength,
+    wisdom
+  }: NonNullable<CharacterSheetQueryResponse["characterSheet"]>
+): Attributes {
+  return {
+    charisma,
+    constitution,
+    dexterity,
+    intelligence,
+    strength,
+    wisdom
+  }
+}
+
+function CharacterSheet({ attributes }: { attributes: Attributes }) {
+  const classes = useStyles()
+  // const isMobile = useScreenResizeEvent(width => width < 1100)
+
+  return (
+    <div className={classes.characterSheet}>
+      <Attributes attributes={attributes} />
+    </div>
+  )
+
+  // return (
+  //   <context.Provider value={{ characterName, characterId }}>
+  //     <div className={classes.characterSheet}>
+  //       <InfoBar />
+  //       {isMobile
+  //         ? MOBILE_ORDER.map(key => MODULE_INDEX[key]({ attributes, modifiers, onChange: handleAttributeChange }))
+  //         : BASE_ORDER.map(key => MODULE_INDEX[key]({ attributes, modifiers, onChange: handleAttributeChange }))
+  //       }
+  //     </div>
+  //     <SpeedDial />
+  //   </context.Provider>
+  // )
+}
+
+
+type QueryProps = {
   characterId: string
   characterName: string
 }
 
-function CharacterSheet({ characterId, characterName }: Props) {
-  const classes = useStyles()
-  const modifiers = useSelector(selectAttributeModifiers(characterId))
-  const { characterId: ignore, ...attributes } = useSelector(selectAttributes(characterId))
-  const isMobile = useScreenResizeEvent(width => width < 1100)
-
-  function handleAttributeChange(key: keyof Attributes, value: string) {
-
-  }
-
-  if (!characterId) {
-    return <Redirect to={{ pathname: '/' }} />
-  }
+function Foo({ characterId }: QueryProps) {
+  const environment = useRelayEnvironment()
 
   return (
-    <context.Provider value={{ characterName, characterId }}>
-      <div className={classes.characterSheet}>
-        <InfoBar />
-        {isMobile
-          ? MOBILE_ORDER.map(key => MODULE_INDEX[key]({ attributes, modifiers, onChange: handleAttributeChange }))
-          : BASE_ORDER.map(key => MODULE_INDEX[key]({ attributes, modifiers, onChange: handleAttributeChange }))
+    <QueryRenderer<CharacterSheetQuery>
+      environment={environment}
+      query={graphql`
+        query CharacterSheetQuery($id: String!) {
+          characterSheet(id: $id) {
+            charisma
+            constitution
+            dexterity
+            intelligence
+            strength
+            wisdom
+          }
         }
-      </div>
-      <SpeedDial />
-    </context.Provider>
+      `}
+      variables={{
+        id: characterId
+      }}
+      render={({ props }) => {
+        if (!props?.characterSheet) {
+          return null
+        }
+
+        return <CharacterSheet attributes={selectAttributes(props.characterSheet)} />
+      }}
+    />
   )
 }
 
@@ -117,4 +168,4 @@ export {
   context as characterSheetContext
 }
 
-export default CharacterSheet
+export default Foo
