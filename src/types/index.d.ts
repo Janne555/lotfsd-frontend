@@ -330,3 +330,8 @@ type OperationType<T> = {
   variables: Record<string, any>,
   response: T
 }
+
+type TypedEndpoint<T> = {
+  url: string,
+  type: T
+}
