@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react'
 import { post } from '../services'
 import { ENDPOINTS } from '../constants'
 
-
 type User = {
   username: string
   token?: string
@@ -14,7 +13,6 @@ type LoginContext = {
   logout: () => void
 }
 
-
 const LoginContext = React.createContext<LoginContext | undefined>(undefined)
 
 type ProviderProps = {
@@ -25,15 +23,29 @@ type ProviderProps = {
 function LoginProvider({ children }: ProviderProps): JSX.Element {
   const [user, setUser] = React.useState<User>()
 
+  React.useEffect(() => {
+    const username = window.localStorage.getItem("username")
+    const token = window.localStorage.getItem("token")
+
+    if (username && token) {
+      setUser({
+        username,
+        token
+      })
+    }
+  }, [])
+
   async function login(username: string, password: string) {
     const response = await post(ENDPOINTS.LOGIN, { json: { username, password } })
     const token = await response.text()
     setUser({ username, token })
     window.localStorage.setItem("token", token)
+    window.localStorage.setItem("username", username)
   }
 
   function logout() {
     setUser(undefined)
+    window.localStorage.clear()
   }
 
   return (
