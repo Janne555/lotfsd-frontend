@@ -15,6 +15,7 @@ import { QueryRenderer } from 'react-relay'
 import graphql from 'babel-plugin-relay/macro'
 import { AppQuery } from './__generated__/AppQuery.graphql'
 import { isCharacter } from './services'
+import { useLogin } from './hooks'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   app: {
@@ -54,18 +55,19 @@ function App({ characters }: Props) {
   const characterNameMatch = useRouteMatch<{ character: string }>('/characters/:character')
   const actionMatch = useRouteMatch<{ action: string }>('/characters/:character/:action')
   const characterId = characters.find(ch => ch.name === characterNameMatch?.params.character)?.id
+  const { logout } = useLogin()
 
   return (
     <div className={classes.app}>
       <NavBar>
         <NavItem name="Characters" to="/characters">
-          <CharacterList />
+          <CharacterList characters={characters} />
         </NavItem>
         <NavItem name="Campaigns" to="/campaigns">
           moi
           </NavItem>
         <NavItem name="Item Index" to="/itemindex" />
-        <NavItem name="Login" end />
+        <NavItem name="Login" end onClick={logout} />
       </NavBar>
       <div className={classes.body}>
         <Switch>
@@ -75,7 +77,7 @@ function App({ characters }: Props) {
             }
           </Route>
           <Route exact path="/characters">
-            <CharacterList fullScreen />
+            <CharacterList characters={characters} />
           </Route>
           <Route path="/newcharacter">
             <CharacterCreator />
