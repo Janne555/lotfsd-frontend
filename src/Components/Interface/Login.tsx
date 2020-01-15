@@ -65,10 +65,10 @@ function Login() {
   return (
     <div className={classes.login}>
       <div>
-        <h1>Lamentations <br /> of the <br />frontend developer</h1>
+        <h1>Lamentations<br /> of the<br />frontend developer</h1>
         <form onSubmit={handleSubmit}>
-          <TextField variant="outlined" id="username" label="Username" />
-          <TextField variant="outlined" type="password" id="password" label="Password" />
+          <TextField variant="outlined" id="username" label="Username" autoComplete="username" />
+          <TextField variant="outlined" type="password" id="password" label="Password" autoComplete="current-password" />
           <Button type="submit">Login</Button>
         </form>
       </div>
