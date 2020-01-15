@@ -26,8 +26,6 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-
-
 function CharacterListWrapper({ children, to }: { children: ReactNode, to: string }) {
   const classes = useStyles()
   const { onHide } = useNavMenuContext()
