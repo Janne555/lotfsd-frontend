@@ -1,3 +1,7 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
+
 h1 {
   text-align: center;
   margin: 0;
@@ -28,4 +32,11 @@ body {
 td {
   border-top: 1px solid black;
   border-bottom: 1px solid black;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px rgba(170, 0, 255, 0.1) inset !important;
 }

@@ -9,9 +9,10 @@ import { theme } from './styles/theme'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { RelayEnvironmentProvider } from 'relay-hooks'
 import { environment } from './services'
-import './index.css'
 import { useLoginStatus, LoginProvider } from './hooks'
 import Login from './Components/Interface/Login'
+import 'normalize.css'
+import './index.css'
 
 function Foo() {
   const loginStatus = useLoginStatus()
