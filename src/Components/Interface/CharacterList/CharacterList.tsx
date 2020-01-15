@@ -2,10 +2,6 @@ import React from 'react'
 import { createUseStyles } from 'react-jss'
 import Character from './Character'
 import CharacterListWrapper from './CharacterListWrapper'
-import { QueryRenderer } from 'react-relay'
-import { useRelayEnvironment } from 'relay-hooks'
-import graphql from 'babel-plugin-relay/macro'
-import { CharacterListQuery } from '../../../__generated__/CharacterListQuery.graphql'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterList: {
@@ -49,29 +45,4 @@ function CharacterList({ characters }: Props) {
   )
 }
 
-function Query(props: any) {
-  const environment = useRelayEnvironment()
-
-  return (
-    <QueryRenderer<CharacterListQuery>
-      environment={environment}
-      query={graphql`
-        query CharacterListQuery {
-          characterSheets {
-            name
-            class
-          }
-        }
-      `}
-      variables={{}}
-      render={({ props }) => {
-        if (props?.characterSheets) {
-          const characters: Character[] = props?.characterSheets?.filter((e): e is Character => e !== null) ?? []
-          return <CharacterList characters={characters} />
-        }
-      }}
-    />
-  )
-}
-
-export default Query
+export default CharacterList
