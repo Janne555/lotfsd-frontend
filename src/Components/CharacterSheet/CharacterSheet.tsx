@@ -38,71 +38,21 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-const MODULE_INDEX = {
-  attributes: (props: AttributeProps) => <Attributes {...props} key='attributes' />,
-  commonActivities: () => <CommonActivities key='commonActivities' />,
-  equipmentList: () => <EquipmentList key='equipmentList' />,
-  retainers: () => <Retainers key='retainers' />,
-  properties: () => <Properties key='properties' />,
-  savingThrows: () => /*<SavingThrows key='savingThrows' />*/ <div></div>,
-  attacBonusAndHitpoints: () => <AttackBonusAndHitPoints key='attacBonusAndHitpoints' />,
-  armorClassAndCombatOptions: () => <ArmorClassAndCombatOptions key='armorClassAndCombatOptions' />,
-  encumbrance: () => <Encumbrance key='encumbrance' />,
-  languages: () => <Languages key='languages' />,
+type Props = {
+  attributes: Attributes
+  savingThrows: SavingThrows
+  inventory: ItemInstance[]
+  effects: Effect[]
+  commonActivities: CommonActivities
+  wallet: Wallet
+  languages: Language[]
+  retainers: Retainer[]
+  combatOptions: CombatOptions
+  info: Info
+  properties: Property[]
 }
 
-const BASE_ORDER: (keyof typeof MODULE_INDEX)[] = [
-  "attributes",
-  "commonActivities",
-  "equipmentList",
-  "retainers",
-  "properties",
-  "savingThrows",
-  "attacBonusAndHitpoints",
-  "armorClassAndCombatOptions",
-  "encumbrance",
-  "languages",
-]
-
-const MOBILE_ORDER: (keyof typeof MODULE_INDEX)[] = [
-  "attributes",
-  "savingThrows",
-  "attacBonusAndHitpoints",
-  "armorClassAndCombatOptions",
-  "commonActivities",
-  "equipmentList",
-  "retainers",
-  "properties",
-  "encumbrance",
-  "languages",
-]
-
-const context = React.createContext({
-  characterName: "default",
-  characterId: 'default'
-})
-
-function selectAttributes(
-  {
-    charisma,
-    constitution,
-    dexterity,
-    intelligence,
-    strength,
-    wisdom
-  }: NonNullable<CharacterSheetQueryResponse["characterSheet"]>
-): Attributes {
-  return {
-    charisma,
-    constitution,
-    dexterity,
-    intelligence,
-    strength,
-    wisdom
-  }
-}
-
-function CharacterSheet({ attributes }: { attributes: Attributes }) {
+function CharacterSheet({ attributes }: Props) {
   const classes = useStyles()
   // const isMobile = useScreenResizeEvent(width => width < 1100)
 
@@ -132,24 +82,13 @@ type QueryProps = {
   characterName: string
 }
 
-function Foo({ characterId }: QueryProps) {
+function Query({ characterId }: QueryProps) {
   const environment = useRelayEnvironment()
 
   return (
     <QueryRenderer<CharacterSheetQuery>
       environment={environment}
-      query={graphql`
-        query CharacterSheetQuery($id: String!) {
-          characterSheet(id: $id) {
-            charisma
-            constitution
-            dexterity
-            intelligence
-            strength
-            wisdom
-          }
-        }
-      `}
+      query={query}
       variables={{
         id: characterId
       }}
@@ -158,14 +97,249 @@ function Foo({ characterId }: QueryProps) {
           return null
         }
 
-        return <CharacterSheet attributes={selectAttributes(props.characterSheet)} />
+        return (
+          <CharacterSheet
+            attributes={selectAttributes(props.characterSheet)}
+            info={selectInfo(props.characterSheet)}
+            commonActivities={selectCommonActivities(props.characterSheet)}
+            savingThrows={selectSavingThrows(props.characterSheet)}
+            wallet={selectWallet(props.characterSheet)}
+            combatOptions={selectCombatOptions(props.characterSheet)}
+            effects={selectEffects(props.characterSheet)}
+            properties={selectProperties(props.characterSheet)}
+            retainers={selectRetainers(props.characterSheet)}
+            inventory={[]}
+            languages={[]}
+          />
+        )
       }}
     />
   )
 }
 
-export {
-  context as characterSheetContext
+function selectRetainers(
+  {
+    retainers
+  }: NonNullable<CharacterSheetQueryResponse["characterSheet"]>
+): Retainer[] {
+  return retainers ? retainers.filter(retainer => retainer ? true : false) as Retainer[] : []
 }
 
-export default Foo
+function selectProperties(
+  {
+    properties
+  }: NonNullable<CharacterSheetQueryResponse["characterSheet"]>
+): Property[] {
+  return properties ? properties.filter(property => property ? true : false).map(property => ({ ...property, inventory: [] /* TODO: include inventory */ })) as Property[] : []
+}
+
+function selectEffects(
+  {
+    effects
+  }: NonNullable<CharacterSheetQueryResponse["characterSheet"]>
+): Effect[] {
+  return effects ? effects.filter(effect => effect ? true : false) as Effect[] : []
+}
+
+function selectCombatOptions(
+  {
+    parry,
+    improvedParry,
+    press,
+    standard,
+    defensive
+  }: NonNullable<CharacterSheetQueryResponse["characterSheet"]>
+): CombatOptions {
+  return {
+    parry,
+    improvedParry,
+    press,
+    standard,
+    defensive
+  }
+}
+
+function selectWallet(
+  {
+    copper,
+    silver,
+    gold
+  }: NonNullable<CharacterSheetQueryResponse["characterSheet"]>
+): Wallet {
+  return {
+    copper,
+    silver,
+    gold
+  }
+}
+
+function selectSavingThrows(
+  {
+    paralyze,
+    poison,
+    breathWeapon,
+    magic,
+    magicalDevice
+  }: NonNullable<CharacterSheetQueryResponse["characterSheet"]>
+): SavingThrows {
+  return {
+    paralyze,
+    poison,
+    breathWeapon,
+    magic,
+    magicalDevice
+  }
+}
+
+function selectAttributes(
+  {
+    charisma,
+    constitution,
+    dexterity,
+    intelligence,
+    strength,
+    wisdom
+  }: NonNullable<CharacterSheetQueryResponse["characterSheet"]>
+): Attributes {
+  return {
+    charisma,
+    constitution,
+    dexterity,
+    intelligence,
+    strength,
+    wisdom
+  }
+}
+
+function selectInfo(
+  {
+    name,
+    experience,
+    class: className,
+    race,
+    age,
+    gender,
+    alignment,
+    attackBonus,
+    currentHp,
+    maxHp,
+    surpriseChance
+  }: NonNullable<CharacterSheetQueryResponse["characterSheet"]>
+): Info {
+  return {
+    name,
+    experience,
+    class: className,
+    race,
+    age,
+    gender,
+    alignment,
+    attackBonus,
+    currentHp,
+    maxHp,
+    surpriseChance
+  }
+}
+
+function selectCommonActivities(
+  {
+    architecture,
+    bushcraft,
+    climbing,
+    languages,
+    openDoors,
+    search,
+    sleightOfHand,
+    sneakAttack,
+    stealth,
+    tinkering,
+  }: NonNullable<CharacterSheetQueryResponse["characterSheet"]>
+): CommonActivities {
+  return {
+    architecture,
+    bushcraft,
+    climbing,
+    languages,
+    openDoors,
+    search,
+    sleightOfHand,
+    sneakAttack,
+    stealth,
+    tinkering,
+  }
+}
+
+export default Query
+
+var query = graphql`
+  query CharacterSheetQuery($id: String!) {
+    characterSheet(id: $id) {
+      id
+      name
+      experience
+      class
+      race
+      age
+      gender
+      alignment
+      attackBonus
+      currentHp
+      maxHp
+      surpriseChance
+      paralyze
+      poison
+      breathWeapon
+      magicalDevice
+      magic
+      charisma
+      constitution
+      dexterity
+      intelligence
+      strength
+      wisdom
+      architecture
+      bushcraft
+      climbing
+      languages
+      openDoors
+      search
+      sleightOfHand
+      sneakAttack
+      stealth
+      tinkering
+      copper
+      silver
+      gold
+      standard
+      parry
+      improvedParry
+      press
+      defensive
+      effects {
+        id
+        method
+        target
+        type
+        value
+      }
+      retainers {
+        class
+        hitpoints
+        id
+        level
+        name
+        position
+        share
+        wage
+      }
+      properties {
+        description
+        id
+        location
+        name
+        rent
+        value
+      }
+    }
+  }
+`

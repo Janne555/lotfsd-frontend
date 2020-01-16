@@ -1,5 +1,4 @@
 import { useState, useLayoutEffect, useContext } from 'react'
-import { characterSheetContext } from '../Components/CharacterSheet/CharacterSheet'
 
 function useScreenResizeEvent(condition: (screenWidth: number) => boolean) {
   const [result, setResult] = useState(condition(window.screen.width))
@@ -16,13 +15,8 @@ function useScreenResizeEvent(condition: (screenWidth: number) => boolean) {
   return result
 }
 
-function useCharacterContext() {
-  return useContext(characterSheetContext)
-}
-
 export {
-  useScreenResizeEvent,
-  useCharacterContext
+  useScreenResizeEvent
 }
 
 export * from './user'

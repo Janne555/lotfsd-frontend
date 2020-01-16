@@ -13,9 +13,9 @@ const addRetainer = (
   }: AddRetainerForm,
   characterId: string
 ): AppThunk => dispatch => {
-  const uuid = generate()
+  const id = generate()
   dispatch(_addRetainer({
-    uuid,
+    id,
     characterId,
     name,
     class: className,

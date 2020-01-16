@@ -1,6 +1,4 @@
 import React from 'react'
-import { useSelector, useCharacterContext } from '../../hooks'
-import { selectRetainers } from '../../Redux/selectors'
 import { createUseStyles } from 'react-jss'
 import { RETAINER_KEYS } from '../../constants'
 import NoContent from '../_shared/NoContent'
@@ -38,10 +36,13 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-export default function Retainers() {
+type Props = {
+  retainers: Retainer[]
+  characterName: string
+}
+
+function Retainers({ characterName, retainers }: Props) {
   const classes = useStyles()
-  const { characterId, characterName } = useCharacterContext()
-  const retainers = useSelector(selectRetainers(characterId))
   const history = useHistory()
 
   function handleAddClick() {
@@ -65,7 +66,7 @@ export default function Retainers() {
             <tbody>
               {
                 retainers.map(retainer => (
-                  <tr key={retainer.uuid}>
+                  <tr key={retainer.id}>
                     {
                       RETAINER_KEYS.map(key => <td className={classes[key]} key={key}>{retainer[key]}</td>)
                     }
@@ -79,3 +80,5 @@ export default function Retainers() {
     </ModuleContainer>
   )
 }
+
+export default Retainers

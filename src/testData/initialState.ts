@@ -193,13 +193,13 @@ const singleRetainers: Retainers = {
       name: 'Mordick',
       class: 'Fighter',
       wage: 100,
-      uuid: "1"
+      id: "1"
     },
     {
       name: 'Jeeves',
       class: 'Butler',
       wage: 150,
-      uuid: "2"
+      id: "2"
     }
   ]
 }
@@ -226,7 +226,6 @@ const singleInfo: CharacterId & Info = {
   gender: 'male',
   name: 'Zoidberg',
   race: 'Crab',
-  player: 'Janne',
   attackBonus: 1,
   currentHp: 5,
   maxHp: 10,

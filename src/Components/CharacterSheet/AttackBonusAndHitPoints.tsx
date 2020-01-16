@@ -1,11 +1,8 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import AttackBonus from './AttackBonus'
-import { useSelector, useCharacterContext, useDispatch } from '../../hooks'
-import { selecCurrentHp, selectMaxHp, selectSurpriseChance } from '../../Redux/selectors'
 import DieFace from '../_shared/DieFace'
 import Cube from '../_shared/Cube'
-import { setSurpriseChance } from '../../Redux/actions'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   attackBonusAndHitPointsRoot: {
@@ -36,31 +33,35 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-function AttackBonusAndHitPoints() {
+type Props = {
+  baseAB: number
+  meleeAB: number
+  rangedAB: number
+  maxHp: number
+  currentHp: number
+  surpriseChance: number
+}
+
+function AttackBonusAndHitPoints({ baseAB, currentHp, maxHp, meleeAB, rangedAB, surpriseChance }: Props) {
   const classes = useStyles()
-  const { characterId } = useCharacterContext()
-  const currentHP = useSelector(selecCurrentHp(characterId))
-  const maxHP = useSelector(selectMaxHp(characterId))
-  const supriseChance = useSelector(selectSurpriseChance(characterId))
-  const dispatch = useDispatch()
 
   function handleSurpriseChange(value: number) {
-    dispatch(setSurpriseChance({ characterId, value }))
+    throw Error("TODO")
   }
 
   return (
     <div className={classes.attackBonusAndHitPointsRoot}>
-      <AttackBonus />
+      <AttackBonus baseAB={baseAB} meleeAB={meleeAB} rangedAB={rangedAB} />
       <div className={classes.surpriseChance}>
         <h3>Surprise Chance</h3>
         <div className={classes.surpriseValue}>
-          <DieFace value={supriseChance} onValueChange={handleSurpriseChange} />
+          <DieFace value={surpriseChance} onValueChange={handleSurpriseChange} />
         </div>
       </div>
       <div className={classes.hitpoints}>
         <h4>Max HP</h4>
-        <Cube>{maxHP}</Cube>
-        <Cube>{currentHP}</Cube>
+        <Cube>{maxHp}</Cube>
+        <Cube>{currentHp}</Cube>
         <h4>Current HP</h4>
       </div>
     </div>

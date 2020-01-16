@@ -1,6 +1,4 @@
 import React from 'react'
-import { useSelector, useCharacterContext } from '../../hooks'
-import { selectCombatOptions } from '../../Redux/selectors'
 import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles((theme: Theme) => ({
@@ -14,11 +12,8 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-export default function CombatOptions() {
+export default function CombatOptions({ defensive, improvedParry, parry, press, standard }: CombatOptions) {
   const classes = useStyles()
-  const { characterId } = useCharacterContext()
-  const { defensive, parry, press, standard, improvedParry } = useSelector(selectCombatOptions(characterId))
-
   return (
     <div className={classes.combatOptions}>
       <h2>Combat Options</h2>

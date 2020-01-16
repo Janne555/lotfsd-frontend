@@ -1,12 +1,9 @@
 import React from 'react'
-import { useSelector, useCharacterContext, useDispatch } from '../../hooks'
 import { createUseStyles } from 'react-jss'
 import RotatedCube from '../_shared/RotatedCube'
-import { selectBaseAttackBonus, selectMeleeAttackBonus, selectRangedAttackBonus } from '../../Redux/selectors'
 import { TITLES } from '../../constants'
 import Input from '../_shared/Input'
 import { Validator } from '../../services'
-import { setAttackBonus } from '../../Redux/actions'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   attackBonus: {
@@ -22,12 +19,15 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-function AttackBonus() {
+
+type Props = {
+  baseAB: number
+  meleeAB: number
+  rangedAB: number
+}
+
+function AttackBonus({ baseAB, meleeAB, rangedAB }: Props) {
   const classes = useStyles()
-  const { characterId } = useCharacterContext()
-  const baseAB = useSelector(selectBaseAttackBonus(characterId))
-  const meleeAB = useSelector(selectMeleeAttackBonus(characterId))
-  const rangedAB = useSelector(selectRangedAttackBonus(characterId))
 
   return (
     <div className={classes.attackBonus}>
@@ -63,13 +63,10 @@ type SubProps = {
 
 function SingleBonus({ index, value, title, base }: SubProps) {
   const classes = useSubStyles(index)
-  const dispatch = useDispatch()
-  const { characterId } = useCharacterContext()
 
   function handleChange(value: string) {
-    dispatch(setAttackBonus({ value: Number(value), characterId }))
+    throw Error("TODO")
   }
-
 
   return (
     <>

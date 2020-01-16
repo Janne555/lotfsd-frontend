@@ -1,5 +1,5 @@
 import React from 'react'
-import { hasKey, calculateSavingThrows, isKeyOfSavingThrows } from '../../services'
+import { isKeyOfSavingThrows } from '../../services'
 import SavingThrow from './SavingThrow'
 import { createUseStyles } from 'react-jss'
 
@@ -33,7 +33,7 @@ function SavingThrows({ savingThrows }: Props) {
       <div className={classes.list}>
         {
           Object.entries(savingThrows).map(([name, value]) => (
-            isKeyOfSavingThrows(name) && <SavingThrow key={name} name={name} value={[4,4]} />
+            isKeyOfSavingThrows(name) && <SavingThrow key={name} name={name} value={[4, 4]} />
           ))
         }
       </div>

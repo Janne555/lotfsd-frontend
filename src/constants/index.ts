@@ -55,7 +55,7 @@ const BASE_ARMOR_CLASS = 12
 
 const MONEY = 'Money'
 
-const RETAINER_KEYS: (keyof Omit<Retainer, 'uuid'>)[] = [
+const RETAINER_KEYS: (keyof Omit<Retainer, 'id'>)[] = [
   "name",
   "position",
   "class",

@@ -176,7 +176,7 @@ type Retainer = {
   hitpoints?: number
   wage?: number
   share?: number
-  uuid: string
+  id: string
 }
 
 type CombatOptions = {
@@ -195,7 +195,6 @@ type Info = {
   age: number
   gender: string
   alignment: string
-  player: string
   attackBonus: number
   currentHp: number
   maxHp: number
@@ -227,21 +226,6 @@ type NormalizedCharacterSheet = {
   combatOptions: Normalized<CharacterId & CombatOptions>
   info: Normalized<CharacterId & Info>
   properties: Normalized<Properties>
-}
-
-type CharacterSheet = Info & {
-  name: string
-  id: string
-  attributes: Attributes
-  savingThrows: SavingThrows
-  inventory: ItemInstance[]
-  // effects: Effect[]
-  commonActivities: CommonActivities
-  wallet: Wallet
-  // languages: Language[]
-  // retainers: Retainer[]
-  combatOptions: CombatOptions
-  properties: Property[]
 }
 
 type UserData = {

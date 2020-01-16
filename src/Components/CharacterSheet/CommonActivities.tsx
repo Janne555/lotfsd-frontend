@@ -1,11 +1,8 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { useSelector, useCharacterContext, useDispatch } from '../../hooks'
-import { selectCommonActivities } from '../../Redux/selectors'
 import DieFace from '../_shared/DieFace'
 import { hasKey } from '../../services'
 import { COMMON_ACTIVITY_TITLES } from '../../constants'
-import { setCommonActivityValue } from '../../Redux/actions'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   root: {
@@ -21,23 +18,26 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-function CommonActivities() {
-  const classes = useStyles()
-  const { characterId } = useCharacterContext()
-  const commonActivities = useSelector(selectCommonActivities(characterId))
+type Props = {
+  commonActivities: CommonActivities
+}
 
-  return (
-    <div className={classes.root}>
-      <h2>Common Activities</h2>
-      <div className={classes.activities}>
-        {
-          Object.entries(commonActivities).map(([name, { base, modified }]) => (
-            hasKey(commonActivities, name) && <Activity key={name} name={name} base={base} modified={modified} />
-          ))
-        }
-      </div>
-    </div>
-  )
+function CommonActivities({ commonActivities }: Props) {
+  const classes = useStyles()
+  throw Error("TODO")
+
+  // return (
+  //   <div className={classes.root}>
+  //     <h2>Common Activities</h2>
+  //     <div className={classes.activities}>
+  //       {/* {
+  //         Object.entries(commonActivities).map(([name, { base, modified }]) => (
+  //           hasKey(commonActivities, name) && <Activity key={name} name={name} base={base} modified={modified} />
+  //         ))
+  //       } */}
+  //     </div>
+  //   </div>
+  // )
 }
 
 const useSubStyles = createUseStyles({
@@ -58,11 +58,9 @@ type SubProps = {
 
 function Activity({ name, base, modified }: SubProps) {
   const classes = useSubStyles()
-  const dispatch = useDispatch()
-  const { characterId } = useCharacterContext()
 
   function handleChange(value: number) {
-    dispatch(setCommonActivityValue({ activity: name, characterId, value: value - (modified - base) }))
+    throw Error("TODO")
   }
 
   return (

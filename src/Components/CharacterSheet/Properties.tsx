@@ -1,8 +1,6 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import ModuleContainer from '../_shared/ModuleContainer'
-import { useSelector, useCharacterContext } from '../../hooks'
-import { selectProperties } from '../../Redux/selectors'
 import { useHistory } from 'react-router-dom'
 
 const useStyles = createUseStyles((theme: Theme) => ({
@@ -20,10 +18,13 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-function Properties() {
+type Props = {
+  properties: Property[]
+  characterName: string
+}
+
+function Properties({ characterName, properties }: Props) {
   const classes = useStyles()
-  const { characterId, characterName } = useCharacterContext()
-  const properties = useSelector(selectProperties(characterId))
   const history = useHistory()
 
   function handleAdd() {
