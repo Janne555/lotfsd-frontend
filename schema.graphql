@@ -34,8 +34,9 @@ type CharacterSheet {
   parry: Boolean!
   poison: Int!
   press: Boolean!
+  properties: [Property]
   race: String!
-  retainers: [Property]
+  retainers: [Retainer]
   search: Int!
   silver: Int!
   sleightOfHand: Int!
