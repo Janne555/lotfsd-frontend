@@ -1,5 +1,5 @@
 import React from 'react'
-import Attributes, { Props as AttributeProps } from './Attributes'
+import Attributes from './Attributes'
 import AttackBonusAndHitPoints from './AttackBonusAndHitPoints'
 import ArmorClassAndCombatOptions from './ArmorClassAndCombatOptions'
 import CommonActivities from './CommonActivities'
@@ -17,6 +17,7 @@ import { QueryRenderer } from 'react-relay'
 import { useRelayEnvironment } from 'relay-hooks'
 import graphql from 'babel-plugin-relay/macro'
 import { CharacterSheetQuery, CharacterSheetQueryResponse } from '../../__generated__/CharacterSheetQuery.graphql'
+import SavingThrows from './SavingThrows'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
@@ -50,15 +51,43 @@ type Props = {
   combatOptions: CombatOptions
   info: Info
   properties: Property[]
+  maxHp: number
+  currentHp: number
+  surpriseChance: number
 }
 
-function CharacterSheet({ attributes }: Props) {
+function CharacterSheet({
+  attributes,
+  savingThrows,
+  combatOptions,
+  commonActivities,
+  effects,
+  info,
+  inventory,
+  languages,
+  properties,
+  retainers,
+  wallet,
+  currentHp,
+  maxHp,
+  surpriseChance
+}: Props) {
   const classes = useStyles()
   // const isMobile = useScreenResizeEvent(width => width < 1100)
 
   return (
     <div className={classes.characterSheet}>
+      <InfoBar info={info} />
       <Attributes attributes={attributes} />
+      <SavingThrows savingThrows={savingThrows} />
+      {/* <AttackBonusAndHitPoints baseAB={baseAB} currentHp={currentHp} maxHp={maxHp} meleeAB={meleeAB} rangedAB={rangedAB} surpriseChance={surpriseChance} /> */}
+      {/* <ArmorClassAndCombatOptions baseAC={baseAC} combatOptions={combatOptions} rangedAC={rangedAC} surprisedAC={surprisedAC} withoutShieldAC={withoutShieldAC} /> */}
+      {/* <CommonActivities commonActivities={commonActivities} /> */}
+      {/* <EquipmentList /> */}
+      {/* <Encumbrance /> */}
+      <Retainers characterName={info.name} retainers={retainers} />
+      <Languages characterName={info.name} languages={languages} />
+      <Properties characterName={info.name} properties={properties} />
     </div>
   )
 
@@ -108,6 +137,9 @@ function Query({ characterId }: QueryProps) {
             effects={selectEffects(props.characterSheet)}
             properties={selectProperties(props.characterSheet)}
             retainers={selectRetainers(props.characterSheet)}
+            currentHp={props.characterSheet.currentHp}
+            maxHp={props.characterSheet.maxHp}
+            surpriseChance={props.characterSheet.surpriseChance}
             inventory={[]}
             languages={[]}
           />
