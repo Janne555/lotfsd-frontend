@@ -24,6 +24,7 @@ type CharacterSheet {
   id: String!
   improvedParry: Boolean!
   intelligence: Int!
+  inventory: [ItemInstance]
   languages: Int!
   magic: Int!
   magicalDevice: Int!
