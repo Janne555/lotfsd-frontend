@@ -18,6 +18,7 @@ import { useRelayEnvironment } from 'relay-hooks'
 import graphql from 'babel-plugin-relay/macro'
 import { CharacterSheetQuery, CharacterSheetQueryResponse } from '../../__generated__/CharacterSheetQuery.graphql'
 import SavingThrows from './SavingThrows'
+import { calculateAttributeModifiers } from '../../services'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
@@ -78,7 +79,7 @@ function CharacterSheet({
   return (
     <div className={classes.characterSheet}>
       <InfoBar info={info} />
-      <Attributes attributes={attributes} />
+      <Attributes attributes={attributes} modifiers={calculateAttributeModifiers(attributes)} />
       <SavingThrows savingThrows={savingThrows} />
       {/* <AttackBonusAndHitPoints baseAB={baseAB} currentHp={currentHp} maxHp={maxHp} meleeAB={meleeAB} rangedAB={rangedAB} surpriseChance={surpriseChance} /> */}
       {/* <ArmorClassAndCombatOptions baseAC={baseAC} combatOptions={combatOptions} rangedAC={rangedAC} surprisedAC={surprisedAC} withoutShieldAC={withoutShieldAC} /> */}
@@ -90,19 +91,6 @@ function CharacterSheet({
       <Properties characterName={info.name} properties={properties} />
     </div>
   )
-
-  // return (
-  //   <context.Provider value={{ characterName, characterId }}>
-  //     <div className={classes.characterSheet}>
-  //       <InfoBar />
-  //       {isMobile
-  //         ? MOBILE_ORDER.map(key => MODULE_INDEX[key]({ attributes, modifiers, onChange: handleAttributeChange }))
-  //         : BASE_ORDER.map(key => MODULE_INDEX[key]({ attributes, modifiers, onChange: handleAttributeChange }))
-  //       }
-  //     </div>
-  //     <SpeedDial />
-  //   </context.Provider>
-  // )
 }
 
 

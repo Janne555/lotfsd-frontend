@@ -6,7 +6,7 @@ import Select from '@material-ui/core/NativeSelect'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
-import { randomAttributes, mongoObjectId } from '../../services'
+import { randomAttributes, mongoObjectId, calculateAttributeModifiers } from '../../services'
 import { useHistory } from 'react-router-dom'
 import graphql from 'babel-plugin-relay/macro'
 import { CharacterSheetInput, CharacterCreatorMutationVariables, CharacterCreatorMutation } from '../../__generated__/CharacterCreatorMutation.graphql'
@@ -107,7 +107,7 @@ function CharacterCreator() {
   return (
     <div className={classes.characterCreator}>
       <form className={classes.form} onSubmit={handleSubmit}>
-        <Attributes attributes={attributes} onChange={(key, value) => setAttributes({ ...attributes, [key]: value })} />
+        <Attributes attributes={attributes} onChange={(key, value) => setAttributes({ ...attributes, [key]: value })} modifiers={calculateAttributeModifiers(attributes)} />
         <Button onClick={handleRandomize}>Randomize</Button>
         {/* TODO disallow url unsafe characters */}
         <TextField className={classes.field} id="name" label="Name" required />
