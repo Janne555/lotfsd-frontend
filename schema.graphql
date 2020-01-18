@@ -153,7 +153,8 @@ The `Milliseconds` scalar type represents a period of time represented as the to
 scalar Milliseconds
 
 type Mutation {
-  createCharacterSheet(characterSheet: CharacterSheetInput!): CharacterSheet
+  createCharacterSheet(characterSheet: CharacterSheetInput!): [CharacterSheet!]
+  deleteCharacterSheet(characterSheetId: String!): [CharacterSheet!]
 }
 
 type Property {
@@ -178,7 +179,7 @@ input PropertyInput {
 
 type Query {
   characterSheet(id: String = null): CharacterSheet
-  characterSheets: [CharacterSheet]
+  characterSheets: [CharacterSheet!]
 }
 
 type Retainer {
