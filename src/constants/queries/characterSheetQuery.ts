@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost'
 
-var characterSheetQuery = gql`
+var CHARACTER_SHEET_QUERY = gql`
   query CharacterSheetQuery($id: String!) {
     characterSheet(id: $id) {
       id
@@ -73,4 +73,4 @@ var characterSheetQuery = gql`
   }
 `
 
-export default characterSheetQuery
+export { CHARACTER_SHEET_QUERY }

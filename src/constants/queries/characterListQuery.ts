@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost'
 
-const characterListQuery = gql`
+const CHARACTER_LIST_QUERY = gql`
 query CharacterListQuery {
   characterSheets {
     name
@@ -10,4 +10,4 @@ query CharacterListQuery {
 }
 `
 
-export default characterListQuery
+export { CHARACTER_LIST_QUERY }

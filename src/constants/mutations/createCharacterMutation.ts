@@ -1,11 +1,13 @@
 import { gql } from 'apollo-boost'
 
-const CreateCharacterMutation = gql`
+const CREATE_CHARACTER_MUTATION = gql`
   mutation CharacterCreatorMutation($characterSheet: CharacterSheetInput!) {
     createCharacterSheet(characterSheet: $characterSheet) {
+      name
+      class
       id
     }
   }
 `
 
-export default CreateCharacterMutation
+export { CREATE_CHARACTER_MUTATION }

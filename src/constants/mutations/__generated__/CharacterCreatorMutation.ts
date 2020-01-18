@@ -10,11 +10,13 @@ import { CharacterSheetInput } from "./../../../../__generated__/globalTypes";
 
 export interface CharacterCreatorMutation_createCharacterSheet {
   __typename: "CharacterSheet";
+  name: string;
+  class: string;
   id: string;
 }
 
 export interface CharacterCreatorMutation {
-  createCharacterSheet: CharacterCreatorMutation_createCharacterSheet[] | null;
+  createCharacterSheet: CharacterCreatorMutation_createCharacterSheet;
 }
 
 export interface CharacterCreatorMutationVariables {

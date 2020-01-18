@@ -8,7 +8,7 @@ import Properties from './Properties'
 import SavingThrows from './SavingThrows'
 import { calculateAttributeModifiers } from '../../services'
 import { useQuery } from '@apollo/react-hooks'
-import characterSheetQuery from '../../constants/queries/characterSheetQuery'
+import { CHARACTER_SHEET_QUERY } from '../../constants'
 import { CharacterSheetQuery, CharacterSheetQueryVariables, CharacterSheetQuery_characterSheet } from '../../constants/queries/__generated__/CharacterSheetQuery'
 
 const useStyles = createUseStyles((theme: Theme) => ({
@@ -38,7 +38,7 @@ type Props = {
 
 function CharacterSheet({ characterId, characterName }: Props) {
   const classes = useStyles()
-  const { data } = useQuery<CharacterSheetQuery, CharacterSheetQueryVariables>(characterSheetQuery, { variables: { id: characterId } })
+  const { data } = useQuery<CharacterSheetQuery, CharacterSheetQueryVariables>(CHARACTER_SHEET_QUERY, { variables: { id: characterId } })
   // const isMobile = useScreenResizeEvent(width => width < 1100)
 
   if (!data || !data.characterSheet) {

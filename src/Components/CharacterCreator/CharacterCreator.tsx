@@ -7,9 +7,10 @@ import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
 import { randomAttributes, mongoObjectId, calculateAttributeModifiers } from '../../services'
-import { useHistory } from 'react-router-dom'
-import createCharacterMutation from '../../constants/mutations/createCharacterMutation'
+import { Redirect } from 'react-router-dom'
+import { CREATE_CHARACTER_MUTATION, CHARACTER_LIST_QUERY } from '../../constants'
 import { CharacterCreatorMutation, CharacterCreatorMutationVariables } from '../../constants/mutations/__generated__/CharacterCreatorMutation'
+import { CharacterListQuery } from '../../constants/queries/__generated__/characterListQuery'
 import { CHARACTER_CLASSES } from '../../constants/characterClasses'
 import { useMutation } from '@apollo/react-hooks'
 
@@ -35,8 +36,6 @@ const useStyles = createUseStyles((theme: Theme) => ({
     textAlign: 'center'
   }
 }))
-
-
 
 function generateVariables(formElements: NewCharacterForm, characterId: string): CharacterCreatorMutationVariables {
   const className = formElements.class.value as Classes
@@ -76,7 +75,21 @@ function CharacterCreator() {
   const classes = useStyles()
   const [attributes, setAttributes] = useState<Attributes>({ charisma: 0, constitution: 0, dexterity: 0, intelligence: 0, strength: 0, wisdom: 0 })
   const [attributeError, setAttributeError] = useState<string>()
-  const [mutate, { }] = useMutation<CharacterCreatorMutation>(createCharacterMutation)
+  const [mutate, { called, loading, data, error }] = useMutation<CharacterCreatorMutation, CharacterCreatorMutationVariables>(CREATE_CHARACTER_MUTATION, {
+    update(cache, { data }) {
+      if (data) {
+        const { characterSheets = [] } = cache.readQuery<CharacterListQuery>({ query: CHARACTER_LIST_QUERY }) ?? {}
+        cache.writeQuery<CharacterListQuery, string>({
+          query: CHARACTER_LIST_QUERY,
+          data: { characterSheets: characterSheets?.concat(data.createCharacterSheet) ?? [data.createCharacterSheet] }
+        })
+      }
+    }
+  })
+
+  if (data?.createCharacterSheet) {
+    return <Redirect to={`/characters/${data.createCharacterSheet.name}`} />
+  }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     const target = (e.target as unknown) as { elements: NewCharacterForm }
@@ -90,7 +103,8 @@ function CharacterCreator() {
     }
 
     mutate({
-      variables: generateVariables(target.elements, mongoObjectId())
+      variables: generateVariables(target.elements, mongoObjectId()),
+
     })
   }
 

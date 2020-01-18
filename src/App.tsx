@@ -11,7 +11,7 @@ import ItemIndex from './Components/ItemIndex/ItemIndex'
 import ItemCreator from './Components/ItemIndex/ItemCreator'
 import { useLogin } from './hooks'
 import { useQuery } from '@apollo/react-hooks'
-import query from './constants/queries/characterListQuery'
+import { CHARACTER_LIST_QUERY } from './constants'
 import { CharacterListQuery } from './constants/queries/__generated__/characterListQuery'
 
 const useStyles = createUseStyles((theme: Theme) => ({
@@ -43,7 +43,7 @@ function App() {
   const classes = useStyles()
   const characterNameMatch = useRouteMatch<{ character: string }>('/characters/:character')
   const actionMatch = useRouteMatch<{ action: string }>('/characters/:character/:action')
-  const { data } = useQuery<CharacterListQuery>(query)
+  const { data } = useQuery<CharacterListQuery>(CHARACTER_LIST_QUERY)
   const { logout } = useLogin()
 
   if (!data || !data.characterSheets) {
