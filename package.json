@@ -8,11 +8,6 @@
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.37",
     "@reduxjs/toolkit": "^1.1.0",
-    "@types/node": "12.12.12",
-    "@types/react": "16.9.12",
-    "@types/react-dom": "16.9.4",
-    "@types/relay-runtime": "^8.0.0",
-    "@types/uuid": "^3.4.6",
     "apollo-boost": "^0.4.7",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",
@@ -31,9 +26,6 @@
     "react-scripts": "3.3.0",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
-    "relay-compiler": "^8.0.0",
-    "relay-hooks": "^3.0.0-rc.1",
-    "relay-runtime": "^8.0.0",
     "shortid": "^2.2.15",
     "typescript": "3.7.2"
   },
@@ -41,8 +33,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "relay": "relay-compiler --src ./src --schema ./schema.graphql --language typescript --extensions ts tsx --artifactDirectory ./src/__generated__"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -72,15 +63,12 @@
     "@types/react-router-dom": "^5.1.3",
     "@types/shortid": "0.0.29",
     "@types/webpack-env": "^1.14.1",
+    "@types/node": "12.12.12",
+    "@types/react": "16.9.12",
+    "@types/react-dom": "16.9.4",
+    "@types/uuid": "^3.4.6",
     "babel-plugin-relay": "^8.0.0",
     "graphql": "^14.5.8",
-    "relay-compiler-language-typescript": "^10.1.3",
-    "relay-config": "^8.0.0",
     "ts-jest": "^24.2.0"
-  },
-  "babelMacros": {
-    "relay": {
-      "artifactDirectory": "./src/__generated__"
-    }
   }
 }

@@ -7,7 +7,6 @@ import { Provider } from 'react-redux'
 import { ThemeProvider } from 'react-jss'
 import { theme } from './styles/theme'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { RelayEnvironmentProvider } from 'relay-hooks'
 import { environment, ApolloClient } from './services'
 import { useLoginStatus, LoginProvider } from './hooks'
 import Login from './Components/Interface/Login'
@@ -29,13 +28,11 @@ ReactDOM.render(
   <Router>
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <RelayEnvironmentProvider environment={environment}>
           <ApolloProvider client={ApolloClient}>
             <LoginProvider>
               <Foo />
             </LoginProvider>
           </ApolloProvider>
-        </RelayEnvironmentProvider>
       </Provider>
     </ThemeProvider>
   </Router >,
