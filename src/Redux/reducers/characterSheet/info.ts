@@ -8,22 +8,6 @@ const { actions, reducer } = createSlice({
   name: 'info',
   initialState: characterSheet.info,
   reducers: {
-    setAttackBonus(state, action: AppAction<{ value: number }>) {
-      const { characterId, value } = action.payload
-      state.byId[characterId].attackBonus = value
-    },
-    setCurrentHp(state, action: AppAction<{ value: number }>) {
-      const { characterId, value } = action.payload
-      state.byId[characterId].currentHp = value
-    },
-    setMaxHp(state, action: AppAction<{ value: number }>) {
-      const { characterId, value } = action.payload
-      state.byId[characterId].maxHp = value
-    },
-    setSurpriseChance(state, action: AppAction<{ value: number }>) {
-      const { characterId, value } = action.payload
-      state.byId[characterId].surpriseChance = value
-    }
   },
   extraReducers: acmBuilder => {
     acmBuilder.addCase(createCharacter, (state, action) => {
@@ -37,7 +21,5 @@ const { actions, reducer } = createSlice({
     })
   }
 })
-
-export const { setAttackBonus, setCurrentHp, setMaxHp, setSurpriseChance } = actions
 
 export default reducer

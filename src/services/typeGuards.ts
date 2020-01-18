@@ -18,12 +18,8 @@ function isCommonActivityEffect(effect: Effect): effect is CommonActivityEffect 
   return effect.type === "commonActivityEffect"
 }
 
-function areOnlyAttributes(obj: any): obj is Attributes {
-  if (Object.keys(obj).length !== 6) {
-    return false
-  }
-
-  return ['charisma', 'constitution', 'dexterity', 'intelligence', 'strength', 'wisdom'].every(key => key in obj)
+function isKeyOfAttributes(obj: any): obj is keyof Attributes {
+  return ['charisma', 'constitution', 'dexterity', 'intelligence', 'strength', 'wisdom'].some(key => key === obj)
 }
 
 function isItemType(s: any): s is Item['type'] {
@@ -62,7 +58,7 @@ export {
   isAttributeModifierEffect,
   isArmorClassEffect,
   isCommonActivityEffect,
-  areOnlyAttributes,
+  isKeyOfAttributes,
   isItemType,
   isKeyOfSavingThrows,
   isCharacter

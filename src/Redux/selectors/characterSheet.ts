@@ -1,6 +1,5 @@
 import {
   calculateSavingThrows,
-  calculateMeleeAttackBonus,
   isAttributeModifierEffect,
   calculateAttributeModifiers,
   isArmorClassEffect,
@@ -45,30 +44,6 @@ const attributeModifiers = (characterId: string) =>
 const savingThrows = (characterId: string) =>
   (state: RootState): Record<keyof SavingThrows, [number, number]> =>
     calculateSavingThrows(state.characterSheet.savingThrows.byId[characterId], attributeModifiers(characterId)(state))
-
-const maxHp = (characterId: string) =>
-  (state: RootState): number =>
-    state.characterSheet.info.byId[characterId].maxHp
-
-const currentHp = (characterId: string) =>
-  (state: RootState): number =>
-    state.characterSheet.info.byId[characterId].currentHp
-
-const baseAttackBonus = (characterId: string) =>
-  (state: RootState): number =>
-    state.characterSheet.info.byId[characterId].attackBonus
-
-const meleeAttackBonus = (characterId: string) =>
-  (state: RootState): number =>
-    calculateMeleeAttackBonus(baseAttackBonus(characterId)(state), attributeModifiers(characterId)(state).strength)
-
-const rangedAttackBonus = (characterId: string) =>
-  (state: RootState): number =>
-    calculateMeleeAttackBonus(baseAttackBonus(characterId)(state), attributeModifiers(characterId)(state).dexterity)
-
-const surpriseChance = (characterId: string) =>
-  (state: RootState): number =>
-    state.characterSheet.info.byId[characterId].surpriseChance
 
 const baseArmorClass = (characterId: string) =>
   (state: RootState): number =>
@@ -124,16 +99,7 @@ const retainers = (characterId: string) =>
 const combatOptions = (characterId: string) =>
   (state: RootState): CharacterId & CombatOptions =>
     state.characterSheet.combatOptions.byId[characterId]
-
-const info = (characterId: string) =>
-  (state: RootState): InfoBarData => {
-    return omit(state.characterSheet.info.byId[characterId], ['maxHp', 'currentHp', 'attackBonus', 'surpriseChance', 'characterId'])
-  }
-
-const className = (characterId?: string) =>
-  (state: RootState): string | undefined =>
-    characterId ? state.characterSheet.info.byId[characterId].class : undefined
-
+    
 const properties = (characterId: string) =>
   (state: RootState): Property[] =>
     state.characterSheet.properties.byId[characterId].properties
@@ -141,12 +107,6 @@ const properties = (characterId: string) =>
 export {
   attributes as selectAttributes,
   savingThrows as selectSavingThrows,
-  currentHp as selecCurrentHp,
-  maxHp as selectMaxHp,
-  meleeAttackBonus as selectMeleeAttackBonus,
-  rangedAttackBonus as selectRangedAttackBonus,
-  baseAttackBonus as selectBaseAttackBonus,
-  surpriseChance as selectSurpriseChance,
   baseArmorClass as selectBaseArmorClass,
   attributeModifierEffects as selectAttributeModifierEffects,
   attributeModifiers as selectAttributeModifiers,
@@ -163,7 +123,5 @@ export {
   languages as selectLanguages,
   retainers as selectRetainers,
   combatOptions as selectCombatOptions,
-  info as selectInfo,
-  className as selectClass,
   properties as selectProperties
 }

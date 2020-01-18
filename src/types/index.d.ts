@@ -195,10 +195,6 @@ type Info = {
   age: number
   gender: string
   alignment: string
-  attackBonus: number
-  currentHp: number
-  maxHp: number
-  surpriseChance: number
 }
 
 

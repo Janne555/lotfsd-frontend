@@ -1,12 +1,12 @@
 import { BASE_ARMOR_CLASS, MONEY } from "../constants"
-import { hasKey } from "./typeGuards"
+import { hasKey, isKeyOfAttributes } from "./typeGuards"
 import partition from 'lodash/partition'
 import { generate } from 'shortid'
 import random from 'lodash/random'
 
 function calculateAttributeModifiers(attributes: Attributes, effects?: AttributeModifierEffect[]): AttributeModifiers {
   return Object.keys(attributes).reduce((attributes, key) => {
-    hasKey(attributes, key) && (attributes[key] = calculateModifier(attributes[key]) + sumOfEffectsFor(key))
+    isKeyOfAttributes(key) && (attributes[key] = calculateModifier(attributes[key]) + sumOfEffectsFor(key))
     return attributes
   }, { ...attributes })
 

@@ -96,7 +96,7 @@ const link = new HttpLink(
 const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext({
     headers: {
-      Authoriation: `Bearer ${localStorage.getItem('token')}`
+      Authorization: `Bearer ${localStorage.getItem('token')}`
     }
   })
 
@@ -105,7 +105,8 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 
 const client = new ApolloClient({
   link: concat(authMiddleware, link),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  connectToDevTools: true
 })
 
 export {

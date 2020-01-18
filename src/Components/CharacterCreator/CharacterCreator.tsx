@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button'
 import { randomAttributes, mongoObjectId, calculateAttributeModifiers } from '../../services'
 import { useHistory } from 'react-router-dom'
 import graphql from 'babel-plugin-relay/macro'
-import { CharacterSheetInput, CharacterCreatorMutationVariables, CharacterCreatorMutation } from '../../__generated__/CharacterCreatorMutation.graphql'
 import { CHARACTER_CLASSES } from '../../constants/characterClasses'
 import { useMutation } from 'relay-hooks'
 
@@ -44,10 +43,10 @@ const mutation = graphql`
   }
 `
 
-function generateVariables(formElements: NewCharacterForm, characterId: string): CharacterCreatorMutationVariables {
+function generateVariables(formElements: NewCharacterForm, characterId: string) {
   const className = formElements.class.value as Classes
 
-  const characterSheet: CharacterSheetInput = {
+  const characterSheet = {
     charisma: Number(formElements.charisma.value),
     dexterity: Number(formElements.dexterity.value),
     intelligence: Number(formElements.intelligence.value),
@@ -82,7 +81,7 @@ function CharacterCreator() {
   const classes = useStyles()
   const [attributes, setAttributes] = useState<Attributes>({ charisma: 0, constitution: 0, dexterity: 0, intelligence: 0, strength: 0, wisdom: 0 })
   const [attributeError, setAttributeError] = useState<string>()
-  const [mutate, { data, loading, error }] = useMutation<CharacterCreatorMutation>(mutation)
+  const [mutate, { data, loading, error }] = useMutation(mutation)
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     const target = (e.target as unknown) as { elements: NewCharacterForm }

@@ -226,10 +226,6 @@ const singleInfo: CharacterId & Info = {
   gender: 'male',
   name: 'Zoidberg',
   race: 'Crab',
-  attackBonus: 1,
-  currentHp: 5,
-  maxHp: 10,
-  surpriseChance: 4
 }
 
 const info = normalize(singleInfo)
