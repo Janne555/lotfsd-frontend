@@ -8,9 +8,10 @@ import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
 import { randomAttributes, mongoObjectId, calculateAttributeModifiers } from '../../services'
 import { useHistory } from 'react-router-dom'
-import graphql from 'babel-plugin-relay/macro'
+import createCharacterMutation from '../../constants/mutations/createCharacterMutation'
+import { CharacterCreatorMutation, CharacterCreatorMutationVariables } from '../../constants/mutations/__generated__/CharacterCreatorMutation'
 import { CHARACTER_CLASSES } from '../../constants/characterClasses'
-import { useMutation } from 'relay-hooks'
+import { useMutation } from '@apollo/react-hooks'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterCreator: {
@@ -35,15 +36,9 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-const mutation = graphql`
-  mutation CharacterCreatorMutation($characterSheet: CharacterSheetInput!) {
-    createCharacterSheet(characterSheet: $characterSheet) {
-      id
-    }
-  }
-`
 
-function generateVariables(formElements: NewCharacterForm, characterId: string) {
+
+function generateVariables(formElements: NewCharacterForm, characterId: string): CharacterCreatorMutationVariables {
   const className = formElements.class.value as Classes
 
   const characterSheet = {
@@ -81,7 +76,7 @@ function CharacterCreator() {
   const classes = useStyles()
   const [attributes, setAttributes] = useState<Attributes>({ charisma: 0, constitution: 0, dexterity: 0, intelligence: 0, strength: 0, wisdom: 0 })
   const [attributeError, setAttributeError] = useState<string>()
-  const [mutate, { data, loading, error }] = useMutation(mutation)
+  const [mutate, { }] = useMutation<CharacterCreatorMutation>(createCharacterMutation)
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     const target = (e.target as unknown) as { elements: NewCharacterForm }
@@ -95,11 +90,7 @@ function CharacterCreator() {
     }
 
     mutate({
-      variables: generateVariables(target.elements, mongoObjectId()),
-      updater: (store) => {
-        console.log(store.getRootField("createCharacterSheet"))
-      },
-      onError: console.error
+      variables: generateVariables(target.elements, mongoObjectId())
     })
   }
 
