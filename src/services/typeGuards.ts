@@ -52,6 +52,23 @@ function isCharacter(obj: unknown): obj is Character {
   return true
 }
 
+function isKeyOfCommonActivities(obj: unknown): obj is keyof CommonActivities {
+  if (typeof obj !== 'string') {
+    return false
+  }
+
+  return ["architecture",
+    "bushcraft",
+    "climbing",
+    "languages",
+    "openDoors",
+    "search",
+    "sleightOfHand",
+    "sneakAttack",
+    "stealth",
+    "tinkering"].some(key => key === obj)
+}
+
 export {
   hasKey,
   isArmor,
@@ -61,5 +78,6 @@ export {
   isKeyOfAttributes,
   isItemType,
   isKeyOfSavingThrows,
-  isCharacter
+  isCharacter,
+  isKeyOfCommonActivities
 }

@@ -329,3 +329,7 @@ type Character = {
   class: string
   id: string
 }
+
+type CommonActivitiesWithModifications = {
+  [P in keyof CommonActivities]: { base: number, modified: number }
+}

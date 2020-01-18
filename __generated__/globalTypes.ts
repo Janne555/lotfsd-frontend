@@ -52,6 +52,49 @@ export interface CharacterSheetInput {
   properties?: (PropertyInput | null)[] | null;
 }
 
+export interface CharacterSheetUpdate {
+  name?: string | null;
+  experience?: number | null;
+  class?: string | null;
+  race?: string | null;
+  age?: number | null;
+  gender?: string | null;
+  alignment?: string | null;
+  attackBonus?: number | null;
+  currentHp?: number | null;
+  maxHp?: number | null;
+  surpriseChance?: number | null;
+  charisma?: number | null;
+  constitution?: number | null;
+  dexterity?: number | null;
+  intelligence?: number | null;
+  strength?: number | null;
+  wisdom?: number | null;
+  paralyze?: number | null;
+  poison?: number | null;
+  breathWeapon?: number | null;
+  magicalDevice?: number | null;
+  magic?: number | null;
+  architecture?: number | null;
+  bushcraft?: number | null;
+  climbing?: number | null;
+  languages?: number | null;
+  openDoors?: number | null;
+  search?: number | null;
+  sleightOfHand?: number | null;
+  sneakAttack?: number | null;
+  stealth?: number | null;
+  tinkering?: number | null;
+  copper?: number | null;
+  silver?: number | null;
+  gold?: number | null;
+  standard?: boolean | null;
+  parry?: boolean | null;
+  improvedParry?: boolean | null;
+  press?: boolean | null;
+  defensive?: boolean | null;
+}
+
 export interface EffectInput {
   type: string;
   target: string;
