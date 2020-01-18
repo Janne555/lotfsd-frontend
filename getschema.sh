@@ -8,6 +8,8 @@ auth="Authorization=Bearer ${token}"
 
 echo $auth
 
-get-graphql-schema --header "${auth}" http://localhost:5000/graphql > schema.graphql
+# get-graphql-schema --header "${auth}" http://localhost:5000/graphql > schema.graphql
+
+apollo client:download-schema --header="${auth}"
 
 echo "got schema"

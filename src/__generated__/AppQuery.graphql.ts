@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* @relayHash 20cb22cdb61cf72f935319b7835cb422 */
+/* @relayHash 662d7bbbb6d6c9b880dd384a1d1253bc */
 
 import { ConcreteRequest } from "relay-runtime";
 export type AppQueryVariables = {};
@@ -8,7 +8,7 @@ export type AppQueryResponse = {
         readonly name: string;
         readonly class: string;
         readonly id: string;
-    } | null> | null;
+    }> | null;
 };
 export type AppQuery = {
     readonly response: AppQueryResponse;

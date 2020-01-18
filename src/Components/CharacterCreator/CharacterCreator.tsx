@@ -82,7 +82,7 @@ function CharacterCreator() {
   const classes = useStyles()
   const [attributes, setAttributes] = useState<Attributes>({ charisma: 0, constitution: 0, dexterity: 0, intelligence: 0, strength: 0, wisdom: 0 })
   const [attributeError, setAttributeError] = useState<string>()
-  const [mutate] = useMutation<CharacterCreatorMutation>(mutation)
+  const [mutate, { data, loading, error }] = useMutation<CharacterCreatorMutation>(mutation)
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     const target = (e.target as unknown) as { elements: NewCharacterForm }
@@ -96,7 +96,11 @@ function CharacterCreator() {
     }
 
     mutate({
-      variables: generateVariables(target.elements, mongoObjectId())
+      variables: generateVariables(target.elements, mongoObjectId()),
+      updater: (store) => {
+        console.log(store.getRootField("createCharacterSheet"))
+      },
+      onError: console.error
     })
   }
 

@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* @relayHash bd24886b2bf1d8673ec051bbf5f87ac8 */
+/* @relayHash 5c9f7e4df909f24353fe94e1a4ba1400 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type CharacterSheetInput = {
@@ -79,9 +79,9 @@ export type CharacterCreatorMutationVariables = {
     characterSheet: CharacterSheetInput;
 };
 export type CharacterCreatorMutationResponse = {
-    readonly createCharacterSheet: {
+    readonly createCharacterSheet: ReadonlyArray<{
         readonly id: string;
-    } | null;
+    }> | null;
 };
 export type CharacterCreatorMutation = {
     readonly response: CharacterCreatorMutationResponse;
@@ -123,7 +123,7 @@ v1 = [
       }
     ],
     "concreteType": "CharacterSheet",
-    "plural": false,
+    "plural": true,
     "selections": [
       {
         "kind": "ScalarField",

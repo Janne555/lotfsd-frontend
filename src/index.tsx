@@ -8,9 +8,10 @@ import { ThemeProvider } from 'react-jss'
 import { theme } from './styles/theme'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { RelayEnvironmentProvider } from 'relay-hooks'
-import { environment } from './services'
+import { environment, ApolloClient } from './services'
 import { useLoginStatus, LoginProvider } from './hooks'
 import Login from './Components/Interface/Login'
+import { ApolloProvider } from '@apollo/react-hooks'
 import 'normalize.css'
 import './index.css'
 
@@ -29,12 +30,14 @@ ReactDOM.render(
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <RelayEnvironmentProvider environment={environment}>
-          <LoginProvider>
-            <Foo />
-          </LoginProvider>
+          <ApolloProvider client={ApolloClient}>
+            <LoginProvider>
+              <Foo />
+            </LoginProvider>
+          </ApolloProvider>
         </RelayEnvironmentProvider>
       </Provider>
     </ThemeProvider>
-  </Router>,
+  </Router >,
   document.getElementById('root'));
 serviceWorker.unregister();

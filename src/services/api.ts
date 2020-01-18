@@ -10,6 +10,10 @@ import {
   RequestParameters,
 } from 'relay-runtime'
 import RelayQueryResponseCache from 'relay-runtime/lib/network/RelayQueryResponseCache'
+import { HttpLink } from 'apollo-link-http'
+import { ApolloLink, concat } from 'apollo-link'
+import { ApolloClient } from 'apollo-client'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 
 function setBearer(headers: Headers) {
   const token = window.localStorage.getItem("token")
@@ -66,6 +70,7 @@ const fetchFunction: FetchFunction = async function fetchQuery(
 ) {
   const queryID = operation.name;
   const cachedData = cache.get(queryID, variables);
+  console.log(queryID)
 
   if (cachedData !== null) return cachedData;
 
@@ -82,8 +87,31 @@ const environment = new Environment({
   store: new Store(new RecordSource()),
 })
 
+
+const link = new HttpLink(
+  {
+    uri: `${APIROOT}graphql`
+  })
+
+const authMiddleware = new ApolloLink((operation, forward) => {
+  operation.setContext({
+    headers: {
+      Authoriation: `Bearer ${localStorage.getItem('token')}`
+    }
+  })
+
+  return forward(operation)
+})
+
+const client = new ApolloClient({
+  link: concat(authMiddleware, link),
+  cache: new InMemoryCache()
+})
+
 export {
   get,
   post,
-  environment
+  environment,
+  cache,
+  client as ApolloClient
 }
