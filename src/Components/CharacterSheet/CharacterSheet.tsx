@@ -10,13 +10,17 @@ import {
   calculateAttributeModifiers,
   calculateCommonActivities,
   calculateMeleeAttackBonus,
-  calculateRangedAttackBonus
+  calculateRangedAttackBonus,
+  calculateArmorClass,
+  isArmorClassEffect,
+  isCommonActivityEffect,
 } from '../../services'
 import { useQuery } from '@apollo/react-hooks'
 import { CHARACTER_SHEET_QUERY } from '../../constants'
 import { CharacterSheetQuery, CharacterSheetQueryVariables, CharacterSheetQuery_characterSheet } from '../../constants/queries/__generated__/CharacterSheetQuery'
 import CommonActivities from './CommonActivities'
 import AttackBonusAndHitPoints from './AttackBonusAndHitPoints'
+import ArmorClassAndCombatOptions from './ArmorClassAndCombatOptions'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
@@ -53,9 +57,10 @@ function CharacterSheet({ characterId, characterName }: Props) {
   }
 
   const { characterSheet } = data
+  const armorClassEffects = characterSheet.effects.filter(isArmorClassEffect) as ArmorClassEffect[]
+  const commonActivityEffects = characterSheet.effects.filter(isCommonActivityEffect) as CommonActivityEffect[]
   const attributeModifiers = calculateAttributeModifiers(selectAttributes(characterSheet))
-  const commonActivities = calculateCommonActivities(selectCommonActivities(characterSheet), attributeModifiers.strength, attributeModifiers.intelligence, []) // TODO add effects
-
+  const commonActivities = calculateCommonActivities(selectCommonActivities(characterSheet), attributeModifiers.strength, attributeModifiers.intelligence, commonActivityEffects)
 
   return (
     <div className={classes.characterSheet}>
@@ -70,7 +75,13 @@ function CharacterSheet({ characterId, characterName }: Props) {
         rangedAB={calculateRangedAttackBonus(characterSheet.attackBonus, attributeModifiers.dexterity)}
         surpriseChance={characterSheet.surpriseChance}
       />
-      {/* <ArmorClassAndCombatOptions baseAC={baseAC} combatOptions={combatOptions} rangedAC={rangedAC} surprisedAC={surprisedAC} withoutShieldAC={withoutShieldAC} /> */}
+      <ArmorClassAndCombatOptions
+        baseAC={calculateArmorClass(attributeModifiers.dexterity, armorClassEffects, "base")}
+        combatOptions={selectCombatOptions(characterSheet)}
+        rangedAC={calculateArmorClass(attributeModifiers.dexterity, armorClassEffects, "ranged")}
+        surprisedAC={calculateArmorClass(attributeModifiers.dexterity, armorClassEffects, "surprised")}
+        withoutShieldAC={calculateArmorClass(attributeModifiers.dexterity, armorClassEffects, "withoutShield")}
+      />
       <CommonActivities commonActivities={commonActivities} />
       {/* <EquipmentList /> */}
       {/* <Encumbrance /> */}
@@ -101,14 +112,6 @@ function selectProperties(
   }: CharacterSheetQuery_characterSheet
 ): Property[] {
   return properties ? properties.filter(property => property ? true : false).map(property => ({ ...property, inventory: [] /* TODO: include inventory */ })) as Property[] : []
-}
-
-function selectEffects(
-  {
-    effects
-  }: CharacterSheetQuery_characterSheet
-): Effect[] {
-  return effects ? effects.filter(effect => effect ? true : false) as Effect[] : []
 }
 
 function selectCombatOptions(
