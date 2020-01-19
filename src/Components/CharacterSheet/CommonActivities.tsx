@@ -1,7 +1,7 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import DieFace from '../_shared/DieFace'
-import { hasKey, isKeyOfCommonActivities } from '../../services'
+import { isKeyOfCommonActivities } from '../../services'
 import { COMMON_ACTIVITY_TITLES, CHARACTER_SHEET_UPDATE, CHARACTER_SHEET_QUERY } from '../../constants'
 import { useMutation } from '@apollo/react-hooks'
 import { CharacterSheetUdpate, CharacterSheetUdpateVariables } from '../../constants/mutations/__generated__/CharacterSheetUdpate'

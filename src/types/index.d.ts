@@ -114,13 +114,13 @@ type ArmorEffect = BaseItemEffect & {
 
 type InventoryItem = Item & ItemInstance
 
-type Item = Armor | Weapon | PlainItem
-
 type ItemInstance = {
   itemId: string
   instanceId: string
   equipped?: boolean
 }
+
+type Item = Armor | Weapon | PlainItem
 
 type ItemBase = {
   id: string
