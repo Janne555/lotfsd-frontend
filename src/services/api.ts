@@ -42,29 +42,32 @@ function withType(func: KyFunction): WithType {
 const get = withType(api.get)
 const post = withType(api.post)
 
-const link = new HttpLink(
-  {
-    uri: `${APIROOT}graphql`
+function createApolloClient(token: string) {
+  const link = new HttpLink(
+    {
+      uri: `${APIROOT}graphql`
+    })
+
+  const authMiddleware = new ApolloLink((operation, forward) => {
+    operation.setContext({
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    return forward(operation)
   })
 
-const authMiddleware = new ApolloLink((operation, forward) => {
-  operation.setContext({
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    }
+  return new ApolloClient({
+    link: concat(authMiddleware, link),
+    cache: new InMemoryCache(),
+    connectToDevTools: true
   })
+}
 
-  return forward(operation)
-})
-
-const client = new ApolloClient({
-  link: concat(authMiddleware, link),
-  cache: new InMemoryCache(),
-  connectToDevTools: true
-})
 
 export {
   get,
   post,
-  client as ApolloClient
+  createApolloClient
 }

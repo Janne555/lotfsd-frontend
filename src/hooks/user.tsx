@@ -95,13 +95,9 @@ function useLoginStatus(): LoginStatus {
   return 'logged-in'
 }
 
-function useToken(): string {
+function useToken(): string | undefined {
   const login = useLogin()
-  if (!login.user?.token) {
-    throw Error("Not logged in")
-  }
-
-  return login.user.token
+  return login.user?.token
 }
 
 function useUsername(): string {
