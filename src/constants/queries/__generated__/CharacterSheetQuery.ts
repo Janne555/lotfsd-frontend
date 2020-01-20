@@ -80,9 +80,9 @@ export interface CharacterSheetQuery_characterSheet {
   improvedParry: boolean;
   press: boolean;
   defensive: boolean;
-  effects: (CharacterSheetQuery_characterSheet_effects | null)[] | null;
-  retainers: (CharacterSheetQuery_characterSheet_retainers | null)[] | null;
-  properties: (CharacterSheetQuery_characterSheet_properties | null)[] | null;
+  effects: CharacterSheetQuery_characterSheet_effects[];
+  retainers: CharacterSheetQuery_characterSheet_retainers[];
+  properties: CharacterSheetQuery_characterSheet_properties[];
 }
 
 export interface CharacterSheetQuery {

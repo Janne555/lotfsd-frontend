@@ -88,6 +88,9 @@ function App() {
         <Route exact path="/">
           <Redirect to="/characters" />
         </Route>
+        <Route exact path="/login">
+          <Redirect to="/characters" />
+        </Route>
       </div>
 
       <AppModal characterId={characterId} content={actionMatch?.params.action} characterName={characterNameMatch?.params.character} />

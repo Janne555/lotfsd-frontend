@@ -1,3 +1,26 @@
+const COMMON_ACTIVITIES = ["architecture",
+  "bushcraft",
+  "climbing",
+  "languages",
+  "openDoors",
+  "search",
+  "sleightOfHand",
+  "sneakAttack",
+  "stealth",
+  "tinkering"]
+
+function isNonNullObject(obj: unknown): obj is object {
+  if (typeof obj !== "object") {
+    return false
+  }
+
+  if (!obj) {
+    return false
+  }
+
+  return true
+}
+
 function hasKey<O>(obj: O, key: keyof any): key is keyof O {
   return key in obj
 }
@@ -6,16 +29,62 @@ function isArmor(equipment: Item): equipment is Armor {
   return equipment.type === "armor"
 }
 
-function isAttributeModifierEffect(effect: Effect): effect is AttributeModifierEffect {
-  return effect.type === 'attributeModifierEffect'
+function isAttributeModifierEffect(obj: unknown): obj is AttributeModifierEffect {
+  if (!isNonNullObject(obj)) {
+    return false
+  }
+
+  const temp = obj as AttributeModifierEffect
+
+  if (!['charisma', 'constitution', 'dexterity', 'intelligence', 'strength', 'wisdom'].some(key => key === temp.target)) {
+    return false
+  }
+
+  if (typeof temp.value !== "number") {
+    return false
+  }
+
+  return temp.type === 'attributeModifierEffect'
 }
 
-function isArmorClassEffect(effect: Effect): effect is ArmorClassEffect {
-  return effect.type === 'armorClassEffect'
+function isArmorClassEffect(obj: unknown): obj is ArmorClassEffect {
+  if (!isNonNullObject(obj)) {
+    return false
+  }
+
+  const temp = obj as ArmorClassEffect
+
+  if (!["modify", "override"].some(method => temp.method === method)) {
+    return false
+  }
+
+  if (!["base", "ranged", "surprised", "withoutShield"].some(target => temp.target === target)) {
+    return false
+  }
+
+  if (typeof temp.value !== "number") {
+    return false
+  }
+
+  return temp.type === 'armorClassEffect'
 }
 
-function isCommonActivityEffect(effect: Effect): effect is CommonActivityEffect {
-  return effect.type === "commonActivityEffect"
+function isCommonActivityEffect(obj: unknown): obj is CommonActivityEffect {
+  if (!isNonNullObject(obj)) {
+    return false
+  }
+
+  const temp = obj as CommonActivityEffect
+
+  if (!COMMON_ACTIVITIES.some(target => temp.target === target)) {
+    return false
+  }
+
+  if (typeof temp.value !== "number") {
+    return false
+  }
+
+  return temp.type === 'commonActivityEffect'
 }
 
 function isKeyOfAttributes(obj: any): obj is keyof Attributes {
@@ -57,16 +126,7 @@ function isKeyOfCommonActivities(obj: unknown): obj is keyof CommonActivities {
     return false
   }
 
-  return ["architecture",
-    "bushcraft",
-    "climbing",
-    "languages",
-    "openDoors",
-    "search",
-    "sleightOfHand",
-    "sneakAttack",
-    "stealth",
-    "tinkering"].some(key => key === obj)
+  return COMMON_ACTIVITIES.some(key => key === obj)
 }
 
 export {

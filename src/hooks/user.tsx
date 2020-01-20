@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
 import { post } from '../services'
 import { ENDPOINTS } from '../constants'
+import { HTTPError } from 'ky'
 
 type User = {
   username: string
@@ -11,6 +12,7 @@ type LoginContext = {
   user?: User
   login: (username: string, password: string) => void
   logout: () => void
+  error?: string
 }
 
 const LoginContext = React.createContext<LoginContext | undefined>(undefined)
@@ -22,6 +24,7 @@ type ProviderProps = {
 
 function LoginProvider({ children }: ProviderProps): JSX.Element {
   const [user, setUser] = React.useState<User>()
+  const [error, setError] = React.useState<string>()
 
   React.useEffect(() => {
     const username = window.localStorage.getItem("username")
@@ -36,11 +39,21 @@ function LoginProvider({ children }: ProviderProps): JSX.Element {
   }, [])
 
   async function login(username: string, password: string) {
-    const response = await post(ENDPOINTS.LOGIN, { json: { username, password } })
-    const token = await response.text()
-    setUser({ username, token })
-    window.localStorage.setItem("token", token)
-    window.localStorage.setItem("username", username)
+    setError(undefined)
+    try {
+      const response = await post(ENDPOINTS.LOGIN, { json: { username, password } })
+      const token = await response.text()
+      setUser({ username, token })
+      window.localStorage.setItem("token", token)
+      window.localStorage.setItem("username", username)
+    } catch (error) {
+      console.error(error)
+      if (error instanceof HTTPError && error.response.status === 401) {
+        setError("Wrong username or password")
+      } else {
+        setError("Login failed")
+      }
+    }
   }
 
   function logout() {
@@ -52,7 +65,8 @@ function LoginProvider({ children }: ProviderProps): JSX.Element {
     <LoginContext.Provider value={{
       login,
       logout,
-      user
+      user,
+      error
     }}>
       {children}
     </LoginContext.Provider>
@@ -81,13 +95,9 @@ function useLoginStatus(): LoginStatus {
   return 'logged-in'
 }
 
-function useToken(): string {
+function useToken(): string | undefined {
   const login = useLogin()
-  if (!login.user?.token) {
-    throw Error("Not logged in")
-  }
-
-  return login.user.token
+  return login.user?.token
 }
 
 function useUsername(): string {

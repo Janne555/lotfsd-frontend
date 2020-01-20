@@ -23,16 +23,6 @@ const attributeModifierEffects = (characterId: string) =>
   (state: RootState): AttributeModifierEffect[] =>
     state.characterSheet.effects.byId[characterId].effects.filter(isAttributeModifierEffect)
 
-const effects = (characterId: string) =>
-  (state: RootState): Effect[] => {
-    return state.characterSheet.effects.byId[characterId].effects
-      .concat(mapInventoryToEffects(inventory(characterId)(state)))
-  }
-
-const armorClassEffects = (characterId: string) =>
-  (state: RootState): ArmorClassEffect[] =>
-    effects(characterId)(state).filter(isArmorClassEffect)
-
 const commonActivityEffects = (characterId: string) =>
   (state: RootState): CommonActivityEffect[] =>
     state.characterSheet.effects.byId[characterId].effects.filter(isCommonActivityEffect)
@@ -44,22 +34,6 @@ const attributeModifiers = (characterId: string) =>
 const savingThrows = (characterId: string) =>
   (state: RootState): Record<keyof SavingThrows, [number, number]> =>
     calculateSavingThrows(state.characterSheet.savingThrows.byId[characterId], attributeModifiers(characterId)(state))
-
-const baseArmorClass = (characterId: string) =>
-  (state: RootState): number =>
-    calculateArmorClass(attributeModifiers(characterId)(state).dexterity, armorClassEffects(characterId)(state), "base")
-
-const rangedArmorClass = (characterId: string) =>
-  (state: RootState): number =>
-    calculateArmorClass(attributeModifiers(characterId)(state).dexterity, armorClassEffects(characterId)(state), "ranged")
-
-const withoutShieldArmorClass = (characterId: string) =>
-  (state: RootState): number =>
-    calculateArmorClass(attributeModifiers(characterId)(state).dexterity, armorClassEffects(characterId)(state), "withoutShield")
-
-const surprisedArmorClass = (characterId: string) =>
-  (state: RootState): number =>
-    calculateArmorClass(attributeModifiers(characterId)(state).dexterity, armorClassEffects(characterId)(state), "surprised")
 
 const commonActivities = (characterId: string) =>
   (state: RootState): Record<keyof CommonActivities, { base: number, modified: number }> =>
@@ -107,14 +81,8 @@ const properties = (characterId: string) =>
 export {
   attributes as selectAttributes,
   savingThrows as selectSavingThrows,
-  baseArmorClass as selectBaseArmorClass,
   attributeModifierEffects as selectAttributeModifierEffects,
   attributeModifiers as selectAttributeModifiers,
-  rangedArmorClass as selectRangedArmorClass,
-  withoutShieldArmorClass as selectWithoutShieldArmorClass,
-  surprisedArmorClass as selectSurprisedArmorClass,
-  commonActivities as selectCommonActivities,
-  effects as selectEffects,
   wallet as selectWallet,
   encumbrance as selectEncumbrance,
   encumbranceDetails as selectEncumbranceDetails,

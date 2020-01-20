@@ -4,6 +4,7 @@ import { useLogin, useLoginStatus } from '../../hooks'
 import { createUseStyles } from 'react-jss'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import FormLabel from '@material-ui/core/FormLabel'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   login: {
@@ -49,7 +50,7 @@ type Props = {
 function Login() {
   const classes = useStyles()
   const loginStatus = useLoginStatus()
-  const { login } = useLogin()
+  const { login, error } = useLogin()
 
   if (loginStatus === "logged-in") {
     return (
@@ -70,6 +71,7 @@ function Login() {
           <TextField variant="outlined" id="username" label="Username" autoComplete="username" />
           <TextField variant="outlined" type="password" id="password" label="Password" autoComplete="current-password" />
           <Button type="submit">Login</Button>
+          <FormLabel error>{error}</FormLabel>
         </form>
       </div>
     </div>

@@ -82,9 +82,9 @@ export interface CharacterSheetUdpate_updateCharacterSheet {
   improvedParry: boolean;
   press: boolean;
   defensive: boolean;
-  effects: (CharacterSheetUdpate_updateCharacterSheet_effects | null)[] | null;
-  retainers: (CharacterSheetUdpate_updateCharacterSheet_retainers | null)[] | null;
-  properties: (CharacterSheetUdpate_updateCharacterSheet_properties | null)[] | null;
+  effects: CharacterSheetUdpate_updateCharacterSheet_effects[];
+  retainers: CharacterSheetUdpate_updateCharacterSheet_retainers[];
+  properties: CharacterSheetUdpate_updateCharacterSheet_properties[];
 }
 
 export interface CharacterSheetUdpate {
