@@ -9,18 +9,14 @@ const loginThunk = (
   dispatch(beginLogin(username))
 
   try {
-    const token = await post(ENDPOINTS.LOGIN, { username, password })
+    const res = await post(ENDPOINTS.LOGIN, { json: { username, password } })
+    const token = await res.text()
 
     dispatch(completeLogin(token))
 
     dispatch(completeDataFetch({
-      byId: {
-        a: 'Zoidberg',
-      },
-      byName: {
-        Zoidberg: 'a',
-        Mardrick: 'a'
-      }
+      byName: {},
+      byId: {}
     }))
   } catch (error) {
     return

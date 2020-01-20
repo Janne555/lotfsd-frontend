@@ -21,13 +21,20 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
+type Props = {
+  baseAC: number
+  rangedAC: number
+  withoutShieldAC: number
+  surprisedAC: number
+  combatOptions: CombatOptions
+}
 
-export default function ArmorClassAndCombatOptions() {
+export default function ArmorClassAndCombatOptions({ baseAC, combatOptions, rangedAC, surprisedAC, withoutShieldAC }: Props) {
   const classes = useStyles()
   return (
     <div className={classes.combatOptionsAndAC}>
-      <ArmorClass />
-      <CombatOptions />
+      <ArmorClass baseAC={baseAC} rangedAC={rangedAC} surprisedAC={surprisedAC} withoutShieldAC={withoutShieldAC} />
+      <CombatOptions {...combatOptions} />
     </div>
   )
 }

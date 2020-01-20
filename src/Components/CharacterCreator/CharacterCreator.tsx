@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
-import { useDispatch } from 'react-redux'
-import { newCharacter } from '../../Redux/thunks/newCharacter'
 import Attributes from '../CharacterSheet/Attributes'
 import TextField from '@material-ui/core/TextField'
 import Select from '@material-ui/core/NativeSelect'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
-import { randomAttributes } from '../../services'
-import { useHistory } from 'react-router-dom'
+import { randomAttributes, mongoObjectId, calculateAttributeModifiers } from '../../services'
+import { Redirect } from 'react-router-dom'
+import { CREATE_CHARACTER_MUTATION, CHARACTER_LIST_QUERY } from '../../constants'
+import { CharacterCreatorMutation, CharacterCreatorMutationVariables } from '../../constants/mutations/__generated__/CharacterCreatorMutation'
+import { CharacterListQuery } from '../../constants/queries/__generated__/characterListQuery'
+import { CHARACTER_CLASSES } from '../../constants/characterClasses'
+import { useMutation } from '@apollo/react-hooks'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterCreator: {
@@ -34,16 +37,59 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-type Props = {
+function generateVariables(formElements: NewCharacterForm, characterId: string): CharacterCreatorMutationVariables {
+  const className = formElements.class.value as Classes
 
+  const characterSheet = {
+    charisma: Number(formElements.charisma.value),
+    dexterity: Number(formElements.dexterity.value),
+    intelligence: Number(formElements.intelligence.value),
+    strength: Number(formElements.strength.value),
+    wisdom: Number(formElements.wisdom.value),
+    constitution: Number(formElements.constitution.value),
+    copper: 1,
+    gold: 1,
+    silver: 1,
+    alignment: formElements.alignment.value,
+    class: formElements.class.value as Classes,
+    gender: formElements.gender.value,
+    name: formElements.name.value,
+    race: formElements.race.value,
+    age: Number(formElements.age.value),
+    maxHp: Number(formElements.maxHp.value),
+    attackBonus: 1,
+    currentHp: Number(formElements.maxHp.value),
+    experience: 0,
+    surpriseChance: CHARACTER_CLASSES[className].surpriseChance,
+    ...CHARACTER_CLASSES[className].combatOptions,
+    ...CHARACTER_CLASSES[className].commonActivities,
+    ...CHARACTER_CLASSES[className].savingThrows,
+  }
+
+  return {
+    characterSheet
+  }
 }
 
-function CharacterCreator(/* { }: Props */) {
+function CharacterCreator() {
   const classes = useStyles()
-  const dispatch = useDispatch()
   const [attributes, setAttributes] = useState<Attributes>({ charisma: 0, constitution: 0, dexterity: 0, intelligence: 0, strength: 0, wisdom: 0 })
   const [attributeError, setAttributeError] = useState<string>()
-  const history = useHistory()
+  const [mutate, { called, loading, data, error }] = useMutation<CharacterCreatorMutation, CharacterCreatorMutationVariables>(CREATE_CHARACTER_MUTATION, {
+    update(cache, { data }) {
+      if (data) {
+        const { characterSheets = [] } = cache.readQuery<CharacterListQuery>({ query: CHARACTER_LIST_QUERY }) ?? {}
+        cache.writeQuery<CharacterListQuery, string>({
+          query: CHARACTER_LIST_QUERY,
+          data: { characterSheets: characterSheets?.concat(data.createCharacterSheet) ?? [data.createCharacterSheet] }
+        })
+      }
+    }
+  })
+
+  if (data?.createCharacterSheet) {
+    return <Redirect to={`/characters/${data.createCharacterSheet.name}`} />
+  }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     const target = (e.target as unknown) as { elements: NewCharacterForm }
@@ -56,7 +102,10 @@ function CharacterCreator(/* { }: Props */) {
       setAttributeError(undefined)
     }
 
-    dispatch(newCharacter(target.elements, history))
+    mutate({
+      variables: generateVariables(target.elements, mongoObjectId()),
+
+    })
   }
 
   function handleRandomize() {
@@ -66,7 +115,7 @@ function CharacterCreator(/* { }: Props */) {
   return (
     <div className={classes.characterCreator}>
       <form className={classes.form} onSubmit={handleSubmit}>
-        <Attributes attributes={attributes} onChange={(key, value) => setAttributes({ ...attributes, [key]: value })} />
+        <Attributes attributes={attributes} onChange={(key, value) => setAttributes({ ...attributes, [key]: value })} modifiers={calculateAttributeModifiers(attributes)} />
         <Button onClick={handleRandomize}>Randomize</Button>
         {/* TODO disallow url unsafe characters */}
         <TextField className={classes.field} id="name" label="Name" required />

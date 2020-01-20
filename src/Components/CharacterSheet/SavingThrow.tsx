@@ -3,9 +3,7 @@ import { createUseStyles } from 'react-jss'
 import { SAVING_THROW_DETAILS, SAVING_THROW_TITLES } from '../../constants'
 import RotatedCube from '../_shared/RotatedCube'
 import Input from '../_shared/Input'
-import { useDispatch, useCharacterContext } from '../../hooks'
 import { Validator } from '../../services'
-import { setSavingThrow } from '../../Redux/reducers/characterSheet/savingThrows'
 
 type Props = {
   name: keyof SavingThrows,
@@ -29,12 +27,10 @@ const validator = new Validator().isLengthy.isNumber
 
 export default function SavingThrow({ name, value: [base, modified] }: Props) {
   const classes = useStyles()
-  const dispatch = useDispatch()
   const [inFocus, setInFocus] = useState(false)
-  const { characterId } = useCharacterContext()
 
   function handleChange(value: string) {
-    dispatch(setSavingThrow({ savingThrow: name, value: Number(value), characterId }))
+    throw Error("TODO")
   }
 
   function handleFocus() {

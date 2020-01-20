@@ -1,77 +1,81 @@
-type AttributeModifiers {
-  characterId: String!
-  charisma: Int!
-  constitution: Int!
-  dexterity: Int!
-  id: String!
-  intelligence: Int!
-  strength: Int!
-  wisdom: Int!
-}
-
-input AttributeModifiersInput {
-  id: String!
-  characterId: String!
-  charisma: Int!
-  constitution: Int!
-  dexterity: Int!
-  intelligence: Int!
-  strength: Int!
-  wisdom: Int!
-}
-
-type Attributes {
-  characterId: String!
-  charisma: Int!
-  constitution: Int!
-  dexterity: Int!
-  id: String!
-  intelligence: Int!
-  strength: Int!
-  wisdom: Int!
-}
-
-input AttributesInput {
-  id: String!
-  characterId: String!
-  charisma: Int!
-  constitution: Int!
-  dexterity: Int!
-  intelligence: Int!
-  strength: Int!
-  wisdom: Int!
-}
-
 scalar BigInt
 
 scalar Byte
 
-type CombatOptions {
-  characterId: String!
+type CharacterSheet {
+  age: Int!
+  alignment: String!
+  architecture: Int!
+  attackBonus: Int!
+  breathWeapon: Int!
+  bushcraft: Int!
+  charisma: Int!
+  class: String!
+  climbing: Int!
+  constitution: Int!
+  copper: Int!
+  currentHp: Int!
   defensive: Boolean!
+  dexterity: Int!
+  effects: [Effect]
+  experience: Int!
+  gender: String!
+  gold: Int!
   id: String!
   improvedParry: Boolean!
+  intelligence: Int!
+  inventory: [ItemInstance]
+  languages: Int!
+  magic: Int!
+  magicalDevice: Int!
+  maxHp: Int!
+  name: String!
+  openDoors: Int!
+  paralyze: Int!
   parry: Boolean!
+  poison: Int!
   press: Boolean!
+  properties: [Property]
+  race: String!
+  retainers: [Retainer]
+  search: Int!
+  silver: Int!
+  sleightOfHand: Int!
+  sneakAttack: Int!
   standard: Boolean!
+  stealth: Int!
+  strength: Int!
+  surpriseChance: Int!
+  tinkering: Int!
+  wisdom: Int!
 }
 
-input CombatOptionsInput {
-  id: String!
-  characterId: String!
-  standard: Boolean!
-  parry: Boolean!
-  improvedParry: Boolean!
-  press: Boolean!
-  defensive: Boolean!
-}
-
-type CommonActivities {
+input CharacterSheetInput {
+  name: String!
+  experience: Int!
+  class: String!
+  race: String!
+  age: Int!
+  gender: String!
+  alignment: String!
+  attackBonus: Int!
+  currentHp: Int!
+  maxHp: Int!
+  surpriseChance: Int!
+  charisma: Int!
+  constitution: Int!
+  dexterity: Int!
+  intelligence: Int!
+  strength: Int!
+  wisdom: Int!
+  paralyze: Int!
+  poison: Int!
+  breathWeapon: Int!
+  magicalDevice: Int!
+  magic: Int!
   architecture: Int!
   bushcraft: Int!
-  characterId: String!
   climbing: Int!
-  id: String!
   languages: Int!
   openDoors: Int!
   search: Int!
@@ -79,21 +83,17 @@ type CommonActivities {
   sneakAttack: Int!
   stealth: Int!
   tinkering: Int!
-}
-
-input CommonActivitiesInput {
-  id: String!
-  characterId: String!
-  architecture: Int!
-  bushcraft: Int!
-  climbing: Int!
-  languages: Int!
-  openDoors: Int!
-  search: Int!
-  sleightOfHand: Int!
-  sneakAttack: Int!
-  stealth: Int!
-  tinkering: Int!
+  copper: Int!
+  silver: Int!
+  gold: Int!
+  standard: Boolean!
+  parry: Boolean!
+  improvedParry: Boolean!
+  press: Boolean!
+  defensive: Boolean!
+  effects: [EffectInput] = null
+  retainers: [RetainerInput] = null
+  properties: [PropertyInput] = null
 }
 
 """
@@ -119,7 +119,6 @@ scalar DateTimeOffset
 scalar Decimal
 
 type Effect {
-  characterId: String!
   id: String!
   method: String!
   target: String!
@@ -128,8 +127,6 @@ type Effect {
 }
 
 input EffectInput {
-  id: String!
-  characterId: String!
   type: String!
   target: String!
   method: String!
@@ -138,38 +135,14 @@ input EffectInput {
 
 scalar Guid
 
-type Info {
-  age: Int!
-  alignment: String!
-  attackBonus: Int!
-  characterId: String!
-  class: String!
-  currentHp: Int!
-  experience: Int!
-  gender: String!
+type ItemInstance {
+  equipped: Boolean!
   id: String!
-  maxHp: Int!
-  name: String!
-  player: String!
-  race: String!
-  surpriseChance: Int!
 }
 
-input InfoInput {
+input ItemInstanceInput {
   id: String!
-  characterId: String!
-  name: String!
-  experience: Int!
-  class: String!
-  race: String!
-  age: Int!
-  gender: String!
-  alignment: String!
-  player: String!
-  attackBonus: Int!
-  currentHp: Int!
-  maxHp: Int!
-  surpriseChance: Int!
+  equipped: Boolean!
 }
 
 scalar Long
@@ -180,49 +153,36 @@ The `Milliseconds` scalar type represents a period of time represented as the to
 scalar Milliseconds
 
 type Mutation {
-  addAttributeModifiers(attributeModifiers: AttributeModifiersInput!): AttributeModifiers
-  addAttributes(attributes: AttributesInput!): Attributes
-  addCombatOptions(combatOptions: CombatOptionsInput!): CombatOptions
-  addCommonActivities(commonActivities: CommonActivitiesInput!): CommonActivities
-  addEffect(effect: EffectInput!): Effect
-  addInfo(info: InfoInput!): Info
-  addRetainer(retainer: RetainerInput!): Retainer
-  addSavingThrows(savingThrows: SavingThrowsInput!): SavingThrows
-  addWallet(wallet: WalletInput!): Wallet
-  replaceAttributeModifiers(attributeModifiers: AttributeModifiersInput!): AttributeModifiers
-  replaceAttributes(attributes: AttributesInput!): Attributes
-  replaceCombatOptions(combatOptions: CombatOptionsInput!): CombatOptions
-  replaceCommonActivities(commonActivities: CommonActivitiesInput!): CommonActivities
-  replaceEffect(effect: EffectInput!): Effect
-  replaceInfo(info: InfoInput!): Info
-  replaceRetainer(retainer: RetainerInput!): Retainer
-  replaceSavingThrows(savingThrows: SavingThrowsInput!): SavingThrows
-  replaceWallet(wallet: WalletInput!): Wallet
+  createCharacterSheet(characterSheet: CharacterSheetInput!): [CharacterSheet!]
+  deleteCharacterSheet(characterSheetId: String!): [CharacterSheet!]
+}
+
+type Property {
+  description: String!
+  id: String!
+  inventory: [ItemInstance]
+  location: String!
+  name: String!
+  rent: Int!
+  value: Int!
+}
+
+input PropertyInput {
+  id: String!
+  name: String!
+  value: Int!
+  rent: Int!
+  location: String!
+  description: String!
+  inventory: [ItemInstanceInput] = null
 }
 
 type Query {
-  allAttributeModifiers: [AttributeModifiers]
-  allAttributes: [Attributes]
-  allCombatOptions: [CombatOptions]
-  allCommonActivities: [CommonActivities]
-  allSavingThrows: [SavingThrows]
-  attributeModifiers(id: String = null): AttributeModifiers
-  attributes(id: String = null): Attributes
-  combatOptions(id: String = null): CombatOptions
-  commonActivities(id: String = null): CommonActivities
-  effect(id: String = null): Effect
-  effects: [Effect]
-  info(id: String = null): Info
-  infos: [Info]
-  retainer(id: String = null): Retainer
-  retainers: [Retainer]
-  savingThrows(id: String = null): SavingThrows
-  wallet(id: String = null): Wallet
-  wallets: [Wallet]
+  characterSheet(id: String = null): CharacterSheet
+  characterSheets: [CharacterSheet!]
 }
 
 type Retainer {
-  characterId: String!
   class: String!
   hitpoints: Int!
   id: String!
@@ -234,8 +194,6 @@ type Retainer {
 }
 
 input RetainerInput {
-  id: String!
-  characterId: String!
   name: String!
   position: String!
   class: String!
@@ -243,26 +201,6 @@ input RetainerInput {
   hitpoints: Int!
   wage: Int!
   share: Int!
-}
-
-type SavingThrows {
-  breathWeapon: Int!
-  characterId: String!
-  id: String!
-  magic: Int!
-  magicalDevice: Int!
-  paralyze: Int!
-  poison: Int!
-}
-
-input SavingThrowsInput {
-  id: String!
-  characterId: String!
-  paralyze: Int!
-  poison: Int!
-  breathWeapon: Int!
-  magicalDevice: Int!
-  magic: Int!
 }
 
 scalar SByte
@@ -281,20 +219,4 @@ scalar ULong
 scalar Uri
 
 scalar UShort
-
-type Wallet {
-  characterId: String!
-  copper: Int!
-  gold: Int!
-  id: String!
-  silver: Int!
-}
-
-input WalletInput {
-  id: String!
-  characterId: String!
-  copper: Int!
-  silver: Int!
-  gold: Int!
-}
 

@@ -176,7 +176,7 @@ type Retainer = {
   hitpoints?: number
   wage?: number
   share?: number
-  uuid: string
+  id: string
 }
 
 type CombatOptions = {
@@ -195,11 +195,6 @@ type Info = {
   age: number
   gender: string
   alignment: string
-  player: string
-  attackBonus: number
-  currentHp: number
-  maxHp: number
-  surpriseChance: number
 }
 
 
@@ -227,21 +222,6 @@ type NormalizedCharacterSheet = {
   combatOptions: Normalized<CharacterId & CombatOptions>
   info: Normalized<CharacterId & Info>
   properties: Normalized<Properties>
-}
-
-type CharacterSheet = Info & {
-  name: string
-  id: string
-  attributes: Attributes
-  savingThrows: SavingThrows
-  inventory: ItemInstance[]
-  // effects: Effect[]
-  commonActivities: CommonActivities
-  wallet: Wallet
-  // languages: Language[]
-  // retainers: Retainer[]
-  combatOptions: CombatOptions
-  properties: Property[]
 }
 
 type UserData = {
@@ -329,4 +309,27 @@ type Property = {
 type OperationType<T> = {
   variables: Record<string, any>,
   response: T
+}
+
+type TypedEndpoint<T> = {
+  url: string,
+  type: T
+}
+
+type RenderProps<T> = {
+  error: Error | null
+  props: T | null
+  retry: (() => void) | null
+}
+
+type LoginStatus = 'logged-in' | 'logged-out' | 'logging-in'
+
+type Character = {
+  name: string
+  class: string
+  id: string
+}
+
+type CommonActivitiesWithModifications = {
+  [P in keyof CommonActivities]: { base: number, modified: number }
 }

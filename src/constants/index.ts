@@ -55,7 +55,7 @@ const BASE_ARMOR_CLASS = 12
 
 const MONEY = 'Money'
 
-const RETAINER_KEYS: (keyof Omit<Retainer, 'uuid'>)[] = [
+const RETAINER_KEYS: (keyof Omit<Retainer, 'id'>)[] = [
   "name",
   "position",
   "class",
@@ -78,3 +78,7 @@ export {
 }
 
 export * from './endpoints'
+export * from './queries/characterListQuery'
+export * from './queries/characterSheetQuery'
+export * from './mutations/createCharacterMutation'
+export * from './mutations/characterSheetUpdate'

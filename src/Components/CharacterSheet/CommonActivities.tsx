@@ -1,11 +1,11 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { useSelector, useCharacterContext, useDispatch } from '../../hooks'
-import { selectCommonActivities } from '../../Redux/selectors'
 import DieFace from '../_shared/DieFace'
-import { hasKey } from '../../services'
-import { COMMON_ACTIVITY_TITLES } from '../../constants'
-import { setCommonActivityValue } from '../../Redux/actions'
+import { hasKey, isKeyOfCommonActivities } from '../../services'
+import { COMMON_ACTIVITY_TITLES, CHARACTER_SHEET_UPDATE, CHARACTER_SHEET_QUERY } from '../../constants'
+import { useMutation } from '@apollo/react-hooks'
+import { CharacterSheetUdpate, CharacterSheetUdpateVariables } from '../../constants/mutations/__generated__/CharacterSheetUdpate'
+import { CharacterSheetQuery } from '../../constants/queries/__generated__/CharacterSheetQuery'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   root: {
@@ -21,10 +21,12 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-function CommonActivities() {
+type Props = {
+  commonActivities: CommonActivitiesWithModifications
+}
+
+function CommonActivities({ commonActivities }: Props) {
   const classes = useStyles()
-  const { characterId } = useCharacterContext()
-  const commonActivities = useSelector(selectCommonActivities(characterId))
 
   return (
     <div className={classes.root}>
@@ -32,7 +34,7 @@ function CommonActivities() {
       <div className={classes.activities}>
         {
           Object.entries(commonActivities).map(([name, { base, modified }]) => (
-            hasKey(commonActivities, name) && <Activity key={name} name={name} base={base} modified={modified} />
+            isKeyOfCommonActivities(name) && <Activity key={name} name={name} base={base} modified={modified} />
           ))
         }
       </div>
@@ -58,11 +60,24 @@ type SubProps = {
 
 function Activity({ name, base, modified }: SubProps) {
   const classes = useSubStyles()
-  const dispatch = useDispatch()
-  const { characterId } = useCharacterContext()
+  const [mutate, { loading }] = useMutation<CharacterSheetUdpate, CharacterSheetUdpateVariables>(CHARACTER_SHEET_UPDATE, {
+    update(cache, { data }) {
+      if (data) {
+        let { characterSheet } = cache.readQuery<CharacterSheetQuery>({ query: CHARACTER_SHEET_QUERY }) ?? {}
+        if (!characterSheet) {
+          throw Error("Tried to udpate character sheet when it doesn't exist")
+        }
+
+        cache.writeQuery<CharacterSheetQuery, string>({
+          query: CHARACTER_SHEET_QUERY,
+          data: { characterSheet: characterSheet }
+        })
+      }
+    }
+  })
 
   function handleChange(value: number) {
-    dispatch(setCommonActivityValue({ activity: name, characterId, value: value - (modified - base) }))
+    throw Error("TODO")
   }
 
   return (

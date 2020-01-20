@@ -2,16 +2,17 @@ import React from 'react'
 import CharacterSheet from './Components/CharacterSheet/CharacterSheet'
 import { createUseStyles } from 'react-jss'
 import NavBar from './Components/Interface/NavMenu/NavBar'
-import Login from './Components/Interface/Login'
 import NavItem from './Components/Interface/NavMenu/NavItem'
-import { useSelector } from './hooks'
-import { selectIsLoggedIn, selectCharacterId } from './Redux/selectors'
-import { Switch, Route, useRouteMatch, Redirect, useLocation } from 'react-router-dom'
+import { Switch, Route, useRouteMatch, Redirect } from 'react-router-dom'
 import CharacterList from './Components/Interface/CharacterList/CharacterList'
 import CharacterCreator from './Components/CharacterCreator/CharacterCreator'
 import AppModal from './Components/Interface/Modal/AppModal'
 import ItemIndex from './Components/ItemIndex/ItemIndex'
 import ItemCreator from './Components/ItemIndex/ItemCreator'
+import { useLogin } from './hooks'
+import { useQuery } from '@apollo/react-hooks'
+import { CHARACTER_LIST_QUERY } from './constants'
+import { CharacterListQuery } from './constants/queries/__generated__/characterListQuery'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   app: {
@@ -38,29 +39,31 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-const App: React.FC = () => {
+function App() {
   const classes = useStyles()
-  const isLoggedIn = useSelector(selectIsLoggedIn)
   const characterNameMatch = useRouteMatch<{ character: string }>('/characters/:character')
   const actionMatch = useRouteMatch<{ action: string }>('/characters/:character/:action')
-  const characterId = useSelector(selectCharacterId(characterNameMatch?.params.character))
-  const location = useLocation()
+  const { data } = useQuery<CharacterListQuery>(CHARACTER_LIST_QUERY)
+  const { logout } = useLogin()
 
-  if (!isLoggedIn && location.pathname !== '/login') {
-    return <Redirect to="/login" />
+  if (!data || !data.characterSheets) {
+    return null
   }
+
+  const characterId = data.characterSheets.find(ch => ch.name === characterNameMatch?.params.character)?.id
+
 
   return (
     <div className={classes.app}>
       <NavBar>
         <NavItem name="Characters" to="/characters">
-          <CharacterList />
+          <CharacterList characters={data.characterSheets} />
         </NavItem>
         <NavItem name="Campaigns" to="/campaigns">
           moi
           </NavItem>
         <NavItem name="Item Index" to="/itemindex" />
-        <NavItem name="Login" end />
+        <NavItem name="Login" end onClick={logout} />
       </NavBar>
       <div className={classes.body}>
         <Switch>
@@ -70,7 +73,7 @@ const App: React.FC = () => {
             }
           </Route>
           <Route exact path="/characters">
-            <CharacterList fullScreen />
+            <CharacterList characters={data.characterSheets} />
           </Route>
           <Route path="/newcharacter">
             <CharacterCreator />
@@ -81,9 +84,6 @@ const App: React.FC = () => {
         </Route>
         <Route path="/newitem">
           <ItemCreator />
-        </Route>
-        <Route path="/login">
-          <Login />
         </Route>
         <Route exact path="/">
           <Redirect to="/characters" />

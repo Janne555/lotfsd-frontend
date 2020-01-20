@@ -3,7 +3,7 @@ import { createUseStyles } from 'react-jss'
 import MSpeedDial from '@material-ui/lab/SpeedDial'
 import Add from '@material-ui/icons/Add'
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction'
-import { useCharacterContext, useScreenResizeEvent } from '../../hooks'
+import { useScreenResizeEvent } from '../../hooks'
 import { useHistory } from 'react-router-dom'
 import Icon from '@material-ui/icons/AcUnit'
 
@@ -27,7 +27,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
 }))
 
 type Props = {
-
+  characterName: string
 }
 
 const actions: {
@@ -40,11 +40,10 @@ const actions: {
     { name: 'addLanguage', icon: <Icon />, tooltip: 'Add\xa0Language' },
   ]
 
-function SpeedDial() {
+function SpeedDial({ characterName }: Props) {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const history = useHistory()
-  const { characterName } = useCharacterContext()
   const isMobile = useScreenResizeEvent(width => width < 1100)
 
   function handleClick(action: string) {

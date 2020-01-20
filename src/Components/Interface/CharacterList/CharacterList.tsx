@@ -1,7 +1,5 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { useSelector } from '../../../hooks'
-import { selectCharacters } from '../../../Redux/selectors'
 import Character from './Character'
 import CharacterListWrapper from './CharacterListWrapper'
 
@@ -23,20 +21,19 @@ const useStyles = createUseStyles((theme: Theme) => ({
 }))
 
 type Props = {
-  fullScreen?: boolean
+  characters: Character[]
 }
 
-export default function CharacterList({ fullScreen }: Props) {
-  const classes = useStyles(fullScreen)
-  const characters = useSelector(selectCharacters)
+function CharacterList({ characters }: Props) {
+  const classes = useStyles()
 
   return (
     <div className={classes.characterList}>
       <div className={classes.list}>
         {
-          characters.map(name => (
+          characters.map(({ name, class: className }) => (
             <CharacterListWrapper key={name} to={`/characters/${name}`}>
-              <Character name={name} />
+              <Character characterClass={className} name={name} />
             </CharacterListWrapper>
           ))
         }
@@ -47,3 +44,5 @@ export default function CharacterList({ fullScreen }: Props) {
     </div>
   )
 }
+
+export default CharacterList

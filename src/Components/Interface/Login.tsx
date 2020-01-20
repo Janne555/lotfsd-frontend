@@ -1,16 +1,57 @@
 import React from 'react'
-import { useDispatch, useSelector } from '../../hooks'
-import { loginThunk } from '../../Redux/thunks'
-import { selectIsLoggedIn } from '../../Redux/selectors'
 import { Redirect } from 'react-router-dom'
+import { useLogin, useLoginStatus } from '../../hooks'
+import { createUseStyles } from 'react-jss'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
 
+const useStyles = createUseStyles((theme: Theme) => ({
+  login: {
+    width: '100vw',
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    '& > div': {
+      display: 'flex',
+      flexDirection: 'column',
+      backgroundColor: 'white',
+      width: '50%',
+      height: '40%',
+      boxShadow: '1px 1px 5px 0px rgba(0,0,0,0.75)',
+      '& > h1': {
+        backgroundColor: theme.colorPurpleMid,
+        color: 'white',
+        fontWeight: 'initial',
+        padding: '1rem'
+      },
+      '& > form': {
+        justifySelf: 'center',
+        alignSelf: 'center',
+        width: '50%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        marginTop: '-1rem',
+        '& > *': {
+          marginTop: '1rem'
+        }
+      }
+    }
+  }
+}))
 
+type Props = {
+
+}
 
 function Login() {
-  const dispatch = useDispatch()
-  const isLoggedIn = useSelector(selectIsLoggedIn)
+  const classes = useStyles()
+  const loginStatus = useLoginStatus()
+  const { login } = useLogin()
 
-  if (isLoggedIn) {
+  if (loginStatus === "logged-in") {
     return (
       <Redirect to="/characters" />
     )
@@ -18,18 +59,19 @@ function Login() {
 
   function handleSubmit(e: any) {
     e.preventDefault();
-    dispatch(loginThunk(e.target.elements.username.value, e.target.elements.password.value))
+    login(e.target.elements.username.value, e.target.elements.password.value)
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username</label>
-        <input id="username" />
-        <label htmlFor="password">Password</label>
-        <input id="password" type="password" />
-        <button type="submit">Login</button>
-      </form>
+    <div className={classes.login}>
+      <div>
+        <h1>Lamentations<br /> of the<br />frontend developer</h1>
+        <form onSubmit={handleSubmit}>
+          <TextField variant="outlined" id="username" label="Username" autoComplete="username" />
+          <TextField variant="outlined" type="password" id="password" label="Password" autoComplete="current-password" />
+          <Button type="submit">Login</Button>
+        </form>
+      </div>
     </div>
   )
 }

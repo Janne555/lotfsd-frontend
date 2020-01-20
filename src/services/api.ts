@@ -1,19 +1,12 @@
-import ky from 'ky'
+import ky, { Input, Options } from 'ky'
 import { APIROOT } from '../constants/endpoints'
-import store from '../Redux/store'
-import { selectToken } from '../Redux/selectors'
-import {
-  Environment,
-  Network,
-  RecordSource,
-  Store,
-  FetchFunction,
-  GraphQLResponse,
-  RequestParameters,
-} from 'relay-runtime'
+import { HttpLink } from 'apollo-link-http'
+import { ApolloLink, concat } from 'apollo-link'
+import { ApolloClient } from 'apollo-client'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 
 function setBearer(headers: Headers) {
-  const token = selectToken(store.getState())
+  const token = window.localStorage.getItem("token")
   if (token) {
     headers.set('Authorization', `Bearer ${token}`)
   }
@@ -30,52 +23,48 @@ const api = ky.create({
   }
 })
 
-async function get<T>(endpoint: { url: string, type: T }): Promise<T> {
-  const result = await api.get(endpoint.url)
-  try {
-    return await result.clone().json()
-  } catch {
-    const text = await result.text()
-    return { value: text } as any
+type KyFunction = (input: Input, options?: Options) => Promise<Response>
+type TypedResponse<T> = Omit<Response, 'json'> & { json: () => Promise<T> }
+type WithType = <T>(input: TypedEndpoint<T>, options?: Options) => Promise<TypedResponse<T>>
+
+function withType(func: KyFunction): WithType {
+  return async function <T>({ url }: TypedEndpoint<T>, options?: Options): Promise<TypedResponse<T>> {
+    const response = await func(url, options)
+
+    return Object.assign(response, {
+      json(): Promise<T> {
+        return response.json()
+      }
+    })
   }
 }
 
-async function post<T>(endpoint: { url: string, type: T }, payload: any): Promise<T> {
-  const result = await api.post(endpoint.url, {
-    json: payload
+const get = withType(api.get)
+const post = withType(api.post)
+
+const link = new HttpLink(
+  {
+    uri: `${APIROOT}graphql`
   })
 
-  try {
-    return await result.clone().json()
-  } catch {
-    return result.text() as any
-  }
-}
+const authMiddleware = new ApolloLink((operation, forward) => {
+  operation.setContext({
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }
+  })
 
-async function graphqlPost(operation: RequestParameters, variables: Record<string, any>): Promise<GraphQLResponse> {
-  return api.post('graphql', {
-    prefixUrl: APIROOT,
-    json: {
-      query: operation.text,
-      variables
-    },
-  }).json()
-}
+  return forward(operation)
+})
 
-const fetchFunction: FetchFunction = async function fetchQuery(
-  operation,
-  variables
-) {
-  return graphqlPost(operation, variables)
-}
-
-const environment = new Environment({
-  network: Network.create(fetchFunction),
-  store: new Store(new RecordSource()),
+const client = new ApolloClient({
+  link: concat(authMiddleware, link),
+  cache: new InMemoryCache(),
+  connectToDevTools: true
 })
 
 export {
   get,
   post,
-  environment
+  client as ApolloClient
 }

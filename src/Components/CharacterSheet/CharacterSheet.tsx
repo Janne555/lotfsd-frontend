@@ -1,20 +1,16 @@
 import React from 'react'
-import Attributes, { Props as AttributeProps } from './Attributes'
-import SavingThrows from './SavingThrows'
-import AttackBonusAndHitPoints from './AttackBonusAndHitPoints'
-import ArmorClassAndCombatOptions from './ArmorClassAndCombatOptions'
-import CommonActivities from './CommonActivities'
-import EquipmentList from './EquipmentList'
-import Encumbrance from './Encumbrance'
+import Attributes from './Attributes'
 import Retainers from './Retainers'
 import { createUseStyles } from 'react-jss'
 import Languages from './Languages'
 import InfoBar from './InfoBar'
-import { useSelector, useScreenResizeEvent } from '../../hooks'
-import { selectAttributes, selectAttributeModifiers } from '../../Redux/selectors'
-import { Redirect } from 'react-router-dom'
-import SpeedDial from '../Interface/SpeedDial'
 import Properties from './Properties'
+import SavingThrows from './SavingThrows'
+import { calculateAttributeModifiers, calculateCommonActivities } from '../../services'
+import { useQuery } from '@apollo/react-hooks'
+import { CHARACTER_SHEET_QUERY } from '../../constants'
+import { CharacterSheetQuery, CharacterSheetQueryVariables, CharacterSheetQuery_characterSheet } from '../../constants/queries/__generated__/CharacterSheetQuery'
+import CommonActivities from './CommonActivities'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
@@ -36,50 +32,6 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-const MODULE_INDEX = {
-  attributes: (props: AttributeProps) => <Attributes {...props} key='attributes' />,
-  commonActivities: () => <CommonActivities key='commonActivities' />,
-  equipmentList: () => <EquipmentList key='equipmentList' />,
-  retainers: () => <Retainers key='retainers' />,
-  properties: () => <Properties key='properties' />,
-  savingThrows: () => <SavingThrows key='savingThrows' />,
-  attacBonusAndHitpoints: () => <AttackBonusAndHitPoints key='attacBonusAndHitpoints' />,
-  armorClassAndCombatOptions: () => <ArmorClassAndCombatOptions key='armorClassAndCombatOptions' />,
-  encumbrance: () => <Encumbrance key='encumbrance' />,
-  languages: () => <Languages key='languages' />,
-}
-
-const BASE_ORDER: (keyof typeof MODULE_INDEX)[] = [
-  "attributes",
-  "commonActivities",
-  "equipmentList",
-  "retainers",
-  "properties",
-  "savingThrows",
-  "attacBonusAndHitpoints",
-  "armorClassAndCombatOptions",
-  "encumbrance",
-  "languages",
-]
-
-const MOBILE_ORDER: (keyof typeof MODULE_INDEX)[] = [
-  "attributes",
-  "savingThrows",
-  "attacBonusAndHitpoints",
-  "armorClassAndCombatOptions",
-  "commonActivities",
-  "equipmentList",
-  "retainers",
-  "properties",
-  "encumbrance",
-  "languages",
-]
-
-const context = React.createContext({
-  characterName: "default",
-  characterId: 'default'
-})
-
 type Props = {
   characterId: string
   characterName: string
@@ -87,34 +39,182 @@ type Props = {
 
 function CharacterSheet({ characterId, characterName }: Props) {
   const classes = useStyles()
-  const modifiers = useSelector(selectAttributeModifiers(characterId))
-  const { characterId: ignore, ...attributes } = useSelector(selectAttributes(characterId))
-  const isMobile = useScreenResizeEvent(width => width < 1100)
+  const { data } = useQuery<CharacterSheetQuery, CharacterSheetQueryVariables>(CHARACTER_SHEET_QUERY, { variables: { id: characterId } })
+  // const isMobile = useScreenResizeEvent(width => width < 1100)
 
-  function handleAttributeChange(key: keyof Attributes, value: string) {
-
+  if (!data || !data.characterSheet) {
+    return null
   }
 
-  if (!characterId) {
-    return <Redirect to={{ pathname: '/' }} />
-  }
+  const { characterSheet } = data
+  const attributeModifiers = calculateAttributeModifiers(selectAttributes(characterSheet))
+  const commonActivities = calculateCommonActivities(selectCommonActivities(characterSheet), attributeModifiers.strength, attributeModifiers.intelligence, []) // TODO add effects
 
   return (
-    <context.Provider value={{ characterName, characterId }}>
-      <div className={classes.characterSheet}>
-        <InfoBar />
-        {isMobile
-          ? MOBILE_ORDER.map(key => MODULE_INDEX[key]({ attributes, modifiers, onChange: handleAttributeChange }))
-          : BASE_ORDER.map(key => MODULE_INDEX[key]({ attributes, modifiers, onChange: handleAttributeChange }))
-        }
-      </div>
-      <SpeedDial />
-    </context.Provider>
+    <div className={classes.characterSheet}>
+      <InfoBar info={selectInfo(characterSheet)} />
+      <Attributes attributes={selectAttributes(characterSheet)} modifiers={attributeModifiers} />
+      <SavingThrows savingThrows={selectSavingThrows(characterSheet)} />
+      {/* <AttackBonusAndHitPoints baseAB={baseAB} currentHp={currentHp} maxHp={maxHp} meleeAB={meleeAB} rangedAB={rangedAB} surpriseChance={surpriseChance} /> */}
+      {/* <ArmorClassAndCombatOptions baseAC={baseAC} combatOptions={combatOptions} rangedAC={rangedAC} surprisedAC={surprisedAC} withoutShieldAC={withoutShieldAC} /> */}
+      <CommonActivities commonActivities={commonActivities} />
+      {/* <EquipmentList /> */}
+      {/* <Encumbrance /> */}
+      <Retainers characterName={characterSheet.name} retainers={selectRetainers(characterSheet)} />
+      <Languages characterName={characterSheet.name} languages={[]} />
+      <Properties characterName={characterSheet.name} properties={selectProperties(characterSheet)} />
+    </div>
   )
 }
 
-export {
-  context as characterSheetContext
+
+type QueryProps = {
+  characterId: string
+  characterName: string
+}
+
+function selectRetainers(
+  {
+    retainers
+  }: CharacterSheetQuery_characterSheet
+): Retainer[] {
+  return retainers ? retainers.filter(retainer => retainer ? true : false) as Retainer[] : []
+}
+
+function selectProperties(
+  {
+    properties
+  }: CharacterSheetQuery_characterSheet
+): Property[] {
+  return properties ? properties.filter(property => property ? true : false).map(property => ({ ...property, inventory: [] /* TODO: include inventory */ })) as Property[] : []
+}
+
+function selectEffects(
+  {
+    effects
+  }: CharacterSheetQuery_characterSheet
+): Effect[] {
+  return effects ? effects.filter(effect => effect ? true : false) as Effect[] : []
+}
+
+function selectCombatOptions(
+  {
+    parry,
+    improvedParry,
+    press,
+    standard,
+    defensive
+  }: CharacterSheetQuery_characterSheet
+): CombatOptions {
+  return {
+    parry,
+    improvedParry,
+    press,
+    standard,
+    defensive
+  }
+}
+
+function selectWallet(
+  {
+    copper,
+    silver,
+    gold
+  }: CharacterSheetQuery_characterSheet
+): Wallet {
+  return {
+    copper,
+    silver,
+    gold
+  }
+}
+
+function selectSavingThrows(
+  {
+    paralyze,
+    poison,
+    breathWeapon,
+    magic,
+    magicalDevice
+  }: CharacterSheetQuery_characterSheet
+): SavingThrows {
+  return {
+    paralyze,
+    poison,
+    breathWeapon,
+    magic,
+    magicalDevice
+  }
+}
+
+function selectAttributes(
+  {
+    charisma,
+    constitution,
+    dexterity,
+    intelligence,
+    strength,
+    wisdom
+  }: CharacterSheetQuery_characterSheet
+): Attributes {
+  return {
+    charisma,
+    constitution,
+    dexterity,
+    intelligence,
+    strength,
+    wisdom
+  }
+}
+
+function selectInfo(
+  {
+    name,
+    experience,
+    class: className,
+    race,
+    age,
+    gender,
+    alignment
+  }: CharacterSheetQuery_characterSheet
+): Info {
+  return {
+    name,
+    experience,
+    class: className,
+    race,
+    age,
+    gender,
+    alignment
+  }
+}
+
+function selectCommonActivities(
+  {
+    architecture,
+    bushcraft,
+    climbing,
+    languages,
+    openDoors,
+    search,
+    sleightOfHand,
+    sneakAttack,
+    stealth,
+    tinkering,
+  }: CharacterSheetQuery_characterSheet
+): CommonActivities {
+  return {
+    architecture,
+    bushcraft,
+    climbing,
+    languages,
+    openDoors,
+    search,
+    sleightOfHand,
+    sneakAttack,
+    stealth,
+    tinkering,
+  }
 }
 
 export default CharacterSheet

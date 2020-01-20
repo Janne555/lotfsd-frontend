@@ -1,7 +1,5 @@
 import React from 'react'
-import { useSelector, useCharacterContext } from '../../hooks'
-import { selectSavingThrows } from '../../Redux/selectors'
-import { hasKey } from '../../services'
+import { isKeyOfSavingThrows } from '../../services'
 import SavingThrow from './SavingThrow'
 import { createUseStyles } from 'react-jss'
 
@@ -22,9 +20,11 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-export default function SavingThrows() {
-  const { characterId } = useCharacterContext()
-  const savingThrows = useSelector(selectSavingThrows(characterId))
+type Props = {
+  savingThrows: SavingThrows
+}
+
+function SavingThrows({ savingThrows }: Props) {
   const classes = useStyles()
 
   return (
@@ -33,10 +33,12 @@ export default function SavingThrows() {
       <div className={classes.list}>
         {
           Object.entries(savingThrows).map(([name, value]) => (
-            hasKey(savingThrows, name) && <SavingThrow key={name} name={name} value={value} />
+            isKeyOfSavingThrows(name) && <SavingThrow key={name} name={name} value={[4, 4]} />
           ))
         }
       </div>
     </div>
   )
 }
+
+export default SavingThrows

@@ -1,12 +1,12 @@
 import { BASE_ARMOR_CLASS, MONEY } from "../constants"
-import { hasKey } from "./typeGuards"
+import { hasKey, isKeyOfAttributes } from "./typeGuards"
 import partition from 'lodash/partition'
 import { generate } from 'shortid'
 import random from 'lodash/random'
 
 function calculateAttributeModifiers(attributes: Attributes, effects?: AttributeModifierEffect[]): AttributeModifiers {
   return Object.keys(attributes).reduce((attributes, key) => {
-    hasKey(attributes, key) && (attributes[key] = calculateModifier(attributes[key]) + sumOfEffectsFor(key))
+    isKeyOfAttributes(key) && (attributes[key] = calculateModifier(attributes[key]) + sumOfEffectsFor(key))
     return attributes
   }, { ...attributes })
 
@@ -80,10 +80,9 @@ function calculateModifier(value: number) {
   return 3
 }
 
-function calculateCommonActivities(commonActivities: CharacterId & CommonActivities, strengthModifier: number, intelligenceModifier: number, effects: CommonActivityEffect[]): Record<keyof CommonActivities, { base: number, modified: number }> {
-  const { characterId, ...sansId } = commonActivities
-  return Object.keys(sansId).reduce((modifiedActivities, key) => {
-    if (hasKey(sansId, key)) {
+function calculateCommonActivities(commonActivities: CommonActivities, strengthModifier: number, intelligenceModifier: number, effects: CommonActivityEffect[]): CommonActivitiesWithModifications {
+  return Object.keys(commonActivities).reduce((modifiedActivities, key) => {
+    if (hasKey(commonActivities, key)) {
       modifiedActivities[key] = { base: commonActivities[key], modified: commonActivities[key] + sumOfEffectsForTarget(effects, key) + addModifier(key) }
     }
     return modifiedActivities

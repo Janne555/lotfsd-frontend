@@ -1,4 +1,4 @@
-const APIROOT = process.env.NODE_ENV === 'production' ? "dunno lol" : "https://localhost:5001/"
+const APIROOT = process.env.NODE_ENV === 'production' ? "dunno lol" : "http://localhost:5000/"
 
 const ENDPOINTS = {
   LOGIN: { url: 'user/login', type: "" }

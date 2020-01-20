@@ -1,6 +1,4 @@
 import React from 'react'
-import { useSelector, useCharacterContext } from '../../hooks'
-import { selectLanguages } from '../../Redux/selectors'
 import { createUseStyles } from 'react-jss'
 import partition from 'lodash/partition'
 import range from 'lodash/range'
@@ -28,11 +26,14 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-export default function Languages() {
+type Props = {
+  languages: Language[]
+  characterName: string
+}
+
+function Languages({ languages, characterName }: Props) {
   const classes = useStyles()
   const history = useHistory()
-  const { characterId, characterName } = useCharacterContext()
-  const languages = useSelector(selectLanguages(characterId))
   const [known, unknown] = partition(languages, language => language.known)
   const size = Math.max(known.length, unknown.length, 7)
 
@@ -73,3 +74,5 @@ export default function Languages() {
     </ModuleContainer>
   )
 }
+
+export default Languages
