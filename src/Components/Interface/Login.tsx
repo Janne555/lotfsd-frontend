@@ -40,12 +40,24 @@ const useStyles = createUseStyles((theme: Theme) => ({
         }
       }
     }
+  },
+  '@media (max-width: 1100px)': {
+    login: {
+      '& > div': {
+        width: '100%',
+        height: '100%',
+        boxShadow: 'none',
+        '& > form': {
+          width: '80%',
+          marginTop: 0,
+          '& > *': {
+            marginTop: '1rem'
+          }
+        }
+      }
+    }
   }
 }))
-
-type Props = {
-
-}
 
 function Login() {
   const classes = useStyles()
