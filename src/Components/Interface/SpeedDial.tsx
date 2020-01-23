@@ -4,8 +4,9 @@ import MSpeedDial from '@material-ui/lab/SpeedDial'
 import Add from '@material-ui/icons/Add'
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction'
 import { useScreenResizeEvent } from '../../hooks'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useRouteMatch } from 'react-router-dom'
 import Icon from '@material-ui/icons/AcUnit'
+import { getSpeedDialActions } from '../../constants'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   speedDial: {
@@ -26,32 +27,18 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-type Props = {
-  characterName: string
-}
-
-const actions: {
-  name: string
-  icon: ReactNode | undefined,
-  tooltip: string
-}[] = [
-    { name: 'addItem', icon: <Icon />, tooltip: 'Add\xa0Item' },
-    { name: 'addRetainer', icon: <Icon />, tooltip: 'Add\xa0Retainer' },
-    { name: 'addLanguage', icon: <Icon />, tooltip: 'Add\xa0Language' },
-  ]
-
-function SpeedDial({ characterName }: Props) {
+function SpeedDial() {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const history = useHistory()
-  const isMobile = useScreenResizeEvent(width => width < 1100)
+  const characterNameMatch = useRouteMatch<{ character: string }>('/characters/:character')
+  const pageMatch = useRouteMatch<{ page: string }>('/:page')
+  const actions = getSpeedDialActions(pageMatch)
 
   function handleClick(action: string) {
-    history.push(`/characters/${characterName}/${action}`)
-  }
-
-  if (!isMobile) {
-    return null
+    if (characterNameMatch?.params.character) {
+      history.push(`/characters/${characterNameMatch?.params.character}/${action}`)
+    }
   }
 
   return (

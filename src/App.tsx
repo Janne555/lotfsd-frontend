@@ -9,10 +9,11 @@ import CharacterCreator from './Components/CharacterCreator/CharacterCreator'
 import AppModal from './Components/Interface/Modal/AppModal'
 import ItemIndex from './Components/ItemIndex/ItemIndex'
 import ItemCreator from './Components/ItemIndex/ItemCreator'
-import { useLogin } from './hooks'
+import { useLogin, useScreenResizeEvent } from './hooks'
 import { useQuery } from '@apollo/react-hooks'
 import { CHARACTER_LIST_QUERY } from './constants'
 import { CharacterListQuery } from './constants/queries/__generated__/characterListQuery'
+import SpeedDial from './Components/Interface/SpeedDial'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   app: {
@@ -45,6 +46,7 @@ function App() {
   const actionMatch = useRouteMatch<{ action: string }>('/characters/:character/:action')
   const { data } = useQuery<CharacterListQuery>(CHARACTER_LIST_QUERY)
   const { logout } = useLogin()
+  const isMobile = useScreenResizeEvent(width => width < 1100)
 
   if (!data || !data.characterSheets) {
     return null
@@ -96,6 +98,10 @@ function App() {
       <AppModal characterId={characterId} content={actionMatch?.params.action} characterName={characterNameMatch?.params.character} />
 
       <footer className={classes.footer}></footer>
+
+      {isMobile &&
+        <SpeedDial />
+      }
     </div>
   );
 }
