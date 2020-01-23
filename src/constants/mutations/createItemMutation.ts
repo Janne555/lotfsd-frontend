@@ -1,11 +1,29 @@
 import { gql } from 'apollo-boost'
 
-const CREATE_CHARACTER_MUTATION = gql`
-  mutation CreateWeapon($item: ItemInput!) {
+const CREATE_ITEM_MUTATION = gql`
+  mutation CreateItem($item: ItemInput!) {
     createItem(item: $item) {
-
+      attackBonus
+      baseArmorClass
+      damage
+      description
+      effects {
+        id
+        method
+        target
+        value
+      }
+      encumbrance
+      encumbrancePoints
+      id
+      name
+      rangeLong
+      rangeMedium
+      rangeShort
+      stackSize
+      type
     }
   }
 `
 
-export { CREATE_CHARACTER_MUTATION }
+export { CREATE_ITEM_MUTATION }

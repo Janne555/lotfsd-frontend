@@ -56,7 +56,7 @@ function ItemIndex(/* { }: Props */) {
   }
 
   function onAdd() {
-
+    history.push('/newitem')
   }
 
   return (

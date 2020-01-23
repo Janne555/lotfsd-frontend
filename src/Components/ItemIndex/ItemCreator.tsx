@@ -10,7 +10,9 @@ import EffectsList from '../_shared/EffectsList'
 import { generate } from 'shortid'
 import NoContent from '../_shared/NoContent'
 import { newItem } from '../../Redux/thunks'
-import { useDispatch } from '../../hooks'
+import { useMutation } from '@apollo/react-hooks'
+import { CreateItem, CreateItemVariables } from '../../constants/mutations/__generated__/CreateItem'
+import { CREATE_ITEM_MUTATION } from '../../constants'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   itemCreator: {
@@ -39,22 +41,59 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-type Props = {
+function createVariables(form: ItemCreatorForm): CreateItemVariables {
+  const description = form.description?.value
+  const name = form.name?.value
+  const stackSize = form.stackSize ? Number(form.stackSize.value) : undefined
+  const encumbrance = form.encumbrance ? Number(form.encumbrance.value) : undefined
+  const damage = form.damage?.value
+  const rangeShort = form.rangeShort ? Number(form.rangeShort.value) : undefined
+  const rangeMedium = form.rangeMedium ? Number(form.rangeMedium.value) : undefined
+  const rangeLong = form.rangeLong ? Number(form.rangeLong.value) : undefined
+  const baseArmorClass = form.armorClass ? Number(form.armorClass.value) : undefined
+  const type = form.type?.value
 
+  if (!description
+    || !encumbrance
+    || !name
+    || !stackSize
+    || !type) {
+    throw Error("invalid payload")
+  }
+
+  const encumbrancePoints = 1 / stackSize // TODO check this is correct
+
+  return {
+    item: {
+      description,
+      encumbrancePoints,
+      name,
+      stackSize,
+      type,
+      damage,
+      rangeLong,
+      rangeMedium,
+      rangeShort,
+      baseArmorClass
+    }
+  }
 }
 
-function ItemCreator(/* { }: Props */) {
+
+function ItemCreator() {
   const classes = useStyles()
   const [type, setType] = useState<Item['type']>()
   const [showEffectAdder, setShowEffectAdder] = useState(false)
   const [effects, setEffects] = useState<ItemEffect[]>([])
-  const dispatch = useDispatch()
+  const [mutate, { }] = useMutation<CreateItem, CreateItemVariables>(CREATE_ITEM_MUTATION)
   // const [error, setError] = useState<string>()
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const target = (e.target as unknown) as { elements: ItemCreatorForm }
-    dispatch(newItem(target.elements, effects))
+    mutate({
+      variables: createVariables(target.elements)
+    })
   }
 
   function handleSelect(e: React.ChangeEvent<HTMLSelectElement>) {

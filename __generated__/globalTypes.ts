@@ -102,8 +102,29 @@ export interface EffectInput {
   value: number;
 }
 
+export interface ItemEffectInput {
+  method: string;
+  target: string;
+  value: number;
+}
+
+export interface ItemInput {
+  name: string;
+  encumbrancePoints: number;
+  stackSize: number;
+  encumbrance?: number | null;
+  description: string;
+  type: string;
+  baseArmorClass?: number | null;
+  damage?: string | null;
+  attackBonus?: number | null;
+  rangeShort?: number | null;
+  rangeMedium?: number | null;
+  rangeLong?: number | null;
+  effects?: (ItemEffectInput | null)[] | null;
+}
+
 export interface ItemInstanceInput {
-  id: string;
   equipped: boolean;
 }
 
