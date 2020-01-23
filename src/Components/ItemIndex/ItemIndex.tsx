@@ -9,6 +9,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import TextField from '@material-ui/core/TextField'
 import Autocomplete from '@material-ui/lab/Autocomplete'
+import Button from '@material-ui/core/Button'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   itemIndex: {
@@ -54,11 +55,15 @@ function ItemIndex(/* { }: Props */) {
     history.push(`/itemindex/${item}`)
   }
 
+  function onAdd() {
+
+  }
+
   return (
     <div className={classes.itemIndex}>
       {isMobile
-        ? <ComboBoxMode items={items} onSelect={handleItemClick} selected={selected} />
-        : <ListMode items={items} onSelect={handleItemClick} selected={selected} />
+        ? <ComboBoxMode items={items} onSelect={handleItemClick} />
+        : <ListMode onAdd={onAdd} items={items} onSelect={handleItemClick} selected={selected} />
       }
       <Route path="/itemindex/:item">
         {selected &&
@@ -78,17 +83,19 @@ const useListModeStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-type SubProps = {
+type ListModeProps = {
   onSelect: (name?: string) => void
   items: Item[]
   selected?: Item
+  onAdd: () => void
 }
 
-function ListMode({ items, onSelect, selected }: SubProps) {
+function ListMode({ items, onSelect, selected, onAdd }: ListModeProps) {
   const classes = useListModeStyles()
   const [searchTerm, setSearchTerm] = useState("")
   return (
     <div>
+      <Button onClick={onAdd}>Create New Item</Button>
       <TextField className={classes.searchBox} label="Search" onChange={e => setSearchTerm(e.target.value)} />
       <List>
         {
@@ -109,7 +116,12 @@ function ListMode({ items, onSelect, selected }: SubProps) {
   )
 }
 
-function ComboBoxMode({ items, onSelect }: SubProps) {
+type ComboBoxModeProps = {
+  onSelect: (name?: string) => void
+  items: Item[]
+}
+
+function ComboBoxMode({ items, onSelect }: ComboBoxModeProps) {
   return (
     <Autocomplete
       options={items}
