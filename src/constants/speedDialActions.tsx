@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import { Icon } from '@material-ui/core'
-import { match } from 'react-router-dom'
+import { match as Match } from 'react-router-dom'
 
 type SpeedDialAction = {
   name: string
@@ -19,7 +19,7 @@ const speedDialActions: Record<string, SpeedDialAction[]> = {
   ]
 }
 
-function getSpeedDialActions(match: match<{ page: string }> | null): SpeedDialAction[] {
+function getSpeedDialActions(match: Match<{ page: string }> | null): SpeedDialAction[] {
   const page = match?.params.page
   if (page && speedDialActions[page]) {
     return speedDialActions[page]
