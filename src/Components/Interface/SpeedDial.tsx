@@ -35,9 +35,13 @@ function SpeedDial() {
   const pageMatch = useRouteMatch<{ page: string }>('/:page')
   const actions = getSpeedDialActions(pageMatch)
 
-  function handleClick(action: string) {
-    if (characterNameMatch?.params.character) {
-      history.push(`/characters/${characterNameMatch?.params.character}/${action}`)
+  function handleClick(action: string | ((root: string) => string)) {
+    if (typeof action === "string") {
+      history.push(action)
+    } else {
+      if (characterNameMatch?.params.character) {
+        history.push(action(characterNameMatch?.params.character))
+      }
     }
   }
 
@@ -54,11 +58,11 @@ function SpeedDial() {
       {
         actions.map(action => (
           <SpeedDialAction
-            key={action.name}
+            key={action.tooltip}
             tooltipTitle={action.tooltip}
             tooltipOpen
             icon={action.icon}
-            onClick={() => handleClick(action.name)}
+            onClick={() => handleClick(action.action)}
           />
         ))
       }

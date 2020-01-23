@@ -3,19 +3,19 @@ import { Icon } from '@material-ui/core'
 import { match as Match } from 'react-router-dom'
 
 type SpeedDialAction = {
-  name: string
-  icon: ReactNode | undefined,
+  action: string | ((root: string) => string)
+  icon: ReactNode | undefined
   tooltip: string
 }
 
 const speedDialActions: Record<string, SpeedDialAction[]> = {
   characters: [
-    { name: 'addItem', icon: <Icon />, tooltip: 'Add\xa0Item' },
-    { name: 'addRetainer', icon: <Icon />, tooltip: 'Add\xa0Retainer' },
-    { name: 'addLanguage', icon: <Icon />, tooltip: 'Add\xa0Language' },
+    { action: root => `/characters/${root}/addItem`, icon: <Icon />, tooltip: 'Add\xa0Item' },
+    { action: root => `/characters/${root}/addRetainer`, icon: <Icon />, tooltip: 'Add\xa0Retainer' },
+    { action: root => `/characters/${root}/addLanguage`, icon: <Icon />, tooltip: 'Add\xa0Language' },
   ],
   itemindex: [
-    { name: 'newItem', icon: <Icon />, tooltip: 'New\xa0Item' },
+    { action: '/newitem', icon: <Icon />, tooltip: 'New\xa0Item' },
   ]
 }
 
