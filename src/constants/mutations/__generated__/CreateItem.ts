@@ -18,18 +18,18 @@ export interface CreateItem_createItem_effects {
 
 export interface CreateItem_createItem {
   __typename: "Item";
-  attackBonus: number;
-  baseArmorClass: number;
-  damage: string;
+  attackBonus: number | null;
+  baseArmorClass: number | null;
+  damage: string | null;
   description: string;
   effects: (CreateItem_createItem_effects | null)[] | null;
-  encumbrance: number;
+  encumbrance: number | null;
   encumbrancePoints: number;
   id: string;
   name: string;
-  rangeLong: number;
-  rangeMedium: number;
-  rangeShort: number;
+  rangeLong: number | null;
+  rangeMedium: number | null;
+  rangeShort: number | null;
   stackSize: number;
   type: string;
 }
