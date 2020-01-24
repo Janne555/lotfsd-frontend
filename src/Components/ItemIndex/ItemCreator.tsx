@@ -12,8 +12,10 @@ import NoContent from '../_shared/NoContent'
 import { newItem } from '../../Redux/thunks'
 import { useMutation } from '@apollo/react-hooks'
 import { CreateItem, CreateItemVariables } from '../../constants/mutations/__generated__/CreateItem'
-import { CREATE_ITEM_MUTATION } from '../../constants'
-import { ItemQuery_item_effects } from '../../constants/queries/__generated__/ItemQuery'
+import { CREATE_ITEM_MUTATION, ITEMS_QUERY } from '../../constants'
+import { ItemQuery_item_effects, ItemQuery } from '../../constants/queries/__generated__/ItemQuery'
+import { ItemsQuery, ItemsQuery_items } from '../../constants/queries/__generated__/ItemsQuery'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   itemCreator: {
@@ -86,8 +88,25 @@ function ItemCreator() {
   const [type, setType] = useState<Item['type']>()
   const [showEffectAdder, setShowEffectAdder] = useState(false)
   const [effects, setEffects] = useState<ItemQuery_item_effects[]>([])
-  const [mutate, { }] = useMutation<CreateItem, CreateItemVariables>(CREATE_ITEM_MUTATION)
-  // const [error, setError] = useState<string>()
+  const history = useHistory()
+  const [mutate, { }] = useMutation<CreateItem, CreateItemVariables>(CREATE_ITEM_MUTATION, {
+    update(cache, { data }) {
+      let cachedItems: ItemsQuery_items[] = []
+      try {
+        const cacheQuery = cache.readQuery<ItemsQuery>({ query: ITEMS_QUERY })
+        cachedItems = cacheQuery?.items ?? []
+        if (data) {
+          cache.writeQuery<ItemsQuery, string>({
+            query: ITEMS_QUERY,
+            data: { items: cachedItems.concat(data.createItem) }
+          })
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    onCompleted: data => history.push(`/itemindex/${data.createItem.name}`)
+  })
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
