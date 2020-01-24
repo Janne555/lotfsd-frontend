@@ -32,7 +32,10 @@ const useStyles = createUseStyles((theme: Theme) => ({
     width: '100%'
   },
   details: {
-    margin: '1rem 0 0 2rem'
+    margin: '1rem 0 0 2rem',
+    top: '1rem',
+    position: 'sticky',
+    height: 'fit-content'
   },
   '@media (max-width: 1100px)': {
     itemIndex: {
