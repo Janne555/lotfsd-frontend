@@ -82,7 +82,7 @@ function CharacterSheet({ characterId, characterName }: Props) {
         surprisedAC={calculateArmorClass(attributeModifiers.dexterity, armorClassEffects, "surprised")}
         withoutShieldAC={calculateArmorClass(attributeModifiers.dexterity, armorClassEffects, "withoutShield")}
       />
-      <CommonActivities commonActivities={commonActivities} />
+      <CommonActivities commonActivities={commonActivities} characterId={characterId} />
       {/* <EquipmentList /> */}
       {/* <Encumbrance /> */}
       <Retainers characterName={characterSheet.name} retainers={selectRetainers(characterSheet)} />

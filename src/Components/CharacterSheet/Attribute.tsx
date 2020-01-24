@@ -45,7 +45,6 @@ const useAttributeStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-
 type AttributeProps = {
   title: keyof Attributes
   score: number

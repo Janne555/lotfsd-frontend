@@ -1,7 +1,7 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import DieFace from '../_shared/DieFace'
-import { isKeyOfCommonActivities } from '../../services'
+import { isKeyOfCommonActivities, updateCharacterSheet } from '../../services'
 import { COMMON_ACTIVITY_TITLES, CHARACTER_SHEET_QUERY, CHARACTER_SHEET_UPDATE_MUTATION } from '../../constants'
 import { useMutation } from '@apollo/react-hooks'
 import { CharacterSheetUdpate, CharacterSheetUdpateVariables } from '../../constants/mutations/__generated__/CharacterSheetUdpate'
@@ -23,9 +23,10 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 type Props = {
   commonActivities: CommonActivitiesWithModifications
+  characterId?: string
 }
 
-function CommonActivities({ commonActivities }: Props) {
+function CommonActivities({ commonActivities, characterId }: Props) {
   const classes = useStyles()
 
   return (
@@ -34,7 +35,7 @@ function CommonActivities({ commonActivities }: Props) {
       <div className={classes.activities}>
         {
           Object.entries(commonActivities).map(([name, { base, modified }]) => (
-            isKeyOfCommonActivities(name) && <Activity key={name} name={name} base={base} modified={modified} />
+            isKeyOfCommonActivities(name) && <Activity key={name} name={name} base={base} modified={modified} characterId={characterId} />
           ))
         }
       </div>
@@ -56,34 +57,30 @@ type SubProps = {
   name: keyof CommonActivities
   base: number
   modified: number
+  characterId?: string
 }
 
-function Activity({ name, base, modified }: SubProps) {
+function Activity({ name, base, modified, characterId }: SubProps) {
   const classes = useSubStyles()
   const [mutate, { loading }] = useMutation<CharacterSheetUdpate, CharacterSheetUdpateVariables>(CHARACTER_SHEET_UPDATE_MUTATION, {
-    update(cache, { data }) {
-      if (data) {
-        let { characterSheet } = cache.readQuery<CharacterSheetQuery>({ query: CHARACTER_SHEET_QUERY }) ?? {}
-        if (!characterSheet) {
-          throw Error("Tried to udpate character sheet when it doesn't exist")
-        }
-
-        cache.writeQuery<CharacterSheetQuery, string>({
-          query: CHARACTER_SHEET_QUERY,
-          data: { characterSheet: characterSheet }
-        })
-      }
-    }
+    update: updateCharacterSheet(characterId)
   })
 
   function handleChange(value: number) {
-    throw Error("TODO")
+    if (characterId) {
+      mutate({
+        variables: {
+          ch: { [name]: value },
+          id: characterId
+        }
+      })
+    }
   }
 
   return (
     <div className={classes.root}>
       <h4>{COMMON_ACTIVITY_TITLES[name]}</h4>
-      <DieFace value={modified} onValueChange={handleChange} />
+      <DieFace value={modified} onValueChange={handleChange} disabled={loading} />
     </div>
   )
 }

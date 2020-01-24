@@ -5,7 +5,8 @@ import { useScreenResizeEvent } from '../../hooks'
 import Backdrop from '@material-ui/core/Backdrop'
 
 type Props = {
-  value: number,
+  value: number
+  disabled?: boolean
   onValueChange?: (value: number) => void
 }
 
@@ -36,13 +37,15 @@ const useStyles = createUseStyles((theme: Theme) => ({
   },
 }))
 
-export default function DieFace({ value, onValueChange }: Props) {
+export default function DieFace({ value, onValueChange, disabled }: Props) {
   const [isEditing, setIsEditing] = useState(false)
-  const classes = useStyles(isEditing)
+  const classes = useStyles(disabled)
   const isMobile = useScreenResizeEvent(width => width < 1100)
 
   function handleClick(index: number) {
-    onValueChange?.(index + 1)
+    if (!disabled) {
+      onValueChange?.(index + 1)
+    }
   }
 
   function handleDieClick() {
@@ -60,7 +63,7 @@ export default function DieFace({ value, onValueChange }: Props) {
     <div className={classes.dieFaceRoot} onClick={handleDieClick} >
       {
         range(6).map(i => (
-          <Circle key={i} filled={value > i} index={i} onClick={isMobile ? undefined : handleClick} />
+          <Circle key={i} filled={value > i} index={i} onClick={isMobile ? undefined : handleClick} disabled={disabled} />
         ))
       }
       {isEditing &&
@@ -72,7 +75,7 @@ export default function DieFace({ value, onValueChange }: Props) {
           <div className={classes.bigDie} onClick={e => e.stopPropagation()}>
             {
               range(6).map(i => (
-                <Circle key={i} filled={value > i} index={i} onClick={isMobile ? handleClick : undefined} big />
+                <Circle key={i} filled={value > i} index={i} onClick={isMobile ? handleClick : undefined} big disabled={disabled} />
               ))
             }
           </div>
@@ -85,6 +88,7 @@ export default function DieFace({ value, onValueChange }: Props) {
 type StyleProps = {
   filled: boolean
   big?: boolean
+  disabled?: boolean
 }
 
 const useSubStyles = createUseStyles({
@@ -95,7 +99,8 @@ const useSubStyles = createUseStyles({
     height: ({ big }: StyleProps) => big ? 21 : 7,
     justifySelf: 'center',
     alignSelf: 'center',
-    backgroundColor: ({ filled }: StyleProps) => filled ? 'black' : ''
+    backgroundColor: ({ filled }: StyleProps) => filled ? 'black' : '',
+    cursor: ({ disabled }: StyleProps) => disabled ? 'initial' : 'pointer'
   }
 })
 
@@ -104,10 +109,11 @@ type SubProps = {
   index: number
   onClick?: (index: number) => void
   big?: boolean
+  disabled?: boolean
 }
 
-function Circle({ filled, index, onClick, big }: SubProps) {
-  const classes = useSubStyles({ filled, big })
+function Circle({ filled, index, onClick, big, disabled }: SubProps) {
+  const classes = useSubStyles({ filled, big, disabled })
   return (
     <div className={classes.circleRoot} onClick={() => onClick?.(index)} />
   )
