@@ -3,7 +3,7 @@ import React from 'react'
 import { createUseStyles } from 'react-jss'
 import { ATTRIBUTE_DETAILS, ATTRIBUTE_TITLES, CHARACTER_SHEET_UPDATE_MUTATION, CHARACTER_SHEET_QUERY } from '../../constants'
 import Input from '../_shared/Input'
-import { Validator, calculateModifier } from '../../services'
+import { Validator, calculateModifier, updateCharacterSheet } from '../../services'
 import { useMutation } from '@apollo/react-hooks'
 import { CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables } from '../../constants/mutations/__generated__/CharacterSheetUpdateMutation'
 import { CharacterSheetQuery, CharacterSheetQueryVariables } from '../../constants/queries/__generated__/CharacterSheetQuery'
@@ -59,15 +59,7 @@ const validator = new Validator().isLengthy.isNumber
 function Attribute({ title, score, index, modifier, onChange, characterId }: AttributeProps) {
   const classes = useAttributeStyles(index)
   const [mutate, { data, loading, error }] = useMutation<CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables>(CHARACTER_SHEET_UPDATE_MUTATION, {
-    update: (cache, { data, errors }) => {
-      if (data && characterId) {
-        cache.writeQuery<CharacterSheetQuery, CharacterSheetQueryVariables>({
-          data: { characterSheet: data.updateCharacterSheet },
-          query: CHARACTER_SHEET_QUERY,
-          variables: { id: characterId }
-        })
-      }
-    }
+    update: updateCharacterSheet(characterId)
   })
 
   function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
