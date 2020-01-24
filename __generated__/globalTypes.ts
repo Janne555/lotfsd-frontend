@@ -106,6 +106,7 @@ export interface ItemEffectInput {
   method: string;
   target: string;
   value: number;
+  type: string;
 }
 
 export interface ItemInput {

@@ -2,13 +2,11 @@
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
 
-import { ItemInput } from "./../../../../__generated__/globalTypes";
-
 // ====================================================
-// GraphQL mutation operation: CreateItem
+// GraphQL query operation: ItemQuery
 // ====================================================
 
-export interface CreateItem_createItem_effects {
+export interface ItemQuery_item_effects {
   __typename: "ItemEffect";
   id: string;
   method: string;
@@ -17,13 +15,13 @@ export interface CreateItem_createItem_effects {
   type: string;
 }
 
-export interface CreateItem_createItem {
+export interface ItemQuery_item {
   __typename: "Item";
   attackBonus: number | null;
   baseArmorClass: number | null;
   damage: string | null;
   description: string;
-  effects: CreateItem_createItem_effects[] | null;
+  effects: ItemQuery_item_effects[] | null;
   encumbrance: number | null;
   encumbrancePoints: number;
   id: string;
@@ -35,10 +33,10 @@ export interface CreateItem_createItem {
   type: string;
 }
 
-export interface CreateItem {
-  createItem: CreateItem_createItem;
+export interface ItemQuery {
+  item: ItemQuery_item;
 }
 
-export interface CreateItemVariables {
-  item: ItemInput;
+export interface ItemQueryVariables {
+  id: string;
 }
