@@ -42,11 +42,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-type Props = {
-
-}
-
-function ItemIndex(/* { }: Props */) {
+function ItemIndex() {
   const isMobile = useScreenResizeEvent(width => width < 1100)
   const classes = useStyles()
   const { data, loading, error } = useQuery<ItemsQuery>(ITEMS_QUERY)
