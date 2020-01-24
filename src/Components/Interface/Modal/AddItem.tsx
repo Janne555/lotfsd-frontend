@@ -64,7 +64,7 @@ const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ char
         )}
       />
       {/* {selected &&
-        <ItemDetails item={selected} />
+        <ItemDetails item={selected} /> TODO
       } */}
     </FormContainer>
   )
