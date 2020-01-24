@@ -2,7 +2,7 @@ import React from 'react'
 import { createUseStyles } from 'react-jss'
 import DieFace from '../_shared/DieFace'
 import { isKeyOfCommonActivities } from '../../services'
-import { COMMON_ACTIVITY_TITLES, CHARACTER_SHEET_UPDATE, CHARACTER_SHEET_QUERY } from '../../constants'
+import { COMMON_ACTIVITY_TITLES, CHARACTER_SHEET_QUERY, CHARACTER_SHEET_UPDATE_MUTATION } from '../../constants'
 import { useMutation } from '@apollo/react-hooks'
 import { CharacterSheetUdpate, CharacterSheetUdpateVariables } from '../../constants/mutations/__generated__/CharacterSheetUdpate'
 import { CharacterSheetQuery } from '../../constants/queries/__generated__/CharacterSheetQuery'
@@ -60,7 +60,7 @@ type SubProps = {
 
 function Activity({ name, base, modified }: SubProps) {
   const classes = useSubStyles()
-  const [mutate, { loading }] = useMutation<CharacterSheetUdpate, CharacterSheetUdpateVariables>(CHARACTER_SHEET_UPDATE, {
+  const [mutate, { loading }] = useMutation<CharacterSheetUdpate, CharacterSheetUdpateVariables>(CHARACTER_SHEET_UPDATE_MUTATION, {
     update(cache, { data }) {
       if (data) {
         let { characterSheet } = cache.readQuery<CharacterSheetQuery>({ query: CHARACTER_SHEET_QUERY }) ?? {}

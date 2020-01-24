@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost'
 
-const CHARACTER_SHEET_UPDATE = gql`
-  mutation CharacterSheetUdpate($id: String!, $ch: CharacterSheetUpdate!) {
+const CHARACTER_SHEET_UPDATE_MUTATION = gql`
+  mutation CharacterSheetUpdateMutation($id: String!, $ch: CharacterSheetUpdate!) {
     updateCharacterSheet(id: $id, characterSheet: $ch) {
       id
       name
@@ -73,4 +73,4 @@ const CHARACTER_SHEET_UPDATE = gql`
   }
 `
 
-export { CHARACTER_SHEET_UPDATE }
+export { CHARACTER_SHEET_UPDATE_MUTATION }

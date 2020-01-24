@@ -1,9 +1,12 @@
 
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { ATTRIBUTE_DETAILS, ATTRIBUTE_TITLES } from '../../constants'
+import { ATTRIBUTE_DETAILS, ATTRIBUTE_TITLES, CHARACTER_SHEET_UPDATE_MUTATION, CHARACTER_SHEET_QUERY } from '../../constants'
 import Input from '../_shared/Input'
 import { Validator, calculateModifier } from '../../services'
+import { useMutation } from '@apollo/react-hooks'
+import { CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables } from '../../constants/mutations/__generated__/CharacterSheetUpdateMutation'
+import { CharacterSheetQuery, CharacterSheetQueryVariables } from '../../constants/queries/__generated__/CharacterSheetQuery'
 
 const useAttributeStyles = createUseStyles((theme: Theme) => ({
   title: {
@@ -49,11 +52,35 @@ type AttributeProps = {
   index: number
   modifier?: number
   onChange?: (key: keyof Attributes, value: string) => void
+  characterId?: string
 }
 const validator = new Validator().isLengthy.isNumber
 
-function Attribute({ title, score, index, modifier, onChange }: AttributeProps) {
+function Attribute({ title, score, index, modifier, onChange, characterId }: AttributeProps) {
   const classes = useAttributeStyles(index)
+  const [mutate, { data, loading, error }] = useMutation<CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables>(CHARACTER_SHEET_UPDATE_MUTATION, {
+    update: (cache, { data, errors }) => {
+      if (data && characterId) {
+        cache.writeQuery<CharacterSheetQuery, CharacterSheetQueryVariables>({
+          data: { characterSheet: data.updateCharacterSheet },
+          query: CHARACTER_SHEET_QUERY,
+          variables: { id: characterId }
+        })
+      }
+    }
+  })
+
+  function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
+    if (characterId) {
+      mutate({
+        variables: {
+          ch: { [title]: Number(e.target.value) },
+          id: characterId
+        }
+      })
+    }
+  }
+
 
   return (
     <>
@@ -63,7 +90,7 @@ function Attribute({ title, score, index, modifier, onChange }: AttributeProps) 
           isValid={validator.validate}
           onChange={value => onChange?.(title, value)}
           value={`${score}`}
-          inputProps={{ id: title }}
+          inputProps={{ id: title, type: "number", disabled: loading, onBlur: handleBlur }}
         />
       </div>
       <div className={classes.modifierRoot}>

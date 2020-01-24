@@ -65,7 +65,7 @@ function CharacterSheet({ characterId, characterName }: Props) {
   return (
     <div className={classes.characterSheet}>
       <InfoBar info={selectInfo(characterSheet)} />
-      <Attributes attributes={selectAttributes(characterSheet)} modifiers={attributeModifiers} />
+      <Attributes attributes={selectAttributes(characterSheet)} modifiers={attributeModifiers} characterId={characterId} />
       <SavingThrows savingThrows={selectSavingThrows(characterSheet)} />
       <AttackBonusAndHitPoints
         baseAB={characterSheet.attackBonus}
