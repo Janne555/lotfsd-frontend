@@ -1,6 +1,7 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import EffectsList from './EffectsList'
+import { ItemQuery_item } from '../../constants/queries/__generated__/ItemQuery'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   itemDetails: {
@@ -9,7 +10,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
 }))
 
 type Props = {
-  item: Item
+  item: ItemQuery_item
 }
 
 function ItemDetails({ item }: Props) {
@@ -35,7 +36,7 @@ function ItemDetails({ item }: Props) {
             Oversized
             </li>
         }
-        {
+        { item.effects &&
           <EffectsList effects={item.effects} />
         }
       </ul>
@@ -43,7 +44,7 @@ function ItemDetails({ item }: Props) {
   )
 }
 
-function pickDisplayProps(item: Item): [string, string][] {
+function pickDisplayProps(item: ItemQuery_item): [string, string][] {
   const { stackSize, type } = item
   return [
     ['Stack Size', `${stackSize}`],

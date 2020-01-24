@@ -13,6 +13,7 @@ import { newItem } from '../../Redux/thunks'
 import { useMutation } from '@apollo/react-hooks'
 import { CreateItem, CreateItemVariables } from '../../constants/mutations/__generated__/CreateItem'
 import { CREATE_ITEM_MUTATION } from '../../constants'
+import { ItemQuery_item_effects } from '../../constants/queries/__generated__/ItemQuery'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   itemCreator: {
@@ -84,7 +85,7 @@ function ItemCreator() {
   const classes = useStyles()
   const [type, setType] = useState<Item['type']>()
   const [showEffectAdder, setShowEffectAdder] = useState(false)
-  const [effects, setEffects] = useState<ItemEffect[]>([])
+  const [effects, setEffects] = useState<ItemQuery_item_effects[]>([])
   const [mutate, { }] = useMutation<CreateItem, CreateItemVariables>(CREATE_ITEM_MUTATION)
   // const [error, setError] = useState<string>()
 
@@ -114,12 +115,13 @@ function ItemCreator() {
     const effectTarget = target.elements.effectTarget?.value as ArmorEffect['target']
     const value = Number(target.elements.value.value)
 
-    const effect: ArmorEffect = {
+    const effect: ItemQuery_item_effects = {
       method,
       target: effectTarget,
       type: 'armorItemEffect',
       value,
-      id: generate()
+      id: generate(),
+      __typename: "ItemEffect"
     }
 
     setEffects(prev => prev.concat(effect))

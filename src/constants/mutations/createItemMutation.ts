@@ -12,6 +12,7 @@ const CREATE_ITEM_MUTATION = gql`
         method
         target
         value
+        type
       }
       encumbrance
       encumbrancePoints

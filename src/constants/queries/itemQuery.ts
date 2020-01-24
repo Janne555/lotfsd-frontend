@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost'
 
 const ITEM_QUERY = gql`
-  query Item($id: String!) {
+  query ItemQuery($id: String!) {
     item(id: $id) {
       attackBonus
       baseArmorClass
@@ -12,6 +12,7 @@ const ITEM_QUERY = gql`
         method
         target
         value
+        type
       }
       encumbrance
       encumbrancePoints

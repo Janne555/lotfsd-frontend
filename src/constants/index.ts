@@ -80,6 +80,8 @@ export {
 export * from './endpoints'
 export * from './queries/characterListQuery'
 export * from './queries/characterSheetQuery'
+export * from './queries/itemsQuery'
+export * from './queries/itemQuery'
 export * from './mutations/createCharacterMutation'
 export * from './mutations/characterSheetUpdate'
 export * from './mutations/createItemMutation'

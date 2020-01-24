@@ -63,9 +63,9 @@ const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ char
           <TextField id="item" {...params} required label="Item" fullWidth placeholder="Filter by typing" />
         )}
       />
-      {selected &&
+      {/* {selected &&
         <ItemDetails item={selected} />
-      }
+      } */}
     </FormContainer>
   )
 })
