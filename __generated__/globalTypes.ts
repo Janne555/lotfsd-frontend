@@ -50,6 +50,7 @@ export interface CharacterSheetInput {
   effects?: (EffectInput | null)[] | null;
   retainers?: (RetainerInput | null)[] | null;
   properties?: (PropertyInput | null)[] | null;
+  languagesList?: (LanguageInput | null)[] | null;
 }
 
 export interface CharacterSheetUpdate {
@@ -127,6 +128,11 @@ export interface ItemInput {
 
 export interface ItemInstanceInput {
   equipped: boolean;
+}
+
+export interface LanguageInput {
+  name: string;
+  known: boolean;
 }
 
 export interface PropertyInput {
