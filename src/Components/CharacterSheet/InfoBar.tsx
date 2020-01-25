@@ -13,23 +13,31 @@ const useStyles = createUseStyles((theme: Theme) => ({
   info: {
     display: 'grid',
     gridTemplateColumns: 'repeat(4, 25%)',
-    alignItems: 'center'
-  },
-  left: {
-    textAlign: 'right',
-    marginRight: '0.5em',
-    fontWeight: 'bold',
-    fontSize: '1.1em'
-  },
-  right: {
-    textAlign: 'left',
-    marginLeft: '0.5em'
+    alignItems: 'center',
+    '& > div': {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      '& > span:last-of-type': {
+        fontWeight: 'bold',
+        fontSize: '1.1em'
+      },
+      '& > span:first-of-type': {
+        marginTop: 5,
+        minWidth: '80%',
+        borderBottom: '1px solid black',
+        textAlign: 'center'
+      }
+    }
   },
   '@media (max-width: 1100px)': {
     infoBarRoot: {
       display: 'flex',
       flexDirection: 'column',
       height: 'fit-content'
+    },
+    info: {
+      gridTemplateColumns: '50% 50%'
     }
   }
 }))
@@ -53,31 +61,17 @@ function InfoBar({ info }: Props) {
   )
 }
 
-const useSubStyles = createUseStyles((theme: Theme) => ({
-  left: {
-    textAlign: 'right',
-    marginRight: '0.5em',
-    fontWeight: 'bold',
-    fontSize: '1.1em'
-  },
-  right: {
-    textAlign: 'left',
-    marginLeft: '0.5em'
-  }
-}))
-
 type SubProps = {
   name: string
   value: string | number
 }
 
 function KeyVal({ name, value }: SubProps) {
-  const classes = useSubStyles()
   return (
-    <>
-      <span className={classes.left}>{name}</span>
-      <span className={classes.right}>{value}</span>
-    </>
+    <div>
+      <span>{value}</span>
+      <span>{name}</span>
+    </div>
   )
 }
 
