@@ -14,6 +14,7 @@ import {
   calculateArmorClass,
   isArmorClassEffect,
   isCommonActivityEffect,
+  calculateSavingThrows,
 } from '../../services'
 import { useQuery } from '@apollo/react-hooks'
 import { CHARACTER_SHEET_QUERY } from '../../constants'
@@ -61,12 +62,13 @@ function CharacterSheet({ characterId, characterName }: Props) {
   const commonActivityEffects = characterSheet.effects.filter(isCommonActivityEffect) as CommonActivityEffect[]
   const attributeModifiers = calculateAttributeModifiers(selectAttributes(characterSheet))
   const commonActivities = calculateCommonActivities(selectCommonActivities(characterSheet), attributeModifiers.strength, attributeModifiers.intelligence, commonActivityEffects)
+  const savingThrows = calculateSavingThrows(selectSavingThrows(characterSheet), attributeModifiers)
 
   return (
     <div className={classes.characterSheet}>
       <InfoBar info={selectInfo(characterSheet)} />
       <Attributes attributes={selectAttributes(characterSheet)} modifiers={attributeModifiers} characterId={characterId} />
-      <SavingThrows savingThrows={selectSavingThrows(characterSheet)} />
+      <SavingThrows savingThrows={savingThrows} />
       <AttackBonusAndHitPoints
         baseAB={characterSheet.attackBonus}
         currentHp={characterSheet.currentHp}

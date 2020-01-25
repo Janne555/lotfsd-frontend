@@ -31,10 +31,6 @@ const attributeModifiers = (characterId: string) =>
   (state: RootState): AttributeModifiers =>
     calculateAttributeModifiers(attributes(characterId)(state), attributeModifierEffects(characterId)(state))
 
-const savingThrows = (characterId: string) =>
-  (state: RootState): Record<keyof SavingThrows, [number, number]> =>
-    calculateSavingThrows(state.characterSheet.savingThrows.byId[characterId], attributeModifiers(characterId)(state))
-
 const commonActivities = (characterId: string) =>
   (state: RootState): Record<keyof CommonActivities, { base: number, modified: number }> =>
     calculateCommonActivities(state.characterSheet.commonActivities.byId[characterId], attributeModifiers(characterId)(state).strength, attributeModifiers(characterId)(state).intelligence, commonActivityEffects(characterId)(state))
@@ -80,7 +76,6 @@ const properties = (characterId: string) =>
 
 export {
   attributes as selectAttributes,
-  savingThrows as selectSavingThrows,
   attributeModifierEffects as selectAttributeModifierEffects,
   attributeModifiers as selectAttributeModifiers,
   wallet as selectWallet,

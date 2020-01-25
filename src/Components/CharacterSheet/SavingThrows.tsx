@@ -21,7 +21,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
 }))
 
 type Props = {
-  savingThrows: SavingThrows
+  savingThrows: SavingThrowsWithModifications
 }
 
 function SavingThrows({ savingThrows }: Props) {
@@ -32,8 +32,8 @@ function SavingThrows({ savingThrows }: Props) {
       <h2>Saving Throws</h2>
       <div className={classes.list}>
         {
-          Object.entries(savingThrows).map(([name, value]) => (
-            isKeyOfSavingThrows(name) && <SavingThrow key={name} name={name} value={[4, 4]} />
+          Object.entries(savingThrows).map(([name, values]) => (
+            isKeyOfSavingThrows(name) && <SavingThrow key={name} name={name} values={values} />
           ))
         }
       </div>

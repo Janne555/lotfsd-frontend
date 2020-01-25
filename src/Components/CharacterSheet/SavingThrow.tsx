@@ -7,7 +7,10 @@ import { Validator } from '../../services'
 
 type Props = {
   name: keyof SavingThrows,
-  value: [number, number]
+  values: {
+    base: number
+    modified: number
+  }
 }
 
 const useStyles = createUseStyles({
@@ -25,7 +28,7 @@ const useStyles = createUseStyles({
 
 const validator = new Validator().isLengthy.isNumber
 
-export default function SavingThrow({ name, value: [base, modified] }: Props) {
+export default function SavingThrow({ name, values: { base, modified } }: Props) {
   const classes = useStyles()
   const [inFocus, setInFocus] = useState(false)
 

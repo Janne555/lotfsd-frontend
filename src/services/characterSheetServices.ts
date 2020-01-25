@@ -1,4 +1,4 @@
-import { BASE_ARMOR_CLASS, MONEY } from "../constants"
+import { BASE_ARMOR_CLASS, MONEY, SAVING_THROW_KEYS } from "../constants"
 import { hasKey, isKeyOfAttributes } from "./typeGuards"
 import partition from 'lodash/partition'
 import { generate } from 'shortid'
@@ -43,7 +43,7 @@ function calculateRangedAttackBonus(baseAttackBonus: number, dexterityModifier: 
   return baseAttackBonus + dexterityModifier
 }
 
-function calculateSavingThrows(savingThrows: SavingThrows, attributeModifiers: AttributeModifiers): Record<keyof SavingThrows, [number, number]> {
+function calculateSavingThrows(savingThrows: SavingThrows, attributeModifiers: AttributeModifiers): SavingThrowsWithModifications {
   const {
     breathWeapon,
     magic,
@@ -53,14 +53,12 @@ function calculateSavingThrows(savingThrows: SavingThrows, attributeModifiers: A
   } = savingThrows
   const { wisdom, intelligence } = attributeModifiers
 
-
-
   return {
-    breathWeapon: [breathWeapon, breathWeapon - wisdom],
-    magic: [magic, magic - intelligence],
-    magicalDevice: [magicalDevice, magicalDevice - intelligence],
-    paralyze: [paralyze, paralyze - wisdom],
-    poison: [poison, poison - wisdom]
+    breathWeapon: { base: breathWeapon, modified: breathWeapon - wisdom },
+    magic: { base: magic, modified: magic - intelligence },
+    magicalDevice: { base: magicalDevice, modified: magicalDevice - intelligence },
+    paralyze: { base: paralyze, modified: paralyze - wisdom },
+    poison: { base: poison, modified: poison - wisdom },
   }
 }
 
