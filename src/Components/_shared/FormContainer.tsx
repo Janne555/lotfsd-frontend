@@ -29,9 +29,10 @@ type Props = {
   children: ReactNode
   label: string
   className?: string
+  disabled?: boolean
 }
 
-const FormContainer = React.forwardRef<HTMLFormElement, Props>(function FormContainer({ onSubmit, onClose, children, label, className }, ref) {
+const FormContainer = React.forwardRef<HTMLFormElement, Props>(function FormContainer({ onSubmit, onClose, children, label, className, disabled }, ref) {
   const classes = useStyles()
 
   return (
@@ -41,7 +42,7 @@ const FormContainer = React.forwardRef<HTMLFormElement, Props>(function FormCont
         {children}
         <div className={classes.buttons}>
           <Button onClick={onClose}>Cancel</Button>
-          <Button variant="outlined" type="submit">Save</Button>
+          <Button disabled={disabled} variant="outlined" type="submit">Save</Button>
         </div>
       </form>
     </div>
