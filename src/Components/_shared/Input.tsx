@@ -38,6 +38,7 @@ function Input({ value, validate = () => true, onChange, onBlur, ...inputProps }
   }
 
   function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
+    setError(false)
     onBlur?.(e.target.value, validate(e.target.value), e)
   }
 
