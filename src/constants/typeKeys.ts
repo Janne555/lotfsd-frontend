@@ -31,13 +31,13 @@ const RETAINER_KEYS = [
   "share"
 ] as const
 
-const SAVING_THROW_KEYS = [
+const SAVING_THROW_KEYS= [
   "paralyze",
   "poison",
   "breathWeapon",
   "magicalDevice",
   "magic"
-]
+] as const
 
 
 export {
