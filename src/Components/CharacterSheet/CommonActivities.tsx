@@ -2,10 +2,9 @@ import React from 'react'
 import { createUseStyles } from 'react-jss'
 import DieFace from '../_shared/DieFace'
 import { isKeyOfCommonActivities, updateCharacterSheet } from '../../services'
-import { COMMON_ACTIVITY_TITLES, CHARACTER_SHEET_QUERY, CHARACTER_SHEET_UPDATE_MUTATION } from '../../constants'
+import { COMMON_ACTIVITY_TITLES, CHARACTER_SHEET_UPDATE_MUTATION } from '../../constants'
 import { useMutation } from '@apollo/react-hooks'
-import { CharacterSheetUdpate, CharacterSheetUdpateVariables } from '../../constants/mutations/__generated__/CharacterSheetUdpate'
-import { CharacterSheetQuery } from '../../constants/queries/__generated__/CharacterSheetQuery'
+import { CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables } from '../../../__generated__/apolloTypes/CharacterSheetUpdateMutation'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   root: {
@@ -62,7 +61,7 @@ type SubProps = {
 
 function Activity({ name, base, modified, characterId }: SubProps) {
   const classes = useSubStyles()
-  const [mutate, { loading }] = useMutation<CharacterSheetUdpate, CharacterSheetUdpateVariables>(CHARACTER_SHEET_UPDATE_MUTATION, {
+  const [mutate, { loading }] = useMutation<CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables>(CHARACTER_SHEET_UPDATE_MUTATION, {
     update: updateCharacterSheet(characterId)
   })
 

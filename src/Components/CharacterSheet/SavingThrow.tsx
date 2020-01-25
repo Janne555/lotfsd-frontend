@@ -5,7 +5,7 @@ import RotatedCube from '../_shared/RotatedCube'
 import Input from '../_shared/Input'
 import { Validator, updateCharacterSheet } from '../../services'
 import { useMutation } from '@apollo/react-hooks'
-import { CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables } from '../../constants/mutations/__generated__/CharacterSheetUpdateMutation'
+import { CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables } from '../../../__generated__/apolloTypes/CharacterSheetUpdateMutation'
 
 type Props = {
   name: keyof SavingThrows,

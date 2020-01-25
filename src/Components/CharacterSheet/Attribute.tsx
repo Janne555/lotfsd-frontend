@@ -5,7 +5,7 @@ import { ATTRIBUTE_DETAILS, ATTRIBUTE_TITLES, CHARACTER_SHEET_UPDATE_MUTATION } 
 import Input from '../_shared/Input'
 import { Validator, calculateModifier, updateCharacterSheet } from '../../services'
 import { useMutation } from '@apollo/react-hooks'
-import { CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables } from '../../constants/mutations/__generated__/CharacterSheetUpdateMutation'
+import { CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables } from '../../../__generated__/apolloTypes/CharacterSheetUpdateMutation'
 
 const useAttributeStyles = createUseStyles((theme: Theme) => ({
   title: {

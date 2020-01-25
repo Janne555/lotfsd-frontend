@@ -1,7 +1,7 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import EffectsList from './EffectsList'
-import { ItemQuery_item } from '../../constants/queries/__generated__/ItemQuery'
+import { ItemQuery_item } from '../../../__generated__/apolloTypes/ItemQuery'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   itemDetails: {

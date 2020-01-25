@@ -3,10 +3,10 @@ import TextField from '@material-ui/core/TextField'
 import { useDispatch } from '../../../hooks'
 import { addRetainer } from '../../../Redux/thunks'
 import FormContainer from '../../_shared/FormContainer'
-import { AddRetainerMutation, AddRetainerMutationVariables } from '../../../constants/mutations/__generated__/AddRetainerMutation'
+import { AddRetainerMutation, AddRetainerMutationVariables } from '../../../../__generated__/apolloTypes/AddRetainerMutation'
 import { ADD_RETAINER_MUTATION, CHARACTER_SHEET_QUERY } from '../../../constants'
 import { useMutation } from '@apollo/react-hooks'
-import { CharacterSheetQuery, CharacterSheetQueryVariables } from '../../../constants/queries/__generated__/CharacterSheetQuery'
+import { CharacterSheetQuery, CharacterSheetQueryVariables } from '../../../../__generated__/apolloTypes/CharacterSheetQuery'
 
 type Props = {
   onClose: () => void

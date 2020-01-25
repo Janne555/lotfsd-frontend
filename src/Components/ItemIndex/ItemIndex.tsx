@@ -11,9 +11,9 @@ import TextField from '@material-ui/core/TextField'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import Button from '@material-ui/core/Button'
 import { useQuery } from '@apollo/react-hooks'
-import { ItemsQuery, ItemsQuery_items } from '../../constants/queries/__generated__/ItemsQuery'
+import { ItemsQuery, ItemsQuery_items } from '../../../__generated__/apolloTypes/ItemsQuery'
 import { ITEMS_QUERY, ITEM_QUERY } from '../../constants'
-import { ItemQuery, ItemQueryVariables } from '../../constants/queries/__generated__/ItemQuery'
+import { ItemQuery, ItemQueryVariables } from '../../../__generated__/apolloTypes/ItemQuery'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   itemIndex: {

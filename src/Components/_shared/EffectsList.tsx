@@ -4,7 +4,7 @@ import IconButton from '@material-ui/core/IconButton'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { createUseStyles } from 'react-jss'
-import { ItemQuery_item_effects } from '../../constants/queries/__generated__/ItemQuery'
+import { ItemQuery_item_effects } from '../../../__generated__/apolloTypes/ItemQuery'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   effectsListItem: {

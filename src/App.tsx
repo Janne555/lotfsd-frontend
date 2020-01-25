@@ -12,7 +12,7 @@ import ItemCreator from './Components/ItemIndex/ItemCreator'
 import { useLogin, useScreenResizeEvent } from './hooks'
 import { useQuery } from '@apollo/react-hooks'
 import { CHARACTER_LIST_QUERY } from './constants'
-import { CharacterListQuery } from './constants/queries/__generated__/characterListQuery'
+import { CharacterListQuery } from '../__generated__/apolloTypes/characterListQuery'
 import SpeedDial from './Components/Interface/SpeedDial'
 
 const useStyles = createUseStyles((theme: Theme) => ({

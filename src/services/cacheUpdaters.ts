@@ -1,6 +1,6 @@
 import { MutationUpdaterFn } from 'apollo-client'
-import { CharacterSheetQuery, CharacterSheetQueryVariables } from '../constants/queries/__generated__/CharacterSheetQuery'
-import { CharacterSheetUpdateMutation } from '../constants/mutations/__generated__/CharacterSheetUpdateMutation'
+import { CharacterSheetQuery, CharacterSheetQueryVariables } from '../../__generated__/apolloTypes/CharacterSheetQuery'
+import { CharacterSheetUpdateMutation } from '../../__generated__/apolloTypes/CharacterSheetUpdateMutation'
 import { CHARACTER_SHEET_QUERY } from '../constants'
 
 function updateCharacterSheet(characterId?: string): MutationUpdaterFn<CharacterSheetUpdateMutation> {

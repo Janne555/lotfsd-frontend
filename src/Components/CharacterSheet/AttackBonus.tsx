@@ -4,7 +4,7 @@ import RotatedCube from '../_shared/RotatedCube'
 import { TITLES, CHARACTER_SHEET_UPDATE_MUTATION } from '../../constants'
 import Input from '../_shared/Input'
 import { Validator, updateCharacterSheet } from '../../services'
-import { CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables } from '../../constants/mutations/__generated__/CharacterSheetUpdateMutation'
+import { CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables } from '../../../__generated__/apolloTypes/CharacterSheetUpdateMutation'
 import { useMutation } from '@apollo/react-hooks'
 
 const useStyles = createUseStyles((theme: Theme) => ({

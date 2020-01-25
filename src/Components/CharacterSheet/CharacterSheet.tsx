@@ -18,7 +18,7 @@ import {
 } from '../../services'
 import { useQuery } from '@apollo/react-hooks'
 import { CHARACTER_SHEET_QUERY } from '../../constants'
-import { CharacterSheetQuery, CharacterSheetQueryVariables, CharacterSheetQuery_characterSheet } from '../../constants/queries/__generated__/CharacterSheetQuery'
+import { CharacterSheetQuery, CharacterSheetQueryVariables, CharacterSheetQuery_characterSheet } from '../../../__generated__/apolloTypes/CharacterSheetQuery'
 import CommonActivities from './CommonActivities'
 import AttackBonusAndHitPoints from './AttackBonusAndHitPoints'
 import ArmorClassAndCombatOptions from './ArmorClassAndCombatOptions'
