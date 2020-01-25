@@ -62,7 +62,7 @@ function Attribute({ title, score, index, modifier, onChange, characterId }: Att
   })
 
   function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
-    if (characterId) {
+    if (characterId && score !== Number(e.target.value)) {
       mutate({
         variables: {
           ch: { [title]: Number(e.target.value) },
