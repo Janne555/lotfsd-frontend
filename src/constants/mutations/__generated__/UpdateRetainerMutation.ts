@@ -2,13 +2,13 @@
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
 
-import { CharacterSheetUpdate } from "./../../../../__generated__/globalTypes";
+import { RetainerUpdate } from "./../../../../__generated__/globalTypes";
 
 // ====================================================
-// GraphQL mutation operation: CharacterSheetUdpateMutation
+// GraphQL mutation operation: UpdateRetainerMutation
 // ====================================================
 
-export interface CharacterSheetUdpateMutation_updateCharacterSheet_effects {
+export interface UpdateRetainerMutation_updateRetainer_effects {
   __typename: "Effect";
   id: string;
   method: string;
@@ -17,19 +17,19 @@ export interface CharacterSheetUdpateMutation_updateCharacterSheet_effects {
   value: number;
 }
 
-export interface CharacterSheetUdpateMutation_updateCharacterSheet_retainers {
+export interface UpdateRetainerMutation_updateRetainer_retainers {
   __typename: "Retainer";
-  class: string;
-  hitpoints: number;
+  class: string | null;
+  hitpoints: number | null;
   id: string;
-  level: number;
+  level: number | null;
   name: string;
-  position: string;
-  share: number;
-  wage: number;
+  position: string | null;
+  share: number | null;
+  wage: number | null;
 }
 
-export interface CharacterSheetUdpateMutation_updateCharacterSheet_properties {
+export interface UpdateRetainerMutation_updateRetainer_properties {
   __typename: "Property";
   description: string;
   id: string;
@@ -39,7 +39,7 @@ export interface CharacterSheetUdpateMutation_updateCharacterSheet_properties {
   value: number;
 }
 
-export interface CharacterSheetUdpateMutation_updateCharacterSheet {
+export interface UpdateRetainerMutation_updateRetainer {
   __typename: "CharacterSheet";
   id: string;
   name: string;
@@ -82,16 +82,17 @@ export interface CharacterSheetUdpateMutation_updateCharacterSheet {
   improvedParry: boolean;
   press: boolean;
   defensive: boolean;
-  effects: CharacterSheetUdpateMutation_updateCharacterSheet_effects[];
-  retainers: CharacterSheetUdpateMutation_updateCharacterSheet_retainers[];
-  properties: CharacterSheetUdpateMutation_updateCharacterSheet_properties[];
+  effects: UpdateRetainerMutation_updateRetainer_effects[];
+  retainers: UpdateRetainerMutation_updateRetainer_retainers[];
+  properties: UpdateRetainerMutation_updateRetainer_properties[];
 }
 
-export interface CharacterSheetUdpateMutation {
-  updateCharacterSheet: CharacterSheetUdpateMutation_updateCharacterSheet;
+export interface UpdateRetainerMutation {
+  updateRetainer: UpdateRetainerMutation_updateRetainer;
 }
 
-export interface CharacterSheetUdpateMutationVariables {
-  id: string;
-  ch: CharacterSheetUpdate;
+export interface UpdateRetainerMutationVariables {
+  retainerUpdate: RetainerUpdate;
+  characterId: string;
+  retainerId: string;
 }

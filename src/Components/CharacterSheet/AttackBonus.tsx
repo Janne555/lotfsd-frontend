@@ -68,7 +68,7 @@ type SubProps = {
 function SingleBonus({ index, value, title, base, characterId }: SubProps) {
   const classes = useSubStyles(index)
   const [mutate, { data, loading, error }] = useMutation<CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables>(CHARACTER_SHEET_UPDATE_MUTATION, {
-    update: updateCharacterSheet(characterId),
+    update: updateCharacterSheet(characterId)
   })
 
   function handleBlur(valueStr: string) {

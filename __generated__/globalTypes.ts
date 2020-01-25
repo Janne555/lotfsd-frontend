@@ -149,6 +149,16 @@ export interface RetainerInput {
   share?: number | null;
 }
 
+export interface RetainerUpdate {
+  name?: string | null;
+  position?: string | null;
+  class?: string | null;
+  level?: number | null;
+  hitpoints?: number | null;
+  wage?: number | null;
+  share?: number | null;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

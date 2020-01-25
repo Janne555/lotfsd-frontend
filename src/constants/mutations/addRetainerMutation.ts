@@ -2,7 +2,7 @@ import { gql } from 'apollo-boost'
 
 const ADD_RETAINER_MUTATION = gql`
   mutation AddRetainerMutation($retainer: RetainerInput!, $characterId: String!) {
-    createCharacterSheet(retainer: $retainer, characterId: $characterId) {
+    addRetainer(retainer: $retainer, characterSheetId: $characterId) {
       id
       name
       experience
