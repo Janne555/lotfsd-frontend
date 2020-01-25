@@ -333,3 +333,7 @@ type Character = {
 type CommonActivitiesWithModifications = {
   [P in keyof CommonActivities]: { base: number, modified: number }
 }
+
+type SavingThrowsWithModifications = {
+  [P in keyof SavingThrows]: { base: number, modified: number }
+}
