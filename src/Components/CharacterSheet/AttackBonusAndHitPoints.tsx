@@ -40,9 +40,10 @@ type Props = {
   maxHp: number
   currentHp: number
   surpriseChance: number
+  characterId?: string
 }
 
-function AttackBonusAndHitPoints({ baseAB, currentHp, maxHp, meleeAB, rangedAB, surpriseChance }: Props) {
+function AttackBonusAndHitPoints({ baseAB, currentHp, maxHp, meleeAB, rangedAB, surpriseChance, characterId }: Props) {
   const classes = useStyles()
 
   function handleSurpriseChange(value: number) {
@@ -51,7 +52,7 @@ function AttackBonusAndHitPoints({ baseAB, currentHp, maxHp, meleeAB, rangedAB, 
 
   return (
     <div className={classes.attackBonusAndHitPointsRoot}>
-      <AttackBonus baseAB={baseAB} meleeAB={meleeAB} rangedAB={rangedAB} />
+      <AttackBonus baseAB={baseAB} meleeAB={meleeAB} rangedAB={rangedAB} characterId={characterId} />
       <div className={classes.surpriseChance}>
         <h3>Surprise Chance</h3>
         <div className={classes.surpriseValue}>

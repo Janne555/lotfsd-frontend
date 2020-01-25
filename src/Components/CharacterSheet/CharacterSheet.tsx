@@ -76,6 +76,7 @@ function CharacterSheet({ characterId, characterName }: Props) {
         meleeAB={calculateMeleeAttackBonus(characterSheet.attackBonus, attributeModifiers.strength)}
         rangedAB={calculateRangedAttackBonus(characterSheet.attackBonus, attributeModifiers.dexterity)}
         surpriseChance={characterSheet.surpriseChance}
+        characterId={characterId}
       />
       <ArmorClassAndCombatOptions
         baseAC={calculateArmorClass(attributeModifiers.dexterity, armorClassEffects, "base")}
@@ -83,6 +84,7 @@ function CharacterSheet({ characterId, characterName }: Props) {
         rangedAC={calculateArmorClass(attributeModifiers.dexterity, armorClassEffects, "ranged")}
         surprisedAC={calculateArmorClass(attributeModifiers.dexterity, armorClassEffects, "surprised")}
         withoutShieldAC={calculateArmorClass(attributeModifiers.dexterity, armorClassEffects, "withoutShield")}
+
       />
       <CommonActivities commonActivities={commonActivities} characterId={characterId} />
       {/* <EquipmentList /> */}
