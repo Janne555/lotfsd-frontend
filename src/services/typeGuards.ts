@@ -1,4 +1,4 @@
-import { ATTRIBUTE_KEYS, COMMON_ACTIVITY_KEYS } from "../constants"
+import { ATTRIBUTE_KEYS, COMMON_ACTIVITY_KEYS, SAVING_THROW_KEYS } from "../constants"
 
 function isNonNullObject(obj: unknown): obj is object {
   if (typeof obj !== "object") {
@@ -91,7 +91,7 @@ function isKeyOfSavingThrows(obj: unknown): obj is keyof SavingThrows {
     return false
   }
 
-  return ["paralyze", "poison", "breathWeapon", "magicalDevice", "magic"].some(key => key === obj);
+  return SAVING_THROW_KEYS.some(key => key === obj);
 }
 
 function isCharacter(obj: unknown): obj is Character {

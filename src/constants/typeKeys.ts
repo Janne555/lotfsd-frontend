@@ -31,10 +31,19 @@ const RETAINER_KEYS = [
   "share"
 ] as const
 
+const SAVING_THROW_KEYS = [
+  "paralyze",
+  "poison",
+  "breathWeapon",
+  "magicalDevice",
+  "magic"
+]
+
 
 export {
   COMMON_ACTIVITY_KEYS,
   ATTRIBUTE_KEYS,
-  RETAINER_KEYS
+  RETAINER_KEYS,
+  SAVING_THROW_KEYS
 }
 
