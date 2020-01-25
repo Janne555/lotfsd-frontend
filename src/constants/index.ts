@@ -55,16 +55,6 @@ const BASE_ARMOR_CLASS = 12
 
 const MONEY = 'Money'
 
-const RETAINER_KEYS: (keyof Omit<Retainer, 'id'>)[] = [
-  "name",
-  "position",
-  "class",
-  "level",
-  "hitpoints",
-  "wage",
-  "share"
-]
-
 export {
   ATTRIBUTE_DETAILS,
   SAVING_THROW_DETAILS,
@@ -73,8 +63,7 @@ export {
   TITLES,
   BASE_ARMOR_CLASS,
   COMMON_ACTIVITY_TITLES,
-  MONEY,
-  RETAINER_KEYS
+  MONEY
 }
 
 export * from './endpoints'
@@ -86,3 +75,4 @@ export * from './mutations/createCharacterMutation'
 export * from './mutations/characterSheetUpdateMutation'
 export * from './mutations/createItemMutation'
 export * from './speedDialActions'
+export * from './typeKeys'

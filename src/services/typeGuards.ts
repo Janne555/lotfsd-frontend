@@ -1,13 +1,4 @@
-const COMMON_ACTIVITIES = ["architecture",
-  "bushcraft",
-  "climbing",
-  "languages",
-  "openDoors",
-  "search",
-  "sleightOfHand",
-  "sneakAttack",
-  "stealth",
-  "tinkering"]
+import { ATTRIBUTE_KEYS, COMMON_ACTIVITY_KEYS } from "../constants"
 
 function isNonNullObject(obj: unknown): obj is object {
   if (typeof obj !== "object") {
@@ -36,7 +27,7 @@ function isAttributeModifierEffect(obj: unknown): obj is AttributeModifierEffect
 
   const temp = obj as AttributeModifierEffect
 
-  if (!['charisma', 'constitution', 'dexterity', 'intelligence', 'strength', 'wisdom'].some(key => key === temp.target)) {
+  if (!ATTRIBUTE_KEYS.some(key => key === temp.target)) {
     return false
   }
 
@@ -76,7 +67,7 @@ function isCommonActivityEffect(obj: unknown): obj is CommonActivityEffect {
 
   const temp = obj as CommonActivityEffect
 
-  if (!COMMON_ACTIVITIES.some(target => temp.target === target)) {
+  if (!COMMON_ACTIVITY_KEYS.some(target => temp.target === target)) {
     return false
   }
 
@@ -126,7 +117,7 @@ function isKeyOfCommonActivities(obj: unknown): obj is keyof CommonActivities {
     return false
   }
 
-  return COMMON_ACTIVITIES.some(key => key === obj)
+  return COMMON_ACTIVITY_KEYS.some(key => key === obj)
 }
 
 export {
