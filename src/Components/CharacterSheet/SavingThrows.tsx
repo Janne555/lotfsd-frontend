@@ -22,9 +22,10 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 type Props = {
   savingThrows: SavingThrowsWithModifications
+  characterId?: string
 }
 
-function SavingThrows({ savingThrows }: Props) {
+function SavingThrows({ savingThrows, characterId }: Props) {
   const classes = useStyles()
 
   return (
@@ -33,7 +34,7 @@ function SavingThrows({ savingThrows }: Props) {
       <div className={classes.list}>
         {
           Object.entries(savingThrows).map(([name, values]) => (
-            isKeyOfSavingThrows(name) && <SavingThrow key={name} name={name} values={values} />
+            isKeyOfSavingThrows(name) && <SavingThrow key={name} name={name} values={values} characterId={characterId} />
           ))
         }
       </div>
