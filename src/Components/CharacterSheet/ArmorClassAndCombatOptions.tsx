@@ -27,9 +27,10 @@ type Props = {
   withoutShieldAC: number
   surprisedAC: number
   combatOptions: CombatOptions
+  characterId?: string
 }
 
-export default function ArmorClassAndCombatOptions({ baseAC, combatOptions, rangedAC, surprisedAC, withoutShieldAC }: Props) {
+export default function ArmorClassAndCombatOptions({ baseAC, combatOptions, rangedAC, surprisedAC, withoutShieldAC, characterId }: Props) {
   const classes = useStyles()
   return (
     <div className={classes.combatOptionsAndAC}>

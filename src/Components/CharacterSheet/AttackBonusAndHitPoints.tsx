@@ -3,6 +3,11 @@ import { createUseStyles } from 'react-jss'
 import AttackBonus from './AttackBonus'
 import DieFace from '../_shared/DieFace'
 import Cube from '../_shared/Cube'
+import { updateCharacterSheet } from '../../services'
+import { CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables } from '../../constants/mutations/__generated__/CharacterSheetUpdateMutation'
+import { CHARACTER_SHEET_UPDATE_MUTATION } from '../../constants'
+import { useMutation } from '@apollo/react-hooks'
+import { useCharacterSheetUpdate } from '../../hooks'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   attackBonusAndHitPointsRoot: {
@@ -45,9 +50,17 @@ type Props = {
 
 function AttackBonusAndHitPoints({ baseAB, currentHp, maxHp, meleeAB, rangedAB, surpriseChance, characterId }: Props) {
   const classes = useStyles()
+  const [mutate, { data, loading, error }] = useCharacterSheetUpdate(characterId)
 
   function handleSurpriseChange(value: number) {
-    throw Error("TODO")
+    if (characterId && value !== surpriseChance) {
+      mutate({
+        variables: {
+          ch: { surpriseChance: value },
+          id: characterId
+        }
+      })
+    }
   }
 
   return (
@@ -56,7 +69,7 @@ function AttackBonusAndHitPoints({ baseAB, currentHp, maxHp, meleeAB, rangedAB, 
       <div className={classes.surpriseChance}>
         <h3>Surprise Chance</h3>
         <div className={classes.surpriseValue}>
-          <DieFace value={surpriseChance} onValueChange={handleSurpriseChange} />
+          <DieFace disabled={loading} value={surpriseChance} onValueChange={handleSurpriseChange} />
         </div>
       </div>
       <div className={classes.hitpoints}>
