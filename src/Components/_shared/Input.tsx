@@ -3,7 +3,7 @@ import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   input: {
-    width: '100%',
+    width: 'calc(100% - 2px)',
     textAlign: 'center',
     fontSize: '1em',
     color: (error: boolean) => error ? 'red' : '',
