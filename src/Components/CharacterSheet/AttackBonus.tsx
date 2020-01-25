@@ -73,7 +73,7 @@ function SingleBonus({ index, value, title, base }: SubProps) {
       <div className={classes.singleBonus}>
         <RotatedCube>
           {base
-            ? <Input isValid={validator.validate} onChange={handleChange} value={`${value}`} />
+            ? <Input validate={validator.validate} onChange={handleChange} value={`${value}`} />
             : value
           }
         </RotatedCube>

@@ -61,27 +61,29 @@ function Attribute({ title, score, index, modifier, onChange, characterId }: Att
     update: updateCharacterSheet(characterId)
   })
 
-  function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
-    if (characterId && score !== Number(e.target.value)) {
+  function handleBlur(value: string, isValid: boolean) {
+    if (characterId && score !== Number(value) && isValid) {
       mutate({
         variables: {
-          ch: { [title]: Number(e.target.value) },
+          ch: { [title]: Number(value) },
           id: characterId
         }
       })
     }
   }
 
-
   return (
     <>
       <label htmlFor={title} className={classes.title}>{ATTRIBUTE_TITLES[title]}</label>
       <div className={classes.scoreRoot}>
         <Input
-          isValid={validator.validate}
+          validate={validator.validate}
           onChange={value => onChange?.(title, value)}
           value={`${score}`}
-          inputProps={{ id: title, type: "number", disabled: loading, onBlur: handleBlur }}
+          id={title}
+          type="number"
+          disabled={loading}
+          onBlur={handleBlur}
         />
       </div>
       <div className={classes.modifierRoot}>

@@ -46,13 +46,11 @@ export default function SavingThrow({ name, value: [base, modified] }: Props) {
       <h3>{SAVING_THROW_TITLES[name]}</h3>
       <RotatedCube>
         <Input
-          isValid={validator.validate}
+          validate={validator.validate}
           onChange={handleChange}
           value={`${inFocus ? base : modified}`}
-          inputProps={{
-            onFocus: handleFocus,
-            onBlur: handleBlur
-          }}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         />
       </RotatedCube>
       <span>{SAVING_THROW_DETAILS[name]}</span>

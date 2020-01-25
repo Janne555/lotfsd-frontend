@@ -11,14 +11,14 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-type Props = {
+type Props = Omit<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'onChange' | 'value' | 'defaultValue' | 'onBlur'> & {
   value: string
-  isValid: (value: string) => boolean
-  onChange: (value: string) => void
-  inputProps?: Omit<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'onChange' | 'value' | 'defaultValue'>
+  validate?: (value: string) => boolean
+  onChange?: (value: string) => void
+  onBlur?: (value: string, isValid: boolean, e: React.FocusEvent<HTMLInputElement>) => void
 }
 
-function Input({ value, isValid, onChange, inputProps = {} }: Props) {
+function Input({ value, validate = () => true, onChange, onBlur, ...inputProps }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [error, setError] = useState(false)
   const { input } = useStyles(error)
@@ -29,16 +29,20 @@ function Input({ value, isValid, onChange, inputProps = {} }: Props) {
   }, [value])
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
-    if (isValid(e.target.value)) {
-      onChange(e.target.value)
+    if (validate?.(e.target.value)) {
+      onChange?.(e.target.value)
       setError(false)
     } else {
       setError(true)
     }
   }
 
+  function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
+    onBlur?.(e.target.value, validate(e.target.value), e)
+  }
+
   return (
-    <input {...inputProps} className={input} ref={inputRef} onChange={handleChange} defaultValue={value} />
+    <input {...inputProps} onBlur={handleBlur} className={input} ref={inputRef} onChange={handleChange} defaultValue={value} />
   )
 }
 export default Input
