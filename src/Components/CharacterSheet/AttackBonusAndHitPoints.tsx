@@ -3,11 +3,12 @@ import { createUseStyles } from 'react-jss'
 import AttackBonus from './AttackBonus'
 import DieFace from '../_shared/DieFace'
 import Cube from '../_shared/Cube'
-import { updateCharacterSheet } from '../../services'
+import { updateCharacterSheet, Validator } from '../../services'
 import { CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables } from '../../constants/mutations/__generated__/CharacterSheetUpdateMutation'
 import { CHARACTER_SHEET_UPDATE_MUTATION } from '../../constants'
 import { useMutation } from '@apollo/react-hooks'
 import { useCharacterSheetUpdate } from '../../hooks'
+import Input from '../_shared/Input'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   attackBonusAndHitPointsRoot: {
@@ -48,6 +49,8 @@ type Props = {
   characterId?: string
 }
 
+const validator = new Validator().isLengthy.isNumber
+
 function AttackBonusAndHitPoints({ baseAB, currentHp, maxHp, meleeAB, rangedAB, surpriseChance, characterId }: Props) {
   const classes = useStyles()
   const [mutate, { data, loading, error }] = useCharacterSheetUpdate(characterId)
@@ -57,6 +60,28 @@ function AttackBonusAndHitPoints({ baseAB, currentHp, maxHp, meleeAB, rangedAB, 
       mutate({
         variables: {
           ch: { surpriseChance: value },
+          id: characterId
+        }
+      })
+    }
+  }
+
+  function handleMaxHpBlur(value: string, isValid: boolean) {
+    if (characterId && Number(value) !== maxHp && isValid) {
+      mutate({
+        variables: {
+          ch: { maxHp: Number(value) },
+          id: characterId
+        }
+      })
+    }
+  }
+
+  function handleCurrentHpBlur(value: string, isValid: boolean) {
+    if (characterId && Number(value) !== maxHp && isValid) {
+      mutate({
+        variables: {
+          ch: { currentHp: Number(value) },
           id: characterId
         }
       })
@@ -74,8 +99,24 @@ function AttackBonusAndHitPoints({ baseAB, currentHp, maxHp, meleeAB, rangedAB, 
       </div>
       <div className={classes.hitpoints}>
         <h4>Max HP</h4>
-        <Cube>{maxHp}</Cube>
-        <Cube>{currentHp}</Cube>
+        <Cube>
+          <Input
+            validate={validator.validate}
+            value={`${maxHp}`}
+            type="number"
+            disabled={loading}
+            onBlur={handleMaxHpBlur}
+          />
+        </Cube>
+        <Cube>
+          <Input
+            validate={validator.validate}
+            value={`${currentHp}`}
+            type="number"
+            disabled={loading}
+            onBlur={handleCurrentHpBlur}
+          />
+        </Cube>
         <h4>Current HP</h4>
       </div>
     </div>

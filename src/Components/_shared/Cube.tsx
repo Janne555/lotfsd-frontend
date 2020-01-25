@@ -6,7 +6,7 @@ type Props = {
 }
 
 const useStyles = createUseStyles((theme: Theme) => ({
-  rotatedCube: {
+  cube: {
     width: 40,
     height: 40,
     display: 'flex',
@@ -23,7 +23,7 @@ function Cube({ children }: Props) {
   const classes = useStyles()
 
   return (
-    <div className={classes.rotatedCube}>
+    <div className={classes.cube}>
       <span>{children}</span>
     </div>
   )
