@@ -68,6 +68,11 @@ var CHARACTER_SHEET_FRAGMENT = gql`
       rent
       value
     }
+    languagesList {
+      id
+      name
+      known
+    }
   }
 `
 

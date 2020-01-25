@@ -90,7 +90,7 @@ function CharacterSheet({ characterId, characterName }: Props) {
       {/* <EquipmentList /> */}
       {/* <Encumbrance /> */}
       <Retainers characterName={characterSheet.name} retainers={selectRetainers(characterSheet)} />
-      <Languages characterName={characterSheet.name} languages={[]} />
+      <Languages characterName={characterSheet.name} languages={characterSheet.languagesList} />
       <Properties characterName={characterSheet.name} properties={selectProperties(characterSheet)} />
     </div>
   )
