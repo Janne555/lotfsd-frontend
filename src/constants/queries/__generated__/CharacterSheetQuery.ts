@@ -17,14 +17,14 @@ export interface CharacterSheetQuery_characterSheet_effects {
 
 export interface CharacterSheetQuery_characterSheet_retainers {
   __typename: "Retainer";
-  class: string;
-  hitpoints: number;
+  class: string | null;
+  hitpoints: number | null;
   id: string;
-  level: number;
+  level: number | null;
   name: string;
-  position: string;
-  share: number;
-  wage: number;
+  position: string | null;
+  share: number | null;
+  wage: number | null;
 }
 
 export interface CharacterSheetQuery_characterSheet_properties {

@@ -141,12 +141,12 @@ export interface PropertyInput {
 
 export interface RetainerInput {
   name: string;
-  position: string;
-  class: string;
-  level: number;
-  hitpoints: number;
-  wage: number;
-  share: number;
+  position?: string | null;
+  class?: string | null;
+  level?: number | null;
+  hitpoints?: number | null;
+  wage?: number | null;
+  share?: number | null;
 }
 
 //==============================================================
