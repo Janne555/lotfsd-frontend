@@ -1,12 +1,11 @@
 
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { ATTRIBUTE_DETAILS, ATTRIBUTE_TITLES, CHARACTER_SHEET_UPDATE_MUTATION, CHARACTER_SHEET_QUERY } from '../../constants'
+import { ATTRIBUTE_DETAILS, ATTRIBUTE_TITLES, CHARACTER_SHEET_UPDATE_MUTATION } from '../../constants'
 import Input from '../_shared/Input'
 import { Validator, calculateModifier, updateCharacterSheet } from '../../services'
 import { useMutation } from '@apollo/react-hooks'
 import { CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables } from '../../constants/mutations/__generated__/CharacterSheetUpdateMutation'
-import { CharacterSheetQuery, CharacterSheetQueryVariables } from '../../constants/queries/__generated__/CharacterSheetQuery'
 
 const useAttributeStyles = createUseStyles((theme: Theme) => ({
   title: {
@@ -53,6 +52,7 @@ type AttributeProps = {
   onChange?: (key: keyof Attributes, value: string) => void
   characterId?: string
 }
+
 const validator = new Validator().isLengthy.isNumber
 
 function Attribute({ title, score, index, modifier, onChange, characterId }: AttributeProps) {
