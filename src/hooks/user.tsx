@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react'
 import { post } from '../services'
 import { ENDPOINTS } from '../constants'
 import { HTTPError } from 'ky'
+import { useHistory } from 'react-router-dom'
 
 type User = {
   username: string
@@ -12,7 +13,8 @@ type LoginContext = {
   user?: User
   login: (username: string, password: string) => void
   logout: () => void
-  error?: string
+  error?: string,
+  register: (username: string, password: string, confirmPassword: string) => void
 }
 
 const LoginContext = React.createContext<LoginContext | undefined>(undefined)
@@ -25,6 +27,7 @@ type ProviderProps = {
 function LoginProvider({ children }: ProviderProps): JSX.Element {
   const [user, setUser] = React.useState<User>()
   const [error, setError] = React.useState<string>()
+  const history = useHistory()
 
   React.useEffect(() => {
     const username = window.localStorage.getItem("username")
@@ -56,6 +59,22 @@ function LoginProvider({ children }: ProviderProps): JSX.Element {
     }
   }
 
+  async function register(username: string, password: string, confirmPassword: string) {
+    setError(undefined)
+    try {
+      await post(ENDPOINTS.REGISTER, { json: { username, password, confirmPassword } })
+      history.push("/")
+    } catch (error) {
+      console.error(error)
+      if (error instanceof HTTPError) {
+        const { errors }: { errors: Record<string, string[]> } = await error.response.json()
+        setError(Object.values(errors).flatMap(errors => errors).join("\n"))
+      } else {
+        setError("Failed to register")
+      }
+    }
+  }
+
   function logout() {
     setUser(undefined)
     window.localStorage.clear()
@@ -66,7 +85,8 @@ function LoginProvider({ children }: ProviderProps): JSX.Element {
       login,
       logout,
       user,
-      error
+      error,
+      register
     }}>
       {children}
     </LoginContext.Provider>
@@ -95,7 +115,7 @@ function useLoginStatus(): LoginStatus {
   return 'logged-in'
 }
 
-function useToken(): string | undefined {
+function useToken(): string | undefined {
   const login = useLogin()
   return login.user?.token
 }

@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { createApolloClient } from './services'
 import { useLoginStatus, LoginProvider, useToken } from './hooks'
 import Login from './Components/Interface/Login'
+import Register from './Components/Interface/Register'
 import { ApolloProvider } from '@apollo/react-hooks'
 import 'normalize.css'
 import './index.css'
@@ -29,7 +30,7 @@ function App() {
     return (
       <Switch>
         <Route path="/register">
-          
+          <Register />
         </Route>
         <Route>
           <Login />
