@@ -155,13 +155,13 @@ type Wallet = {
 }
 
 type EquipmentListItem = {
-  name: string
-  amount?: number
-  stackSize?: number
-  itemId?: string
-  listItemId: string
-  encumbrance?: number
-} & Item
+  name?: string | null
+  amount?: number | null
+  stackSize?: number | null
+  itemId?: string | null
+  listItemId?: string | null
+  encumbrance?: number | null
+}
 
 type Language = {
   known: boolean

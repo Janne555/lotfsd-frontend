@@ -3,6 +3,8 @@ import { hasKey, isKeyOfAttributes } from "./typeGuards"
 import partition from 'lodash/partition'
 import { generate } from 'shortid'
 import random from 'lodash/random'
+import { CharacterSheetQuery_characterSheet_inventory } from "../../__generated__/apolloTypes/CharacterSheetQuery"
+import { ItemsQuery_items } from "../../__generated__/apolloTypes/ItemsQuery"
 
 function calculateAttributeModifiers(attributes: Attributes, effects?: AttributeModifierEffect[]): AttributeModifiers {
   return Object.keys(attributes).reduce((attributes, key) => {
@@ -212,8 +214,20 @@ function calculateEncumbranceDetails(encumbrance: number) {
   }
 }
 
-function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet, itemIndex: Record<string, Item>): EquipmentListItem[] {
-  const mappedItems = inventory.map(item => ({ ...item, ...itemIndex[item.id] }))
+function mapEquipmentList(inventory: CharacterSheetQuery_characterSheet_inventory[], wallet: Wallet, itemIndex: ItemsQuery_items[]): EquipmentListItem[] {
+  const mappedItems = inventory.map(({ id, itemId, ...rest }) => {
+    const item = itemIndex.find(({ id: itemIndexId }) => itemIndexId === itemId)
+    if (!item) {
+      throw Error("Item not found")
+    }
+    return {
+      instanceId: id,
+      itemId,
+      ...item,
+      ...rest,
+    }
+  })
+
   let equipment: EquipmentListItem[] = createCoinListItems()
     .concat(inventoryListItems())
 
@@ -229,12 +243,7 @@ function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet, itemIndex:
         name: MONEY,
         stackSize: 100,
         amount,
-        listItemId: generate(),
-        type: 'item',
-        effects: [],
-        id: 'money',
-        description: 'A stack of money',
-        encumbrancePoints: 0
+        listItemId: generate()
       })
       coins -= 100
     } while (coins > 0)
@@ -247,7 +256,7 @@ function mapEquipmentList(inventory: InventoryItem[], wallet: Wallet, itemIndex:
    * filters out equipped and oversized (encumbrance defined) items
    */
   function bucketizeInventory() {
-    let buckets: { [name: string]: InventoryItem[] } = {}
+    let buckets: { [name: string]: typeof mappedItems } = {}
     for (const item of mappedItems) {
       if (item.equipped || item.encumbrance != null)
         continue

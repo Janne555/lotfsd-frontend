@@ -54,10 +54,6 @@ const encumbranceDetails = (characterId: string) =>
   (state: RootState) =>
     calculateEncumbranceDetails(encumbrance(characterId)(state))
 
-const equipment = (characterId: string) =>
-  (state: RootState) =>
-    mapEquipmentList(inventory(characterId)(state), wallet(characterId)(state), selectItemIndexById(state))
-
 const languages = (characterId: string) =>
   (state: RootState): Language[] =>
     state.characterSheet.languages.byId[characterId].languages
@@ -82,7 +78,6 @@ export {
   encumbrance as selectEncumbrance,
   encumbranceDetails as selectEncumbranceDetails,
   inventory as selectInventory,
-  equipment as selectEquipment,
   languages as selectLanguages,
   retainers as selectRetainers,
   combatOptions as selectCombatOptions,

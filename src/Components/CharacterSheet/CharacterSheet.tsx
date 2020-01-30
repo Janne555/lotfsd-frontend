@@ -15,6 +15,7 @@ import {
   isArmorClassEffect,
   isCommonActivityEffect,
   calculateSavingThrows,
+  mapEquipmentList,
 } from '../../services'
 import { useQuery } from '@apollo/react-hooks'
 import { CHARACTER_SHEET_QUERY } from '../../constants'
@@ -22,6 +23,8 @@ import { CharacterSheetQuery, CharacterSheetQueryVariables, CharacterSheetQuery_
 import CommonActivities from './CommonActivities'
 import AttackBonusAndHitPoints from './AttackBonusAndHitPoints'
 import ArmorClassAndCombatOptions from './ArmorClassAndCombatOptions'
+import EquipmentList from './EquipmentList'
+import { ItemsQuery_items } from '../../../__generated__/apolloTypes/ItemsQuery'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
@@ -46,12 +49,12 @@ const useStyles = createUseStyles((theme: Theme) => ({
 type Props = {
   characterId: string
   characterName: string
+  itemIndex: ItemsQuery_items[]
 }
 
-function CharacterSheet({ characterId, characterName }: Props) {
+function CharacterSheet({ characterId, characterName, itemIndex }: Props) {
   const classes = useStyles()
   const { data } = useQuery<CharacterSheetQuery, CharacterSheetQueryVariables>(CHARACTER_SHEET_QUERY, { variables: { id: characterId } })
-  // const isMobile = useScreenResizeEvent(width => width < 1100)
 
   if (!data || !data.characterSheet) {
     return null
@@ -63,6 +66,7 @@ function CharacterSheet({ characterId, characterName }: Props) {
   const attributeModifiers = calculateAttributeModifiers(selectAttributes(characterSheet))
   const commonActivities = calculateCommonActivities(selectCommonActivities(characterSheet), attributeModifiers.strength, attributeModifiers.intelligence, commonActivityEffects)
   const savingThrows = calculateSavingThrows(selectSavingThrows(characterSheet), attributeModifiers)
+  const equipment = mapEquipmentList(characterSheet.inventory, selectWallet(characterSheet), itemIndex)
 
   return (
     <div className={classes.characterSheet}>
@@ -87,7 +91,7 @@ function CharacterSheet({ characterId, characterName }: Props) {
 
       />
       <CommonActivities commonActivities={commonActivities} characterId={characterId} />
-      {/* <EquipmentList /> */}
+      <EquipmentList equipment={equipment} characterName={characterName} />
       {/* <Encumbrance /> */}
       <Retainers characterName={characterSheet.name} retainers={selectRetainers(characterSheet)} />
       <Languages characterName={characterSheet.name} languages={characterSheet.languagesList} />

@@ -11,10 +11,11 @@ import ItemIndex from './Components/ItemIndex/ItemIndex'
 import ItemCreator from './Components/ItemIndex/ItemCreator'
 import { useLogin, useScreenResizeEvent } from './hooks'
 import { useQuery } from '@apollo/react-hooks'
-import { CHARACTER_LIST_QUERY } from './constants'
+import { CHARACTER_LIST_QUERY, ITEMS_QUERY } from './constants'
 import { CharacterListQuery } from '../__generated__/apolloTypes/characterListQuery'
 import SpeedDial from './Components/Interface/SpeedDial'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { ItemsQuery } from '../__generated__/apolloTypes/ItemsQuery'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   app: {
@@ -55,14 +56,15 @@ function Main() {
   const characterNameMatch = useRouteMatch<{ character: string }>('/characters/:character')
   const actionMatch = useRouteMatch<{ action: string }>('/characters/:character/:action')
   const { data, loading, error } = useQuery<CharacterListQuery>(CHARACTER_LIST_QUERY)
+  const { data: data2, loading: loading2, error: error2 } = useQuery<ItemsQuery>(ITEMS_QUERY)
   const { logout } = useLogin()
   const isMobile = useScreenResizeEvent(width => width < 1100)
 
-  if (loading) {
+  if (loading || loading2) {
     return <CircularProgress />
   }
 
-  if (error) {
+  if (error || error2) {
     return (
       <div className={classes.error}>
         <h3>Failed to connect to server</h3>
@@ -70,7 +72,7 @@ function Main() {
     )
   }
 
-  if (!data || !data.characterSheets) {
+  if (!data || !data.characterSheets || !data2 || !data2.items) {
     return null
   }
 
@@ -93,7 +95,7 @@ function Main() {
         <Switch>
           <Route path="/characters/:character">
             {characterId && characterNameMatch?.params.character &&
-              <CharacterSheet characterId={characterId} characterName={characterNameMatch?.params.character} />
+              <CharacterSheet characterId={characterId} characterName={characterNameMatch?.params.character} itemIndex={data2.items} />
             }
           </Route>
           <Route exact path="/characters">
