@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 import { useLogin, useLoginStatus } from '../../hooks'
 import { createUseStyles } from 'react-jss'
 import TextField from '@material-ui/core/TextField'
@@ -63,6 +63,7 @@ function Login() {
   const classes = useStyles()
   const loginStatus = useLoginStatus()
   const { login, error } = useLogin()
+  const history = useHistory()
 
   if (loginStatus === "logged-in") {
     return (
@@ -75,6 +76,10 @@ function Login() {
     login(e.target.elements.username.value, e.target.elements.password.value)
   }
 
+  function handleRegister() {
+    history.push("/register")
+  }
+
   return (
     <div className={classes.login}>
       <div>
@@ -82,7 +87,8 @@ function Login() {
         <form onSubmit={handleSubmit}>
           <TextField variant="outlined" id="username" label="Username" autoComplete="username" />
           <TextField variant="outlined" type="password" id="password" label="Password" autoComplete="current-password" />
-          <Button type="submit">Login</Button>
+          <Button variant="outlined" type="submit">Login</Button>
+          <Button onClick={handleRegister}>Register</Button>
           <FormLabel error>{error}</FormLabel>
         </form>
       </div>

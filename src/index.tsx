@@ -6,7 +6,7 @@ import store from './Redux/store'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'react-jss'
 import { theme } from './styles/theme'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { createApolloClient } from './services'
 import { useLoginStatus, LoginProvider, useToken } from './hooks'
 import Login from './Components/Interface/Login'
@@ -26,7 +26,16 @@ function App() {
       </ApolloProvider>
     )
   } else {
-    return <Login />
+    return (
+      <Switch>
+        <Route path="/register">
+          
+        </Route>
+        <Route>
+          <Login />
+        </Route>
+      </Switch>
+    )
   }
 }
 
