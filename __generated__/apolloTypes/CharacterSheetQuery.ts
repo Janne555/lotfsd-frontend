@@ -44,6 +44,13 @@ export interface CharacterSheetQuery_characterSheet_languagesList {
   known: boolean;
 }
 
+export interface CharacterSheetQuery_characterSheet_inventory {
+  __typename: "ItemInstance";
+  equipped: boolean;
+  id: string;
+  itemId: string;
+}
+
 export interface CharacterSheetQuery_characterSheet {
   __typename: "CharacterSheet";
   id: string;
@@ -91,6 +98,7 @@ export interface CharacterSheetQuery_characterSheet {
   retainers: CharacterSheetQuery_characterSheet_retainers[];
   properties: CharacterSheetQuery_characterSheet_properties[];
   languagesList: CharacterSheetQuery_characterSheet_languagesList[];
+  inventory: CharacterSheetQuery_characterSheet_inventory[];
 }
 
 export interface CharacterSheetQuery {

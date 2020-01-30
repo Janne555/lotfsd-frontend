@@ -44,6 +44,13 @@ export interface CharacterSheetFragment_languagesList {
   known: boolean;
 }
 
+export interface CharacterSheetFragment_inventory {
+  __typename: "ItemInstance";
+  equipped: boolean;
+  id: string;
+  itemId: string;
+}
+
 export interface CharacterSheetFragment {
   __typename: "CharacterSheet";
   id: string;
@@ -91,4 +98,5 @@ export interface CharacterSheetFragment {
   retainers: CharacterSheetFragment_retainers[];
   properties: CharacterSheetFragment_properties[];
   languagesList: CharacterSheetFragment_languagesList[];
+  inventory: CharacterSheetFragment_inventory[];
 }

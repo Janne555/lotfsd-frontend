@@ -46,6 +46,13 @@ export interface CharacterSheetUpdateMutation_updateCharacterSheet_languagesList
   known: boolean;
 }
 
+export interface CharacterSheetUpdateMutation_updateCharacterSheet_inventory {
+  __typename: "ItemInstance";
+  equipped: boolean;
+  id: string;
+  itemId: string;
+}
+
 export interface CharacterSheetUpdateMutation_updateCharacterSheet {
   __typename: "CharacterSheet";
   id: string;
@@ -93,6 +100,7 @@ export interface CharacterSheetUpdateMutation_updateCharacterSheet {
   retainers: CharacterSheetUpdateMutation_updateCharacterSheet_retainers[];
   properties: CharacterSheetUpdateMutation_updateCharacterSheet_properties[];
   languagesList: CharacterSheetUpdateMutation_updateCharacterSheet_languagesList[];
+  inventory: CharacterSheetUpdateMutation_updateCharacterSheet_inventory[];
 }
 
 export interface CharacterSheetUpdateMutation {

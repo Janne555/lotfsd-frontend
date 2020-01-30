@@ -46,6 +46,13 @@ export interface AddLanguageMutation_addLanguage_languagesList {
   known: boolean;
 }
 
+export interface AddLanguageMutation_addLanguage_inventory {
+  __typename: "ItemInstance";
+  equipped: boolean;
+  id: string;
+  itemId: string;
+}
+
 export interface AddLanguageMutation_addLanguage {
   __typename: "CharacterSheet";
   id: string;
@@ -93,6 +100,7 @@ export interface AddLanguageMutation_addLanguage {
   retainers: AddLanguageMutation_addLanguage_retainers[];
   properties: AddLanguageMutation_addLanguage_properties[];
   languagesList: AddLanguageMutation_addLanguage_languagesList[];
+  inventory: AddLanguageMutation_addLanguage_inventory[];
 }
 
 export interface AddLanguageMutation {

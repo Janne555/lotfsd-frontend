@@ -73,6 +73,11 @@ var CHARACTER_SHEET_FRAGMENT = gql`
       name
       known
     }
+    inventory {
+      equipped
+      id
+      itemId
+    }
   }
 `
 

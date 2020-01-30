@@ -128,6 +128,7 @@ export interface ItemInput {
 
 export interface ItemInstanceInput {
   equipped: boolean;
+  itemId: number;
 }
 
 export interface LanguageInput {

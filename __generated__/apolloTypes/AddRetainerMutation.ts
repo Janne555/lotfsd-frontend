@@ -46,6 +46,13 @@ export interface AddRetainerMutation_addRetainer_languagesList {
   known: boolean;
 }
 
+export interface AddRetainerMutation_addRetainer_inventory {
+  __typename: "ItemInstance";
+  equipped: boolean;
+  id: string;
+  itemId: string;
+}
+
 export interface AddRetainerMutation_addRetainer {
   __typename: "CharacterSheet";
   id: string;
@@ -93,6 +100,7 @@ export interface AddRetainerMutation_addRetainer {
   retainers: AddRetainerMutation_addRetainer_retainers[];
   properties: AddRetainerMutation_addRetainer_properties[];
   languagesList: AddRetainerMutation_addRetainer_languagesList[];
+  inventory: AddRetainerMutation_addRetainer_inventory[];
 }
 
 export interface AddRetainerMutation {
