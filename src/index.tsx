@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
+import Main from './Main'
 import * as serviceWorker from './serviceWorker'
 import store from './Redux/store'
 import { Provider } from 'react-redux'
@@ -14,7 +14,7 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import 'normalize.css'
 import './index.css'
 
-function Foo() {
+function App() {
   const loginStatus = useLoginStatus()
   const token = useToken()
   const client = React.useMemo(() => token ? createApolloClient(token) : undefined, [token])
@@ -22,7 +22,7 @@ function Foo() {
   if (loginStatus === "logged-in" && client) {
     return (
       <ApolloProvider client={client}>
-        <App />
+        <Main />
       </ApolloProvider>
     )
   } else {
@@ -35,7 +35,7 @@ ReactDOM.render(
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <LoginProvider>
-          <Foo />
+          <App />
         </LoginProvider>
       </Provider>
     </ThemeProvider>

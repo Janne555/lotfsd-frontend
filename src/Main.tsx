@@ -14,6 +14,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { CHARACTER_LIST_QUERY } from './constants'
 import { CharacterListQuery } from '../__generated__/apolloTypes/characterListQuery'
 import SpeedDial from './Components/Interface/SpeedDial'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   app: {
@@ -32,6 +33,15 @@ const useStyles = createUseStyles((theme: Theme) => ({
     minHeight: 'calc(100vh - 8rem)',
     backgroundColor: theme.colorGreyLightest,
   },
+  error: {
+    position: 'absolute',
+    zIndex: 1000,
+    height: '100vh',
+    width: '100vw',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   '@media (max-width: 1100px)': {
     app: {
       display: 'flex',
@@ -40,13 +50,25 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-function App() {
+function Main() {
   const classes = useStyles()
   const characterNameMatch = useRouteMatch<{ character: string }>('/characters/:character')
   const actionMatch = useRouteMatch<{ action: string }>('/characters/:character/:action')
-  const { data } = useQuery<CharacterListQuery>(CHARACTER_LIST_QUERY)
+  const { data, loading, error } = useQuery<CharacterListQuery>(CHARACTER_LIST_QUERY)
   const { logout } = useLogin()
   const isMobile = useScreenResizeEvent(width => width < 1100)
+
+  if (loading) {
+    return <CircularProgress />
+  }
+
+  if (error) {
+    return (
+      <div className={classes.error}>
+        <h3>Failed to connect to server</h3>
+      </div>
+    )
+  }
 
   if (!data || !data.characterSheets) {
     return null
@@ -65,7 +87,7 @@ function App() {
           moi
           </NavItem>
         <NavItem name="Item Index" to="/itemindex" />
-        <NavItem name="Login" end onClick={logout} />
+        <NavItem name="Logout" end onClick={logout} />
       </NavBar>
       <div className={classes.body}>
         <Switch>
@@ -106,4 +128,4 @@ function App() {
   );
 }
 
-export default App
+export default Main
