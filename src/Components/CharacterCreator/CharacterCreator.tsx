@@ -10,7 +10,7 @@ import { randomAttributes, mongoObjectId, calculateAttributeModifiers } from '..
 import { Redirect } from 'react-router-dom'
 import { CREATE_CHARACTER_MUTATION, CHARACTER_LIST_QUERY } from '../../constants'
 import { CharacterCreatorMutation, CharacterCreatorMutationVariables } from '../../../__generated__/apolloTypes/CharacterCreatorMutation'
-import { CharacterListQuery } from '../../../__generated__/apolloTypes/characterListQuery'
+import { CharacterListQuery } from '../../../__generated__/apolloTypes/CharacterListQuery'
 import { CHARACTER_CLASSES } from '../../constants/characterClasses'
 import { useMutation } from '@apollo/react-hooks'
 
