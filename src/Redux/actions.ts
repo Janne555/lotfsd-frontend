@@ -1,7 +1,0 @@
-export * from './reducers/characterSheet/info'
-export * from './reducers/characterSheet/commonActivities'
-export * from './reducers/userInterface'
-export * from './reducers/characterSheet/languages'
-export * from './reducers/itemIndex'
-export * from './reducers/characterSheet/inventory'
-export * from './reducers/characterSheet/properties'

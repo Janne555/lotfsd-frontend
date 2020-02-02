@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Main from './Main'
 import * as serviceWorker from './serviceWorker'
-import store from './Redux/store'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'react-jss'
 import { theme } from './styles/theme'
@@ -43,11 +42,9 @@ function App() {
 ReactDOM.render(
   <Router>
     <ThemeProvider theme={theme}>
-      <Provider store={store}>
         <LoginProvider>
           <App />
         </LoginProvider>
-      </Provider>
     </ThemeProvider>
   </Router >,
   document.getElementById('root'));

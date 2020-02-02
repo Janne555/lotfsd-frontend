@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
-import { useSelector, useScreenResizeEvent } from '../../hooks'
-import { selectItemIndex } from '../../Redux/selectors'
+import { useScreenResizeEvent } from '../../hooks'
 import { Route, useRouteMatch, useHistory } from 'react-router-dom'
 import ItemDetails from '../_shared/ItemDetails'
 import List from '@material-ui/core/List'

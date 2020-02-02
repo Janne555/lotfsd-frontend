@@ -1,8 +1,6 @@
 import React from 'react'
 import FormContainer from '../../_shared/FormContainer'
 import TextField from '@material-ui/core/TextField'
-import { useDispatch } from '../../../hooks'
-import { addProperty } from '../../../Redux/actions'
 import { generate } from 'shortid'
 
 type Props = {
@@ -11,7 +9,6 @@ type Props = {
 }
 
 const AddProperty = React.forwardRef<HTMLFormElement, Props>(function AddProperty({ onClose, characterId }: Props, ref) {
-  const dispatch = useDispatch()
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -33,7 +30,7 @@ const AddProperty = React.forwardRef<HTMLFormElement, Props>(function AddPropert
       property.rent = Number(target.elements.rent.value)
     }
 
-    dispatch(addProperty(property))
+    throw Error("TODO")
     onClose()
   }
 

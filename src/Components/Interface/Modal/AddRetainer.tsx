@@ -1,7 +1,5 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField'
-import { useDispatch } from '../../../hooks'
-import { addRetainer } from '../../../Redux/thunks'
 import FormContainer from '../../_shared/FormContainer'
 import { AddRetainerMutation, AddRetainerMutationVariables } from '../../../../__generated__/apolloTypes/AddRetainerMutation'
 import { ADD_RETAINER_MUTATION, CHARACTER_SHEET_QUERY } from '../../../constants'
