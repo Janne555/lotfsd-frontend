@@ -31,7 +31,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-export default function Encumbrance() {
+export default function Encumbrance(): JSX.Element {
   const classes = useStyles()
 
   throw Error("TODO")
