@@ -49,7 +49,7 @@ const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ char
     if (!loading && called && !error) {
       onClose()
     }
-  }, [loading, called, error])
+  }, [loading, called, error, onClose])
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()

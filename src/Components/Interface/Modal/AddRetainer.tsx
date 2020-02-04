@@ -49,7 +49,7 @@ const AddRetainer = React.forwardRef<HTMLFormElement, Props>(function AddRetaine
     if (!loading && called && !error) {
       onClose()
     }
-  }, [loading, called, error])
+  }, [loading, called, error, onClose])
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()

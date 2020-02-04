@@ -24,13 +24,12 @@ const AddProperty = React.forwardRef<HTMLFormElement, Props>(function AddPropert
       }
     }
   })
-  console.log(error)
 
   useEffect(() => {
     if (!loading && called && !error) {
       onClose()
     }
-  }, [loading, called, error])
+  }, [loading, called, error, onClose])
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()

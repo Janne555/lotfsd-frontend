@@ -50,7 +50,7 @@ const validator = new Validator().isLengthy.isNumber
 
 function AttackBonusAndHitPoints({ baseAB, currentHp, maxHp, meleeAB, rangedAB, surpriseChance, characterId }: Props) {
   const classes = useStyles()
-  const [mutate, { data, loading, error }] = useCharacterSheetUpdate(characterId)
+  const [mutate, { loading }] = useCharacterSheetUpdate(characterId)
 
   function handleSurpriseChange(value: number) {
     if (characterId && value !== surpriseChance) {

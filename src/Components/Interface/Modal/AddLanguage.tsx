@@ -30,7 +30,7 @@ const AddLanguage = React.forwardRef<HTMLFormElement, Props>(function AddLanguag
     if (!loading && called && !error) {
       onClose()
     }
-  }, [loading, called, error])
+  }, [loading, called, error, onClose])
 
   function handleSubmit(e: any) {
     e.preventDefault()

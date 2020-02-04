@@ -107,23 +107,23 @@ function EquipmentList({ characterName, equipment }: Props) {
   )
 }
 
-function rangeToString({ long, medium, short }: Weapon['range']) {
-  let parts: string[] = []
+// function rangeToString({ long, medium, short }: Weapon['range']) {
+//   let parts: string[] = []
 
-  if (short) {
-    parts.push(`S: ${short}`)
-  }
+//   if (short) {
+//     parts.push(`S: ${short}`)
+//   }
 
-  if (medium) {
-    parts.push(`M: ${medium}`)
-  }
+//   if (medium) {
+//     parts.push(`M: ${medium}`)
+//   }
 
-  if (long) {
-    parts.push(`L: ${long}`)
-  }
+//   if (long) {
+//     parts.push(`L: ${long}`)
+//   }
 
 
-  return parts.join(", ")
-}
+//   return parts.join(", ")
+// }
 
 export default EquipmentList

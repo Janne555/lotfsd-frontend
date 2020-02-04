@@ -57,7 +57,7 @@ const validator = new Validator().isLengthy.isNumber
 
 function Attribute({ title, score, index, modifier, onChange, characterId }: AttributeProps) {
   const classes = useAttributeStyles(index)
-  const [mutate, { data, loading, error }] = useMutation<CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables>(CHARACTER_SHEET_UPDATE_MUTATION, {
+  const [mutate, { loading }] = useMutation<CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables>(CHARACTER_SHEET_UPDATE_MUTATION, {
     update: updateCharacterSheet(characterId)
   })
 
