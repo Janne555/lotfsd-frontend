@@ -144,7 +144,7 @@ function makeArmorClassEffect(item: Armor): ArmorClassEffect {
   }
 }
 
-function calculateEncumbrance(inventory: InventoryItem[], wallet: Wallet): number {
+function calculateEncumbrance(inventory: EquipmentListItem[], wallet: Wallet): number {
   const coinEncumbrancePoints = totalCoins(wallet) / 100
   let encumbrance = 0
   let encumbrancePoints = coinEncumbrancePoints - 10
@@ -243,7 +243,8 @@ function mapEquipmentList(inventory: CharacterSheetQuery_characterSheet_inventor
         name: MONEY,
         stackSize: 100,
         amount,
-        listItemId: generate()
+        listItemId: generate(),
+        encumbrancePoints: 0.01
       })
       coins -= 100
     } while (coins > 0)
