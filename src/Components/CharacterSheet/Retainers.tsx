@@ -7,7 +7,6 @@ import { useHistory } from 'react-router-dom'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   retainers: {
-    overflow: 'scroll',
     '& h2': {
       textAlign: 'center'
     },
