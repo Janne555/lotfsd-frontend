@@ -3,11 +3,13 @@ import { createUseStyles } from 'react-jss'
 import range from 'lodash/range'
 import { useScreenResizeEvent } from '../../hooks'
 import Backdrop from '@material-ui/core/Backdrop'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 type Props = {
   value: number
   disabled?: boolean
   onValueChange?: (value: number) => void
+  loading?: boolean
 }
 
 const useStyles = createUseStyles((theme: Theme) => ({
@@ -21,6 +23,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
     border: theme.border,
     borderRadius: '10%',
     padding: 1,
+    position: 'relative'
   },
   bigDie: {
     width: 150,
@@ -35,15 +38,22 @@ const useStyles = createUseStyles((theme: Theme) => ({
     backgroundColor: 'white',
     zIndex: 4
   },
+  progress: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -20,
+    marginLeft: -20,
+  }
 }))
 
-export default function DieFace({ value, onValueChange, disabled }: Props) {
+export default function DieFace({ value, onValueChange, disabled, loading }: Props) {
   const [isEditing, setIsEditing] = useState(false)
-  const classes = useStyles(disabled)
+  const classes = useStyles(disabled || loading)
   const isMobile = useScreenResizeEvent(width => width < 1100)
 
   function handleClick(index: number) {
-    if (!disabled) {
+    if (!disabled && !loading) {
       onValueChange?.(index + 1)
     }
   }
@@ -63,7 +73,7 @@ export default function DieFace({ value, onValueChange, disabled }: Props) {
     <div className={classes.dieFaceRoot} onClick={handleDieClick} >
       {
         range(6).map(i => (
-          <Circle key={i} filled={value > i} index={i} onClick={isMobile ? undefined : handleClick} disabled={disabled} />
+          <Circle key={i} filled={value > i} index={i} onClick={isMobile ? undefined : handleClick} disabled={disabled || loading} />
         ))
       }
       {isEditing &&
@@ -75,12 +85,13 @@ export default function DieFace({ value, onValueChange, disabled }: Props) {
           <div className={classes.bigDie} onClick={e => e.stopPropagation()}>
             {
               range(6).map(i => (
-                <Circle key={i} filled={value > i} index={i} onClick={isMobile ? handleClick : undefined} big disabled={disabled} />
+                <Circle key={i} filled={value > i} index={i} onClick={isMobile ? handleClick : undefined} big disabled={disabled || loading} />
               ))
             }
           </div>
         </Backdrop>
       }
+      {loading && <CircularProgress className={classes.progress} />}
     </div>
   )
 }

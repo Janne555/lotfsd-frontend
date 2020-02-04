@@ -24,6 +24,7 @@ const AddProperty = React.forwardRef<HTMLFormElement, Props>(function AddPropert
       }
     }
   })
+  console.log(error)
 
   useEffect(() => {
     if (!loading && called && !error) {

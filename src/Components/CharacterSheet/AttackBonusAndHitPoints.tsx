@@ -91,7 +91,7 @@ function AttackBonusAndHitPoints({ baseAB, currentHp, maxHp, meleeAB, rangedAB, 
       <div className={classes.surpriseChance}>
         <h3>Surprise Chance</h3>
         <div className={classes.surpriseValue}>
-          <DieFace disabled={loading} value={surpriseChance} onValueChange={handleSurpriseChange} />
+          <DieFace loading={loading} value={surpriseChance} onValueChange={handleSurpriseChange} />
         </div>
       </div>
       <div className={classes.hitpoints}>
