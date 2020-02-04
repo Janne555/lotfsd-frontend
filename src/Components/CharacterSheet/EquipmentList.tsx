@@ -55,9 +55,6 @@ function EquipmentList({ characterName, equipment }: Props) {
             <th>
               Stack size
             </th>
-            <th>
-              Description
-            </th>
           </tr>
         </thead>
         <tbody>

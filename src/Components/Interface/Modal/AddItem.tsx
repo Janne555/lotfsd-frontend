@@ -5,6 +5,11 @@ import TextField from '@material-ui/core/TextField'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import ItemDetails from '../../_shared/ItemDetails'
 import { generate } from 'shortid'
+import { AddItemInstance, AddItemInstanceVariables } from '../../../../__generated__/apolloTypes/AddItemInstance'
+import { ItemsQuery_items } from '../../../../__generated__/apolloTypes/ItemsQuery'
+import { useMutation } from '@apollo/react-hooks'
+import { ADD_ITEM_INSTANCE_MUTATION, CHARACTER_SHEET_QUERY } from '../../../constants'
+import { CharacterSheetQuery, CharacterSheetQueryVariables } from '../../../../__generated__/apolloTypes/CharacterSheetQuery'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   addItem: {
@@ -23,11 +28,24 @@ const useStyles = createUseStyles((theme: Theme) => ({
 type Props = {
   onClose: () => void
   characterId: string
+  itemIndex: ItemsQuery_items[]
 }
 
-const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ characterId, onClose }, ref) {
+const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ characterId, onClose, itemIndex }, ref) {
   const classes = useStyles()
-  const [selected, setSelected] = useState<Item>()
+  const [selected, setSelected] = useState<ItemsQuery_items>()
+  const [mutate, { data, loading, error }] = useMutation<AddItemInstance, AddItemInstanceVariables>(ADD_ITEM_INSTANCE_MUTATION, {
+    update: (cache, { data }) => {
+      if (data && characterId) {
+        cache.writeQuery<CharacterSheetQuery, CharacterSheetQueryVariables>({
+          data: { characterSheet: data.addItemInstance },
+          query: CHARACTER_SHEET_QUERY,
+          variables: { id: characterId }
+        })
+      }
+    },
+    onCompleted: onClose
+  })
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -35,28 +53,32 @@ const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ char
       return
     }
 
-    onClose()
+    mutate({
+      variables: {
+        characterSheetId: characterId,
+        equipped: false,
+        itemId: selected.id
+      }
+    })
   }
 
-  throw Error("TODO")
-
-  // return (
-  //   <FormContainer className={classes.addItem} ref={ref} onClose={onClose} onSubmit={handleSubmit} label="Add Item">
-  //     <Autocomplete
-  //       id="itemSelect"
-  //       options={itemIndex}
-  //       getOptionLabel={(option: Item) => option.name}
-  //       disablePortal
-  //       onChange={(e, item) => setSelected(item)}
-  //       renderInput={params => (
-  //         <TextField id="item" {...params} required label="Item" fullWidth placeholder="Filter by typing" />
-  //       )}
-  //     />
-  //     {/* {selected &&
-  //       <ItemDetails item={selected} /> TODO
-  //     } */}
-  //   </FormContainer>
-  // )
+  return (
+    <FormContainer className={classes.addItem} ref={ref} onClose={onClose} onSubmit={handleSubmit} label="Add Item">
+      <Autocomplete
+        id="itemSelect"
+        options={itemIndex}
+        getOptionLabel={(option: ItemsQuery_items) => option.name}
+        disablePortal
+        onChange={(e, item: ItemsQuery_items) => setSelected(item)}
+        renderInput={params => (
+          <TextField id="item" {...params} required label="Item" fullWidth placeholder="Filter by typing" />
+        )}
+      />
+      {selected &&
+        <ItemDetails item={selected} />
+      }
+    </FormContainer>
+  )
 })
 
 export default AddItem
