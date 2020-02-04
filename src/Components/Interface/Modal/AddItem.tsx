@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { createUseStyles } from 'react-jss'
 import FormContainer from '../../_shared/FormContainer'
 import TextField from '@material-ui/core/TextField'
@@ -33,7 +33,7 @@ type Props = {
 const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ characterId, onClose, itemIndex }, ref) {
   const classes = useStyles()
   const [selected, setSelected] = useState<ItemsQuery_items>()
-  const [mutate, { data, loading, error }] = useMutation<AddItemInstance, AddItemInstanceVariables>(ADD_ITEM_INSTANCE_MUTATION, {
+  const [mutate, { loading, error, called }] = useMutation<AddItemInstance, AddItemInstanceVariables>(ADD_ITEM_INSTANCE_MUTATION, {
     update: (cache, { data }) => {
       if (data && characterId) {
         cache.writeQuery<CharacterSheetQuery, CharacterSheetQueryVariables>({
@@ -42,9 +42,14 @@ const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ char
           variables: { id: characterId }
         })
       }
-    },
-    onCompleted: onClose
+    }
   })
+
+  useEffect(() => {
+    if (!loading && called && !error) {
+      onClose()
+    }
+  }, [loading, called, error])
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -62,7 +67,7 @@ const AddItem = React.forwardRef<HTMLFormElement, Props>(function AddItem({ char
   }
 
   return (
-    <FormContainer className={classes.addItem} ref={ref} onClose={onClose} onSubmit={handleSubmit} label="Add Item">
+    <FormContainer className={classes.addItem} ref={ref} onClose={onClose} onSubmit={handleSubmit} label="Add Item" loading={loading} error={error?.message}>
       <Autocomplete
         id="itemSelect"
         options={itemIndex}

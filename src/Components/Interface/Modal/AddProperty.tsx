@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import FormContainer from '../../_shared/FormContainer'
 import TextField from '@material-ui/core/TextField'
-import { generate } from 'shortid'
 import { useMutation } from '@apollo/react-hooks'
 import { CharacterSheetQuery, CharacterSheetQueryVariables } from '../../../../__generated__/apolloTypes/CharacterSheetQuery'
 import { AddPropertyMutation, AddPropertyMutationVariables } from '../../../../__generated__/apolloTypes/AddPropertyMutation'
@@ -14,7 +13,7 @@ type Props = {
 }
 
 const AddProperty = React.forwardRef<HTMLFormElement, Props>(function AddProperty({ onClose, characterId }: Props, ref) {
-  const [mutate, { data, loading, error }] = useMutation<AddPropertyMutation, AddPropertyMutationVariables>(ADD_PROPERTY_MUTATION, {
+  const [mutate, { loading, error, called }] = useMutation<AddPropertyMutation, AddPropertyMutationVariables>(ADD_PROPERTY_MUTATION, {
     update: (cache, { data }) => {
       if (data && characterId) {
         cache.writeQuery<CharacterSheetQuery, CharacterSheetQueryVariables>({
@@ -23,9 +22,14 @@ const AddProperty = React.forwardRef<HTMLFormElement, Props>(function AddPropert
           variables: { id: characterId }
         })
       }
-    },
-    onCompleted: onClose
+    }
   })
+
+  useEffect(() => {
+    if (!loading && called && !error) {
+      onClose()
+    }
+  }, [loading, called, error])
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -54,7 +58,7 @@ const AddProperty = React.forwardRef<HTMLFormElement, Props>(function AddPropert
   }
 
   return (
-    <FormContainer ref={ref} onClose={onClose} onSubmit={handleSubmit} label="Add property">
+    <FormContainer ref={ref} onClose={onClose} onSubmit={handleSubmit} label="Add property" loading={loading} error={error?.message}>
       <TextField id="name" label="Name" required />
       <TextField id="location" label="Location" required />
       <TextField id="value" label="Value" type="number" />

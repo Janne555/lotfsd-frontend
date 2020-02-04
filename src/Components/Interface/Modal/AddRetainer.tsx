@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TextField from '@material-ui/core/TextField'
 import FormContainer from '../../_shared/FormContainer'
 import { AddRetainerMutation, AddRetainerMutationVariables } from '../../../../__generated__/apolloTypes/AddRetainerMutation'
@@ -33,7 +33,7 @@ function gatherRetainerVariables(elements: AddRetainerForm): AddRetainerMutation
 
 
 const AddRetainer = React.forwardRef<HTMLFormElement, Props>(function AddRetainer({ onClose, characterId }, ref) {
-  const [mutate, { data, loading, error, called }] = useMutation<AddRetainerMutation, AddRetainerMutationVariables>(ADD_RETAINER_MUTATION, {
+  const [mutate, { loading, error, called }] = useMutation<AddRetainerMutation, AddRetainerMutationVariables>(ADD_RETAINER_MUTATION, {
     update: (cache, { data }) => {
       if (data && characterId) {
         cache.writeQuery<CharacterSheetQuery, CharacterSheetQueryVariables>({
@@ -44,6 +44,12 @@ const AddRetainer = React.forwardRef<HTMLFormElement, Props>(function AddRetaine
       }
     }
   })
+
+  useEffect(() => {
+    if (!loading && called && !error) {
+      onClose()
+    }
+  }, [loading, called, error])
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -64,7 +70,7 @@ const AddRetainer = React.forwardRef<HTMLFormElement, Props>(function AddRetaine
   }
 
   return (
-    <FormContainer ref={ref} onClose={onClose} onSubmit={handleSubmit} label="Add Retainer">
+    <FormContainer ref={ref} onClose={onClose} onSubmit={handleSubmit} label="Add Retainer" loading={loading} error={error?.message}>
       <TextField id="name" label="Name" required autoFocus />
       <TextField id="position" label="Position" />
       <TextField id="class" label="Class" />
