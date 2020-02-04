@@ -76,7 +76,8 @@ function createVariables(form: ItemCreatorForm): CreateItemVariables {
       rangeLong,
       rangeMedium,
       rangeShort,
-      baseArmorClass
+      baseArmorClass,
+      encumbrance
     }
   }
 }
