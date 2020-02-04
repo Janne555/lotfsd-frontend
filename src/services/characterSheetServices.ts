@@ -1,4 +1,4 @@
-import { BASE_ARMOR_CLASS, MONEY, SAVING_THROW_KEYS } from "../constants"
+import { BASE_ARMOR_CLASS, MONEY } from "../constants"
 import { hasKey, isKeyOfAttributes } from "./typeGuards"
 import partition from 'lodash/partition'
 import { generate } from 'shortid'

@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useContext } from 'react'
+import { useState, useLayoutEffect } from 'react'
 
 function useScreenResizeEvent(condition: (screenWidth: number) => boolean) {
   const [result, setResult] = useState(condition(window.screen.width))

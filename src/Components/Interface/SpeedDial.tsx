@@ -1,11 +1,9 @@
-import React, { useState, ReactNode } from 'react'
+import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import MSpeedDial from '@material-ui/lab/SpeedDial'
 import Add from '@material-ui/icons/Add'
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction'
-import { useScreenResizeEvent } from '../../hooks'
 import { useHistory, useRouteMatch } from 'react-router-dom'
-import Icon from '@material-ui/icons/AcUnit'
 import { getSpeedDialActions } from '../../constants'
 
 const useStyles = createUseStyles((theme: Theme) => ({
