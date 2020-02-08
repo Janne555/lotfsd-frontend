@@ -83,7 +83,7 @@ function Main() {
     <div className={classes.app}>
       <NavBar>
         <NavItem name="Characters" to="/characters">
-          <CharacterList characters={data.characterSheets} />
+          <CharacterList characters={data.characterSheets} page={false} />
         </NavItem>
         <NavItem name="Item Index" to="/itemindex" />
         <NavItem name="Logout" end onClick={logout} />
@@ -96,7 +96,7 @@ function Main() {
             }
           </Route>
           <Route exact path="/characters">
-            <CharacterList characters={data.characterSheets} />
+            <CharacterList characters={data.characterSheets} page />
           </Route>
           <Route path="/newcharacter">
             <CharacterCreator />
