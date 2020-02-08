@@ -1,8 +1,9 @@
 import { ItemsQuery } from "../../__generated__/apolloTypes/ItemsQuery"
 import { MockedResponse } from "@apollo/react-testing"
 import { CharacterListQuery } from "../../__generated__/apolloTypes/CharacterListQuery"
-import { CHARACTER_LIST_QUERY, ITEMS_QUERY, CREATE_CHARACTER_MUTATION } from "../constants"
+import { CHARACTER_LIST_QUERY, ITEMS_QUERY, CREATE_CHARACTER_MUTATION, CHARACTER_SHEET_QUERY } from "../constants"
 import { CharacterCreatorMutation } from "../../__generated__/apolloTypes/CharacterCreatorMutation"
+import { CharacterSheetQuery } from "../../__generated__/apolloTypes/CharacterSheetQuery"
 
 const ATTRIBUTES: Attributes = {
   charisma: 10,
@@ -88,6 +89,60 @@ const ITEM_INDEX_MOCK: Result<ItemsQuery> = {
   }
 }
 
+const CHARACTER_MOCK: Result<CharacterSheetQuery> = {
+  data: {
+    characterSheet: {
+      __typename: "CharacterSheet",
+      age: 13,
+      alignment: "chaotic",
+      architecture: 1,
+      attackBonus: 1,
+      breathWeapon: 10,
+      bushcraft: 1,
+      charisma: 10,
+      class: "fighter",
+      climbing: 1,
+      constitution: 16,
+      copper: 1,
+      currentHp: 13,
+      defensive: true,
+      dexterity: 10,
+      effects: [],
+      experience: 0,
+      gender: "male",
+      gold: 100,
+      id: "asd",
+      improvedParry: true,
+      intelligence: 11,
+      inventory: [],
+      languages: 1,
+      languagesList: [],
+      magic: 11,
+      magicalDevice: 12,
+      maxHp: 13,
+      name: "dyyd",
+      openDoors: 1,
+      paralyze: 13,
+      parry: false,
+      poison: 14,
+      press: true,
+      properties: [],
+      race: "male",
+      retainers: [],
+      search: 1,
+      silver: 1,
+      sleightOfHand: 1,
+      sneakAttack: 1,
+      standard: true,
+      stealth: 1,
+      strength: 11,
+      surpriseChance: 4,
+      tinkering: 1,
+      wisdom: 7
+    }
+  }
+}
+
 const APOLLO_MOCKS: MockedResponse[] = [
   {
     request: {
@@ -100,6 +155,13 @@ const APOLLO_MOCKS: MockedResponse[] = [
       query: ITEMS_QUERY
     },
     result: ITEM_INDEX_MOCK
+  },
+  {
+    request: {
+      query: CHARACTER_SHEET_QUERY,
+      variables: { id: "asd" }
+    },
+    result: CHARACTER_MOCK
   }
 ]
 

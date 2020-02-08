@@ -1,0 +1,661 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CharacterSheet /> should match snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <div>
+      <h1>
+        Lamentations of the fullstack developer
+      </h1>
+      <div>
+        <div>
+          <span>
+            dyyd
+          </span>
+          <span>
+            name
+          </span>
+        </div>
+        <div>
+          <span>
+            0
+          </span>
+          <span>
+            experience
+          </span>
+        </div>
+        <div>
+          <span>
+            fighter
+          </span>
+          <span>
+            class
+          </span>
+        </div>
+        <div>
+          <span>
+            male
+          </span>
+          <span>
+            race
+          </span>
+        </div>
+        <div>
+          <span>
+            13
+          </span>
+          <span>
+            age
+          </span>
+        </div>
+        <div>
+          <span>
+            male
+          </span>
+          <span>
+            gender
+          </span>
+        </div>
+        <div>
+          <span>
+            chaotic
+          </span>
+          <span>
+            alignment
+          </span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span>
+        Ability Scores
+      </span>
+      <span>
+        Modifiers
+      </span>
+      <label
+        for="charisma"
+      >
+        Charisma
+      </label>
+      <div>
+        <input
+          id="charisma"
+          type="number"
+          value="10"
+        />
+      </div>
+      <div>
+        <span>
+          0
+        </span>
+      </div>
+      <span>
+        Retainer Recruitment, Loyalty
+      </span>
+      <label
+        for="constitution"
+      >
+        Constitution
+      </label>
+      <div>
+        <input
+          id="constitution"
+          type="number"
+          value="16"
+        />
+      </div>
+      <div>
+        <span>
+          2
+        </span>
+      </div>
+      <span>
+        Hit Points, Daily Travel Distance
+      </span>
+      <label
+        for="dexterity"
+      >
+        Dexterity
+      </label>
+      <div>
+        <input
+          id="dexterity"
+          type="number"
+          value="10"
+        />
+      </div>
+      <div>
+        <span>
+          0
+        </span>
+      </div>
+      <span>
+        AC, Ranged AB, Initiative
+      </span>
+      <label
+        for="intelligence"
+      >
+        Intelligence
+      </label>
+      <div>
+        <input
+          id="intelligence"
+          type="number"
+          value="11"
+        />
+      </div>
+      <div>
+        <span>
+          0
+        </span>
+      </div>
+      <span>
+        Saves vs Magic Effects
+      </span>
+      <label
+        for="strength"
+      >
+        Strength
+      </label>
+      <div>
+        <input
+          id="strength"
+          type="number"
+          value="11"
+        />
+      </div>
+      <div>
+        <span>
+          0
+        </span>
+      </div>
+      <span>
+        Mêlée AB, Open Doors
+      </span>
+      <label
+        for="wisdom"
+      >
+        Wisdom
+      </label>
+      <div>
+        <input
+          id="wisdom"
+          type="number"
+          value="7"
+        />
+      </div>
+      <div>
+        <span>
+          -1
+        </span>
+      </div>
+      <span>
+        Saves vs Non-Magic Effects
+      </span>
+    </div>
+    <div>
+      <h2>
+        Saving Throws
+      </h2>
+      <div>
+        <div>
+          <h3>
+            Breath Weapon
+          </h3>
+          <div>
+            <input
+              value="11"
+            />
+          </div>
+          <span>
+            Area Effects
+          </span>
+        </div>
+        <div>
+          <h3>
+            Magic
+          </h3>
+          <div>
+            <input
+              value="11"
+            />
+          </div>
+          <span>
+            Spells or Innate Abilities
+          </span>
+        </div>
+        <div>
+          <h3>
+            Magical Device
+          </h3>
+          <div>
+            <input
+              value="12"
+            />
+          </div>
+          <span>
+            Spell-Like Effects from Items
+          </span>
+        </div>
+        <div>
+          <h3>
+            Paralyze
+          </h3>
+          <div>
+            <input
+              value="14"
+            />
+          </div>
+          <span>
+            Mobility Hazards (Petrification, Hold, Etc.)
+          </span>
+        </div>
+        <div>
+          <h3>
+            Poison
+          </h3>
+          <div>
+            <input
+              value="15"
+            />
+          </div>
+          <span>
+            Instant Death/KO Situations
+          </span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <h2>
+          Attack Bonus
+        </h2>
+        <div>
+          <div>
+            <input
+              value="1"
+            />
+          </div>
+        </div>
+        <h4>
+          Base AB
+        </h4>
+        <div>
+          <div>
+            1
+          </div>
+        </div>
+        <h4>
+          Mêlée AB
+        </h4>
+        <div>
+          <div>
+            1
+          </div>
+        </div>
+        <h4>
+          Ranged AB
+        </h4>
+      </div>
+      <div>
+        <h3>
+          Surprise Chance
+        </h3>
+        <div>
+          <div>
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4>
+          Max HP
+        </h4>
+        <div>
+          <span>
+            <input
+              type="number"
+              value="13"
+            />
+          </span>
+        </div>
+        <div>
+          <span>
+            <input
+              type="number"
+              value="13"
+            />
+          </span>
+        </div>
+        <h4>
+          Current HP
+        </h4>
+      </div>
+    </div>
+    <div>
+      <div>
+        <h2>
+          Armor Class
+        </h2>
+        <div>
+          <div>
+            <span>
+              12
+            </span>
+          </div>
+          <h4>
+            Mêlée
+          </h4>
+          <div>
+            <span>
+              12
+            </span>
+          </div>
+          <h4>
+            Ranged
+          </h4>
+          <div>
+            <span>
+              12
+            </span>
+          </div>
+          <h4>
+            Without
+            <br />
+            Shield
+          </h4>
+          <div>
+            <span>
+              10
+            </span>
+          </div>
+          <h4>
+            Surprised
+          </h4>
+        </div>
+      </div>
+      <div>
+        <h2>
+          Combat Options
+        </h2>
+        <p>
+          Standard attack AB +0, AC +0
+        </p>
+        <p>
+          Parry AC 4
+        </p>
+        <p>
+          Press AB +2, AC -4
+        </p>
+        <p>
+          Defensive AB -4, AC +2
+        </p>
+      </div>
+    </div>
+    <div>
+      <h2>
+        Common Activities
+      </h2>
+      <div>
+        <div>
+          <h4>
+            Architecture
+          </h4>
+          <div>
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+        </div>
+        <div>
+          <h4>
+            Bushcraft
+          </h4>
+          <div>
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+        </div>
+        <div>
+          <h4>
+            Climbing
+          </h4>
+          <div>
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+        </div>
+        <div>
+          <h4>
+            Languages
+          </h4>
+          <div>
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+        </div>
+        <div>
+          <h4>
+            Open Doors
+          </h4>
+          <div>
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+        </div>
+        <div>
+          <h4>
+            Search
+          </h4>
+          <div>
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+        </div>
+        <div>
+          <h4>
+            Sleight of Hand
+          </h4>
+          <div>
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+        </div>
+        <div>
+          <h4>
+            Sneak Attack
+          </h4>
+          <div>
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+        </div>
+        <div>
+          <h4>
+            Stealth
+          </h4>
+          <div>
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+        </div>
+        <div>
+          <h4>
+            Tinkering
+          </h4>
+          <div>
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h2>
+        Equipment
+      </h2>
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Stack size
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              Money
+            </td>
+            <td>
+              100/100
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Money
+            </td>
+            <td>
+              2/100
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h2>
+        Encumbrance
+      </h2>
+      <div>
+        <h3>
+          Total
+        </h3>
+        <div>
+          0
+        </div>
+        <h4>
+          Unencumbered
+        </h4>
+      </div>
+      <h4>
+        Explore
+      </h4>
+      <span>
+        120 feet
+      </span>
+      <h4>
+        Combat
+      </h4>
+      <span>
+        40 feet
+      </span>
+      <h4>
+        Running
+      </h4>
+      <span>
+        120 feet
+      </span>
+      <h4>
+        Per Day
+      </h4>
+      <span>
+        24 miles
+      </span>
+    </div>
+    <div>
+      <div>
+        <h2>
+          Retainers
+        </h2>
+        <div>
+          No Content
+        </div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <h2>
+          Languages
+        </h2>
+        <div>
+          No Content
+        </div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <h2>
+          Properties
+        </h2>
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Name
+              </th>
+              <th>
+                Location
+              </th>
+              <th>
+                Value
+              </th>
+              <th>
+                Rent
+              </th>
+            </tr>
+          </thead>
+          <tbody />
+        </table>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
