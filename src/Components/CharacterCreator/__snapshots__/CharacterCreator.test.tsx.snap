@@ -1,0 +1,452 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CharacterCreator /> should match snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <form>
+      <div>
+        <span>
+          Ability Scores
+        </span>
+        <span>
+          Modifiers
+        </span>
+        <label
+          for="charisma"
+        >
+          Charisma
+        </label>
+        <div>
+          <input
+            id="charisma"
+            type="number"
+            value="0"
+          />
+        </div>
+        <div>
+          <span>
+            -3
+          </span>
+        </div>
+        <span>
+          Retainer Recruitment, Loyalty
+        </span>
+        <label
+          for="constitution"
+        >
+          Constitution
+        </label>
+        <div>
+          <input
+            id="constitution"
+            type="number"
+            value="0"
+          />
+        </div>
+        <div>
+          <span>
+            -3
+          </span>
+        </div>
+        <span>
+          Hit Points, Daily Travel Distance
+        </span>
+        <label
+          for="dexterity"
+        >
+          Dexterity
+        </label>
+        <div>
+          <input
+            id="dexterity"
+            type="number"
+            value="0"
+          />
+        </div>
+        <div>
+          <span>
+            -3
+          </span>
+        </div>
+        <span>
+          AC, Ranged AB, Initiative
+        </span>
+        <label
+          for="intelligence"
+        >
+          Intelligence
+        </label>
+        <div>
+          <input
+            id="intelligence"
+            type="number"
+            value="0"
+          />
+        </div>
+        <div>
+          <span>
+            -3
+          </span>
+        </div>
+        <span>
+          Saves vs Magic Effects
+        </span>
+        <label
+          for="strength"
+        >
+          Strength
+        </label>
+        <div>
+          <input
+            id="strength"
+            type="number"
+            value="0"
+          />
+        </div>
+        <div>
+          <span>
+            -3
+          </span>
+        </div>
+        <span>
+          Mêlée AB, Open Doors
+        </span>
+        <label
+          for="wisdom"
+        >
+          Wisdom
+        </label>
+        <div>
+          <input
+            id="wisdom"
+            type="number"
+            value="0"
+          />
+        </div>
+        <div>
+          <span>
+            -3
+          </span>
+        </div>
+        <span>
+          Saves vs Non-Magic Effects
+        </span>
+      </div>
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-text"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label"
+        >
+          Randomize
+        </span>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </button>
+      <div
+        class="MuiFormControl-root MuiTextField-root"
+      >
+        <label
+          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
+          data-shrink="false"
+          for="name"
+          id="name-label"
+        >
+          Name
+          <span
+            class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+          >
+             *
+          </span>
+        </label>
+        <div
+          class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+        >
+          <input
+            aria-invalid="false"
+            class="MuiInputBase-input MuiInput-input"
+            id="name"
+            required=""
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="MuiFormControl-root MuiTextField-root"
+      >
+        <label
+          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
+          data-shrink="false"
+          for="gender"
+          id="gender-label"
+        >
+          Gender
+          <span
+            class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+          >
+             *
+          </span>
+        </label>
+        <div
+          class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+        >
+          <input
+            aria-invalid="false"
+            class="MuiInputBase-input MuiInput-input"
+            id="gender"
+            required=""
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="MuiFormControl-root MuiTextField-root"
+      >
+        <label
+          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
+          data-shrink="false"
+          for="race"
+          id="race-label"
+        >
+          Race
+          <span
+            class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+          >
+             *
+          </span>
+        </label>
+        <div
+          class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+        >
+          <input
+            aria-invalid="false"
+            class="MuiInputBase-input MuiInput-input"
+            id="race"
+            required=""
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="MuiFormControl-root MuiTextField-root"
+      >
+        <label
+          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
+          data-shrink="false"
+          for="age"
+          id="age-label"
+        >
+          Age
+          <span
+            class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+          >
+             *
+          </span>
+        </label>
+        <div
+          class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+        >
+          <input
+            aria-invalid="false"
+            class="MuiInputBase-input MuiInput-input"
+            id="age"
+            required=""
+            type="number"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="MuiFormControl-root MuiTextField-root"
+      >
+        <label
+          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
+          data-shrink="false"
+          for="money"
+          id="money-label"
+        >
+          Money
+          <span
+            class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+          >
+             *
+          </span>
+        </label>
+        <div
+          class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+        >
+          <input
+            aria-invalid="false"
+            class="MuiInputBase-input MuiInput-input"
+            id="money"
+            required=""
+            type="number"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="MuiFormControl-root MuiTextField-root"
+      >
+        <label
+          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
+          data-shrink="false"
+          for="maxHp"
+          id="maxHp-label"
+        >
+          HP
+          <span
+            class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+          >
+             *
+          </span>
+        </label>
+        <div
+          class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+        >
+          <input
+            aria-invalid="false"
+            class="MuiInputBase-input MuiInput-input"
+            id="maxHp"
+            required=""
+            type="number"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="MuiFormControl-root"
+      >
+        <label
+          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required"
+          data-shrink="true"
+          for="alignment"
+        >
+          Alignment
+          <span
+            class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+          >
+             *
+          </span>
+        </label>
+        <div
+          class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+        >
+          <select
+            aria-invalid="false"
+            class="MuiNativeSelect-root MuiNativeSelect-select MuiInputBase-input MuiInput-input"
+            id="alignment"
+            required=""
+          >
+            <option
+              value="chaotic"
+            >
+              Chaotic
+            </option>
+            <option
+              value="neutral"
+            >
+              Neutral
+            </option>
+            <option
+              value="lawful"
+            >
+              Lawful
+            </option>
+          </select>
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiNativeSelect-icon"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M7 10l5 5 5-5z"
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        class="MuiFormControl-root"
+      >
+        <label
+          class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required"
+          data-shrink="true"
+          for="class"
+        >
+          Class
+          <span
+            class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+          >
+             *
+          </span>
+        </label>
+        <div
+          class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+        >
+          <select
+            aria-invalid="false"
+            class="MuiNativeSelect-root MuiNativeSelect-select MuiInputBase-input MuiInput-input"
+            id="class"
+            required=""
+          >
+            <option
+              value="fighter"
+            >
+              Fighter
+            </option>
+            <option
+              value="cleric"
+            >
+              Cleric
+            </option>
+            <option
+              value="magic-user"
+            >
+              Magic User
+            </option>
+            <option
+              value="specialist"
+            >
+              Specialist
+            </option>
+          </select>
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiNativeSelect-icon"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M7 10l5 5 5-5z"
+            />
+          </svg>
+        </div>
+      </div>
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-outlined"
+        tabindex="0"
+        type="submit"
+      >
+        <span
+          class="MuiButton-label"
+        >
+          Create
+        </span>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </button>
+      <p />
+    </form>
+  </div>
+</DocumentFragment>
+`;
