@@ -85,9 +85,6 @@ function Main() {
         <NavItem name="Characters" to="/characters">
           <CharacterList characters={data.characterSheets} />
         </NavItem>
-        <NavItem name="Campaigns" to="/campaigns">
-          moi
-          </NavItem>
         <NavItem name="Item Index" to="/itemindex" />
         <NavItem name="Logout" end onClick={logout} />
       </NavBar>
