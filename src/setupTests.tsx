@@ -2,12 +2,15 @@ import '@testing-library/jest-dom/extend-expect'
 import React, { ReactNode } from 'react'
 import { JssProvider } from 'react-jss'
 import { render } from '@testing-library/react'
+import { MockedProvider } from '@apollo/react-testing'
 
 function AppWrapper({ children }: { children: ReactNode | ReactNode[] }): JSX.Element {
   return (
-    <JssProvider disableStylesGeneration>
+    <MockedProvider>
+      <JssProvider disableStylesGeneration>
         {children}
-    </JssProvider>
+      </JssProvider>
+    </MockedProvider>
   )
 }
 

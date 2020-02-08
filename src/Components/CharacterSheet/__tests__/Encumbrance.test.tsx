@@ -4,7 +4,7 @@ import Encumbrance from '../Encumbrance'
 
 describe('<Encumbrance />', () => {
   it('should show correct values', () => {
-    const { queryByText, queryAllByText } = renderWrapped(<Encumbrance />)
+    const { queryByText, queryAllByText } = renderWrapped(<Encumbrance encumbrance={2} />)
     expect(queryAllByText('90 feet').length).toBe(2)
     expect(queryByText('30 feet')).toBeInTheDocument()
     expect(queryByText('18 miles')).toBeInTheDocument()
