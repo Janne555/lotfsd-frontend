@@ -1,7 +1,8 @@
 import { ItemsQuery } from "../../__generated__/apolloTypes/ItemsQuery"
 import { MockedResponse } from "@apollo/react-testing"
 import { CharacterListQuery } from "../../__generated__/apolloTypes/CharacterListQuery"
-import { CHARACTER_LIST_QUERY, ITEMS_QUERY } from "../constants"
+import { CHARACTER_LIST_QUERY, ITEMS_QUERY, CREATE_CHARACTER_MUTATION } from "../constants"
+import { CharacterCreatorMutation } from "../../__generated__/apolloTypes/CharacterCreatorMutation"
 
 const ATTRIBUTES: Attributes = {
   charisma: 10,
