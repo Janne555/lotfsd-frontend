@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import * as serviceWorker from './serviceWorker'
 import { ThemeProvider } from 'react-jss'
 import { theme } from './styles/theme'
 import { BrowserRouter as Router } from 'react-router-dom'
