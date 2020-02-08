@@ -304,12 +304,24 @@ exports[`<CharacterSheet /> should match snapshot 1`] = `
         </h3>
         <div>
           <div>
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
+            <div
+              data-testid="surprise-circle-0"
+            />
+            <div
+              data-testid="surprise-circle-1"
+            />
+            <div
+              data-testid="surprise-circle-2"
+            />
+            <div
+              data-testid="surprise-circle-3"
+            />
+            <div
+              data-testid="surprise-circle-4"
+            />
+            <div
+              data-testid="surprise-circle-5"
+            />
           </div>
         </div>
       </div>
@@ -320,6 +332,7 @@ exports[`<CharacterSheet /> should match snapshot 1`] = `
         <div>
           <span>
             <input
+              data-testid="max-hp"
               type="number"
               value="13"
             />
@@ -328,6 +341,7 @@ exports[`<CharacterSheet /> should match snapshot 1`] = `
         <div>
           <span>
             <input
+              data-testid="current-hp"
               type="number"
               value="13"
             />
@@ -408,12 +422,24 @@ exports[`<CharacterSheet /> should match snapshot 1`] = `
             Architecture
           </h4>
           <div>
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
+            <div
+              data-testid="die-circle-0"
+            />
+            <div
+              data-testid="die-circle-1"
+            />
+            <div
+              data-testid="die-circle-2"
+            />
+            <div
+              data-testid="die-circle-3"
+            />
+            <div
+              data-testid="die-circle-4"
+            />
+            <div
+              data-testid="die-circle-5"
+            />
           </div>
         </div>
         <div>
@@ -421,12 +447,24 @@ exports[`<CharacterSheet /> should match snapshot 1`] = `
             Bushcraft
           </h4>
           <div>
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
+            <div
+              data-testid="die-circle-0"
+            />
+            <div
+              data-testid="die-circle-1"
+            />
+            <div
+              data-testid="die-circle-2"
+            />
+            <div
+              data-testid="die-circle-3"
+            />
+            <div
+              data-testid="die-circle-4"
+            />
+            <div
+              data-testid="die-circle-5"
+            />
           </div>
         </div>
         <div>
@@ -434,12 +472,24 @@ exports[`<CharacterSheet /> should match snapshot 1`] = `
             Climbing
           </h4>
           <div>
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
+            <div
+              data-testid="die-circle-0"
+            />
+            <div
+              data-testid="die-circle-1"
+            />
+            <div
+              data-testid="die-circle-2"
+            />
+            <div
+              data-testid="die-circle-3"
+            />
+            <div
+              data-testid="die-circle-4"
+            />
+            <div
+              data-testid="die-circle-5"
+            />
           </div>
         </div>
         <div>
@@ -447,12 +497,24 @@ exports[`<CharacterSheet /> should match snapshot 1`] = `
             Languages
           </h4>
           <div>
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
+            <div
+              data-testid="die-circle-0"
+            />
+            <div
+              data-testid="die-circle-1"
+            />
+            <div
+              data-testid="die-circle-2"
+            />
+            <div
+              data-testid="die-circle-3"
+            />
+            <div
+              data-testid="die-circle-4"
+            />
+            <div
+              data-testid="die-circle-5"
+            />
           </div>
         </div>
         <div>
@@ -460,12 +522,24 @@ exports[`<CharacterSheet /> should match snapshot 1`] = `
             Open Doors
           </h4>
           <div>
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
+            <div
+              data-testid="die-circle-0"
+            />
+            <div
+              data-testid="die-circle-1"
+            />
+            <div
+              data-testid="die-circle-2"
+            />
+            <div
+              data-testid="die-circle-3"
+            />
+            <div
+              data-testid="die-circle-4"
+            />
+            <div
+              data-testid="die-circle-5"
+            />
           </div>
         </div>
         <div>
@@ -473,12 +547,24 @@ exports[`<CharacterSheet /> should match snapshot 1`] = `
             Search
           </h4>
           <div>
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
+            <div
+              data-testid="die-circle-0"
+            />
+            <div
+              data-testid="die-circle-1"
+            />
+            <div
+              data-testid="die-circle-2"
+            />
+            <div
+              data-testid="die-circle-3"
+            />
+            <div
+              data-testid="die-circle-4"
+            />
+            <div
+              data-testid="die-circle-5"
+            />
           </div>
         </div>
         <div>
@@ -486,12 +572,24 @@ exports[`<CharacterSheet /> should match snapshot 1`] = `
             Sleight of Hand
           </h4>
           <div>
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
+            <div
+              data-testid="die-circle-0"
+            />
+            <div
+              data-testid="die-circle-1"
+            />
+            <div
+              data-testid="die-circle-2"
+            />
+            <div
+              data-testid="die-circle-3"
+            />
+            <div
+              data-testid="die-circle-4"
+            />
+            <div
+              data-testid="die-circle-5"
+            />
           </div>
         </div>
         <div>
@@ -499,12 +597,24 @@ exports[`<CharacterSheet /> should match snapshot 1`] = `
             Sneak Attack
           </h4>
           <div>
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
+            <div
+              data-testid="die-circle-0"
+            />
+            <div
+              data-testid="die-circle-1"
+            />
+            <div
+              data-testid="die-circle-2"
+            />
+            <div
+              data-testid="die-circle-3"
+            />
+            <div
+              data-testid="die-circle-4"
+            />
+            <div
+              data-testid="die-circle-5"
+            />
           </div>
         </div>
         <div>
@@ -512,12 +622,24 @@ exports[`<CharacterSheet /> should match snapshot 1`] = `
             Stealth
           </h4>
           <div>
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
+            <div
+              data-testid="die-circle-0"
+            />
+            <div
+              data-testid="die-circle-1"
+            />
+            <div
+              data-testid="die-circle-2"
+            />
+            <div
+              data-testid="die-circle-3"
+            />
+            <div
+              data-testid="die-circle-4"
+            />
+            <div
+              data-testid="die-circle-5"
+            />
           </div>
         </div>
         <div>
@@ -525,12 +647,24 @@ exports[`<CharacterSheet /> should match snapshot 1`] = `
             Tinkering
           </h4>
           <div>
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
+            <div
+              data-testid="die-circle-0"
+            />
+            <div
+              data-testid="die-circle-1"
+            />
+            <div
+              data-testid="die-circle-2"
+            />
+            <div
+              data-testid="die-circle-3"
+            />
+            <div
+              data-testid="die-circle-4"
+            />
+            <div
+              data-testid="die-circle-5"
+            />
           </div>
         </div>
       </div>
