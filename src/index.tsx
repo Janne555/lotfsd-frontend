@@ -18,4 +18,3 @@ ReactDOM.render(
     </ThemeProvider>
   </Router >,
   document.getElementById('root'));
-serviceWorker.unregister();
