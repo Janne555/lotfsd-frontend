@@ -69,7 +69,7 @@ function Activity({ name, base, modified, characterId }: SubProps) {
     if (characterId) {
       mutate({
         variables: {
-          ch: { [name]: value },
+          ch: { [name]: value + base - modified },
           id: characterId
         }
       })
