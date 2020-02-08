@@ -3,14 +3,21 @@ import React, { ReactNode } from 'react'
 import { JssProvider } from 'react-jss'
 import { render } from '@testing-library/react'
 import { MockedProvider } from '@apollo/react-testing'
+import { MemoryRouter } from 'react-router-dom'
 
-function AppWrapper({ children }: { children: ReactNode | ReactNode[] }): JSX.Element {
+type AppWrapperProps = {
+  children: ReactNode | ReactNode[]
+}
+
+function AppWrapper({ children }: AppWrapperProps): JSX.Element {
   return (
-    <MockedProvider>
-      <JssProvider disableStylesGeneration>
-        {children}
-      </JssProvider>
-    </MockedProvider>
+    <MemoryRouter>
+      <MockedProvider>
+        <JssProvider disableStylesGeneration>
+          {children}
+        </JssProvider>
+      </MockedProvider>
+    </MemoryRouter>
   )
 }
 
