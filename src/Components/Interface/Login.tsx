@@ -18,7 +18,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
       flexDirection: 'column',
       backgroundColor: 'white',
       width: '50%',
-      height: '40%',
+      height: '50%',
       boxShadow: '1px 1px 5px 0px rgba(0,0,0,0.75)',
       '& > h1': {
         backgroundColor: theme.colorPurpleMid,
