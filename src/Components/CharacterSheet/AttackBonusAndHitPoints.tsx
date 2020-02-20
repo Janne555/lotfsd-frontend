@@ -50,7 +50,7 @@ const validator = new Validator().isLengthy.isNumber
 
 function AttackBonusAndHitPoints({ baseAB, currentHp, maxHp, meleeAB, rangedAB, surpriseChance, characterId }: Props) {
   const classes = useStyles()
-  const [mutate, { data, loading, error }] = useCharacterSheetUpdate(characterId)
+  const [mutate, { loading }] = useCharacterSheetUpdate(characterId)
 
   function handleSurpriseChange(value: number) {
     if (characterId && value !== surpriseChance) {
@@ -91,7 +91,7 @@ function AttackBonusAndHitPoints({ baseAB, currentHp, maxHp, meleeAB, rangedAB, 
       <div className={classes.surpriseChance}>
         <h3>Surprise Chance</h3>
         <div className={classes.surpriseValue}>
-          <DieFace disabled={loading} value={surpriseChance} onValueChange={handleSurpriseChange} />
+          <DieFace loading={loading} value={surpriseChance} onValueChange={handleSurpriseChange} data-testid="surprise" />
         </div>
       </div>
       <div className={classes.hitpoints}>
@@ -102,6 +102,7 @@ function AttackBonusAndHitPoints({ baseAB, currentHp, maxHp, meleeAB, rangedAB, 
             value={`${maxHp}`}
             type="number"
             disabled={loading}
+            data-testid="max-hp"
             onBlur={handleMaxHpBlur}
           />
         </Cube>
@@ -111,6 +112,7 @@ function AttackBonusAndHitPoints({ baseAB, currentHp, maxHp, meleeAB, rangedAB, 
             value={`${currentHp}`}
             type="number"
             disabled={loading}
+            data-testid="current-hp"
             onBlur={handleCurrentHpBlur}
           />
         </Cube>

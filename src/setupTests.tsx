@@ -1,24 +1,23 @@
 import '@testing-library/jest-dom/extend-expect'
-import { combineReducers, createStore } from 'redux'
-import characterSheet from './Redux/reducers/characterSheet'
 import React, { ReactNode } from 'react'
-import { Provider } from 'react-redux'
 import { JssProvider } from 'react-jss'
 import { render } from '@testing-library/react'
-import store from './Redux/store'
+import { MockedProvider } from '@apollo/react-testing'
+import { MemoryRouter } from 'react-router-dom'
 
+type AppWrapperProps = {
+  children: ReactNode | ReactNode[]
+}
 
-jest.spyOn(store, 'dispatch').mockImplementation(() => { throw Error("Dont mutate store in tests") })
-
-
-
-function AppWrapper({ children }: { children: ReactNode | ReactNode[] }): JSX.Element {
+function AppWrapper({ children }: AppWrapperProps): JSX.Element {
   return (
-    <JssProvider disableStylesGeneration>
-      <Provider store={store}>
-        {children}
-      </Provider>
-    </JssProvider>
+    <MemoryRouter>
+      <MockedProvider>
+        <JssProvider disableStylesGeneration>
+          {children}
+        </JssProvider>
+      </MockedProvider>
+    </MemoryRouter>
   )
 }
 
@@ -31,7 +30,6 @@ function renderWrapped(element: JSX.Element) {
 }
 
 export {
-  store as testStore,
   AppWrapper,
   renderWrapped
 }

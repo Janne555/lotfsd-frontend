@@ -7,6 +7,7 @@ import NoContent from '../../_shared/NoContent'
 import AddItem from './AddItem'
 import { useHistory } from 'react-router-dom'
 import AddProperty from './AddProperty'
+import { ItemsQuery_items } from '../../../../__generated__/apolloTypes/ItemsQuery'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   modal: {
@@ -26,9 +27,10 @@ type Props = {
   characterId?: string
   content?: string
   characterName?: string
+  itemIndex: ItemsQuery_items[]
 }
 
-const AppModal = React.forwardRef<any, Props>(function AppModal({ characterId, content, characterName }, ref) {
+const AppModal = React.forwardRef<any, Props>(function AppModal({ characterId, content, characterName, itemIndex }, ref) {
   const classes = useStyles()
   const history = useHistory()
 
@@ -55,7 +57,7 @@ const AppModal = React.forwardRef<any, Props>(function AppModal({ characterId, c
               case "addlanguage":
                 return <AddLanguage ref={ref} characterId={characterId} onClose={handleClose} />
               case "additem":
-                return <AddItem ref={ref} characterId={characterId} onClose={handleClose} />
+                return <AddItem ref={ref} characterId={characterId} onClose={handleClose} itemIndex={itemIndex} />
               case "addproperty":
                 return <AddProperty ref={ref} characterId={characterId} onClose={handleClose} />
               default:

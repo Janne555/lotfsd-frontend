@@ -161,6 +161,7 @@ type EquipmentListItem = {
   itemId?: string | null
   listItemId?: string | null
   encumbrance?: number | null
+  encumbrancePoints: number
 }
 
 type Language = {
@@ -196,7 +197,6 @@ type Info = {
   gender: string
   alignment: string
 }
-
 
 type InfoBarData = Omit<Info, 'attackBonus' | 'currentHp' | 'maxHp' | 'surpriseChance'>
 
@@ -255,8 +255,6 @@ type LoggedIn = {
   username: string
   token: string
 }
-
-
 
 type NewCharacterForm = Record<keyof Attributes, HTMLInputElement> & {
   name: HTMLInputElement

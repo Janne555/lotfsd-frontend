@@ -76,7 +76,8 @@ function createVariables(form: ItemCreatorForm): CreateItemVariables {
       rangeLong,
       rangeMedium,
       rangeShort,
-      baseArmorClass
+      baseArmorClass,
+      encumbrance
     }
   }
 }
@@ -88,7 +89,7 @@ function ItemCreator() {
   const [showEffectAdder, setShowEffectAdder] = useState(false)
   const [effects, setEffects] = useState<ItemQuery_item_effects[]>([])
   const history = useHistory()
-  const [mutate, { loading, error }] = useMutation<CreateItem, CreateItemVariables>(CREATE_ITEM_MUTATION, {
+  const [mutate] = useMutation<CreateItem, CreateItemVariables>(CREATE_ITEM_MUTATION, {
     update(cache, { data }) {
       let cachedItems: ItemsQuery_items[] = []
       try {

@@ -6,11 +6,11 @@ import Select from '@material-ui/core/NativeSelect'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
-import { randomAttributes, mongoObjectId, calculateAttributeModifiers } from '../../services'
+import { randomAttributes, calculateAttributeModifiers } from '../../services'
 import { Redirect } from 'react-router-dom'
 import { CREATE_CHARACTER_MUTATION, CHARACTER_LIST_QUERY } from '../../constants'
 import { CharacterCreatorMutation, CharacterCreatorMutationVariables } from '../../../__generated__/apolloTypes/CharacterCreatorMutation'
-import { CharacterListQuery } from '../../../__generated__/apolloTypes/characterListQuery'
+import { CharacterListQuery } from '../../../__generated__/apolloTypes/CharacterListQuery'
 import { CHARACTER_CLASSES } from '../../constants/characterClasses'
 import { useMutation } from '@apollo/react-hooks'
 
@@ -37,7 +37,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
   }
 }))
 
-function generateVariables(formElements: NewCharacterForm, characterId: string): CharacterCreatorMutationVariables {
+function generateVariables(formElements: NewCharacterForm): CharacterCreatorMutationVariables {
   const className = formElements.class.value as Classes
 
   const characterSheet = {
@@ -47,9 +47,9 @@ function generateVariables(formElements: NewCharacterForm, characterId: string):
     strength: Number(formElements.strength.value),
     wisdom: Number(formElements.wisdom.value),
     constitution: Number(formElements.constitution.value),
-    copper: 1,
-    gold: 1,
-    silver: 1,
+    copper: 0,
+    gold: 0,
+    silver: Number(formElements.money.value),
     alignment: formElements.alignment.value,
     class: formElements.class.value as Classes,
     gender: formElements.gender.value,
@@ -75,7 +75,7 @@ function CharacterCreator() {
   const classes = useStyles()
   const [attributes, setAttributes] = useState<Attributes>({ charisma: 0, constitution: 0, dexterity: 0, intelligence: 0, strength: 0, wisdom: 0 })
   const [attributeError, setAttributeError] = useState<string>()
-  const [mutate, { called, loading, data, error }] = useMutation<CharacterCreatorMutation, CharacterCreatorMutationVariables>(CREATE_CHARACTER_MUTATION, {
+  const [mutate, { data }] = useMutation<CharacterCreatorMutation, CharacterCreatorMutationVariables>(CREATE_CHARACTER_MUTATION, {
     update(cache, { data }) {
       if (data) {
         const { characterSheets = [] } = cache.readQuery<CharacterListQuery>({ query: CHARACTER_LIST_QUERY }) ?? {}
@@ -103,8 +103,7 @@ function CharacterCreator() {
     }
 
     mutate({
-      variables: generateVariables(target.elements, mongoObjectId()),
-
+      variables: generateVariables(target.elements)
     })
   }
 

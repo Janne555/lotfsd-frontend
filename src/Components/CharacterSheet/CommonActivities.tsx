@@ -69,7 +69,7 @@ function Activity({ name, base, modified, characterId }: SubProps) {
     if (characterId) {
       mutate({
         variables: {
-          ch: { [name]: value },
+          ch: { [name]: value + base - modified },
           id: characterId
         }
       })
@@ -79,7 +79,7 @@ function Activity({ name, base, modified, characterId }: SubProps) {
   return (
     <div className={classes.root}>
       <h4>{COMMON_ACTIVITY_TITLES[name]}</h4>
-      <DieFace value={modified} onValueChange={handleChange} disabled={loading} />
+      <DieFace value={modified} onValueChange={handleChange} loading={loading} />
     </div>
   )
 }

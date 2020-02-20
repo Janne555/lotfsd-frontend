@@ -16,6 +16,7 @@ import {
   isCommonActivityEffect,
   calculateSavingThrows,
   mapEquipmentList,
+  calculateEncumbrance,
 } from '../../services'
 import { useQuery } from '@apollo/react-hooks'
 import { CHARACTER_SHEET_QUERY } from '../../constants'
@@ -25,6 +26,7 @@ import AttackBonusAndHitPoints from './AttackBonusAndHitPoints'
 import ArmorClassAndCombatOptions from './ArmorClassAndCombatOptions'
 import EquipmentList from './EquipmentList'
 import { ItemsQuery_items } from '../../../__generated__/apolloTypes/ItemsQuery'
+import Encumbrance from './Encumbrance'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   characterSheet: {
@@ -67,6 +69,7 @@ function CharacterSheet({ characterId, characterName, itemIndex }: Props) {
   const commonActivities = calculateCommonActivities(selectCommonActivities(characterSheet), attributeModifiers.strength, attributeModifiers.intelligence, commonActivityEffects)
   const savingThrows = calculateSavingThrows(selectSavingThrows(characterSheet), attributeModifiers)
   const equipment = mapEquipmentList(characterSheet.inventory, selectWallet(characterSheet), itemIndex)
+  const encumbrance = calculateEncumbrance(equipment, selectWallet(characterSheet))
 
   return (
     <div className={classes.characterSheet}>
@@ -92,18 +95,12 @@ function CharacterSheet({ characterId, characterName, itemIndex }: Props) {
       />
       <CommonActivities commonActivities={commonActivities} characterId={characterId} />
       <EquipmentList equipment={equipment} characterName={characterName} />
-      {/* <Encumbrance /> */}
+      <Encumbrance encumbrance={encumbrance} />
       <Retainers characterName={characterSheet.name} retainers={selectRetainers(characterSheet)} />
       <Languages characterName={characterSheet.name} languages={characterSheet.languagesList} />
       <Properties characterName={characterSheet.name} properties={selectProperties(characterSheet)} />
     </div>
   )
-}
-
-
-type QueryProps = {
-  characterId: string
-  characterName: string
 }
 
 function selectRetainers(

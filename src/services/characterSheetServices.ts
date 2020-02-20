@@ -1,4 +1,4 @@
-import { BASE_ARMOR_CLASS, MONEY, SAVING_THROW_KEYS } from "../constants"
+import { BASE_ARMOR_CLASS, MONEY } from "../constants"
 import { hasKey, isKeyOfAttributes } from "./typeGuards"
 import partition from 'lodash/partition'
 import { generate } from 'shortid'
@@ -104,47 +104,7 @@ function sumOfEffectsForTarget(effects: Effect[], key: string) {
   return effects.reduce((sum, { value, target }) => target === key ? sum + value : sum, 0)
 }
 
-function partitionInventory(inventory: InventoryItem[]): [InventoryItem[], InventoryItem[]] {
-  return partition(inventory, item => item.equipped)
-}
-
-function mapInventoryToEffects(inventory: InventoryItem[]): Effect[] {
-  const [equipped, items] = partitionInventory(inventory)
-
-  return mapEquippedToEffects().concat(mapItemsToEffects())
-
-  function mapEquippedToEffects() {
-    return equipped.reduce((effects, item) => {
-      switch (item.type) {
-        case "armor":
-          effects.push(makeArmorClassEffect(item))
-      }
-
-      return effects
-    }, [] as Effect[])
-  }
-
-  function mapItemsToEffects() {
-    return items.reduce((effects, item) => {
-      switch (item.type) {
-
-      }
-
-      return effects
-    }, [] as Effect[])
-  }
-}
-
-function makeArmorClassEffect(item: Armor): ArmorClassEffect {
-  return {
-    method: 'override',
-    target: "base",
-    type: "armorClassEffect",
-    value: item.baseArmorClass
-  }
-}
-
-function calculateEncumbrance(inventory: InventoryItem[], wallet: Wallet): number {
+function calculateEncumbrance(inventory: EquipmentListItem[], wallet: Wallet): number {
   const coinEncumbrancePoints = totalCoins(wallet) / 100
   let encumbrance = 0
   let encumbrancePoints = coinEncumbrancePoints - 10
@@ -243,7 +203,8 @@ function mapEquipmentList(inventory: CharacterSheetQuery_characterSheet_inventor
         name: MONEY,
         stackSize: 100,
         amount,
-        listItemId: generate()
+        listItemId: generate(),
+        encumbrancePoints: 0.01
       })
       coins -= 100
     } while (coins > 0)
@@ -336,7 +297,6 @@ export {
   calculateSavingThrows,
   calculateArmorClass,
   calculateCommonActivities,
-  mapInventoryToEffects,
   calculateEncumbrance,
   calculateEncumbranceDetails,
   mapEquipmentList,

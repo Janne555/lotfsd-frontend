@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
-import { useSelector, useScreenResizeEvent } from '../../hooks'
-import { selectItemIndex } from '../../Redux/selectors'
+import { useScreenResizeEvent } from '../../hooks'
 import { Route, useRouteMatch, useHistory } from 'react-router-dom'
 import ItemDetails from '../_shared/ItemDetails'
 import List from '@material-ui/core/List'
@@ -14,6 +13,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { ItemsQuery, ItemsQuery_items } from '../../../__generated__/apolloTypes/ItemsQuery'
 import { ITEMS_QUERY, ITEM_QUERY } from '../../constants'
 import { ItemQuery, ItemQueryVariables } from '../../../__generated__/apolloTypes/ItemQuery'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const useStyles = createUseStyles((theme: Theme) => ({
   itemIndex: {
@@ -48,7 +48,7 @@ const useStyles = createUseStyles((theme: Theme) => ({
 function ItemIndex() {
   const isMobile = useScreenResizeEvent(width => width < 1100)
   const classes = useStyles()
-  const { data, loading, error } = useQuery<ItemsQuery>(ITEMS_QUERY)
+  const { data, loading } = useQuery<ItemsQuery>(ITEMS_QUERY)
   const match = useRouteMatch<{ item: string }>("/itemindex/:item")
   const history = useHistory()
   const selected = data?.items?.find(item => item.name === match?.params.item)
@@ -59,6 +59,10 @@ function ItemIndex() {
 
   function onAdd() {
     history.push('/newitem')
+  }
+
+  if (loading) {
+    return <CircularProgress />
   }
 
   if (!data || !data.items) {
@@ -86,7 +90,11 @@ type DetailedViewProps = {
 
 function DetailedView({ itemId }: DetailedViewProps) {
   const classes = useStyles()
-  const { data, loading, error } = useQuery<ItemQuery, ItemQueryVariables>(ITEM_QUERY, { variables: { id: itemId } })
+  const { data, loading } = useQuery<ItemQuery, ItemQueryVariables>(ITEM_QUERY, { variables: { id: itemId } })
+
+  if (loading) {
+    return <CircularProgress />
+  }
 
   if (!data || !data.item) {
     return null

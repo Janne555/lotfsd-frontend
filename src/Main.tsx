@@ -12,7 +12,7 @@ import ItemCreator from './Components/ItemIndex/ItemCreator'
 import { useLogin, useScreenResizeEvent } from './hooks'
 import { useQuery } from '@apollo/react-hooks'
 import { CHARACTER_LIST_QUERY, ITEMS_QUERY } from './constants'
-import { CharacterListQuery } from '../__generated__/apolloTypes/characterListQuery'
+import { CharacterListQuery } from '../__generated__/apolloTypes/CharacterListQuery'
 import SpeedDial from './Components/Interface/SpeedDial'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { ItemsQuery } from '../__generated__/apolloTypes/ItemsQuery'
@@ -56,15 +56,15 @@ function Main() {
   const characterNameMatch = useRouteMatch<{ character: string }>('/characters/:character')
   const actionMatch = useRouteMatch<{ action: string }>('/characters/:character/:action')
   const { data, loading, error } = useQuery<CharacterListQuery>(CHARACTER_LIST_QUERY)
-  const { data: data2, loading: loading2, error: error2 } = useQuery<ItemsQuery>(ITEMS_QUERY)
+  const { data: itemsQueryData, loading: itemsQueryLoading, error: itemsQueryError } = useQuery<ItemsQuery>(ITEMS_QUERY)
   const { logout } = useLogin()
   const isMobile = useScreenResizeEvent(width => width < 1100)
 
-  if (loading || loading2) {
+  if (loading || itemsQueryLoading) {
     return <CircularProgress />
   }
 
-  if (error || error2) {
+  if (error || itemsQueryError) {
     return (
       <div className={classes.error}>
         <h3>Failed to connect to server</h3>
@@ -72,7 +72,7 @@ function Main() {
     )
   }
 
-  if (!data || !data.characterSheets || !data2 || !data2.items) {
+  if (!data || !data.characterSheets || !itemsQueryData || !itemsQueryData.items) {
     return null
   }
 
@@ -83,11 +83,8 @@ function Main() {
     <div className={classes.app}>
       <NavBar>
         <NavItem name="Characters" to="/characters">
-          <CharacterList characters={data.characterSheets} />
+          <CharacterList characters={data.characterSheets} page={false} />
         </NavItem>
-        <NavItem name="Campaigns" to="/campaigns">
-          moi
-          </NavItem>
         <NavItem name="Item Index" to="/itemindex" />
         <NavItem name="Logout" end onClick={logout} />
       </NavBar>
@@ -95,11 +92,11 @@ function Main() {
         <Switch>
           <Route path="/characters/:character">
             {characterId && characterNameMatch?.params.character &&
-              <CharacterSheet characterId={characterId} characterName={characterNameMatch?.params.character} itemIndex={data2.items} />
+              <CharacterSheet characterId={characterId} characterName={characterNameMatch?.params.character} itemIndex={itemsQueryData.items} />
             }
           </Route>
           <Route exact path="/characters">
-            <CharacterList characters={data.characterSheets} />
+            <CharacterList characters={data.characterSheets} page />
           </Route>
           <Route path="/newcharacter">
             <CharacterCreator />
@@ -119,7 +116,7 @@ function Main() {
         </Route>
       </div>
 
-      <AppModal characterId={characterId} content={actionMatch?.params.action} characterName={characterNameMatch?.params.character} />
+      <AppModal characterId={characterId} content={actionMatch?.params.action} characterName={characterNameMatch?.params.character} itemIndex={itemsQueryData.items} />
 
       <footer className={classes.footer}></footer>
 

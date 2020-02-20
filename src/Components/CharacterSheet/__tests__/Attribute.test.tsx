@@ -1,25 +1,11 @@
 import React from 'react'
-import { render } from '@testing-library/react'
 import Attribute from '../Attribute'
-import * as hooks from '../../../hooks/redux'
-import userEvent from '@testing-library/user-event'
 import { ATTRIBUTE_TITLES } from '../../../constants'
 import { renderWrapped } from '../../../setupTests'
 
 describe('<Attribute />', () => {
-  const mockDispatch = jest.fn()
-  const mockUseDispatch = jest.spyOn(hooks, 'useDispatch').mockImplementation((): any => mockDispatch)
-
-  afterEach(mockUseDispatch.mockClear)
-
   it('should display a value', () => {
     const { queryByLabelText } = renderWrapped(<Attribute index={1} score={15} title="charisma" />)
     expect(queryByLabelText(ATTRIBUTE_TITLES.charisma)).toHaveAttribute("value", "15")
-  });
-
-  it('should send action when changing value', () => {
-    const { getByLabelText } = renderWrapped(<Attribute index={1} score={15} title="charisma" />)
-    userEvent.type(getByLabelText(ATTRIBUTE_TITLES.charisma), "20")
-    expect(mockDispatch).toHaveBeenCalledTimes(2)
   });
 })

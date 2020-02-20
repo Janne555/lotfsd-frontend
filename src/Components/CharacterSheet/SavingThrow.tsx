@@ -34,7 +34,7 @@ const validator = new Validator().isLengthy.isNumber
 export default function SavingThrow({ name, values: { base, modified }, characterId }: Props) {
   const classes = useStyles()
   const [inFocus, setInFocus] = useState(false)
-  const [mutate, { data, loading, error }] = useMutation<CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables>(CHARACTER_SHEET_UPDATE_MUTATION, {
+  const [mutate, { loading }] = useMutation<CharacterSheetUpdateMutation, CharacterSheetUpdateMutationVariables>(CHARACTER_SHEET_UPDATE_MUTATION, {
     update: updateCharacterSheet(characterId),
     onCompleted: () => setInFocus(false)
   })

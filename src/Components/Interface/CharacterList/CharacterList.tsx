@@ -22,10 +22,11 @@ const useStyles = createUseStyles((theme: Theme) => ({
 
 type Props = {
   characters: Character[]
+  page: boolean
 }
 
-function CharacterList({ characters }: Props) {
-  const classes = useStyles()
+function CharacterList({ characters, page }: Props) {
+  const classes = useStyles(page)
 
   return (
     <div className={classes.characterList}>

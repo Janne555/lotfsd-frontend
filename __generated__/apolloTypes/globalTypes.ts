@@ -137,12 +137,11 @@ export interface LanguageInput {
 }
 
 export interface PropertyInput {
-  id: string;
   name: string;
-  value: number;
-  rent: number;
-  location: string;
-  description: string;
+  value?: number | null;
+  rent?: number | null;
+  location?: string | null;
+  description?: string | null;
   inventory?: (ItemInstanceInput | null)[] | null;
 }
 

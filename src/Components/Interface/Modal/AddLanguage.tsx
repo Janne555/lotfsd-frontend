@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import FormContainer from '../../_shared/FormContainer'
 import TextField from '@material-ui/core/TextField'
 import CheckBox from '@material-ui/core/Checkbox'
@@ -14,7 +14,7 @@ type Props = {
 }
 
 const AddLanguage = React.forwardRef<HTMLFormElement, Props>(function AddLanguage({ onClose, characterId }, ref) {
-  const [mutate, { data, loading, error }] = useMutation<AddLanguageMutation, AddLanguageMutationVariables>(ADD_LANGUAGE_MUTATION, {
+  const [mutate, { loading, error, called }] = useMutation<AddLanguageMutation, AddLanguageMutationVariables>(ADD_LANGUAGE_MUTATION, {
     update: (cache, { data }) => {
       if (data && characterId) {
         cache.writeQuery<CharacterSheetQuery, CharacterSheetQueryVariables>({
@@ -25,6 +25,12 @@ const AddLanguage = React.forwardRef<HTMLFormElement, Props>(function AddLanguag
       }
     }
   })
+
+  useEffect(() => {
+    if (!loading && called && !error) {
+      onClose()
+    }
+  }, [loading, called, error, onClose])
 
   function handleSubmit(e: any) {
     e.preventDefault()
@@ -41,7 +47,7 @@ const AddLanguage = React.forwardRef<HTMLFormElement, Props>(function AddLanguag
   }
 
   return (
-    <FormContainer disabled={loading} ref={ref} onClose={onClose} onSubmit={handleSubmit} label="Add Language">
+    <FormContainer disabled={loading} ref={ref} onClose={onClose} onSubmit={handleSubmit} label="Add Language" loading={loading} error={error?.message}>
       <TextField id="name" label="Name" required />
       <FormControlLabel control={
         <CheckBox inputProps={{ id: 'known' }} />
