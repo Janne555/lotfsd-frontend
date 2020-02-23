@@ -3,7 +3,7 @@ This is a webapp for managing characters and gameplay in the roleplaying game La
 
 Works best in Chrome
 
-Project details can be found from the [projekti](projekti) folder. Files starting with Fullstack projekti are spreadsheets with an account of spent hours and the file Projektin yhteenveto is a summary of my thoughts about doing the project.
+Project details can be found from the [projekti](projekti) folder. Files starting with Fullstack projekti are spreadsheets with an account of spent hours (same content different format) and the file Projektin yhteenveto is a summary of my thoughts about doing the project.
 
 ## Address
 https://infinite-depths-34363.herokuapp.com/
